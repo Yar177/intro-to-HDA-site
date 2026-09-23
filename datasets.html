@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Datasets — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="The teaching datasets used throughout the book. They are synthetic, so you can practice freely without touching real patient information.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/datasets.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Datasets — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="The teaching datasets used throughout the book. They are synthetic, so you can practice freely without touching real patient information.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/datasets.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink active" href="datasets.html">Datasets</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><span class="nav-item disabled"><span class="nav-num">3</span><span class="nav-title">Excel as the Beginner Analyst&#39;s Workbench</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">4</span><span class="nav-title">Asking Good Questions and Defining Useful Measures</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">5</span><span class="nav-title">Data Structures, Tables, Keys, and Units of Analysis</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">6</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Planning Data Collection and Spreadsheet-Ready Datasets</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Summarizing Data with Descriptive Statistics and PivotTables</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item active" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Course resources</p>
+    <article class="datasets-page">
+      
+<h1 class="ds-page-title">Datasets</h1>
+<p class="ds-lead">The teaching datasets used throughout the book. They are synthetic, so you can practice freely without touching real patient information.</p>
+<p class="ds-note">Use the file named in your chapter or assignment. Keep the original file unchanged so you can return to it. Where both clean and analytic versions exist, use the version the activity specifies.</p>
+<section class="ds-group">
+  <h2 class="ds-group-name">Reference dimensions</h2>
+  <p class="ds-group-desc">Descriptive tables: who and where. One row per actor, no events.</p>
+  <div class="ds-list">
+<a class="ds-item" href="datasets/DS1_patient_dim.csv" download>
+  <span class="ds-title">Patient dimension</span>
+  <span class="ds-desc">One row per synthetic patient.</span>
+  <span class="ds-file"><code>DS1_patient_dim.csv</code></span>
+  <span class="ds-meta">CSV · 1.1 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS1_provider_dim.csv" download>
+  <span class="ds-title">Provider dimension</span>
+  <span class="ds-desc">One row per provider or clinician.</span>
+  <span class="ds-file"><code>DS1_provider_dim.csv</code></span>
+  <span class="ds-meta">CSV · 13 KB</span>
+</a>
+<a class="ds-item" href="datasets/DS1_facility_dim.csv" download>
+  <span class="ds-title">Facility dimension</span>
+  <span class="ds-desc">One row per facility or site.</span>
+  <span class="ds-file"><code>DS1_facility_dim.csv</code></span>
+  <span class="ds-meta">CSV · 2 KB</span>
+</a>
+<a class="ds-item" href="datasets/DS1_payer_dim.csv" download>
+  <span class="ds-title">Payer dimension</span>
+  <span class="ds-desc">One row per payer or plan group.</span>
+  <span class="ds-file"><code>DS1_payer_dim.csv</code></span>
+  <span class="ds-meta">CSV · 847 B</span>
+</a>
+<a class="ds-item" href="datasets/DS1_geography_dim.csv" download>
+  <span class="ds-title">Geography dimension</span>
+  <span class="ds-desc">One row per ZIP-area group.</span>
+  <span class="ds-file"><code>DS1_geography_dim.csv</code></span>
+  <span class="ds-meta">CSV · 4 KB</span>
+</a>
+<a class="ds-item" href="datasets/DS1_calendar_dim.csv" download>
+  <span class="ds-title">Calendar dimension</span>
+  <span class="ds-desc">One row per calendar date.</span>
+  <span class="ds-file"><code>DS1_calendar_dim.csv</code></span>
+  <span class="ds-meta">CSV · 33 KB</span>
+</a>
+  </div>
+</section>
+<section class="ds-group">
+  <h2 class="ds-group-name">Teaching datasets (clean)</h2>
+  <p class="ds-group-desc">Event tables: what happened and when. Validated and analysis-ready.</p>
+  <div class="ds-list">
+<a class="ds-item" href="datasets/DS2_appointments_clean.csv" download>
+  <span class="ds-title">Appointments</span>
+  <span class="ds-desc">One row per scheduled visit (ambulatory scheduling).</span>
+  <span class="ds-file"><code>DS2_appointments_clean.csv</code></span>
+  <span class="ds-meta">CSV · 8.3 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS3_ed_throughput_clean.csv" download>
+  <span class="ds-title">ED throughput</span>
+  <span class="ds-desc">One row per emergency department visit.</span>
+  <span class="ds-file"><code>DS3_ed_throughput_clean.csv</code></span>
+  <span class="ds-meta">CSV · 4.5 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS4_inpatient_clean.csv" download>
+  <span class="ds-title">Inpatient discharges</span>
+  <span class="ds-desc">One row per inpatient discharge.</span>
+  <span class="ds-file"><code>DS4_inpatient_clean.csv</code></span>
+  <span class="ds-meta">CSV · 1.5 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS5_claim_header_clean.csv" download>
+  <span class="ds-title">Claim headers</span>
+  <span class="ds-desc">One row per submitted claim (revenue cycle).</span>
+  <span class="ds-file"><code>DS5_claim_header_clean.csv</code></span>
+  <span class="ds-meta">CSV · 9.9 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS5_claim_line_optional.csv" download>
+  <span class="ds-title">Claim lines (optional)</span>
+  <span class="ds-desc">One row per claim line; optional supplement.</span>
+  <span class="ds-file"><code>DS5_claim_line_optional.csv</code></span>
+  <span class="ds-meta">CSV · 18.4 MB</span>
+</a>
+<a class="ds-item" href="datasets/DS6_survey_responses_clean.csv" download>
+  <span class="ds-title">Survey responses</span>
+  <span class="ds-desc">One row per patient-experience survey response.</span>
+  <span class="ds-file"><code>DS6_survey_responses_clean.csv</code></span>
+  <span class="ds-meta">CSV · 728 KB</span>
+</a>
+<a class="ds-item" href="datasets/DS7_registry_clean.csv" download>
+  <span class="ds-title">Care registry</span>
+  <span class="ds-desc">One row per active registry patient.</span>
+  <span class="ds-file"><code>DS7_registry_clean.csv</code></span>
+  <span class="ds-meta">CSV · 1.4 MB</span>
+</a>
+  </div>
+</section>
+<section class="ds-group">
+  <h2 class="ds-group-name">Evidence and public health</h2>
+  <p class="ds-group-desc">Study-design vignettes and external public-health reference data.</p>
+  <div class="ds-list">
+<a class="ds-item" href="datasets/DS8_sampling_scenarios.csv" download>
+  <span class="ds-title">Sampling scenarios</span>
+  <span class="ds-desc">Sampling and study-design vignettes.</span>
+  <span class="ds-file"><code>DS8_sampling_scenarios.csv</code></span>
+  <span class="ds-meta">CSV · 3 KB</span>
+</a>
+<a class="ds-item" href="datasets/DS8_studies_master.csv" download>
+  <span class="ds-title">Studies master</span>
+  <span class="ds-desc">Study summaries for evidence literacy.</span>
+  <span class="ds-file"><code>DS8_studies_master.csv</code></span>
+  <span class="ds-meta">CSV · 7 KB</span>
+</a>
+<a class="ds-item" href="datasets/PH1_places_county_wide.csv" download>
+  <span class="ds-title">PLACES county (wide)</span>
+  <span class="ds-desc">CDC PLACES-style county estimates, wide form.</span>
+  <span class="ds-file"><code>PH1_places_county_wide.csv</code></span>
+  <span class="ds-meta">CSV · 321 KB</span>
+</a>
+<a class="ds-item" href="datasets/PH1_places_county_long.csv" download>
+  <span class="ds-title">PLACES county (long)</span>
+  <span class="ds-desc">CDC PLACES-style county estimates, long form.</span>
+  <span class="ds-file"><code>PH1_places_county_long.csv</code></span>
+  <span class="ds-meta">CSV · 3.7 MB</span>
+</a>
+<a class="ds-item" href="datasets/PH1_places_measure_lookup.csv" download>
+  <span class="ds-title">PLACES measure lookup</span>
+  <span class="ds-desc">Measure lookup for the PLACES companion.</span>
+  <span class="ds-file"><code>PH1_places_measure_lookup.csv</code></span>
+  <span class="ds-meta">CSV · 2 KB</span>
+</a>
+<a class="ds-item" href="datasets/PH2_brfss2022_teaching_extract.csv" download>
+  <span class="ds-title">BRFSS teaching extract</span>
+  <span class="ds-desc">BRFSS-style weighted adult survey sample.</span>
+  <span class="ds-file"><code>PH2_brfss2022_teaching_extract.csv</code></span>
+  <span class="ds-meta">CSV · 4.1 MB</span>
+</a>
+  </div>
+</section>
+    </article>
+    
+  </main>
+  
+</div>
+<footer class="site-footer">
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. All rights reserved.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+</body>
+</html>

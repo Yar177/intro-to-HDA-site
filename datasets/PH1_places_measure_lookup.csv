@@ -1,0 +1,13 @@
+measure_id,measure_label,unit,polarity,suggested_chart,numerator_concept,denominator_concept,teaching_note
+obesity_pct,Obesity among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for chronic disease burden comparison
+diagnosed_diabetes_pct,Diagnosed diabetes among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for prevalence and access discussion
+high_blood_pressure_pct,High blood pressure among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use with age and obesity context
+current_smoking_pct,Current smoking among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for behavior-risk comparisons
+binge_drinking_pct,Binge drinking among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for behavior-risk comparisons
+physical_inactivity_pct,Physical inactivity among adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for lifestyle and prevention discussion
+routine_checkup_pct,Routine checkup in past year,Percent,Higher is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for access and preventive care discussion
+mammography_pct,Mammography among eligible adults,Percent,Higher is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for preventive screening comparison
+colorectal_screening_pct,Colorectal screening among eligible adults,Percent,Higher is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for preventive screening comparison
+uninsured_pct,Uninsured adults,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for insurance coverage and access discussion
+poor_mental_health_pct,Frequent poor mental health,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for wellbeing and population health discussion
+poor_physical_health_pct,Frequent poor physical health,Percent,Lower is better,Choropleth or bar,Adults meeting the measure definition,Eligible adult population,Use for wellbeing and population health discussion

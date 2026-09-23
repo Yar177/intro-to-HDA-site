@@ -1,0 +1,671 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>What Healthcare Data Analytics Is and Why It Matters — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="On Monday morning, the director of a community clinic reviews the weekly performance report and finds two concerns:">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch01.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="What Healthcare Data Analytics Is and Why It Matters — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="On Monday morning, the director of a community clinic reviews the weekly performance report and finds two concerns:">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch01.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"What Healthcare Data Analytics Is and Why It Matters","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"isPartOf":"Introduction to Healthcare Data Analytics Using Excel","inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch01.html"}</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item active" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><span class="nav-item disabled"><span class="nav-num">3</span><span class="nav-title">Excel as the Beginner Analyst&#39;s Workbench</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">4</span><span class="nav-title">Asking Good Questions and Defining Useful Measures</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">5</span><span class="nav-title">Data Structures, Tables, Keys, and Units of Analysis</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">6</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Planning Data Collection and Spreadsheet-Ready Datasets</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Summarizing Data with Descriptive Statistics and PivotTables</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 1 · 25 minutes</p>
+    <article class="prose">
+      <section id="sec:ch01" class="level1">
+<h1>What Healthcare Data Analytics Is and Why It Matters</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>On Monday morning, the director of a community clinic reviews the
+weekly performance report and finds two concerns:</p>
+<ol type="1">
+<li>The clinic’s no-show rate has risen for three consecutive
+months.</li>
+<li>The average wait for a same-week appointment has grown, even though
+the number of scheduled visits has not changed.</li>
+</ol>
+<p>The organization is not short on data. It already holds appointment
+records, provider schedules, reminder logs, and patient survey
+responses. What it lacks is a reliable way to turn those records into
+trustworthy conclusions and defensible action. That gap, between raw
+records and informed decisions, is where healthcare data analytics
+begins. This chapter follows the first thread, the rising no-show rate;
+the wait-time question returns in later chapters on descriptive
+statistics and performance monitoring.</p>
+<p>Table 1 shows a small sample of the appointment records the director
+already holds, drawn from the book’s appointment dataset,
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>DS2_appointments_clean.csv</code></a>. (The datasets in this book are
+numbered DS1, DS2, and so on.) Each row is one scheduled visit, and the
+<code>Outcome</code> column records whether the patient completed the
+visit, cancelled it, or did not show. On their own, these rows answer no
+question; the work of this book is to turn records like these into
+decisions.</p>
+<table id="tbl:ch01-appointments">
+<caption>Table 1: A sample of raw appointment records. The
+<code>Clinic</code> column holds facility codes (for example, SP03 is
+Riverbend Behavioral Health); the full crosswalk is in
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a>. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<thead>
+<tr>
+<th>Visit ID</th>
+<th>Clinic</th>
+<th>Visit type</th>
+<th>Lead days</th>
+<th>Reminder</th>
+<th>Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APT000126</td>
+<td>SP03</td>
+<td>Behavioral Health</td>
+<td>22</td>
+<td>Phone</td>
+<td>Completed</td>
+</tr>
+<tr>
+<td>APT010570</td>
+<td>PC03</td>
+<td>Acute</td>
+<td>3</td>
+<td>SMS</td>
+<td>Completed</td>
+</tr>
+<tr>
+<td>APT010617</td>
+<td>UC02</td>
+<td>Urgent Care</td>
+<td>0</td>
+<td>SMS</td>
+<td>Completed</td>
+</tr>
+<tr>
+<td>APT027760</td>
+<td>PC03</td>
+<td>Follow-up</td>
+<td>8</td>
+<td>Multi</td>
+<td>Early cancel</td>
+</tr>
+<tr>
+<td>APT022207</td>
+<td>SP03</td>
+<td>Behavioral Health</td>
+<td>11</td>
+<td>None</td>
+<td>No Show</td>
+</tr>
+<tr>
+<td>APT011862</td>
+<td>PC02</td>
+<td>Follow-up</td>
+<td>19</td>
+<td>SMS</td>
+<td>Completed</td>
+</tr>
+</tbody>
+</table>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Define the difference among data, information, insight, and
+action.</li>
+<li>Explain why healthcare is a distinctive and high-stakes analytics
+environment.</li>
+<li>Identify the major sources of healthcare data and why their origin
+matters.</li>
+<li>Distinguish descriptive, diagnostic, predictive, and prescriptive
+analytics.</li>
+<li>Recognize the major domains of healthcare analytics.</li>
+<li>Describe the role of the analyst in turning data into actionable
+decisions.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="definition">
+<p><strong>Healthcare analytics</strong> is the systematic use of data
+and statistical methods to analyze and interpret health-related
+information. It involves collecting, managing, and analyzing health data
+from many sources, such as electronic health records, claims data, and
+patient surveys, to derive insights that improve healthcare delivery,
+patient outcomes, operational efficiency, and decision-making.</p>
+</div>
+<p>The rest of this chapter takes that definition apart, one piece at a
+time.</p>
+<div class="keypoint">
+<p>Analytics earns its value when it informs a decision. A report that
+no one acts on may be accurate, but it has not changed anything yet.</p>
+</div>
+<section id="data-information-insight-and-action" class="level3">
+<h3>Data, information, insight, and action</h3>
+<p>Four terms describe how raw records become decisions, and each one
+builds on the term before it.</p>
+<ul>
+<li><strong>Data</strong> are raw observations. A single appointment
+date, a diagnosis code, or a payment amount is data. On its own, a data
+point says very little.</li>
+<li><strong>Information</strong> appears when data are organized so that
+a pattern becomes visible. Grouping appointments by clinic and
+calculating the no-show rate produces information, not just a stack of
+records.</li>
+<li><strong>Insight</strong> answers a question that matters. Learning
+that no-shows are more common at some clinics than others, and appear to
+rise with longer lead times, tells the organization something it did not
+previously know and points to where to look next.</li>
+<li><strong>Action</strong> is the decision that follows. The clinic may
+shorten booking windows, change reminder timing, or adjust
+staffing.</li>
+</ul>
+<p>Analytics is valuable only when it carries a problem through all four
+stages, from data to action, along a clear line of reasoning.</p>
+<figure id="fig:ch01-data-action">
+<img src="figures/concept/ch_01_data_to_action.png"
+alt="Figure 1: From data to action: raw appointment records become a clinic-level rate, then the insight that rates vary, then a decision to investigate causes and test scheduling changes." />
+<figcaption aria-hidden="true">Figure 1: From data to action: raw
+appointment records become a clinic-level rate, then the insight that
+rates vary, then a decision to investigate causes and test scheduling
+changes.</figcaption>
+</figure>
+<p>Before computing a rate, define it. A <strong>no-show</strong> is an
+appointment the patient neither attended nor cancelled. The
+<strong>no-show rate</strong> is the number of no-shows divided by the
+number of appointments the patient was expected to keep, that is, the
+completed visits plus the no-shows. Cancellations are excluded, because
+a cancelled visit is a different event with a different cause. Every
+no-show rate in this chapter uses this definition and covers the full
+period recorded in the dataset.</p>
+<p>Figure 2 applies that definition to each clinic. Each row of the
+appointment file is one visit, which tells you almost nothing on its
+own. Grouped by clinic, a pattern appears: the no-show rate ranges from
+about 11 percent to 18.5 percent around an overall rate of 16.1 percent,
+with the two urgent care clinics sitting clearly below the rest. Whether
+the remaining gaps are large enough to act on, or are just noise given
+how few appointments some clinics have, is the question the rest of the
+analysis must answer. You will compute the overall rate behind the
+dashed line yourself in the Try It exercise later in the chapter.</p>
+<figure id="fig:ch01-clinic">
+<img src="figures/generated/ch_01_no_show_by_clinic.png"
+alt="Figure 2: No-show rate by clinic. Each clinic’s label shows its facility code and its number of expected appointments (completed plus no-show); the dashed line marks the overall rate, and cancellations are excluded. Source: datasets/DS2_appointments_clean.csv joined to datasets/DS1_facility_dim.csv for clinic names." />
+<figcaption aria-hidden="true">Figure 2: No-show rate by clinic. Each
+clinic’s label shows its facility code and its number of expected
+appointments (completed plus no-show); the dashed line marks the overall
+rate, and cancellations are excluded. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> joined to
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a> for clinic
+names.</figcaption>
+</figure>
+</section>
+<section
+id="what-makes-healthcare-different-from-other-analytics-domains"
+class="level3">
+<h3>What makes healthcare different from other analytics domains</h3>
+<p>Healthcare is not an ordinary business environment. In most
+industries, analytics serves efficiency and financial performance above
+all else. Healthcare pursues those goals too, but it carries obligations
+that few other sectors face: its decisions can affect patient safety,
+clinical outcomes, equity, trust, and legal compliance. The effort to
+close the gap between the care patients receive and the care they should
+receive has shaped health policy for decades (Institute of Medicine,
+2001).<a href="#fn1" class="footnote-ref" id="fnref1"
+role="doc-noteref"><sup>1</sup></a> A single dataset may serve
+clinicians, operations managers, finance leaders, public health teams,
+and patients at the same time, and each of them brings a different
+question and a different tolerance for risk.</p>
+<p>Healthcare data is also unusually complex. A single patient may
+appear in appointment systems, electronic health records, laboratory
+systems, billing files, quality registries, and patient experience
+surveys. Terms are coded, workflows differ across settings, and privacy
+rules apply at every stage. This complexity means healthcare analytics
+can never be reduced to formula memorization. An analyst must ask what
+the data represents, who produced it, what part of care it reflects, and
+how much confidence the organization should place in the result.
+Learning continuously from routine data, rather than treating each
+report as a final answer, is the mark of a mature health system
+(Institute of Medicine, 2013).</p>
+</section>
+<section id="data-sources-in-healthcare-analytics" class="level3">
+<h3>Data sources in healthcare analytics</h3>
+<p>Healthcare data is generated wherever care is planned, delivered,
+paid for, or measured. Before trusting a data set, an analyst should
+know where it came from. The most common sources include:</p>
+<ul>
+<li><strong>Administrative and scheduling systems</strong>, which record
+appointments, provider schedules, and reminders. The appointment records
+used throughout this book come from a source of this kind.</li>
+<li><strong>Electronic health records (EHRs)</strong>, which document
+diagnoses, procedures, medications, and clinical notes from each
+encounter.</li>
+<li><strong>Laboratory and diagnostic systems</strong>, which store test
+orders and results.</li>
+<li><strong>Claims and billing systems</strong>, which capture services
+rendered, charges, payers, and reimbursement.</li>
+<li><strong>Pharmacy systems</strong>, which record prescriptions
+dispensed and refill patterns.</li>
+<li><strong>Patient-reported sources</strong>, such as satisfaction
+surveys and intake questionnaires.</li>
+<li><strong>Registries and public health datasets</strong>, which track
+specific conditions or population-level measures.</li>
+</ul>
+<p>Every source was built to serve an operational purpose, rarely
+analysis, and that original purpose shapes what its data can and cannot
+tell you.</p>
+<figure id="fig:ch01-sources">
+<img src="figures/concept/ch_01_data_sources.png"
+alt="Figure 3: One patient encounter feeds many systems. Each source captures a different part of care and was built for a different purpose, which shapes what its data can tell you." />
+<figcaption aria-hidden="true">Figure 3: One patient encounter feeds
+many systems. Each source captures a different part of care and was
+built for a different purpose, which shapes what its data can tell
+you.</figcaption>
+</figure>
+<div class="caution">
+<p>A billing system exists to secure payment, not to measure quality.
+Its data follows billing rules first, so a recorded code may reflect
+what is reimbursable rather than what is clinically most important.
+Always ask what a source was built to do before trusting it for
+analysis.</p>
+</div>
+<p>Chapter 2 examines these systems and their stakeholders in
+detail.</p>
+</section>
+<section
+id="descriptive-diagnostic-predictive-and-prescriptive-analytics"
+class="level3">
+<h3>Descriptive, diagnostic, predictive, and prescriptive analytics</h3>
+<p>Analytics is not one activity. It is a family of approaches, each
+suited to a different kind of question. Four purposes are worth
+naming:</p>
+<ul>
+<li><strong>Descriptive analytics</strong> reports what happened. A
+dashboard of monthly no-show rates or average wait times is
+descriptive.</li>
+<li><strong>Diagnostic analytics</strong> looks for why it happened.
+Comparing no-show rates by clinic, payer group, or lead time surfaces
+associations worth investigating, but a comparison alone reveals
+patterns, not proven causes.</li>
+<li><strong>Predictive analytics</strong> estimates what is likely to
+happen next. A model that estimates the probability that a scheduled
+patient will miss an appointment is predictive.</li>
+<li><strong>Prescriptive analytics</strong> recommends what to do.
+Knowing which appointments are at high risk of being missed, a clinic
+might redesign its reminder workflow or overbook selected slots with
+care.</li>
+</ul>
+<p>The four form a rising ladder, shown in Figure 4. Each level answers
+a more demanding question than the one below, and acting on a wrong
+answer carries greater consequence. Harder questions do not always need
+fancier methods; a careful diagnostic study can be more demanding than a
+quick prediction. The same no-show problem can be met at any level:
+describe the rate, examine where it is higher, estimate who is likely to
+miss, or decide whom to remind.</p>
+<figure id="fig:ch01-ladder">
+<img src="figures/generated/ch_01_analytics_ladder.png"
+alt="Figure 4: The four purposes of analytics as a ladder, from describing what happened to deciding what to do. Each step answers a more demanding question, and acting on a wrong answer carries greater consequence." />
+<figcaption aria-hidden="true">Figure 4: The four purposes of analytics
+as a ladder, from describing what happened to deciding what to do. Each
+step answers a more demanding question, and acting on a wrong answer
+carries greater consequence.</figcaption>
+</figure>
+</section>
+<section
+id="clinical-operational-financial-and-population-health-analytics"
+class="level3">
+<h3>Clinical, operational, financial, and population health
+analytics</h3>
+<p>Analytics also varies by domain. Four domains cover most of the
+work:</p>
+<ul>
+<li><strong>Clinical analytics</strong> focuses on care processes and
+outcomes, such as readmissions, complications, or screening
+completion.</li>
+<li><strong>Operational analytics</strong> focuses on the flow of work,
+including appointment access, staffing, throughput, and bed use.</li>
+<li><strong>Financial analytics</strong> addresses reimbursement,
+denials, payer mix, and margin.</li>
+<li><strong>Population health analytics</strong> looks across groups
+rather than single visits, asking whether prevention, chronic disease
+management, and outreach are working.</li>
+</ul>
+<p>These domains overlap. A rise in emergency department length of stay
+is operational, but it carries clinical consequences and financial
+effects as well. A missed diabetes follow-up appointment looks
+operational at first, yet repeated missed visits can weaken quality
+performance and worsen long-term outcomes. A capable analyst does not
+read a metric in isolation; the skill lies in seeing how measures
+connect across the system.</p>
+<figure id="fig:ch01-domains">
+<img src="figures/concept/ch_01_four_domains.png"
+alt="Figure 5: One problem seen through four analytics domains. A single missed diabetes follow-up carries clinical, operational, financial, and population health consequences at once." />
+<figcaption aria-hidden="true">Figure 5: One problem seen through four
+analytics domains. A single missed diabetes follow-up carries clinical,
+operational, financial, and population health consequences at
+once.</figcaption>
+</figure>
+<p>The same four purposes apply well beyond the clinic. A health plan
+watching its <strong>claim denial rate</strong> can describe the rate
+month over month, examine which claim types and submitting sites are
+associated with denials, estimate which pending claims are most likely
+to be denied, and decide which to review before submission. The
+framework travels; only the data and the decision change.</p>
+</section>
+<section id="how-analysts-improve-decisions-performance-and-outcomes"
+class="level3">
+<h3>How analysts improve decisions, performance, and outcomes</h3>
+<p>Analytics is often pictured too narrowly, as the work of calculating
+averages and producing charts. The real task is broader: translate a
+practical problem into a precise question, identify the right data,
+prepare it carefully, analyze it responsibly, and communicate the result
+in language that supports a decision. The analyst is the bridge between
+raw records and organizational action, and organizations that build this
+capability deliberately tend to outperform those that treat analysis as
+a series of one-off reports (Davenport &amp; Harris, 2007).</p>
+<figure id="fig:ch01-cycle">
+<img src="figures/concept/ch_01_decision_cycle.png"
+alt="Figure 6: The decision-centered analytics cycle. Analysis earns its value only when it completes the loop from a practical problem to an action whose outcome is measured, and each result raises new questions." />
+<figcaption aria-hidden="true">Figure 6: The decision-centered analytics
+cycle. Analysis earns its value only when it completes the loop from a
+practical problem to an action whose outcome is measured, and each
+result raises new questions.</figcaption>
+</figure>
+<p>This book uses Excel because it is accessible, widely available, and
+well suited to the core analytic workflow. You will import data, clean
+it, summarize it, visualize it, and examine relationships through linear
+and logistic regression. The aim is not to memorize spreadsheet
+commands. The aim is to think analytically in a healthcare setting, to
+communicate findings clearly, and to recognize the limits of your own
+conclusions.</p>
+<div class="tryit">
+<p>This short exercise turns a small appointment file into a single
+number, the overall no-show rate, using only Excel’s menus. No formulas
+and no prior Excel experience are needed. You will work with a 12-row
+teaching sample, <code>DS2_appointments_sample.csv</code>, so the whole
+file fits on one screen. Remember the definition: cancellations do not
+count, so you will hide them first.</p>
+<ol type="1">
+<li>Start Excel. Choose <strong>File &gt; Open</strong>, browse to
+<code>datasets/DS2_appointments_sample.csv</code>, and click
+<strong>Open</strong>. Twelve appointment records fill the grid, with
+the column headings in row 1. Each row is one scheduled visit, and the
+<code>No-show flag</code> column (<strong>column G</strong>) holds a 1
+for every no-show and a 0 for every other outcome.</li>
+<li>Click any cell inside the data. On the <strong>Data</strong> tab of
+the Ribbon, click <strong>Filter</strong>. A small drop-down arrow
+appears on each heading in row 1.</li>
+<li>Click the arrow on the <code>Outcome</code> heading (<strong>column
+F</strong>). Untick <strong>(Select All)</strong>, tick only
+<strong>Completed</strong> and <strong>No Show</strong>, and click
+<strong>OK</strong>. The two cancelled appointments are now hidden,
+which matches the definition.</li>
+<li>Click the <strong>G</strong> column letter at the top of the grid to
+select the whole <code>No-show flag</code> column.</li>
+<li>Look at the <strong>status bar</strong> along the bottom of the
+Excel window. It shows <strong>Average</strong> for the numbers you
+selected. Because the column is 1 for no-shows and 0 otherwise, that
+average is the no-show rate.</li>
+<li>Read the value: <strong>0.2</strong>, or <strong>20%</strong> (2
+no-shows out of 10 expected visits).</li>
+<li>Notice this is higher than the roughly 16 percent for the full
+clinic in Figure 1.1. That is the point: with only 10 expected visits,
+one or two no-shows swing the rate a lot. Small samples are noisy.
+Before drawing any conclusion, write down the first three questions a
+clinic manager should ask about this number.</li>
+</ol>
+<p>The solution is in the Answer key at the end of the chapter. In
+Chapter 10 you will learn to calculate the rate for every clinic at
+once, on the full 36,000-row appointment file.</p>
+</div>
+<div class="goingdeeper">
+<p><strong>Optional: your first Excel formula.</strong> The Try It above
+used only menus, with no typed formulas, because that is all Chapter 1
+needs. If you would like an early taste of a formula, try this on a
+blank sheet; it also brings the data-to-information idea back to
+life.</p>
+<ol type="1">
+<li>In <strong>A1</strong> type <code>Height (cm)</code>, in
+<strong>B1</strong> type <code>Weight (kg)</code>, and in
+<strong>C1</strong> type <code>BMI</code>.</li>
+<li>In <strong>A2</strong> enter a height in centimeters and in
+<strong>B2</strong> a weight in kilograms; use your own measurements if
+you like.</li>
+<li>In <strong>C2</strong> type <code>=B2/(A2/100)^2</code> and press
+<strong>Enter</strong>. Excel returns the body mass index, a common
+clinical measure.</li>
+<li>Add a second person’s numbers in row 3, then copy the formula down
+by double-clicking the small square at the bottom-right corner of
+<strong>C2</strong> (the fill handle).</li>
+</ol>
+<p>A single BMI value is only data. It becomes information when you
+compare it against clinical ranges, and insight only when it helps
+answer a question about a specific patient. The ladder from earlier in
+this chapter, data to information to insight to action, applies to one
+number just as it does to a table of thousands.</p>
+</div>
+<div class="goingdeeper">
+<p>It helps to think of the four purposes as a rough progression rather
+than a menu of equals. Most everyday work sits on the first two:
+describing what happened and examining why. Prediction and prescription
+usually come later and carry greater consequence when they are wrong,
+which is why this book develops them in the regression chapters
+(Chapters 12 and 13). Reaching for prediction before the descriptive
+picture is trustworthy is a common way to produce results that look
+confident but are wrong.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A regional health system invests in a polished dashboard
+that tracks monthly no-show rates by clinic. It is color-coded,
+refreshed automatically, and praised in leadership meetings. A year
+later, the no-show rate has not moved. The dashboard measures the
+problem accurately, but no one has been assigned to act on it, and it is
+never tied to a specific operational decision such as adjusting reminder
+timing or revising booking windows. The lesson is not that the dashboard
+was poorly built. It is that analysis without an owner and a decision
+produces monitoring, not improvement. Every reporting product should
+name the decision it is meant to inform and the person accountable for
+acting on it.</p>
+</div>
+<div class="recap">
+<ul>
+<li>Analytics turns data into information, information into insight, and
+insight into action; the value is in the whole chain, not any one
+step.</li>
+<li>Healthcare is a high-stakes, high-complexity environment, so
+clinical context, data quality, and privacy matter at every step.</li>
+<li>Descriptive, diagnostic, predictive, and prescriptive analytics
+answer four different kinds of question.</li>
+<li>Clinical, operational, financial, and population health analytics
+are overlapping domains, and a good analyst sees how they connect.</li>
+<li>A good analyst states the limits of a result as clearly as the
+result itself.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li><p>A primary care clinic is tracking missed appointments. Give one
+concrete example of each link in the chain: a piece of data, a piece of
+information, an insight, and an action the clinic could take.</p></li>
+<li><p>Name two obligations that make healthcare analytics different
+from analytics in a typical commercial setting.</p></li>
+<li><p>Classify each of the following as descriptive, diagnostic,
+predictive, or prescriptive analytics:</p>
+<ol type="a">
+<li>a monthly no-show dashboard</li>
+<li>a comparison of no-show rates by clinic and lead time</li>
+<li>an estimate of the chance that a scheduled patient will miss</li>
+<li>a rule for cautiously overbooking high-risk slots</li>
+</ol></li>
+<li><p>For a rising no-show rate, name one clinical, one operational,
+and one financial consequence.</p></li>
+<li><p>Explain in two sentences why a correct average can still fail to
+support a decision.</p></li>
+<li><p>A billing (claims) system is built to support payment. State its
+primary purpose in one phrase, and explain one way that purpose could
+bias a quality measure, such as diabetes control, that is built from its
+data.</p></li>
+<li><p>Repeat the Try It on <code>DS2_appointments_sample.csv</code>,
+but before you read the status bar, also filter the <code>Clinic</code>
+column to a single clinic (for example, SP03). Compare that clinic’s
+no-show rate with the overall 20 percent, and say how much you trust it
+given the number of appointments involved.</p></li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It.</strong> After filtering the sample to Completed and
+No Show, the <strong>Average</strong> of the <code>No-show flag</code>
+column shown in Excel’s status bar is the no-show rate for the sample,
+<strong>20 percent</strong> (2 no-shows out of 10 expected visits): the
+column is 1 for a no-show and 0 for every other outcome, and the two
+cancellations are hidden. That 20 percent sits above the roughly 16
+percent for the full clinic in Figure 1.1, which is exactly what a small
+sample does: with only 10 expected visits, one extra no-show moves the
+rate by 10 points. Three questions worth asking before acting: is this
+rate based on enough appointments to trust, or could it swing widely by
+chance; is it explained by something other than the clinic, such as lead
+time or payer mix; and what action is actually available if the pattern
+holds up on the full file. The number is the start of the reasoning, not
+the end.</p>
+<p><strong>Selected exercises.</strong> (1) For example: data is one
+appointment’s outcome; information is the clinic’s monthly no-show rate;
+insight is that no-shows rise when lead times are long; action is to
+shorten booking windows or change reminder timing. (2) Any two of:
+decisions can affect patient safety, clinical outcomes, equity, trust,
+or legal compliance. (3) a, descriptive; b, diagnostic; c, predictive;
+d, prescriptive. (4) For example, clinical: a missed follow-up delays
+needed care; operational: an unused slot wastes capacity; financial: the
+visit revenue is lost. (5) A correct average can still mislead if it
+hides variation between groups, rests on too few cases to be reliable,
+or answers a different question than the decision requires. (6) The
+billing system’s purpose is to secure payment; a measure built from it
+may capture only what is coded for reimbursement and miss the clinical
+detail a diabetes-control measure actually needs, such as recent lab
+results. (7) Adding a second filter on the <code>Clinic</code> column
+and reading the status-bar Average gives that clinic’s rate; in the
+sample, SP03 shows about 67 percent (2 no-shows out of 3 visits). You
+should trust that number very little: three appointments is far too few
+to estimate a rate, which is the small-sample caution from the Try It
+taken to its extreme.</p>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Davenport, T. H., &amp; Harris, J. G. (2007). <em>Competing on
+analytics: The new science of winning.</em> Harvard Business School
+Press.</li>
+<li>Institute of Medicine. (2001). <em>Crossing the quality chasm: A new
+health system for the 21st century.</em> National Academies Press.</li>
+<li>Institute of Medicine. (2013). <em>Best care at lower cost: The path
+to continuously learning health care in America.</em> National Academies
+Press.</li>
+<li>National Academies of Sciences, Engineering, and Medicine. (2018).
+<em>Crossing the global quality chasm: Improving health care
+worldwide.</em> The National Academies Press.</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Data</dt>
+<dd>
+Raw observations, such as a single appointment date, diagnosis code, or
+survey response.
+</dd>
+<dt>Information</dt>
+<dd>
+Data organized so that a pattern can be seen, such as a monthly no-show
+rate.
+</dd>
+<dt>Insight</dt>
+<dd>
+An answer to a question that matters, such as learning that no-shows are
+more common at some clinics than others.
+</dd>
+<dt>Action</dt>
+<dd>
+A decision or change made in response to insight, such as adjusting
+reminder timing.
+</dd>
+<dt>Descriptive analytics</dt>
+<dd>
+Analysis that describes what happened.
+</dd>
+<dt>Diagnostic analytics</dt>
+<dd>
+Analysis that explores why something happened.
+</dd>
+<dt>Predictive analytics</dt>
+<dd>
+Analysis that estimates what is likely to happen next.
+</dd>
+<dt>Prescriptive analytics</dt>
+<dd>
+Analysis that recommends what action to take.
+</dd>
+<dt>Clinical analytics</dt>
+<dd>
+Analysis focused on care processes and outcomes.
+</dd>
+<dt>Operational analytics</dt>
+<dd>
+Analysis focused on the flow of work, such as access, staffing, and
+throughput.
+</dd>
+<dt>Financial analytics</dt>
+<dd>
+Analysis focused on reimbursement, denials, payer mix, and margin.
+</dd>
+<dt>Population health analytics</dt>
+<dd>
+Analysis that looks across groups rather than single visits.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The Institute of Medicine was renamed the National
+Academy of Medicine in 2015; works published under the earlier name keep
+that attribution.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </article>
+    <div class="page-nav"><a class="pn prev" href="preface.html"><span class="pn-dir">Previous</span><span class="pn-title">Preface</span></a><a class="pn next" href="ch02.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. All rights reserved.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+</body>
+</html>

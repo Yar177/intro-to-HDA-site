@@ -1,0 +1,886 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Understanding Healthcare Systems, Stakeholders, and Data Sources — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="A quality director at a regional health system is asked a simple question in a Monday meeting: “Are our diabetic patients getting the follow-up they need?”">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch02.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Understanding Healthcare Systems, Stakeholders, and Data Sources — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="A quality director at a regional health system is asked a simple question in a Monday meeting: “Are our diabetic patients getting the follow-up they need?”">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch02.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Understanding Healthcare Systems, Stakeholders, and Data Sources","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"isPartOf":"Introduction to Healthcare Data Analytics Using Excel","inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch02.html"}</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item active" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><span class="nav-item disabled"><span class="nav-num">3</span><span class="nav-title">Excel as the Beginner Analyst&#39;s Workbench</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">4</span><span class="nav-title">Asking Good Questions and Defining Useful Measures</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">5</span><span class="nav-title">Data Structures, Tables, Keys, and Units of Analysis</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">6</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Planning Data Collection and Spreadsheet-Ready Datasets</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Summarizing Data with Descriptive Statistics and PivotTables</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 2 · 28 minutes</p>
+    <article class="prose">
+      <section id="sec:ch02" class="level1">
+<h1>Understanding Healthcare Systems, Stakeholders, and Data
+Sources</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>A quality director at a regional health system is asked a simple
+question in a Monday meeting: “Are our diabetic patients getting the
+follow-up they need?”</p>
+<p>She has more data than she can count, but each system sees only one
+slice of care:</p>
+<ul>
+<li>The appointment system knows who was scheduled.</li>
+<li>The emergency department system knows who came in through the
+door.</li>
+<li>The billing system knows what was submitted to each payer.</li>
+<li>A patient survey knows how people felt about their visit.</li>
+<li>A care registry knows which patients have a gap in care.</li>
+</ul>
+<p>None of these systems was built to answer her question, and no two
+describe a patient in quite the same way. Before she can compute a
+single number, she has to know where each piece of data comes from, who
+produced it, and what it was originally for. That is the work of this
+chapter.</p>
+<figure id="fig:ch02-auditable">
+<img src="figures/concept/ch_02_broad_question_to_auditable_measure.png"
+alt="Figure 1: From a broad question to an auditable measure. The analysis is report-ready only after context is defined step by step: stakeholder, setting, source system, unit of analysis, field definition, and calculation rule. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 1: From a broad question to an
+auditable measure. The analysis is report-ready only after context is
+defined step by step: stakeholder, setting, source system, unit of
+analysis, field definition, and calculation rule. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Describe how care is delivered across the main healthcare
+settings.</li>
+<li>Identify the major stakeholders and the questions each one asks of
+data.</li>
+<li>Trace a piece of data back to the source system that produced
+it.</li>
+<li>Distinguish a dimension table from a fact table, and primary use
+from secondary use.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<p>Data does not appear from nowhere. Every value in a healthcare
+dataset was created by a person or a device at a specific moment in a
+specific part of the system, and it was created for a reason that
+usually had nothing to do with analytics.</p>
+<p>To read any field safely, anchor yourself with three questions:</p>
+<ol type="1">
+<li>Who created this value?</li>
+<li>Where in the system was it created?</li>
+<li>Why was it created in the first place?</li>
+</ol>
+<p>If you understand that origin, the data makes sense. If you ignore
+it, you will misread the numbers. Biomedical informatics treats these
+origins, who recorded a value and why, as basic facts about the data
+rather than footnotes (Shortliffe &amp; Cimino, 2014). This chapter is
+about origin.</p>
+<section id="the-healthcare-system-is-many-systems" class="level3">
+<h3>The healthcare system is many systems</h3>
+<p>The phrase <strong>healthcare system</strong> suggests one smooth
+machine. In practice it is a loose network of settings that each run on
+their own rules, staff, and software. A <strong>care setting</strong> is
+the place and mode in which care happens. Ambulatory clinics handle
+scheduled visits. Emergency departments handle unscheduled,
+undifferentiated arrivals. Hospitals handle admitted patients who stay
+overnight. Care management teams work with patients between visits,
+often by phone. Each setting produces a different kind of record because
+each setting does a different kind of work.</p>
+<p>This matters because the setting shapes the data. An appointment
+record has a scheduled time and a no-show flag because scheduling is the
+whole point of an ambulatory clinic. An emergency record has a door time
+and a triage acuity because speed and severity are the whole point of an
+emergency department. You will not find a no-show flag in emergency
+data, and you will not find a triage acuity in appointment data. The
+columns follow the work.</p>
+<figure id="fig:ch02-settings">
+<img src="figures/generated/ch_02_care_settings.png"
+alt="Figure 2: The care setting shapes the data. Each setting runs a different kind of work, so it records different fields; the columns shown are real fields from the teaching datasets. Source: schematic built from datasets/." />
+<figcaption aria-hidden="true">Figure 2: The care setting shapes the
+data. Each setting runs a different kind of work, so it records
+different fields; the columns shown are real fields from the teaching
+datasets. Source: schematic built from
+<code>datasets/</code>.</figcaption>
+</figure>
+<div class="keypoint">
+<p>The care setting determines what data exists. Before you analyze a
+table, ask which setting produced it and what that setting was trying to
+accomplish.</p>
+</div>
+</section>
+<section id="the-continuum-of-care" class="level3">
+<h3>The continuum of care</h3>
+<p>The settings above are not separate boxes. A single patient moves
+through several of them over time, and clinicians call that movement the
+<strong>continuum of care</strong>: prevention and primary care,
+ambulatory visits, urgent and emergency care, inpatient admission, and
+post-acute care such as a skilled nursing facility, home health, or a
+follow-up visit back in primary care.</p>
+<p>The continuum matters to an analyst because most risk in healthcare
+data sits at the seams between settings, not inside any one of them.
+Transitional-care literature frames this handoff work as deliberate
+actions to keep care coordinated as patients move across settings
+(Coleman, 2003). Researchers describe three kinds of continuity a strong
+handoff must preserve (Haggerty et al., 2003):</p>
+<ul>
+<li><strong>Informational continuity</strong>: the next clinician has
+the relevant history.</li>
+<li><strong>Relational continuity</strong>: trusted clinical
+relationships continue over time.</li>
+<li><strong>Management continuity</strong>: the care plan and
+responsibilities carry forward.</li>
+</ul>
+<p>Figure 3 follows one patient across the continuum using fields you
+will meet again later in the book. In
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, you can inspect the
+inpatient-to-post-acute handoff in four quick checks:</p>
+<ol type="1">
+<li><code>discharge_disposition</code>: where the patient went
+next.</li>
+<li><code>snf_discharge_flag</code>: whether skilled nursing follow-up
+was needed.</li>
+<li><code>home_health_ordered_flag</code>: whether home health services
+were ordered.</li>
+<li><code>followup_within_7d_flag</code>: whether the loop was closed
+quickly after discharge.</li>
+</ol>
+<p>A gap in any one of these fields, a discharge summary that never
+reaches primary care, or a home health order that is never scheduled, is
+where continuity breaks and readmission risk rises.</p>
+<figure id="fig:ch02-continuum">
+<img src="figures/concept/ch_02_continuum_of_care.png"
+alt="Figure 3: The continuum of care. A patient moves through several settings over time; the handoffs between them, not the settings themselves, are where continuity and data quality most often break down. Source: concept schematic grounded in datasets/DS4_inpatient_clean.csv transition fields." />
+<figcaption aria-hidden="true">Figure 3: The continuum of care. A
+patient moves through several settings over time; the handoffs between
+them, not the settings themselves, are where continuity and data quality
+most often break down. Source: concept schematic grounded in
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> transition
+fields.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Most of what goes wrong in healthcare data happens at a handoff, not
+inside a single setting. When you see a gap or an inconsistency, ask
+which transition produced it before you assume the record itself is
+wrong.</p>
+</div>
+</section>
+<section
+id="the-three-central-stakeholders-patients-payers-and-providers"
+class="level3">
+<h3>The three central stakeholders: patients, payers, and providers</h3>
+<p>Before you meet the long list of people who use healthcare data,
+learn the three parties the whole system is built around. A
+<strong>patient</strong> receives care. A <strong>provider</strong>,
+such as a hospital, a clinician, or a pharmacy, delivers that care and
+documents it. A <strong>payer</strong>, such as a private insurer, a
+self-funded employer, Medicare, or Medicaid, finances the care and
+administers coverage and payment. Almost every dataset in this book is
+produced by one of these three parties doing its ordinary work, so
+knowing which one created a record tells you a great deal about what the
+record was for.</p>
+<figure id="fig:ch02-stakeholders">
+<img src="figures/concept/ch_02_three_stakeholders.png"
+alt="Figure 4: The three central stakeholders of the U.S. healthcare system and the relationships that connect them. Patients receive care, providers deliver and document it, and payers finance it; each connection between them generates the data an analyst later works with. Source: schematic." />
+<figcaption aria-hidden="true">Figure 4: The three central stakeholders
+of the U.S. healthcare system and the relationships that connect them.
+Patients receive care, providers deliver and document it, and payers
+finance it; each connection between them generates the data an analyst
+later works with. Source: schematic.</figcaption>
+</figure>
+<p>What makes these three interesting to an analyst is not the boxes but
+the arrows between them, because each relationship generates its own
+trail of data:</p>
+<ul>
+<li><strong>Patient to payer</strong>: enrollment, premiums, coverage,
+and benefits, producing eligibility and membership records.</li>
+<li><strong>Payer to provider</strong>: claims and reimbursement,
+producing payment-adjudication trails such as
+<a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>.</li>
+<li><strong>Patient to provider</strong>: care delivery, health
+information, and direct payments, producing clinical and scheduling
+records such as <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> and
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>.</li>
+</ul>
+<p>The same real event, one visit, can appear from three angles at once:
+as care the patient received, as a service the provider documented, and
+as a claim the payer adjudicated.</p>
+<div class="keypoint">
+<p>Patients receive care, providers deliver it, and payers finance it.
+Most healthcare data is a by-product of the transactions between these
+three parties, so identifying which relationship produced a record is
+the fastest way to understand what it can and cannot tell you.</p>
+</div>
+</section>
+<section id="stakeholders-and-the-questions-they-ask" class="level3">
+<h3>Stakeholders and the questions they ask</h3>
+<p>Those three parties are the frame, but in day-to-day analytics the
+people who ask questions of the data are more specific. A
+<strong>stakeholder</strong> is anyone with a stake in what the data
+says. The same dataset serves several stakeholders at once, and each one
+arrives with a different question and a different tolerance for being
+wrong:</p>
+<ul>
+<li>Clinician: is care safe and effective for this patient?</li>
+<li>Operations manager: are patients moving through the department
+without delay?</li>
+<li>Finance leader: is the organization paid fairly and on time?</li>
+<li>Public health team: is the population getting healthier?</li>
+<li>Patient: was the visit worth the trip?</li>
+</ul>
+<p>A fifth kind of stakeholder does something the others do not: it can
+attach a rule, and money, to a number. A <strong>regulator</strong>,
+such as the Centers for Medicare &amp; Medicaid Services (CMS) or the
+National Committee for Quality Assurance (NCQA), defines how a measure
+must be calculated and can tie payment or ratings to the result.</p>
+<p>You can think of regulator logic in three steps:</p>
+<ol type="1">
+<li>Define the measure formula precisely.</li>
+<li>Compare performance to a benchmark.</li>
+<li>Attach a consequence, payment, rating, or both, to the result.</li>
+</ol>
+<p>CMS’s Hospital Readmissions Reduction Program is a concrete example:
+under Section 1886(q) of the Social Security Act, CMS reduces a
+hospital’s Medicare payments, across every admission in that fiscal
+year, when its risk-adjusted 30-day readmission rate for specific
+conditions such as heart failure or pneumonia exceeds the national
+benchmark; the maximum reduction is 3 percent of base payments (Centers
+for Medicare &amp; Medicaid Services, n.d.). NCQA’s HEDIS measures play
+a similar role for health plans, defining more than 90 measures across
+six domains of care so that results can be compared the same way every
+year (National Committee for Quality Assurance, n.d.).</p>
+<p>A <code>readmission_30d_flag</code>, such as the one in
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, is a single column but
+supports different stakeholder questions:</p>
+<ul>
+<li>Clinician: did the discharge plan hold?</li>
+<li>Care manager: did post-discharge follow-up happen?</li>
+<li>Regulator (for example CMS): how does this result affect
+payment?</li>
+</ul>
+<p>None of these readings is wrong. Each is the same fact seen through a
+different stakeholder question.</p>
+<figure id="fig:ch02-one-field">
+<img
+src="figures/concept/ch_02_one_field_different_stakeholder_questions.png"
+alt="Figure 5: One field, different stakeholder questions. The field stays the same, but each stakeholder asks a different operational question of readmission_30d_flag. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 5: One field, different
+stakeholder questions. The field stays the same, but each stakeholder
+asks a different operational question of
+<code>readmission_30d_flag</code>. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>The same field can be read correctly in more than one way. A
+<code>readmission_30d_flag</code> is a clinical signal, an operational
+to-do, and a regulatory payment input all at once; ask which stakeholder
+is asking before you decide what a number means.</p>
+</div>
+<p>These questions pull on the same records in different directions. A
+missed diabetes appointment is an access problem to the operations
+manager, a quality risk to the clinician, and a future cost to the
+finance leader. The persistent gap between the care patients receive and
+the care they could receive is what these competing measures ultimately
+try to close (Institute of Medicine, 2001).<a href="#fn1"
+class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>
+Recall from Chapter 1 that good analysts see how metrics connect across
+the system. Knowing the stakeholder tells you which question the number
+is meant to answer, and that keeps you from reporting the right figure
+for the wrong purpose.</p>
+</section>
+<section id="source-systems-and-the-two-uses-of-data" class="level3">
+<h3>Source systems and the two uses of data</h3>
+<p>Chapter 1 listed the major source systems in healthcare: scheduling,
+EHRs, laboratory and diagnostic systems, claims and billing, pharmacy,
+patient-reported sources, and registries.</p>
+<p>In this chapter’s teaching datasets, systems in scope are:</p>
+<ul>
+<li>Scheduling</li>
+<li>ED tracking</li>
+<li>Claims and billing</li>
+<li>Survey and registry sources</li>
+<li>Reference dimensions from EHR and contract/facility master data</li>
+</ul>
+<p>Systems out of scope in this chapter, but governed by the same logic,
+are pharmacy and laboratory systems.</p>
+<div class="definition">
+<p>A <strong>source system</strong> is the software where a piece of
+data is first created and where it does its original operational job,
+such as a scheduling system, an electronic health record, a billing
+platform, or a care-management registry.</p>
+</div>
+<p>Data in a source system serves a <strong>primary use</strong>, the
+operational job it was built for. When you pull that same data into
+analytics, you are putting it to a <strong>secondary use</strong>.</p>
+<ul>
+<li><strong>Primary use examples</strong>: scheduling data books visits;
+billing data gets claims paid.</li>
+<li><strong>Secondary use examples</strong>: appointment data measures
+no-show rates; claims data tracks denial patterns.</li>
+</ul>
+<p>That gap is where most errors begin. A billing record marks a claim
+as denied to trigger a rework queue, not to measure clinical quality, so
+a denial flag means “the payer said no,” not “the care was wrong.”
+Interoperability rules now make it far easier to move records between
+systems for secondary use, which makes understanding their origin more
+important, not less (Office of the National Coordinator for Health
+Information Technology, 2020).</p>
+<figure id="fig:ch02-uses">
+<img src="figures/concept/ch_02_primary_secondary_use.png"
+alt="Figure 6: One source system, two very different jobs. Booking visits is the scheduling system’s primary use; measuring the no-show rate is a secondary use you bring to the same records. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 6: One source system, two very
+different jobs. Booking visits is the scheduling system’s primary use;
+measuring the no-show rate is a secondary use you bring to the same
+records. Source: concept schematic.</figcaption>
+</figure>
+<div class="caution">
+<p>Almost all analytics is secondary use. The data was built to run an
+operation, not to answer your question. Always ask what the field meant
+to the person who created it before you trust what it means to you.</p>
+</div>
+<p>Data does not always stay inside the organization that created it. A
+<strong>health information exchange (HIE)</strong> is one way records
+move across organizational boundaries.</p>
+<ul>
+<li>What an HIE does: lets separate organizations share records
+electronically when care crosses settings.</li>
+<li>What an HIE does not do: create new clinical data; it moves records
+already created in source systems.</li>
+<li>Why analysts care: reconciliation across systems is only possible if
+those records can be seen in one analytic workflow.</li>
+</ul>
+<p>Federal interoperability rules now require certified systems to make
+this kind of exchange technically possible and prohibit blocking it
+(Office of the National Coordinator for Health Information Technology,
+2020).</p>
+<figure id="fig:ch02-hie">
+<img src="figures/concept/ch_02_hie_connections.png"
+alt="Figure 7: How health information exchange connects organizations. An HIE does not create new clinical data; it moves records created in source systems across organizational boundaries. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 7: How health information exchange
+connects organizations. An HIE does not create new clinical data; it
+moves records created in source systems across organizational
+boundaries. Source: concept schematic.</figcaption>
+</figure>
+<p>Not every source sits inside your organization. Public agencies
+publish data built for secondary use from the start, including
+population-health surveys and county estimates that let you compare your
+patients to a wider world.</p>
+<p>Two external sources used later in this book are:</p>
+<ul>
+<li><a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a> (CDC PLACES county
+estimates), used in Chapter 11 for external benchmarking.</li>
+<li><a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a> (BRFSS
+weighted adult sample), used in Chapter 7 for survey-weight
+concepts.</li>
+</ul>
+<p>Before you compare any external benchmark with your internal metric,
+confirm five alignment checks:</p>
+<ol type="1">
+<li>Measure definition</li>
+<li>Population</li>
+<li>Time period</li>
+<li>Geography</li>
+<li>Unit of analysis</li>
+</ol>
+<figure id="fig:ch02-benchmark">
+<img src="figures/concept/ch_02_external_benchmark_comparable.png"
+alt="Figure 8: Is this external benchmark comparable? A benchmark is useful only when definition, population, time period, geography, and unit of analysis align with your internal measure. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 8: Is this external benchmark
+comparable? A benchmark is useful only when definition, population, time
+period, geography, and unit of analysis align with your internal
+measure. Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="dimensions-describe-facts-record" class="level3">
+<h3>Dimensions describe, facts record</h3>
+<p>Healthcare data falls into two broad shapes, and telling them apart
+early will save you later. A <strong>dimension table</strong> describes
+the stable actors in the system: who the patient is, which provider they
+see, which facility they visit, which payer covers them, where they
+live. A <strong>fact table</strong> records the events those actors take
+part in: an appointment, an emergency visit, a claim, a survey response.
+Dimensions answer “who and where.” Facts answer “what happened, and
+when.” Chapter 5 returns to this distinction in depth and shows how keys
+link the two. For now, learn to recognize the shape of a table on
+sight.</p>
+<figure id="fig:ch02-shapes">
+<img src="figures/concept/ch_02_dimensions_vs_facts.png"
+alt="Figure 9: Dimensions describe, facts record. Dimension tables hold the stable actors (who and where); fact tables hold the events (what and when); keys link them, as Chapter 5 shows. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 9: Dimensions describe, facts
+record. Dimension tables hold the stable actors (who and where); fact
+tables hold the events (what and when); keys link them, as Chapter 5
+shows. Source: concept schematic.</figcaption>
+</figure>
+</section>
+</section>
+<section id="walkthrough-map-the-teaching-datasets-to-the-system"
+class="level2">
+<h2>Walkthrough: map the teaching datasets to the system</h2>
+<p>The datasets in <code>datasets/</code> are a small model of a real
+health system. Open a few of them and place each one on the map of
+settings, stakeholders, and source systems. You do not need to compute
+anything yet. The goal is to read a table and say where it came
+from.</p>
+<p>Start with the dimension tables. Open
+<a class="ds-ref" href="datasets/DS1_patient_dim.csv" download title="Download DS1_patient_dim.csv"><code>datasets/DS1_patient_dim.csv</code></a>. It has one row per patient
+(12,000 in total) and columns like <code>patient_id</code>,
+<code>payer_primary_id</code>, and <code>pcp_provider_id</code>. Notice
+that it does not record any event. It describes people. Open
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a> (18 rows) and
+<a class="ds-ref" href="datasets/DS1_payer_dim.csv" download title="Download DS1_payer_dim.csv"><code>datasets/DS1_payer_dim.csv</code></a> (8 rows). Same shape: one row
+per actor, no events. These are dimensions.</p>
+<p>Now open a fact table.
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> has one row per
+scheduled visit (36,000 rows), with <code>appointment_datetime</code>,
+<code>lead_days</code>, and <code>no_show_flag</code>. Every row is an
+event. Compare <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, where
+each row is an emergency visit with
+<code>door_to_provider_minutes</code> and
+<code>left_without_being_seen_flag</code>, and
+<a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, where each row is a
+submitted claim with <code>allowed_amount_usd</code> and
+<code>denial_flag</code>. Different settings, different columns, but the
+same shape: one row per event.</p>
+<p>In Table 1 and Table 2, each teaching dataset is placed on the map.
+Read them as a translation between a file on disk and a part of the real
+system.</p>
+<table id="tbl:sources-systems">
+<caption>Table 1: Part A. Each teaching dataset mapped to care setting
+and source system.</caption>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Care setting</th>
+<th>Source system</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DS1 patient dim</td>
+<td>(reference data)</td>
+<td>EHR master index</td>
+</tr>
+<tr>
+<td>DS1 facility dim</td>
+<td>(reference data)</td>
+<td>facility registry</td>
+</tr>
+<tr>
+<td>DS1 payer dim</td>
+<td>(reference data)</td>
+<td>contract system</td>
+</tr>
+<tr>
+<td>DS2 appointments clean</td>
+<td>ambulatory clinic</td>
+<td>scheduling system</td>
+</tr>
+<tr>
+<td>DS3 ED throughput clean</td>
+<td>emergency department</td>
+<td>ED tracking board</td>
+</tr>
+<tr>
+<td>DS5 claim header clean</td>
+<td>billing / revenue cycle</td>
+<td>claims platform</td>
+</tr>
+<tr>
+<td>DS6 survey responses clean</td>
+<td>patient experience</td>
+<td>survey vendor</td>
+</tr>
+<tr>
+<td>DS7 registry clean</td>
+<td>care management</td>
+<td>population registry</td>
+</tr>
+</tbody>
+</table>
+<table id="tbl:sources">
+<caption>Table 2: Part B. Each teaching dataset mapped to primary
+stakeholder and unit of analysis.</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Dataset</th>
+<th>Primary stakeholder</th>
+<th>One row is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DS1 patient dim</td>
+<td>all</td>
+<td>a patient</td>
+</tr>
+<tr>
+<td>DS1 facility dim</td>
+<td>operations</td>
+<td>a facility</td>
+</tr>
+<tr>
+<td>DS1 payer dim</td>
+<td>finance</td>
+<td>a payer/plan</td>
+</tr>
+<tr>
+<td>DS2 appointments clean</td>
+<td>operations, access</td>
+<td>a scheduled visit</td>
+</tr>
+<tr>
+<td>DS3 ED throughput clean</td>
+<td>operations, clinical</td>
+<td>an emergency visit</td>
+</tr>
+<tr>
+<td>DS5 claim header clean</td>
+<td>finance</td>
+<td>a submitted claim</td>
+</tr>
+<tr>
+<td>DS6 survey responses clean</td>
+<td>clinical, leadership</td>
+<td>a survey response</td>
+</tr>
+<tr>
+<td>DS7 registry clean</td>
+<td>population health</td>
+<td>a patient in a program</td>
+</tr>
+</tbody>
+</table>
+<p>The dataset names in these two tables are shortened display labels
+for readability; the exact file names appear in the walkthrough text
+above and in the chapter metadata under <code>datasets_used</code>.</p>
+<p>Two things are worth noticing in Table 2:</p>
+<ol type="1">
+<li>Dimension tables have no single setting because they describe actors
+that appear across all settings.</li>
+<li>The “one row is” column is the most important habit in this chapter.
+Naming what one row represents tells you the table grain, which decides
+what you can count and what you cannot.</li>
+</ol>
+<p>Chapter 5 gives that habit its formal name and rules.</p>
+<p>The volume differs as much as the content. Figure 10 counts the
+records in each fact table, drawn straight from the files in
+<code>datasets/</code>. A busy billing system produces far more rows
+than a patient survey, and that imbalance shapes what you can measure in
+each setting.</p>
+<figure id="fig:ch02-sources">
+<img src="figures/generated/ch_02_records_by_source.png"
+alt="Figure 10: Records produced by each teaching data source, one row per event. Source: datasets/." />
+<figcaption aria-hidden="true">Figure 10: Records produced by each
+teaching data source, one row per event. Source:
+<code>datasets/</code>.</figcaption>
+</figure>
+<div class="tryit">
+<p>Open <a class="ds-ref" href="datasets/DS6_survey_responses_clean.csv" download title="Download DS6_survey_responses_clean.csv"><code>datasets/DS6_survey_responses_clean.csv</code></a> and
+<a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>, then create a one-page
+source-map worksheet with four columns: <strong>File</strong>,
+<strong>Dimension or fact</strong>, <strong>One row is</strong>, and
+<strong>Primary stakeholder question</strong>.</p>
+<ol type="1">
+<li>Fill one row for <a class="ds-ref" href="datasets/DS6_survey_responses_clean.csv" download title="Download DS6_survey_responses_clean.csv"><code>DS6_survey_responses_clean.csv</code></a>.</li>
+<li>Fill one row for <a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>DS7_registry_clean.csv</code></a>.</li>
+<li>Add one continuity note: open
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> and write one sentence
+naming the first handoff field you would check to confirm a safe
+post-discharge transition.</li>
+</ol>
+<p>Keep your worksheet to six bullets or fewer. The answer key is at the
+end of the chapter.</p>
+</div>
+<div class="goingdeeper">
+<p>The same real-world event often appears in more than one source
+system, described differently each time. A patient admitted through the
+emergency department shows up in the ED tracking board as a visit with a
+disposition of “admit,” and again in the inpatient system as a discharge
+record, and again in the billing platform as one or more claims. None of
+these is wrong. They are three source systems recording three views of
+one hospital stay, each for its own primary use. Reconciling those views
+is a real analytic task, and it is why an analyst must know source
+systems, not just files. You will meet this problem directly when you
+join tables in Chapter 8.</p>
+<p>Figure 11 draws exactly that. One hospital stay leaves a trace in
+three systems, each built for its own primary use and describing the
+event in its own terms. The analyst’s job is to recognize that these are
+three views of one event, and to reconcile them rather than mistake them
+for three separate events.</p>
+</div>
+<figure id="fig:ch02-systems">
+<img src="figures/concept/ch_02_one_event_three_source_systems.png"
+alt="Figure 11: One hospital stay recorded by three source systems, each for a different primary use. Reconciling these views is the analyst’s work. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 11: One hospital stay recorded by
+three source systems, each for a different primary use. Reconciling
+these views is the analyst’s work. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A payer analyst is asked why the plan’s “avoidable
+emergency visit” rate has jumped in one quarter. The number is real, but
+the cause is not clinical. A neighboring urgent care center has closed,
+and its former patients are now arriving at the emergency department
+instead. The data source has not changed, but the system feeding it has.
+The lesson holds: a shift in the numbers often reflects a shift in the
+system that produced them, not a shift in patient behavior. Always ask
+what changed upstream before you conclude what changed in care.</p>
+</div>
+<p>Return to the opening question about diabetic follow-up. You now have
+a practical sequence: identify which source systems hold the relevant
+handoff fields, name the stakeholder-specific question, and verify what
+one row represents before you count anything. That sequence turns a
+broad question into an auditable analytic workflow.</p>
+<div class="recap">
+<ul>
+<li>Patients move through a continuum of care settings, and most data
+problems appear at the handoffs between settings, not inside one
+setting.</li>
+<li>Every dataset serves several stakeholders, including regulators who
+can tie a metric’s definition to payment; the same field can mean
+something different to each one.</li>
+<li>Data is created in a source system for a primary use, and analytics
+is almost always a secondary use it was not designed for.</li>
+<li>Dimension tables describe the stable actors; fact tables record the
+events. Naming what one row represents is the analyst’s first move.</li>
+<li>Reading a table means knowing where it came from, and which
+stakeholder’s question it can and cannot answer, before you compute
+anything from it.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>List the four care settings named in this chapter. For each, name
+one column you would expect to find in its data and one you would
+not.</li>
+<li>Choose any three datasets in <code>datasets/</code>. For each, state
+whether it is a dimension or a fact table and what one row
+represents.</li>
+<li>A <code>denial_flag</code> in
+<a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a> marks a claim the payer
+refused to pay. Explain in two sentences why this field is a poor
+measure of clinical quality, using the idea of primary versus secondary
+use.</li>
+<li>Pick one stakeholder from Table 2 and write one question they would
+ask that could be answered with the teaching datasets, and one they
+could not.</li>
+<li>A colleague reports that emergency visits rose 20 percent last month
+and concludes that patients got sicker. Give two alternative
+explanations that involve the system rather than the patients.</li>
+<li>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>. For a discharge
+where <code>snf_discharge_flag</code> is 1, name one continuity risk at
+that handoff and one other field in the file you would check first.</li>
+<li>Explain why the same <code>readmission_30d_flag</code> in
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> can be read correctly by a
+clinician, a care manager, and a regulator such as CMS, yet mean
+something different to each. Use the ideas of stakeholder and continuum
+of care in your answer.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It.</strong> A strong worksheet answer includes three
+parts:</p>
+<ul>
+<li><a class="ds-ref" href="datasets/DS6_survey_responses_clean.csv" download title="Download DS6_survey_responses_clean.csv"><code>DS6_survey_responses_clean.csv</code></a> - fact; one row is one
+completed survey response linked to a visit; primary stakeholder
+question: are patients reporting a positive care experience (for
+example, <code>recommend_top_box_flag</code>)?</li>
+<li><a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>DS7_registry_clean.csv</code></a> - registry snapshot used as a
+fact-style operational list; one row is one patient currently tracked in
+a program with current gap/risk status; primary stakeholder question:
+which patients need outreach now (for example, high
+<code>care_gap_count</code> or high <code>risk_tier</code>)?</li>
+<li>Continuity note from <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>DS4_inpatient_clean.csv</code></a> - first
+check <code>followup_within_7d_flag</code> (or
+<code>discharge_disposition</code>) to verify whether a discharge
+handoff was closed in the next setting.</li>
+</ul>
+<p><strong>Selected exercises.</strong></p>
+<ol type="1">
+<li>The four settings are ambulatory clinic, emergency department,
+hospital (inpatient), and care management. An appointment file has
+<code>no_show_flag</code> but no <code>triage_acuity</code>, while an
+emergency file has <code>triage_acuity</code> but no
+<code>no_show_flag</code>.</li>
+<li>For example: <code>DS1_facility_dim</code> is a dimension (one row
+per facility); <code>DS3_ed_throughput_clean</code> is a fact table (one
+row per emergency visit); <code>DS5_claim_header_clean</code> is a fact
+table (one row per submitted claim).</li>
+<li>The <code>denial_flag</code> exists for a primary use, routing
+unpaid claims to a rework queue, so it records a payer payment decision,
+not care quality. Read as a quality measure (secondary use), it confuses
+“the payer said no” with “the care was wrong.”</li>
+<li>For example, a finance leader can ask which payers denied the most
+claims last quarter (answerable from
+<code>DS5_claim_header_clean</code>), but cannot ask from these datasets
+whether a denial was clinically justified.</li>
+<li>Two alternatives include a nearby urgent care or clinic closure that
+redirected patients to the emergency department, or a
+coding/registration change that altered how visits were counted; both
+are system shifts, not direct evidence that patients got sicker.</li>
+<li>A discharge to a skilled nursing facility carries continuity risk if
+the discharge summary never reaches SNF clinicians or if no primary-care
+follow-up is scheduled; check <code>followup_within_7d_flag</code>
+next.</li>
+<li><code>readmission_30d_flag</code> is one column, but a clinician
+reads discharge-plan durability, a care manager reads follow-up
+completion (continuum handoff), and CMS reads payment impact under a
+regulatory formula. The field stays the same; the stakeholder question
+changes.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Centers for Medicare &amp; Medicaid Services. (n.d.). <em>Hospital
+Readmissions Reduction Program.</em> Retrieved September 20, 2026, from
+https://www.cms.gov/medicare/quality/value-based-programs/hospital-readmissions</li>
+<li>Coleman, E. A. (2003). Falling through the cracks: Challenges and
+opportunities for improving transitional care for persons with
+continuous complex care needs. <em>Journal of the American Geriatrics
+Society, 51</em>(4), 549-555.
+https://doi.org/10.1046/j.1532-5415.2003.51185.x</li>
+<li>Haggerty, J. L., Reid, R. J., Freeman, G. K., Starfield, B. H.,
+Adair, C. E., &amp; McKendry, R. (2003). Continuity of care: A
+multidisciplinary review. <em>BMJ, 327</em>(7425), 1219-1221.
+https://doi.org/10.1136/bmj.327.7425.1219</li>
+<li>Institute of Medicine. (2001). <em>Crossing the quality chasm: A new
+health system for the 21st century.</em> National Academies Press.</li>
+<li>National Committee for Quality Assurance. (n.d.). <em>HEDIS and
+performance measurement.</em> Retrieved September 20, 2026, from
+https://www.ncqa.org/hedis/</li>
+<li>Office of the National Coordinator for Health Information
+Technology. (2020). <em>ONC’s Cures Act final rule.</em> U.S. Department
+of Health and Human Services. https://www.healthit.gov/curesrule/</li>
+<li>Shortliffe, E. H., &amp; Cimino, J. J. (Eds.). (2014).
+<em>Biomedical informatics: Computer applications in health care and
+biomedicine</em> (4th ed.). Springer.</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Healthcare system</dt>
+<dd>
+The loose network of settings, staff, and software through which care is
+delivered.
+</dd>
+<dt>Care setting</dt>
+<dd>
+The place and mode in which care happens, such as an ambulatory clinic,
+an emergency department, a hospital, or a care-management program.
+</dd>
+<dt>Patient</dt>
+<dd>
+The person who receives care; the party whose health the whole system
+exists to serve.
+</dd>
+<dt>Provider</dt>
+<dd>
+A party that delivers and documents care, such as a hospital, clinician,
+or pharmacy.
+</dd>
+<dt>Payer</dt>
+<dd>
+A party that finances care and administers coverage and payment, such as
+a private insurer, a self-funded employer, Medicare, or Medicaid.
+</dd>
+<dt>Continuum of care</dt>
+<dd>
+The sequence of settings a patient moves through over time, from
+prevention and primary care through post-acute care; most continuity
+risk sits at the handoffs between them.
+</dd>
+<dt>Stakeholder</dt>
+<dd>
+Anyone with a stake in what the data says, such as a clinician,
+operations manager, finance leader, public health team, patient, or
+regulator.
+</dd>
+<dt>Regulator</dt>
+<dd>
+A stakeholder, such as CMS or NCQA, that defines how a measure must be
+calculated and can tie payment or a public rating to the result.
+</dd>
+<dt>Source system</dt>
+<dd>
+The software where a piece of data is first created, such as a
+scheduling system, electronic health record, or billing platform.
+</dd>
+<dt>Health information exchange</dt>
+<dd>
+The electronic infrastructure that lets separate organizations share a
+patient’s records when care crosses organizational lines.
+</dd>
+<dt>Primary use</dt>
+<dd>
+The operational job a piece of data was built to do in its source
+system.
+</dd>
+<dt>Secondary use</dt>
+<dd>
+Any later use of the data to answer a question it was not originally
+designed for, which includes most analytics.
+</dd>
+<dt>Dimension table</dt>
+<dd>
+A table that describes the stable actors in the system, with one row per
+actor and no events.
+</dd>
+<dt>Fact table</dt>
+<dd>
+A table that records events, with one row per event and a time attached.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document"
+role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1"><p>The Institute of Medicine was renamed the National
+Academy of Medicine in 2015; works published under the earlier name keep
+that attribution.<a href="#fnref1" class="footnote-back"
+role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch01.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 1: What Healthcare Data Analytics Is and Why It Matters</span></a><span></span></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-map-the-teaching-datasets-to-the-system">Walkthrough: map the teaching datasets to the system</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. All rights reserved.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+</body>
+</html>
