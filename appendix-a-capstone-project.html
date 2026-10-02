@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Appendix A. Semester Capstone Project — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="This appendix describes the course-long capstone project. You build one analysis across the whole semester, one phase at a time, so that by the final week you have a complete, auditable study of a healthcare question you chose yourself.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/appendix-a-capstone-project.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Appendix A. Semester Capstone Project — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="This appendix describes the course-long capstone project. You build one analysis across the whole semester, one phase at a time, so that by the final week you have a complete, auditable study of a healthcare question you chose yourself.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/appendix-a-capstone-project.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><span class="nav-item disabled"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">6</span><span class="nav-title">Planning Data Collection and Spreadsheet-Ready Datasets</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item active" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Appendix</p>
+    <article class="prose">
+      <section id="appendix-a.-semester-capstone-project"
+class="level1 unnumbered">
+<h1 class="unnumbered">Appendix A. Semester Capstone Project</h1>
+<p>This appendix describes the course-long capstone project. You build
+one analysis across the whole semester, one phase at a time, so that by
+the final week you have a complete, auditable study of a healthcare
+question you chose yourself.</p>
+<p>Work on the project in phases. You complete the phases over the
+course of the semester, one at a time, as each matching topic is covered
+in class. Each phase builds on the one before it, and you may revise
+earlier phases as your understanding grows. Keep everything in one
+well-organized workbook and project folder, so the whole project stays
+traceable from question to answer.</p>
+<p>The instructions below are high level on purpose. Your instructor
+will provide the specific due dates, deliverable format, and grading
+rubric for each phase.</p>
+<section id="phase-1.-question-and-stakeholders" class="level2">
+<h2>Phase 1. Question and stakeholders</h2>
+<p><em>Alongside asking good questions and defining measures.</em></p>
+<ul>
+<li>Choose a healthcare question that genuinely interests you.</li>
+<li>Write a short paragraph explaining why it matters.</li>
+<li>Identify two different audiences or stakeholders, and describe what
+each one cares about in your question.</li>
+<li>Sketch your initial thoughts on what data you would ideally collect
+to answer it.</li>
+</ul>
+</section>
+<section id="phase-2.-data-source-and-ethics" class="level2">
+<h2>Phase 2. Data source and ethics</h2>
+<p><em>After data structures and healthcare data governance are
+covered.</em></p>
+<p>Find a real, publicly available data source for your question.
+Describe its variables and state the unit of analysis. Break your main
+question into two or three sub-questions. Identify the ethical issues in
+how the data was collected and how it may be used. Revise Phase 1 if
+your source changes what is feasible.</p>
+</section>
+<section id="phase-3.-data-preparation-and-codebook" class="level2">
+<h2>Phase 3. Data preparation and codebook</h2>
+<p><em>After planning data collection and data cleaning are
+covered.</em></p>
+<p>Assemble your data into a tidy, spreadsheet-ready table. Write a
+codebook that defines every column so someone else could use your data
+correctly. Clean and organize the data, and document the steps. Discuss
+the population your data represents and whether it is a sample or the
+full population.</p>
+</section>
+<section id="phase-4.-summaries-and-visuals" class="level2">
+<h2>Phase 4. Summaries and visuals</h2>
+<p><em>After descriptive statistics and PivotTables are
+covered.</em></p>
+<p>Produce summary statistics and frequency counts for your key
+variables. Interpret what they say in plain language. Create at least
+two visuals and interpret each one. Focus on what the numbers mean for
+your stakeholders, not just what they are.</p>
+</section>
+<section id="phase-5.-models-and-answer" class="level2">
+<h2>Phase 5. Models and answer</h2>
+<p><em>After correlation and regression are covered.</em></p>
+<p>Examine relationships in your data with correlations and at least two
+scatterplots with trend lines. Build at least two PivotTables that
+explore your question. Interpret the scatterplots and the PivotTables,
+state any predictions your models support, and finally answer your
+original research question. Revise earlier phases as needed so the
+finished project reads as one coherent study.</p>
+</section>
+<section id="phase-6.-presentation" class="level2">
+<h2>Phase 6. Presentation</h2>
+<p><em>Once your analysis is complete.</em></p>
+<p>Present your finished project to a small group: the question, the
+data, your summaries, your visuals, your findings, and your next steps.
+Practice explaining your analysis to a non-technical audience, leading
+with what matters.</p>
+</section>
+</section>
+
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch04.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 4: Working with Data: Structure, Measures, and Study Design</span></a><span></span></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#phase-1.-question-and-stakeholders">Phase 1. Question and stakeholders</a><a href="#phase-2.-data-source-and-ethics">Phase 2. Data source and ethics</a><a href="#phase-3.-data-preparation-and-codebook">Phase 3. Data preparation and codebook</a><a href="#phase-4.-summaries-and-visuals">Phase 4. Summaries and visuals</a><a href="#phase-5.-models-and-answer">Phase 5. Models and answer</a><a href="#phase-6.-presentation">Phase 6. Presentation</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">Text: CC BY-NC-SA 4.0</a><span class="license-badge">Code: MIT</span></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY-NC-SA 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+</body>
+</html>

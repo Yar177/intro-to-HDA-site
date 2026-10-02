@@ -1,0 +1,812 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Excel as the Analyst&#39;s Workbench — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="A new analyst at a community health system is handed a single file, DS2_appointments_clean.csv, and one question from the operations director: “What is our no-show rate, and can you show me how you got it?” The second half of that request is the hard part. The number itself is one calculation. Produ">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch03.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Excel as the Analyst&#39;s Workbench — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="A new analyst at a community health system is handed a single file, DS2_appointments_clean.csv, and one question from the operations director: “What is our no-show rate, and can you show me how you got it?” The second half of that request is the hard part. The number itself is one calculation. Produ">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch03.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Excel as the Analyst's Workbench","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"isPartOf":"Introduction to Healthcare Data Analytics Using Excel","inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch03.html"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item active" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><span class="nav-item disabled"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">6</span><span class="nav-title">Planning Data Collection and Spreadsheet-Ready Datasets</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 3 · 40 minutes</p>
+    <article class="prose">
+      <section id="sec:ch03" class="level1">
+<h1>Excel as the Analyst’s Workbench</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>A new analyst at a community health system is handed a single file,
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>DS2_appointments_clean.csv</code></a>, and one question from the
+operations director: “What is our no-show rate, and can you show me how
+you got it?” The second half of that request is the hard part. The
+number itself is one calculation. Producing it in a way that a colleague
+can open, follow, and trust next quarter is a matter of how the workbook
+is built.</p>
+<p>Excel is where most analysts start, even in organizations that own
+more advanced tools. That is not a weakness if the workbook is built
+with discipline.</p>
+<p>A spreadsheet thrown together in an afternoon can hide errors, bury
+its own logic, and produce a number no one can reproduce. A
+well-structured workbook imports the file, cleans it, summarizes it, and
+presents a result anyone can audit. The difference is not the software.
+It is design discipline.</p>
+<p>This chapter builds that workbook one layer at a time. You will give
+the raw file a structure, make its columns addressable, and calculate
+the no-show rate with a small core of functions. Then you will check the
+result and see where Excel stops being the right tool. By the end, you
+will have reproduced the same 16.1 percent no-show rate from Chapter 1,
+this time in a workbook that shows its work.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Organize a workbook into raw, cleaning, analysis, and output layers
+so any result can be traced back to its source.</li>
+<li>Convert imported data into an Excel Table and use structured
+references and named ranges to keep formulas readable and correct as
+data grows.</li>
+<li>Match a small core of functions and four analytic tools, Power
+Query, PivotTables, the Analysis ToolPak, and Solver, to the task each
+one fits, and preview where the book develops each.</li>
+<li>Apply data validation and formula-auditing habits that catch
+spreadsheet errors before they spread.</li>
+<li>Judge when Excel is the right tool and when a problem calls for SQL,
+Python, or a reporting platform.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<p>A spreadsheet is most valuable when it is treated as a disciplined
+analytic environment, not an informal scratchpad. The examples in this
+book assume Microsoft 365, Excel 2021, or Excel 2024, on Windows or Mac,
+because a few functions used later, including XLOOKUP and dynamic
+arrays, are not present in older versions. Where a function has an older
+equivalent, the text says so, and where a menu path differs on a Mac,
+the text notes it.</p>
+<div class="keypoint">
+<p>A spreadsheet is only as trustworthy as it is auditable. If a
+colleague cannot follow how a number was produced, the number cannot be
+trusted, however correct it happens to be.</p>
+</div>
+<div class="definition">
+<p>Throughout this book, the <strong>no-show rate</strong> is the number
+of No Shows divided by the number of visits the patient was expected to
+keep, that is, Completed plus No Shows. Early Cancel, Late Cancel, and
+Rescheduled visits are excluded from both the numerator and the
+denominator, because a cancelled or moved visit is a different event
+with a different cause. This is the definition used here; some
+organizations count late cancellations as no-shows, so always state the
+rule you used.</p>
+</div>
+<p>Figure 1 shows what the denominator counts and what it leaves
+out.</p>
+<figure id="fig:ch03-measure">
+<img src="figures/concept/ch_03_measure_breakdown.png"
+alt="Figure 1: How the no-show rate is built. The denominator counts only the visits the patient was expected to keep, Completed plus No Shows (30,571); the Early Cancel, Late Cancel, and Rescheduled visits (5,429) are excluded, because a cancelled or moved visit is a different event. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 1: How the no-show rate is built.
+The denominator counts only the visits the patient was expected to keep,
+Completed plus No Shows (30,571); the Early Cancel, Late Cancel, and
+Rescheduled visits (5,429) are excluded, because a cancelled or moved
+visit is a different event. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<section id="give-the-workbook-a-structure" class="level3">
+<h3>Give the workbook a structure</h3>
+<p>Start where the analyst starts: with one file and no structure.
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>DS2_appointments_clean.csv</code></a> holds 36,000 rows, one per
+scheduled visit, and opening it in Excel gives you a single grid of raw
+data. The temptation is to begin calculating on that grid directly.
+Resist it. The moment you edit a raw value or drop a formula beside the
+data, you lose the ability to say where a number came from.</p>
+<p>A disciplined workbook separates its work into four layers, each on
+its own sheet:</p>
+<ul>
+<li><strong>Raw</strong>: the imported data exactly as it arrived, never
+edited by hand.</li>
+<li><strong>Cleaning</strong>: the transformations that fix and reshape
+the data.</li>
+<li><strong>Analysis</strong>: the PivotTables and formulas that answer
+questions.</li>
+<li><strong>Output</strong>: the charts and final numbers a reader
+sees.</li>
+</ul>
+<p>Figure 2 shows the flow, and it runs one way only: data moves from
+raw to output, never back. Because the raw sheet is never touched, any
+result downstream can be traced to the rows it came from. This
+<strong>calculation traceability</strong>, showing how a number was
+produced, is what makes a workbook auditable, even though a spreadsheet
+does not by itself record who changed what and when. Organizing a
+spreadsheet so both people and software can read it is a discipline in
+its own right (Broman &amp; Woo, 2018).</p>
+<figure id="fig:ch03-workbook">
+<img src="figures/generated/ch_03_workbook_structure.png"
+alt="Figure 2: A disciplined workbook separates raw data, cleaning, analysis, and outputs into distinct sheets, with data flowing one way. The raw sheet is never edited in place, so every result can be traced to its source." />
+<figcaption aria-hidden="true">Figure 2: A disciplined workbook
+separates raw data, cleaning, analysis, and outputs into distinct
+sheets, with data flowing one way. The raw sheet is never edited in
+place, so every result can be traced to its source.</figcaption>
+</figure>
+<p>The file you start with, <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>DS2_appointments_clean.csv</code></a>, has
+already been cleaned, so this chapter builds the raw, analysis, and
+output layers around data that is ready to use. Chapter 7 builds the
+reusable import that feeds a workbook, and Chapter 8 builds the cleaning
+layer, so you will meet the full four-layer architecture in stages
+rather than all at once.</p>
+<p>Two small habits protect this structure. The first is a one-sentence
+note on each sheet stating its purpose, placed in a cell to the side of
+the data or on a small documentation sheet, so the next reader does not
+have to guess. The second is a file name that means something. A
+workbook called <code>final.xlsx</code> tells you nothing, and a later
+<code>final_v2_REAL_final.xlsx</code> tells you less. A name like
+<code>Clinic_NoShow_Analysis_2026-04-01.xlsx</code> states what the
+workbook is and when it was made. Structure keeps a result traceable,
+but only if the data inside each layer can be referred to cleanly. That
+is the next problem to solve.</p>
+</section>
+<section
+id="make-the-columns-addressable-tables-and-structured-references"
+class="level3">
+<h3>Make the columns addressable: Tables and structured references</h3>
+<p>You now have the raw appointment data on its own sheet. Left as a
+plain range, it is fragile. Formulas point at coordinates like
+<code>AJ2:AJ36001</code>, and the day someone inserts a row or the file
+grows to next quarter’s data, those coordinates quietly stop covering
+everything. The fix is to convert the range into an Excel Table.</p>
+<div class="definition">
+<p>An <strong>Excel Table</strong> is a structured, named object that
+Excel manages as a unit. It expands automatically when you add rows to
+it, keeps its header row visible while you scroll, and lets you refer to
+a column by its name instead of its coordinates. Note that a Table grows
+when rows are appended to it inside Excel; it does not re-read the
+original CSV on disk if that file changes later.</p>
+</div>
+<p>Once the appointment data is a Table named <code>Appointments</code>,
+a <strong>structured reference</strong> lets you write
+<code>Appointments[attendance_outcome]</code> in place of
+<code>AJ2:AJ36001</code>. A formula that reads
+<code>COUNTIF(Appointments[attendance_outcome], "No Show")</code> says
+what it does; the same formula written against a cell range does not.
+That readability is not cosmetic. When the reference is a column name,
+the formula keeps working as the Table grows, because the name always
+means the whole column. A fixed range covers only the rows you selected
+the day you wrote it.</p>
+<p>One detail matters for beginners. Inside the Table you can use the
+short forms <code>[attendance_outcome]</code> for the whole column or
+<code>[@attendance_outcome]</code> for the current row. But in a formula
+written anywhere else, you must include the Table name, as in
+<code>Appointments[attendance_outcome]</code>.</p>
+<p>A <strong>named range</strong> solves the same problem for a single
+value. If your no-show analysis flags any clinic above a chosen
+threshold, store that threshold in one named cell called
+<code>Threshold</code> rather than typing <code>0.16</code> into a dozen
+formulas. Change the threshold once, and every formula that refers to
+<code>Threshold</code> updates.</p>
+<p>Clean design also means avoiding merged cells, labeling consistently,
+and keeping the transformation logic visible rather than hidden three
+sheets away. A workbook should not read like a puzzle. With the columns
+now addressable by name, a small set of functions can answer most of the
+questions an analyst is asked.</p>
+</section>
+<section id="a-small-core-of-functions-and-four-tools" class="level3">
+<h3>A small core of functions, and four tools</h3>
+<p>New analysts often believe they need to memorize hundreds of
+functions. They do not. A first year of healthcare analytics runs on a
+small core: <code>SUM</code>, <code>AVERAGE</code>, <code>COUNT</code>,
+<code>COUNTIF</code> and <code>COUNTIFS</code>, <code>SUMIF</code> and
+<code>SUMIFS</code>, <code>IF</code>, <code>XLOOKUP</code>,
+<code>ROUND</code>, <code>TEXT</code>, and a handful of date functions.
+The goal is not to collect functions. The goal is to know which function
+answers a real question. Table 1 maps the core to the appointment data
+in front of you.</p>
+<table id="tbl:ch03-functions">
+<caption>Table 1: A core of Excel functions, matched to a task in
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Function</th>
+<th>What it answers</th>
+<th>Appointment example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUNTIFS</code></td>
+<td>How many rows meet conditions</td>
+<td>Count no-shows in <code>[attendance_outcome]</code></td>
+</tr>
+<tr>
+<td><code>SUMIFS</code></td>
+<td>A total under conditions</td>
+<td>Sum <code>[copay_usd]</code> for completed visits</td>
+</tr>
+<tr>
+<td><code>AVERAGE</code></td>
+<td>A typical value</td>
+<td>Mean <code>[lead_days]</code> across appointments</td>
+</tr>
+<tr>
+<td><code>XLOOKUP</code></td>
+<td>A value pulled from another table</td>
+<td>Find a clinic name from its <code>[facility_id]</code></td>
+</tr>
+<tr>
+<td><code>IF</code></td>
+<td>A value that depends on a test</td>
+<td>Label an appointment high or low lead time</td>
+</tr>
+</tbody>
+</table>
+<p>The no-show rate the director asked for needs only one of these.
+Counting no-shows and dividing by the expected visits is a job for
+<code>COUNTIFS</code>, and structured references make the formula
+readable.</p>
+<div class="excelformula">
+<p>To count no-shows and expected visits directly from the Table, with
+the outcome column referenced by name:</p>
+<p><code>No shows:  =COUNTIFS(Appointments[attendance_outcome], "No Show")</code></p>
+<p><code>Expected:  =COUNTIFS(Appointments[attendance_outcome], "Completed") + COUNTIFS(Appointments[attendance_outcome], "No Show")</code></p>
+<p><code>Rate:      =B1/B2</code> (No shows in B1, Expected in B2)</p>
+<p>On the full file this returns 4,913 no-shows out of 30,571 expected
+visits, a rate of 16.1 percent. Written against fixed cell ranges such
+as <code>AJ2:AJ36001</code>, the same formula breaks the moment a row is
+added; written against the Table column, it does not. XLOOKUP, listed in
+the function table above, needs Microsoft 365 or Excel 2021; in older
+versions the same lookup is done with INDEX and MATCH, or with
+VLOOKUP.</p>
+</div>
+<p>Formulas cover a great deal, but four larger tools do the heavier
+lifting. It helps to see them as one connected stack rather than
+unrelated features, shown in Figure 3:</p>
+<ul>
+<li><strong>Power Query</strong> prepares the data. It records import
+and cleaning steps you can refresh when new data arrives, so the
+cleaning is repeatable instead of manual. On a Mac, its full experience
+requires a Microsoft 365 subscription, and Chapter 7 builds the reusable
+import that relies on it.</li>
+<li><strong>PivotTables</strong> summarize the data. Put
+<code>visit_type</code> in rows, filter <code>attendance_outcome</code>
+to Completed and No Show, average <code>no_show_flag</code>, and you
+have the no-show rate for every visit type in seconds.</li>
+<li><strong>The Analysis ToolPak</strong> runs the statistics. It is an
+add-in that ships with Excel and provides the linear regression Chapters
+11 and 12 use.</li>
+<li><strong>Solver</strong> optimizes. Chapter 13 uses it to fit a
+logistic regression by maximizing likelihood.</li>
+</ul>
+<p>You do not need the last two yet; know that they exist and that the
+workbench you are learning now is the same one those chapters build on.
+Power without a check on it, though, is exactly how spreadsheets go
+wrong.</p>
+<figure id="fig:ch03-tools">
+<img src="figures/concept/ch_03_four_tools.png"
+alt="Figure 3: Four Excel tools for four analytic jobs. Power Query prepares and refreshes data, PivotTables summarize and explore it, the Analysis ToolPak runs the statistics used in Chapters 11 and 12, and Solver optimizes in Chapter 13. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 3: Four Excel tools for four
+analytic jobs. Power Query prepares and refreshes data, PivotTables
+summarize and explore it, the Analysis ToolPak runs the statistics used
+in Chapters 11 and 12, and Solver optimizes in Chapter 13. Source:
+concept schematic.</figcaption>
+</figure>
+</section>
+<section id="check-the-work-validation-and-auditing" class="level3">
+<h3>Check the work: validation and auditing</h3>
+<p>You can now produce the no-show rate. The next question is whether to
+believe it. Spreadsheet errors are common precisely because spreadsheets
+are easy to change and easy to misread, and a wrong number that looks
+tidy is more dangerous than one that looks wrong. Reviews of operational
+spreadsheets have repeatedly found that a large share contain at least
+one error, which is a strong argument for building checks in rather than
+trusting a result on sight (Panko, 1998; Powell et al., 2008).</p>
+<p>Three habits catch most of these errors, and Figure 4 shows how each
+catches a different kind.</p>
+<p><strong>Prevent</strong> bad values with data validation, a rule that
+restricts what a cell will accept. If a field should hold only zero or
+one, a validation rule rejects a stray two typed into the cell before it
+corrupts a count. Validation mainly governs what someone types directly,
+though. Values that arrive by import, paste, or fill can slip past it,
+and <strong>Circle Invalid Data</strong> only marks cells once a
+validation rule is in place.</p>
+<p><strong>Detect</strong> what validation missed with an audit formula.
+For imported data, count the values that are neither 0 nor 1, blanks
+included, with
+<code>=ROWS(Appointments[no_show_flag]) - COUNTIF(Appointments[no_show_flag], 0) - COUNTIF(Appointments[no_show_flag], 1)</code>.
+It should return zero.</p>
+<p><strong>Verify</strong> the result with reasonableness checks. When
+you filter the Table to completed and no-show visits, the rows that
+remain should equal the denominator your formula used, 30,571 here. That
+check reuses the formula’s own logic, so pair it with an independent
+one: confirm the five outcome categories sum to 36,000. If either number
+drifts in a way you cannot explain, stop and find out why. Tracing a
+formula’s precedents with <strong>Formulas &gt; Trace
+Precedents</strong> turns a suspicious result into a visible chain back
+to the data.</p>
+<figure id="fig:ch03-checks">
+<img src="figures/concept/ch_03_three_checks.png"
+alt="Figure 4: Three checks before you report. Data validation prevents invalid values typed into a cell, an audit formula detects invalid values that arrive by import, and reasonableness checks verify that totals reconcile. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 4: Three checks before you report.
+Data validation prevents invalid values typed into a cell, an audit
+formula detects invalid values that arrive by import, and reasonableness
+checks verify that totals reconcile. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="caution">
+<p>Two traps are especially common. The first is the stale range: a
+formula pinned to <code>D2:D5000</code> silently stops covering new rows
+the moment the data grows past row 5000, which is exactly the failure an
+Excel Table prevents. The second is the version gap:
+<code>XLOOKUP</code> and dynamic arrays exist only in Microsoft 365 and
+Excel 2021 and later. A workbook that relies on them will not behave the
+same way in Excel 2019, so state the version your work assumes.</p>
+</div>
+<p>A clean, checked workbook is trustworthy, but being trustworthy is
+not the same as being unlimited. It is worth knowing where the workbench
+ends.</p>
+</section>
+<section id="where-excel-stops" class="level3">
+<h3>Where Excel stops</h3>
+<p>Excel is an excellent environment for visible, entry-level analysis,
+and it is especially strong for learning because you can see the rows,
+the formulas, the Table, and the chart in one place. With Power Query
+and PivotTables it does far more than manual spreadsheet work: it
+imports files, reshapes them, refreshes queries, summarizes results, and
+drives a dashboard. The 36,000-row appointment file sits well within its
+comfortable range. Figure 5 contrasts where Excel is a strong fit with
+the kinds of work that call for a larger tool.</p>
+<figure id="fig:ch03-limits">
+<img src="figures/concept/ch_03_when_excel.png"
+alt="Figure 5: When Excel is the right workbench, and when to move beyond it, judged by data volume, automation, analytic complexity, and audience. Larger or automated work moves to a SQL database, Python or R, or Power BI. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 5: When Excel is the right
+workbench, and when to move beyond it, judged by data volume,
+automation, analytic complexity, and audience. Larger or automated work
+moves to a SQL database, Python or R, or Power BI. Source: concept
+schematic.</figcaption>
+</figure>
+<p>Excel is not the right tool for every problem, and pretending
+otherwise does a beginner no favors. A single worksheet holds at most
+1,048,576 rows, so a file with several million records will not even
+open in full; the data model behind Power Pivot can hold more, but the
+worksheet grid cannot. Very large data, automated pipelines that must
+run without a person present, machine learning beyond the regression
+this book covers, and enterprise reporting to hundreds of users usually
+belong on other platforms: a SQL database, a language such as Python or
+R, or a reporting tool such as Power BI.</p>
+<p>The point of this book is not that Excel solves everything. It is to
+use Excel as a serious environment for analytic thinking, so the habits
+you build here, traceable structure, readable references, and checked
+results, carry directly to those larger tools when the work outgrows the
+spreadsheet. To see them in one place, build the workbook end to
+end.</p>
+</section>
+</section>
+<section id="walkthrough-build-an-auditable-no-show-workbook"
+class="level2">
+<h2>Walkthrough: build an auditable no-show workbook</h2>
+<p>This walkthrough turns the raw appointment file into a small workbook
+that produces the 16.1 percent no-show rate and shows its work. It
+assumes no prior Excel experience and uses the full file,
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>DS2_appointments_clean.csv</code></a>. The data is synthetic, so it
+holds no real patient information; a workbook built on real records
+should never be shared or emailed without the protected health
+information safeguards your organization requires. Work top to bottom;
+each step names the exact tab, button, or formula. Figure 6 maps the
+five stages you are about to build.</p>
+<figure id="fig:ch03-workflow">
+<img src="figures/concept/ch_03_workbook_workflow.png"
+alt="Figure 6: The walkthrough at a glance: preserve the raw file, structure it as a Table, calculate the rate, summarize by visit type, and verify before reporting. Data moves forward from raw to output, while traceability lets you follow any result back to its source. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 6: The walkthrough at a glance:
+preserve the raw file, structure it as a Table, calculate the rate,
+summarize by visit type, and verify before reporting. Data moves forward
+from raw to output, while traceability lets you follow any result back
+to its source. Source: concept schematic.</figcaption>
+</figure>
+<ol type="1">
+<li>Start Excel and choose <strong>File &gt; Open</strong>. Browse to
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> and click
+<strong>Open</strong>. The 36,000 appointment records fill the grid,
+with the column headings in row 1. Rename this sheet <code>raw</code> by
+double-clicking its tab.</li>
+<li>Save the workbook in Excel’s own format before you add anything.
+Choose <strong>File &gt; Save As</strong>, pick <strong>Excel Workbook
+(.xlsx)</strong>, and name it <code>Clinic_NoShow_Analysis</code>. This
+matters: a CSV file stores only one sheet of plain text, so the
+multi-sheet workbook you are about to build would be lost if you left it
+as a CSV. Add a sheet named <code>readme</code> and, as you build, write
+one line there for each sheet you create, so every sheet’s purpose is
+documented in one place.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>. In the dialog, confirm <strong>My table
+has headers</strong> is ticked and click <strong>OK</strong>. The range
+becomes an Excel Table. On the <strong>Table Design</strong> tab
+(labeled <strong>Table</strong> on a Mac), set the <strong>Table
+Name</strong> box to <code>Appointments</code>. The columns are now
+addressable by name.</li>
+<li>Add a new sheet with the <strong>+</strong> button next to the tabs
+and name it <code>analysis</code>. In cell <strong>D1</strong>, type the
+note <code>No-show calculation</code> so the sheet’s purpose sits to the
+side of the numbers.</li>
+<li>On the <code>analysis</code> sheet, in <strong>A1</strong> type
+<code>No shows</code>, and in <strong>B1</strong> enter the No shows
+formula from the Excel Formula box in the Key concepts section,
+referencing <code>Appointments[attendance_outcome]</code>. Press
+<strong>Enter</strong>. Excel returns <strong>4,913</strong>.</li>
+<li>In <strong>A2</strong> type <code>Expected</code>, and in
+<strong>B2</strong> enter the Expected formula from the same box, which
+adds the completed and no-show counts. Press <strong>Enter</strong>.
+Excel returns <strong>30,571</strong>, the completed plus no-show
+visits, with the cancellations and rescheduled visits excluded by
+design.</li>
+<li>In <strong>A3</strong> type <code>No-show rate</code>, and in
+<strong>B3</strong> type <code>=B1/B2</code>. Format the cell as a
+percentage using the <strong>%</strong> button on the
+<strong>Home</strong> tab. The result is <strong>16.1%</strong>, the
+overall no-show rate you met in Chapter 1.</li>
+<li>Build the breakdown. Click inside the Table, choose <strong>Insert
+&gt; PivotTable</strong>, accept the new-worksheet default, and click
+<strong>OK</strong>; rename the new tab <code>by_visit_type</code>. In
+the PivotTable Fields pane, drag <code>visit_type</code> to
+<strong>Rows</strong>, drag <code>attendance_outcome</code> to
+<strong>Filters</strong>, then use its arrow, tick <strong>Select
+Multiple Items</strong>, and select only <strong>Completed</strong> and
+<strong>No Show</strong>; drag <code>no_show_flag</code> to
+<strong>Values</strong>. Click that value field, choose <strong>Value
+Field Settings</strong>, set it to <strong>Average</strong>, and format
+it as a percentage. Drag <code>appointment_id</code> to
+<strong>Values</strong> as well and set it to <strong>Count</strong> so
+each row shows its expected sample size. The rates now match the values
+in Figure 7, which sorts them and adds the overall line.</li>
+<li>Add the output. If you added the Count field, drag it back out of
+<strong>Values</strong> first, because a bar chart would plot the
+thousands-level counts on the same axis as the percentages and flatten
+the rate bars. With only the rate showing, choose <strong>Insert &gt;
+PivotChart</strong> and pick a <strong>Bar</strong> chart. Move it onto
+its own sheet with <strong>Chart Design &gt; Move Chart &gt; New
+sheet</strong>, and name that sheet <code>output</code>. Your chart is a
+plain version of Figure 7, which is drawn separately with the visit
+types sorted and the overall reference line added.</li>
+<li>Run two reasonableness checks. First, on the <code>raw</code> sheet,
+click the filter arrow already on the <code>attendance_outcome</code>
+header (the Table added it), tick only <strong>Completed</strong> and
+<strong>No Show</strong>, and read the status bar: it should say
+<strong>30,571 of 36,000 records found</strong>, the same denominator
+your formula used. Clear that filter. Second, on the
+<code>analysis</code> sheet, count each of the five outcomes (Completed,
+No Show, Early Cancel, Late Cancel, Rescheduled) with its own
+<code>COUNTIFS</code>, such as
+<code>=COUNTIFS(Appointments[attendance_outcome], "Completed")</code>,
+and confirm the five counts sum to 36,000, so no rows were lost or
+double counted. When both checks agree, the result is better supported
+and ready for review.</li>
+</ol>
+<figure id="fig:ch03-visit-type">
+<img src="figures/generated/ch_03_no_show_by_visit_type.png"
+alt="Figure 7: No-show rate by visit type, for the full appointment file. The rate is No Shows divided by Completed plus No Shows, so cancellations and rescheduled visits are excluded; each bar is labeled with its expected sample size and the dashed line marks the overall 16.1 percent rate. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 7: No-show rate by visit type, for
+the full appointment file. The rate is No Shows divided by Completed
+plus No Shows, so cancellations and rescheduled visits are excluded;
+each bar is labeled with its expected sample size and the dashed line
+marks the overall 16.1 percent rate. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>The workbook now has a raw sheet, an analysis sheet with the
+calculation, a PivotTable sheet, and an output sheet with the chart. It
+skips only the cleaning layer, because this file was cleaned already,
+which is the work of Chapter 8. Every number on it can be traced back to
+the raw rows, with a formula anyone can read and a check that confirms
+it. That is what “show me how you got it” looks like in practice.</p>
+<p>Read the breakdown in Figure 7 with the same care Chapter 1 urged.
+Each appointment carries exactly one <code>visit_type</code> in the
+data, so the categories do not overlap: Urgent Care and Acute are
+separate types, as are Follow-up and the specialty follow-ups. Some rest
+on far fewer visits than others: OB/GYN (n=558) and Procedure (n=665)
+sit within about two points of the overall rate, close enough that the
+gap could be noise rather than a real difference. A rate is only as
+steady as the number of visits behind it.</p>
+<div class="tryit">
+<p>This exercise reproduces the overall rate on a small file you can
+check by hand, this time with a formula instead of the status-bar method
+you used in Chapter 1. You will use the 12-row teaching sample,
+<a class="ds-ref" href="datasets/DS2_appointments_sample.csv" download title="Download DS2_appointments_sample.csv"><code>DS2_appointments_sample.csv</code></a>, so every row fits on one
+screen. The sample uses friendly column headings, so its outcome column
+is named <code>Outcome</code> rather than the
+<code>attendance_outcome</code> you saw in the full file; the values are
+the same.</p>
+<ol type="1">
+<li>Choose <strong>File &gt; Open</strong>, browse to
+<a class="ds-ref" href="datasets/DS2_appointments_sample.csv" download title="Download DS2_appointments_sample.csv"><code>datasets/DS2_appointments_sample.csv</code></a>, and click
+<strong>Open</strong>. Twelve appointment records fill the grid, with
+headings in row 1 and the <code>Outcome</code> column in <strong>column
+F</strong>.</li>
+<li>Click any cell in the data, and on the <strong>Insert</strong> tab
+click <strong>Table</strong>. Confirm <strong>My table has
+headers</strong> is ticked and click <strong>OK</strong>. On the
+<strong>Table Design</strong> tab (labeled <strong>Table</strong> on a
+Mac), set the <strong>Table Name</strong> to <code>Sample</code>. Then
+choose <strong>File &gt; Save As</strong> and save the file as an Excel
+Workbook (.xlsx), so the sheet you add next is not lost.</li>
+<li>Add a new sheet with the <strong>+</strong> button and name it
+<code>calc</code>. Working on a separate sheet keeps your formulas from
+being pulled into the Table, which would happen if you typed in the row
+directly below it.</li>
+<li>On the <code>calc</code> sheet, in <strong>A1</strong> type
+<code>=COUNTIFS(Sample[Outcome], "No Show")</code> and press
+<strong>Enter</strong>. This is the count of no-shows.</li>
+<li>In <strong>A2</strong>, type
+<code>=COUNTIFS(Sample[Outcome], "Completed")</code> and press
+<strong>Enter</strong>. This is the count of completed visits.</li>
+<li>In <strong>A3</strong>, type <code>=A1/(A1+A2)</code> and format it
+as a percentage with the <strong>%</strong> button. This is No Shows
+divided by Completed plus No Shows, the no-show rate, with the
+cancellations excluded.</li>
+<li>Compare your rate with the 20 percent you found in the Chapter 1 Try
+It, and with the 16.1 percent overall for the full file. Write one
+sentence on why the small sample sits where it does.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+<div class="goingdeeper">
+<p>The four tools in this chapter are one connected stack, and the last
+two point forward. When Chapter 11 fits a linear regression, it uses the
+<strong>Analysis ToolPak</strong> through <strong>Data &gt; Data
+Analysis</strong>. When Chapter 13 fits a logistic regression, it uses
+<strong>Solver</strong> to find the coefficients that maximize the
+likelihood, reached through <strong>Data &gt; Solver</strong>. On
+Windows, switch both on through <strong>File &gt; Options &gt; Add-ins
+&gt; Manage Excel Add-ins &gt; Go</strong>; on a Mac, use <strong>Tools
+&gt; Excel Add-ins</strong>. Turning them on now means the workbench is
+ready when the modeling chapters arrive.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A team inherited a workbook named
+<code>final_v2_REAL_final.xlsx</code> with merged cells, hard-coded
+totals, and formulas that pointed at cells three sheets away. It
+produced the right answer, until someone added a row and it quietly did
+not, and no one noticed for a reporting cycle. Rebuilding it as a
+Table-based workbook with a raw sheet, a visible calculation, and a
+row-count check took an afternoon, and it made every later question
+faster to answer. The lesson was blunt: a workbook that cannot be
+audited is a liability, not an asset.</p>
+</div>
+<div class="recap">
+<ul>
+<li>A workbook is a working environment, not a container. Separate raw,
+cleaning, analysis, and output so any result can be traced to its
+source.</li>
+<li>Convert imported data to an Excel Table so structured references
+stay readable and keep working as the data grows.</li>
+<li>A small core of functions plus four tools, Power Query, PivotTables,
+the Analysis ToolPak, and Solver, covers most beginner work.</li>
+<li>Validation rules, an audit formula for imported values, and
+reasonableness checks, such as matching a filtered row count to a
+formula’s denominator, catch errors before they spread.</li>
+<li>Excel is an excellent learning environment but the wrong tool for
+very large data, production pipelines, and machine learning beyond the
+regression this book covers.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>List the four kinds of sheet a disciplined workbook keeps separate,
+and explain in one sentence why the raw sheet is never edited by
+hand.</li>
+<li>Rewrite the formulas <code>=COUNTIFS(AJ2:AJ36001, "No Show")</code>
+and <code>=AVERAGE(K2:K36001)</code> using qualified structured
+references to the <code>Appointments</code> Table, and explain why the
+structured version keeps working when the data grows.</li>
+<li>Name the Excel capability best suited to each job: preparing and
+refreshing imported data; rapidly summarizing it; fitting a linear
+regression; solving an optimization.</li>
+<li>Give two checks you would add to an imported appointment Table to
+catch errors before reporting a number from it, and say why a
+data-validation rule alone does not catch a bad value that was imported
+rather than typed.</li>
+<li>Using <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, state the
+overall no-show rate and the denominator it is calculated on, and
+explain why the denominator is not 36,000.</li>
+<li>Name two situations in which Excel is the wrong tool, and say what
+you would use instead.</li>
+<li>Build a PivotTable of the no-show rate by <code>facility_id</code>,
+filtering <code>attendance_outcome</code> to Completed and No Show just
+as the walkthrough did, store a review threshold of 0.17 in a cell named
+<code>Threshold</code>, and write a formula that returns
+<code>Review</code> when a clinic’s rate is above <code>Threshold</code>
+and <code>OK</code> otherwise. Identify one facility ID that your rule
+flags.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It.</strong> After building the <code>COUNTIFS</code>
+formulas on the 12-row sample and dividing no-shows by expected visits,
+the sample’s no-show rate is <strong>20 percent</strong> (2 no-shows out
+of 10 expected visits, with the 2 cancellations excluded). That sits
+above the 16.1 percent overall rate for the full file because the sample
+is tiny: with only 10 expected visits, one extra no-show moves the rate
+by 10 points. It is the same small-sample caution from Chapter 1, now
+produced with a formula instead of the status bar.</p>
+<p><strong>Exercises.</strong></p>
+<ol type="1">
+<li>Raw, cleaning, analysis, and output. The raw sheet is never edited
+by hand so that any downstream number can be traced back to the data
+exactly as it arrived.</li>
+<li><code>=COUNTIFS(Appointments[attendance_outcome], "No Show")</code>
+and <code>=AVERAGE(Appointments[lead_days])</code>. The structured
+version refers to each whole column by name, so it still covers every
+row after new appointments are added, while a fixed range such as
+<code>AJ2:AJ36001</code> covers only the rows selected when it was
+written.</li>
+<li>Power Query; PivotTables; the Analysis ToolPak; Solver.</li>
+<li>For example, a validation rule that limits <code>no_show_flag</code>
+to 0 or 1, and an audit formula
+<code>=ROWS(Appointments[no_show_flag]) - COUNTIF(Appointments[no_show_flag], 0) - COUNTIF(Appointments[no_show_flag], 1)</code>
+that should return zero. Data validation can prevent or warn about
+invalid values typed directly into a cell, but copied, filled, or
+imported values may bypass that warning; Circle Invalid Data can flag
+values that violate an existing rule, and the audit formula, which
+counts any value that is neither 0 nor 1, blanks included, gives a
+persistent check on imported data.</li>
+<li>The overall no-show rate is 16.1 percent, calculated on 30,571
+expected visits (25,658 completed plus 4,913 no-shows). It is not 36,000
+because the Early Cancel, Late Cancel, and Rescheduled visits are
+excluded from the denominator, since a cancelled or moved visit is a
+different event with a different cause.</li>
+<li>Any two of: millions of rows, an automated production pipeline,
+machine learning beyond regression, or enterprise reporting to many
+users, handled instead with a SQL database, Python or R, or a reporting
+tool such as Power BI.</li>
+<li>A PivotTable by <code>facility_id</code> lists clinics by their
+code, not their name; the readable name lives in
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a> and would need an XLOOKUP,
+which you do not need here. To name the threshold cell, select it, click
+the Name Box to the left of the formula bar, type
+<code>Threshold</code>, and press Enter. With a clinic’s rate in, say,
+cell <code>B2</code>, the rule is
+<code>=IF(B2&gt;Threshold, "Review", "OK")</code>; if clicking the rate
+cell writes a <code>GETPIVOTDATA</code> formula instead of
+<code>B2</code>, type the plain reference <code>B2</code> yourself. At a
+threshold of 0.17 the rule flags the five clinics above 17 percent: SP03
+(18.5 percent), SP04 (17.9), SP01 (17.8), PC06 (17.6), and SP05 (17.2).
+Because each specialty clinic in this dataset hosts a single visit type,
+the specialty-clinic rates (SP03, SP04, SP01, SP05) equal the matching
+visit-type rates in Figure 7; PC06 is a primary care clinic with a mix
+of visit types.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Broman, K. W., &amp; Woo, K. H. (2018). Data organization in
+spreadsheets. <em>The American Statistician, 72</em>(1), 2-10.
+https://doi.org/10.1080/00031305.2017.1375989</li>
+<li>Microsoft. (n.d.). <em>Overview of Excel tables.</em> Microsoft
+Support. Retrieved September 27, 2026, from
+https://support.microsoft.com/en-us/office/overview-of-excel-tables-7ab0bb7d-3a9e-4b56-a3c9-6c94334e492c</li>
+<li>Microsoft. (n.d.). <em>Power Query documentation.</em> Microsoft
+Learn. Retrieved September 27, 2026, from
+https://learn.microsoft.com/power-query/</li>
+<li>Panko, R. R. (1998). What we know about spreadsheet errors.
+<em>Journal of Organizational and End User Computing, 10</em>(2), 15-21.
+https://doi.org/10.4018/joeuc.1998040102</li>
+<li>Powell, S. G., Baker, K. R., &amp; Lawson, B. (2008). A critical
+review of the literature on spreadsheet errors. <em>Decision Support
+Systems, 46</em>(1), 128-138.
+https://doi.org/10.1016/j.dss.2008.06.001</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Excel Table</dt>
+<dd>
+A structured, named object Excel manages as a unit, expanding
+automatically when rows are added and supporting references by column
+name.
+</dd>
+<dt>Structured reference</dt>
+<dd>
+A formula reference that uses a Table name and column name, such as
+<code>Appointments[attendance_outcome]</code>, instead of cell
+coordinates.
+</dd>
+<dt>Named range</dt>
+<dd>
+A cell or range given a readable name so a constant or threshold can be
+defined once and reused.
+</dd>
+<dt>Power Query</dt>
+<dd>
+Excel’s data preparation layer, which records refreshable import and
+cleaning steps.
+</dd>
+<dt>PivotTable</dt>
+<dd>
+A tool for rapidly summarizing tabular data by dragging fields into
+rows, columns, filters, and values.
+</dd>
+<dt>Analysis ToolPak</dt>
+<dd>
+An add-in included with Excel that provides statistical procedures,
+including linear regression.
+</dd>
+<dt>Solver</dt>
+<dd>
+An Excel add-in for optimization, used later to fit a logistic
+regression by maximizing likelihood.
+</dd>
+<dt>Data validation</dt>
+<dd>
+A rule that restricts what a cell will accept when a value is typed in.
+</dd>
+<dt>Reasonableness check</dt>
+<dd>
+A quick, independent test that a result makes sense, such as confirming
+a filtered row count matches a formula’s denominator.
+</dd>
+<dt>XLOOKUP</dt>
+<dd>
+A lookup function in Microsoft 365 and Excel 2021 or later that returns
+a value from one column matched on another; INDEX with MATCH is the
+older equivalent.
+</dd>
+<dt>Dynamic array</dt>
+<dd>
+A formula result that automatically spills across neighboring cells,
+available in Microsoft 365 and Excel 2021 or later.
+</dd>
+<dt>Calculation traceability</dt>
+<dd>
+The ability to follow any result back to the rows and formulas that
+produced it; note this is not a formal change-history audit trail, which
+records who changed what and when.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch02.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="pn next" href="ch04.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 4: Working with Data: Structure, Measures, and Study Design</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-an-auditable-no-show-workbook">Walkthrough: build an auditable no-show workbook</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="license">Text: CC BY-NC-SA 4.0</a><span class="license-badge">Code: MIT</span></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY-NC-SA 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+</body>
+</html>
