@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="A free, open textbook teaching healthcare data analytics with Excel: clinic scenarios, 20 synthetic datasets, from first formulas to regression.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/">
+<meta property="og:type" content="book">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="A free, open textbook teaching healthcare data analytics with Excel: clinic scenarios, 20 synthetic datasets, from first formulas to regression.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Introduction to Healthcare Data Analytics Using Excel","alternateName":"Intro to Healthcare Data Analytics","url":"https://yar177.github.io/intro-to-HDA-site/","inLanguage":"en-US","description":"This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"}},{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","identifier":"https://doi.org/10.5281/zenodo.23327956","author":{"@type":"Person","name":"Hoshiar J Sher, EdD","identifier":"https://orcid.org/0009-0002-4530-3577"},"inLanguage":"en-US","about":"Healthcare data analytics","description":"This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.","url":"https://yar177.github.io/intro-to-HDA-site/"}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body class="home">
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink active" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<main class="home-main">
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Introduction to Healthcare Data Analytics<br>Using Excel <span class="hero-edition">First Edition</span></h1>
+    <p class="hero-author">by Hoshiar J Sher, EdD</p>
+    <p class="hero-tagline">Learn data analytics through real healthcare examples, one chapter at a time.</p>
+    <div class="hero-actions"><a class="hero-cta" href="ch01.html">Start reading</a><a class="hero-link" href="preface.html">Read the preface</a><a class="hero-link" href="datasets.html">Browse datasets</a></div>
+    <div class="hero-license"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a><a class="license-badge" href="#reuse">Open source &amp; reuse</a></div>
+  </div>
+</section>
+<section class="intro">
+  <p>This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.</p>
+</section>
+<section class="home-section">
+  <h2>What you will learn</h2>
+  <p>The book follows the analyst&#39;s workflow from start to finish. Early chapters build foundations: what healthcare data analytics is, where healthcare data comes from, and how to run Excel as a disciplined workbench. Middle chapters teach the craft: data structure and study design, coding and privacy, formulas and charts, importing and cleaning data, descriptive statistics, and visualization. Later chapters develop modeling: simple and multiple linear regression, logistic regression for binary outcomes, and a capstone on decision support and communication.</p>
+</section>
+<section class="home-section">
+  <h2>Who this is for</h2>
+  <p>The book is written for students meeting data analytics for the first time, especially in health administration, public health, nursing informatics, and related programs. Career changers entering healthcare analytics will find a complete on-ramp with no assumed background. Instructors get a classroom-ready text: every chapter pairs with synthetic datasets, Try It exercises, and assignments, all reusable under a Creative Commons license.</p>
+</section>
+<section class="home-section">
+  <h2>The teaching datasets</h2>
+  <p>Twenty fully synthetic datasets power every exercise in the book: patient, provider, facility, payer, and geography dimensions, plus appointment, emergency department, inpatient, claims, survey, registry, and public-health event tables. Because the data is synthetic, you can practice freely without touching real patient information. Each dataset ships with a published data dictionary defining every column.</p>
+</section>
+<section class="toc-section">
+  <h2 class="toc-heading">Chapters</h2>
+  <div class="chapter-grid">
+<a class="chapter-card" href="ch01.html">
+  <span class="card-num">Chapter 1</span>
+  <span class="card-title">What Healthcare Data Analytics Is and Why It Matters</span>
+  <span class="card-meta">25 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch02.html">
+  <span class="card-num">Chapter 2</span>
+  <span class="card-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span>
+  <span class="card-meta">28 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch03.html">
+  <span class="card-num">Chapter 3</span>
+  <span class="card-title">Excel as the Analyst&#39;s Workbench</span>
+  <span class="card-meta">40 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch04.html">
+  <span class="card-num">Chapter 4</span>
+  <span class="card-title">Working with Data: Structure, Measures, and Study Design</span>
+  <span class="card-meta">58 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch05.html">
+  <span class="card-num">Chapter 5</span>
+  <span class="card-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span>
+  <span class="card-meta">52 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch06.html">
+  <span class="card-num">Chapter 6</span>
+  <span class="card-title">Excel Foundations: Formulas, Functions, References, and Charts</span>
+  <span class="card-meta">55 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 7</span>
+  <span class="card-title">Importing Data and Building a Reusable Excel Workflow</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 8</span>
+  <span class="card-title">Cleaning, Transforming, and Validating Data</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 9</span>
+  <span class="card-title">Summarizing Data: Descriptive Statistics and Grouping</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 10</span>
+  <span class="card-title">Distributions, Variation, and Reading a Result Honestly</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 11</span>
+  <span class="card-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 12</span>
+  <span class="card-title">Simple Linear Regression for Numerical Outcomes</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 13</span>
+  <span class="card-title">Multiple Linear Regression and Holding Factors Constant</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 14</span>
+  <span class="card-title">Logistic Regression for Binary Outcomes and Risk Stratification</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+<div class="chapter-card disabled">
+  <span class="card-num">Chapter 15</span>
+  <span class="card-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span>
+  <span class="card-soon">Coming soon</span>
+</div>
+  </div>
+</section>
+<section class="toc-section">
+  <h2 class="toc-heading">Appendices</h2>
+  <div class="chapter-grid">
+<a class="chapter-card" href="appendix-a-capstone-project.html">
+  <span class="card-num">Appendix</span>
+  <span class="card-title">Appendix A. Semester Capstone Project</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+  </div>
+</section>
+
+<section class="reuse-panel" id="reuse">
+  <h2>Open source &amp; reuse</h2>
+  <div class="reuse-grid">
+    <div class="reuse-item">
+      <h3>Book text &amp; figures</h3>
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. Share and adapt, even commercially, with attribution.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>Datasets</h3>
+      <p>Fully synthetic. No real patient information. Free to use for teaching and practice.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>Code &amp; scripts</h3>
+      <p>Build scripts and templates are MIT licensed. See the <a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">source repository</a>.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>How to cite</h3>
+      <p>Hoshiar J Sher, EdD (2026). Introduction to Healthcare Data Analytics Using Excel. https://yar177.github.io/intro-to-HDA-site/</p>
+      <p class="cite-doi"><a href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">doi:10.5281/zenodo.23327956</a> &middot; <a href="https://orcid.org/0009-0002-4530-3577" rel="noopener" target="_blank">ORCID: 0009-0002-4530-3577</a></p>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+});
+</script>
+</body>
+</html>

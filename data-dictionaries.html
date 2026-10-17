@@ -1,0 +1,2959 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Data dictionaries — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="Column-level definitions for all 20 synthetic teaching datasets: data types, definitions, and example values for every column.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/data-dictionaries.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Data dictionaries — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="Column-level definitions for all 20 synthetic teaching datasets: data types, definitions, and example values for every column.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/data-dictionaries.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebPage","name":"Data dictionaries","description":"Column-level definitions for the book's teaching datasets.","url":"https://yar177.github.io/intro-to-HDA-site/data-dictionaries.html","isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","doi":"10.5281/zenodo.23327956"}}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Reading a Result Honestly</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Course resources</p>
+    
+    <article class="dictionaries-page">
+      
+<h1 class="page-title">Data dictionaries</h1>
+<p class="page-lead">Column definitions for every teaching dataset. All data are fully synthetic.</p>
+<nav class="dict-index" aria-label="Datasets"><ul><li><a href="#dict-ds1-patient-dim-csv">Patient dimension</a></li>
+<li><a href="#dict-ds1-provider-dim-csv">Provider dimension</a></li>
+<li><a href="#dict-ds1-facility-dim-csv">Facility dimension</a></li>
+<li><a href="#dict-ds1-payer-dim-csv">Payer dimension</a></li>
+<li><a href="#dict-ds1-geography-dim-csv">Geography dimension</a></li>
+<li><a href="#dict-ds1-calendar-dim-csv">Calendar dimension</a></li>
+<li><a href="#dict-ds2-appointments-clean-csv">Appointments</a></li>
+<li><a href="#dict-ds2-appointments-sample-csv">Appointments (teaching sample)</a></li>
+<li><a href="#dict-ds3-ed-throughput-clean-csv">ED throughput</a></li>
+<li><a href="#dict-ds4-inpatient-clean-csv">Inpatient discharges</a></li>
+<li><a href="#dict-ds5-claim-header-clean-csv">Claim headers</a></li>
+<li><a href="#dict-ds5-claim-line-optional-csv">Claim lines (optional)</a></li>
+<li><a href="#dict-ds6-survey-responses-clean-csv">Survey responses</a></li>
+<li><a href="#dict-ds7-registry-clean-csv">Care registry</a></li>
+<li><a href="#dict-ds8-sampling-scenarios-csv">Sampling scenarios</a></li>
+<li><a href="#dict-ds8-studies-master-csv">Studies master</a></li>
+<li><a href="#dict-ph1-places-county-wide-csv">PLACES county (wide)</a></li>
+<li><a href="#dict-ph1-places-county-long-csv">PLACES county (long)</a></li>
+<li><a href="#dict-ph1-places-measure-lookup-csv">PLACES measure lookup</a></li>
+<li><a href="#dict-ph2-brfss2022-teaching-extract-csv">BRFSS teaching extract</a></li></ul></nav>
+<section class="dict-section" id="dict-ds1-patient-dim-csv">
+  <h2>Patient dimension</h2>
+  <p class="dict-desc">One row per synthetic patient.</p>
+  <p class="dict-file"><a href="datasets/DS1_patient_dim.csv" download><code>DS1_patient_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Unique synthetic identifier for the patient; joins to patient_id in the event tables.</td>
+  <td><code>RBP000001</code></td>
+</tr>
+
+<tr>
+  <td><code>birth_date</code></td>
+  <td>date</td>
+  <td>Date of birth of the synthetic patient.</td>
+  <td><code>1935-07-05</code></td>
+</tr>
+
+<tr>
+  <td><code>sex_at_birth</code></td>
+  <td>text</td>
+  <td>Recorded sex at birth (Female or Male).</td>
+  <td><code>Female</code></td>
+</tr>
+
+<tr>
+  <td><code>gender_identity_group</code></td>
+  <td>text</td>
+  <td>Grouped self-reported gender identity.</td>
+  <td><code>Man</code></td>
+</tr>
+
+<tr>
+  <td><code>race_ethnicity_group</code></td>
+  <td>text</td>
+  <td>Grouped race and ethnicity category.</td>
+  <td><code>Black non-Hispanic</code></td>
+</tr>
+
+<tr>
+  <td><code>preferred_language</code></td>
+  <td>text</td>
+  <td>Preferred language for care communication.</td>
+  <td><code>Spanish</code></td>
+</tr>
+
+<tr>
+  <td><code>interpreter_needed_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient needs an interpreter.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>ZIP-area group; joins to zip_area_id in the geography dimension.</td>
+  <td><code>ZA003</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_primary_id</code></td>
+  <td>text</td>
+  <td>Primary payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY04</code></td>
+</tr>
+
+<tr>
+  <td><code>pcp_provider_id</code></td>
+  <td>text</td>
+  <td>Primary care provider; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0019</code></td>
+</tr>
+
+<tr>
+  <td><code>chronic_condition_count</code></td>
+  <td>integer</td>
+  <td>Number of chronic conditions on the patient record.</td>
+  <td><code>2</code></td>
+</tr>
+
+<tr>
+  <td><code>sdoh_risk_score</code></td>
+  <td>number</td>
+  <td>Composite social-determinants-of-health risk score; higher values indicate greater risk.</td>
+  <td><code>45.2</code></td>
+</tr>
+
+<tr>
+  <td><code>portal_active_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient has an active patient-portal account.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>active_status</code></td>
+  <td>text</td>
+  <td>Whether the patient is currently active in the roster (Active or Inactive).</td>
+  <td><code>Active</code></td>
+</tr>
+
+<tr>
+  <td><code>death_date</code></td>
+  <td>date</td>
+  <td>Date of death; blank when the patient is alive.</td>
+  <td><code></code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds1-provider-dim-csv">
+  <h2>Provider dimension</h2>
+  <p class="dict-desc">One row per provider or clinician.</p>
+  <p class="dict-file"><a href="datasets/DS1_provider_dim.csv" download><code>DS1_provider_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>provider_id</code></td>
+  <td>text</td>
+  <td>Unique provider identifier; joins to provider_id in the event tables.</td>
+  <td><code>RBPV0001</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_type</code></td>
+  <td>text</td>
+  <td>Provider credential type (MD, NP, PA, and similar).</td>
+  <td><code>NP</code></td>
+</tr>
+
+<tr>
+  <td><code>specialty_group</code></td>
+  <td>text</td>
+  <td>Grouped clinical specialty.</td>
+  <td><code>Primary care</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Primary practice site; joins to facility_id in the facility dimension.</td>
+  <td><code>PC05</code></td>
+</tr>
+
+<tr>
+  <td><code>years_in_practice</code></td>
+  <td>integer</td>
+  <td>Years the provider has been in practice.</td>
+  <td><code>16</code></td>
+</tr>
+
+<tr>
+  <td><code>fte_status</code></td>
+  <td>text</td>
+  <td>Employment status (Full-time, Part-time, Per diem).</td>
+  <td><code>Per diem</code></td>
+</tr>
+
+<tr>
+  <td><code>panel_size</code></td>
+  <td>number</td>
+  <td>Number of patients empaneled to the provider.</td>
+  <td><code>1717.0</code></td>
+</tr>
+
+<tr>
+  <td><code>language_1</code></td>
+  <td>text</td>
+  <td>First language spoken by the provider.</td>
+  <td><code>English</code></td>
+</tr>
+
+<tr>
+  <td><code>language_2</code></td>
+  <td>text</td>
+  <td>Second language spoken by the provider; blank when none.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>active_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the provider is currently active.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_gender</code></td>
+  <td>text</td>
+  <td>Grouped provider gender.</td>
+  <td><code>Man</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_age_band</code></td>
+  <td>text</td>
+  <td>Age band of the provider.</td>
+  <td><code>55-64</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds1-facility-dim-csv">
+  <h2>Facility dimension</h2>
+  <p class="dict-desc">One row per facility or site.</p>
+  <p class="dict-file"><a href="datasets/DS1_facility_dim.csv" download><code>DS1_facility_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Unique facility identifier; joins to facility_id in the event tables.</td>
+  <td><code>HOSP01</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_name</code></td>
+  <td>text</td>
+  <td>Name of the facility.</td>
+  <td><code>Riverbend Medical Center</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_type</code></td>
+  <td>text</td>
+  <td>Type of site (Hospital, ED, Urgent care, clinic).</td>
+  <td><code>Hospital</code></td>
+</tr>
+
+<tr>
+  <td><code>region</code></td>
+  <td>text</td>
+  <td>Operational region.</td>
+  <td><code>Central</code></td>
+</tr>
+
+<tr>
+  <td><code>county_fips</code></td>
+  <td>text</td>
+  <td>5-digit FIPS county code; joins to county_fips in geography tables.</td>
+  <td><code>36055</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>ZIP-area group; joins to zip_area_id in the geography dimension.</td>
+  <td><code>ZA010</code></td>
+</tr>
+
+<tr>
+  <td><code>urban_rural_group</code></td>
+  <td>text</td>
+  <td>Urbanicity grouping (Urban core, Suburban, Small town, Rural).</td>
+  <td><code>Urban core</code></td>
+</tr>
+
+<tr>
+  <td><code>bed_count</code></td>
+  <td>integer</td>
+  <td>Number of staffed beds; 0 for non-inpatient sites.</td>
+  <td><code>320</code></td>
+</tr>
+
+<tr>
+  <td><code>teaching_site_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the site is a teaching site.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>service_line_focus</code></td>
+  <td>text</td>
+  <td>Primary service line of the site.</td>
+  <td><code>Acute care hospital</code></td>
+</tr>
+
+<tr>
+  <td><code>opening_year</code></td>
+  <td>integer</td>
+  <td>Year the site opened.</td>
+  <td><code>1998</code></td>
+</tr>
+
+<tr>
+  <td><code>active_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the site is currently active.</td>
+  <td><code>1</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds1-payer-dim-csv">
+  <h2>Payer dimension</h2>
+  <p class="dict-desc">One row per payer or plan group.</p>
+  <p class="dict-file"><a href="datasets/DS1_payer_dim.csv" download><code>DS1_payer_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Unique payer identifier; joins to payer_id in the event tables.</td>
+  <td><code>PAY01</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_group</code></td>
+  <td>text</td>
+  <td>Payer category (Commercial, Medicare, Medicaid).</td>
+  <td><code>Commercial</code></td>
+</tr>
+
+<tr>
+  <td><code>plan_name</code></td>
+  <td>text</td>
+  <td>Name of the health plan.</td>
+  <td><code>Blue Valley PPO</code></td>
+</tr>
+
+<tr>
+  <td><code>product_type</code></td>
+  <td>text</td>
+  <td>Plan product type (PPO, HMO, FFS).</td>
+  <td><code>PPO</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_auth_intensity</code></td>
+  <td>text</td>
+  <td>How aggressively the plan requires prior authorization (Low, Medium, High).</td>
+  <td><code>Medium</code></td>
+</tr>
+
+<tr>
+  <td><code>avg_payment_days_band</code></td>
+  <td>text</td>
+  <td>Banded average days from claim submission to payment.</td>
+  <td><code>21-35 days</code></td>
+</tr>
+
+<tr>
+  <td><code>network_rules_group</code></td>
+  <td>text</td>
+  <td>Grouped description of the plan network rules.</td>
+  <td><code>Standard</code></td>
+</tr>
+
+<tr>
+  <td><code>market_share_band</code></td>
+  <td>text</td>
+  <td>Banded market share (Low, Medium, High).</td>
+  <td><code>High</code></td>
+</tr>
+
+<tr>
+  <td><code>pharmacy_benefit_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the plan includes a pharmacy benefit.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>active_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the plan is currently active.</td>
+  <td><code>1</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds1-geography-dim-csv">
+  <h2>Geography dimension</h2>
+  <p class="dict-desc">One row per ZIP-area group.</p>
+  <p class="dict-file"><a href="datasets/DS1_geography_dim.csv" download><code>DS1_geography_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>Unique ZIP-area identifier; joins to zip_area_id in patient and event tables.</td>
+  <td><code>ZA001</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_code_prefix</code></td>
+  <td>text</td>
+  <td>5-digit ZIP code prefix for the area.</td>
+  <td><code>14601</code></td>
+</tr>
+
+<tr>
+  <td><code>county_fips</code></td>
+  <td>text</td>
+  <td>5-digit FIPS county code; joins to county_fips in county tables.</td>
+  <td><code>36055</code></td>
+</tr>
+
+<tr>
+  <td><code>county_name</code></td>
+  <td>text</td>
+  <td>County name.</td>
+  <td><code>Monroe</code></td>
+</tr>
+
+<tr>
+  <td><code>state_abbr</code></td>
+  <td>text</td>
+  <td>Two-letter state abbreviation.</td>
+  <td><code>NY</code></td>
+</tr>
+
+<tr>
+  <td><code>region</code></td>
+  <td>text</td>
+  <td>Operational region.</td>
+  <td><code>Central</code></td>
+</tr>
+
+<tr>
+  <td><code>urban_rural_group</code></td>
+  <td>text</td>
+  <td>Urbanicity grouping (Urban core, Suburban, Small town, Rural).</td>
+  <td><code>Urban core</code></td>
+</tr>
+
+<tr>
+  <td><code>deprivation_quintile</code></td>
+  <td>integer</td>
+  <td>Area deprivation quintile from 1 (least deprived) to 5 (most deprived).</td>
+  <td><code>2</code></td>
+</tr>
+
+<tr>
+  <td><code>median_household_income</code></td>
+  <td>number</td>
+  <td>Median household income for the area, in US dollars.</td>
+  <td><code>94356</code></td>
+</tr>
+
+<tr>
+  <td><code>uninsured_rate_pct</code></td>
+  <td>number</td>
+  <td>Share of area residents without health insurance, as a percentage.</td>
+  <td><code>10.0</code></td>
+</tr>
+
+<tr>
+  <td><code>transit_access_group</code></td>
+  <td>text</td>
+  <td>Grouped transit access (Low, High).</td>
+  <td><code>Low</code></td>
+</tr>
+
+<tr>
+  <td><code>broadband_access_pct</code></td>
+  <td>number</td>
+  <td>Share of area households with broadband access, as a percentage.</td>
+  <td><code>83.3</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds1-calendar-dim-csv">
+  <h2>Calendar dimension</h2>
+  <p class="dict-desc">One row per calendar date.</p>
+  <p class="dict-file"><a href="datasets/DS1_calendar_dim.csv" download><code>DS1_calendar_dim.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>calendar_date</code></td>
+  <td>date</td>
+  <td>Calendar date; joins to date fields in the event tables.</td>
+  <td><code>2024-01-01</code></td>
+</tr>
+
+<tr>
+  <td><code>year</code></td>
+  <td>integer</td>
+  <td>Calendar year.</td>
+  <td><code>2024</code></td>
+</tr>
+
+<tr>
+  <td><code>quarter</code></td>
+  <td>integer</td>
+  <td>Calendar quarter (1-4).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>month_num</code></td>
+  <td>integer</td>
+  <td>Month number (1-12).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>month_name</code></td>
+  <td>text</td>
+  <td>Month name.</td>
+  <td><code>January</code></td>
+</tr>
+
+<tr>
+  <td><code>week_of_year</code></td>
+  <td>integer</td>
+  <td>Week number within the year.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>weekday_num</code></td>
+  <td>integer</td>
+  <td>Day-of-week number (1 = Monday through 7 = Sunday).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>weekday_name</code></td>
+  <td>text</td>
+  <td>Day-of-week name.</td>
+  <td><code>Monday</code></td>
+</tr>
+
+<tr>
+  <td><code>weekend_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the date falls on a weekend.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>holiday_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the date is a holiday.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>flu_season_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the date falls in flu season.</td>
+  <td><code>1</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds2-appointments-clean-csv">
+  <h2>Appointments</h2>
+  <p class="dict-desc">One row per scheduled visit (ambulatory scheduling).</p>
+  <p class="dict-file"><a href="datasets/DS2_appointments_clean.csv" download><code>DS2_appointments_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>appointment_id</code></td>
+  <td>text</td>
+  <td>Unique appointment identifier; joins to encounter_source_id in claims and source_encounter_id in surveys.</td>
+  <td><code>APT000126</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP011885</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_id</code></td>
+  <td>text</td>
+  <td>Scheduled provider; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0067</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Scheduled site; joins to facility_id in the facility dimension.</td>
+  <td><code>SP03</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_created_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the appointment was booked (YYYY-MM-DD HH:MM).</td>
+  <td><code>2023-12-10 03:29</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_datetime</code></td>
+  <td>datetime</td>
+  <td>Scheduled date and time of the visit (YYYY-MM-DD HH:MM).</td>
+  <td><code>2024-01-01 08:00</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_date</code></td>
+  <td>date</td>
+  <td>Scheduled date of the visit.</td>
+  <td><code>2024-01-01</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_month</code></td>
+  <td>text</td>
+  <td>Year-month of the scheduled visit, for grouping (YYYY-MM).</td>
+  <td><code>2024-01</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_weekday</code></td>
+  <td>text</td>
+  <td>Day of week of the scheduled visit.</td>
+  <td><code>Monday</code></td>
+</tr>
+
+<tr>
+  <td><code>appointment_hour</code></td>
+  <td>integer</td>
+  <td>Hour of the scheduled visit on a 24-hour clock.</td>
+  <td><code>8</code></td>
+</tr>
+
+<tr>
+  <td><code>lead_days</code></td>
+  <td>integer</td>
+  <td>Days between booking and the appointment (lead time).</td>
+  <td><code>22</code></td>
+</tr>
+
+<tr>
+  <td><code>visit_type</code></td>
+  <td>text</td>
+  <td>Type of visit (Acute, Behavioral Health, Urgent Care, and similar).</td>
+  <td><code>Behavioral Health</code></td>
+</tr>
+
+<tr>
+  <td><code>specialty_group</code></td>
+  <td>text</td>
+  <td>Grouped specialty of the visit.</td>
+  <td><code>Behavioral health</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY06</code></td>
+</tr>
+
+<tr>
+  <td><code>reminder_channel</code></td>
+  <td>text</td>
+  <td>Channel used for the appointment reminder (Phone, SMS, and similar).</td>
+  <td><code>Phone</code></td>
+</tr>
+
+<tr>
+  <td><code>reminder_sent_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a reminder was sent.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>reminder_days_before</code></td>
+  <td>number</td>
+  <td>Days before the visit that the reminder was sent.</td>
+  <td><code>2.0</code></td>
+</tr>
+
+<tr>
+  <td><code>same_day_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the visit was booked the same day.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>telehealth_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the visit was a telehealth visit.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>copay_usd</code></td>
+  <td>number</td>
+  <td>Patient copay for the visit, in US dollars.</td>
+  <td><code>46.85</code></td>
+</tr>
+
+<tr>
+  <td><code>distance_to_clinic_miles</code></td>
+  <td>number</td>
+  <td>Distance from the patient to the clinic, in miles.</td>
+  <td><code>25.2</code></td>
+</tr>
+
+<tr>
+  <td><code>transportation_barrier_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a transportation barrier was recorded.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>interpreter_needed_flag</code></td>
+  <td>boolean</td>
+  <td>1 means an interpreter was needed.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>weather_severity_group</code></td>
+  <td>text</td>
+  <td>Grouped weather severity on the visit day.</td>
+  <td><code>Normal</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>Patient ZIP-area group; joins to the geography dimension.</td>
+  <td><code>ZA029</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_age</code></td>
+  <td>integer</td>
+  <td>Patient age in years at the visit.</td>
+  <td><code>57</code></td>
+</tr>
+
+<tr>
+  <td><code>sdoh_risk_score</code></td>
+  <td>number</td>
+  <td>Composite social-determinants-of-health risk score; higher values indicate greater risk.</td>
+  <td><code>76.6</code></td>
+</tr>
+
+<tr>
+  <td><code>portal_active_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient had an active portal account.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>deprivation_quintile</code></td>
+  <td>integer</td>
+  <td>Area deprivation quintile from 1 (least deprived) to 5 (most deprived).</td>
+  <td><code>4</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_completed_visits_12m</code></td>
+  <td>integer</td>
+  <td>Completed visits in the prior 12 months.</td>
+  <td><code>4</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_no_show_count_12m</code></td>
+  <td>integer</td>
+  <td>No-shows in the prior 12 months.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_cancel_count_12m</code></td>
+  <td>integer</td>
+  <td>Cancellations in the prior 12 months.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>check_in_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the patient checked in (YYYY-MM-DD HH:MM).</td>
+  <td><code>2024-01-01 07:50</code></td>
+</tr>
+
+<tr>
+  <td><code>seen_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the patient was seen by the provider (YYYY-MM-DD HH:MM).</td>
+  <td><code>2024-01-01 08:12</code></td>
+</tr>
+
+<tr>
+  <td><code>cancel_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the appointment was canceled; blank when not canceled.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>attendance_outcome</code></td>
+  <td>text</td>
+  <td>Final visit outcome (Completed, No-show, Canceled, and similar).</td>
+  <td><code>Completed</code></td>
+</tr>
+
+<tr>
+  <td><code>no_show_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient did not show for the visit.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_late_minutes</code></td>
+  <td>number</td>
+  <td>Minutes late for the appointment; negative values mean the patient arrived early.</td>
+  <td><code>-10.0</code></td>
+</tr>
+
+<tr>
+  <td><code>wait_to_room_minutes</code></td>
+  <td>number</td>
+  <td>Minutes from check-in to being roomed.</td>
+  <td><code>22.0</code></td>
+</tr>
+
+<tr>
+  <td><code>total_visit_minutes</code></td>
+  <td>number</td>
+  <td>Total visit duration in minutes.</td>
+  <td><code>26.0</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds2-appointments-sample-csv">
+  <h2>Appointments (teaching sample)</h2>
+  <p class="dict-desc">A 12-row sample of the appointments file for the Chapter 1 and 3 Try It exercises.</p>
+  <p class="dict-file"><a href="datasets/DS2_appointments_sample.csv" download><code>DS2_appointments_sample.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>Visit ID</code></td>
+  <td>text</td>
+  <td>Appointment identifier; matches appointment_id in the full appointments file.</td>
+  <td><code>APT000126</code></td>
+</tr>
+
+<tr>
+  <td><code>Clinic</code></td>
+  <td>text</td>
+  <td>Clinic/facility code of the visit.</td>
+  <td><code>SP03</code></td>
+</tr>
+
+<tr>
+  <td><code>Visit type</code></td>
+  <td>text</td>
+  <td>Type of visit.</td>
+  <td><code>Behavioral Health</code></td>
+</tr>
+
+<tr>
+  <td><code>Lead days</code></td>
+  <td>integer</td>
+  <td>Days between booking and the visit (lead time).</td>
+  <td><code>22</code></td>
+</tr>
+
+<tr>
+  <td><code>Reminder</code></td>
+  <td>text</td>
+  <td>Channel used for the appointment reminder.</td>
+  <td><code>Phone</code></td>
+</tr>
+
+<tr>
+  <td><code>Outcome</code></td>
+  <td>text</td>
+  <td>Final visit outcome.</td>
+  <td><code>Completed</code></td>
+</tr>
+
+<tr>
+  <td><code>No-show flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient did not show for the visit.</td>
+  <td><code>0</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds3-ed-throughput-clean-csv">
+  <h2>ED throughput</h2>
+  <p class="dict-desc">One row per emergency department visit.</p>
+  <p class="dict-file"><a href="datasets/DS3_ed_throughput_clean.csv" download><code>DS3_ed_throughput_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>encounter_id</code></td>
+  <td>text</td>
+  <td>Unique ED encounter identifier.</td>
+  <td><code>ED000001</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP006296</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>ED site; joins to facility_id in the facility dimension.</td>
+  <td><code>ED01</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time of arrival (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 10:55:00</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_date</code></td>
+  <td>date</td>
+  <td>Date of arrival.</td>
+  <td><code>2025-07-16</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_hour</code></td>
+  <td>integer</td>
+  <td>Hour of arrival on a 24-hour clock.</td>
+  <td><code>10</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_day_of_week</code></td>
+  <td>text</td>
+  <td>Day of week of arrival.</td>
+  <td><code>Wednesday</code></td>
+</tr>
+
+<tr>
+  <td><code>arrival_mode</code></td>
+  <td>text</td>
+  <td>How the patient arrived (Walk-in, EMS, and similar).</td>
+  <td><code>Walk-in</code></td>
+</tr>
+
+<tr>
+  <td><code>chief_complaint_group</code></td>
+  <td>text</td>
+  <td>Grouped chief complaint.</td>
+  <td><code>Behavioral</code></td>
+</tr>
+
+<tr>
+  <td><code>triage_acuity</code></td>
+  <td>integer</td>
+  <td>Triage acuity score on a 1-5 scale, where 1 is the most urgent.</td>
+  <td><code>5</code></td>
+</tr>
+
+<tr>
+  <td><code>triage_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time triage was completed (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 11:06:00</code></td>
+</tr>
+
+<tr>
+  <td><code>roomed_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the patient was placed in a room (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 11:38:00</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_first_contact_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time of first provider contact (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 11:56:00</code></td>
+</tr>
+
+<tr>
+  <td><code>disposition_order_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the disposition decision was ordered (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 13:37:00</code></td>
+</tr>
+
+<tr>
+  <td><code>departure_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time the patient left the ED (YYYY-MM-DD HH:MM:SS).</td>
+  <td><code>2025-07-16 14:08:00</code></td>
+</tr>
+
+<tr>
+  <td><code>lab_order_flag</code></td>
+  <td>boolean</td>
+  <td>1 means labs were ordered.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>lab_count</code></td>
+  <td>integer</td>
+  <td>Number of lab orders placed.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>lab_result_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time lab results returned; blank when no labs were ordered.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>imaging_flag</code></td>
+  <td>boolean</td>
+  <td>1 means imaging was ordered.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>imaging_modality_group</code></td>
+  <td>text</td>
+  <td>Grouped imaging modality; blank when no imaging was ordered.</td>
+  <td><code>Ultrasound</code></td>
+</tr>
+
+<tr>
+  <td><code>imaging_result_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time imaging results returned; blank when no imaging was ordered.</td>
+  <td><code>2025-07-16 12:47:00</code></td>
+</tr>
+
+<tr>
+  <td><code>consult_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a specialty consult was requested.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>boarding_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient boarded while waiting for an inpatient bed.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>observation_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient was placed in observation status.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>disposition</code></td>
+  <td>text</td>
+  <td>Final disposition (Home, Admit, Transfer, and similar).</td>
+  <td><code>Home</code></td>
+</tr>
+
+<tr>
+  <td><code>admit_service_line</code></td>
+  <td>text</td>
+  <td>Service line for admitted patients; blank when the patient was not admitted.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>pain_score_initial</code></td>
+  <td>number</td>
+  <td>Initial pain score on a 0-10 scale.</td>
+  <td><code>4.0</code></td>
+</tr>
+
+<tr>
+  <td><code>age_at_visit</code></td>
+  <td>integer</td>
+  <td>Patient age in years at the visit.</td>
+  <td><code>52</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY01</code></td>
+</tr>
+
+<tr>
+  <td><code>language_group</code></td>
+  <td>text</td>
+  <td>Grouped preferred language; Not recorded when unknown.</td>
+  <td><code>English</code></td>
+</tr>
+
+<tr>
+  <td><code>interpreter_needed_flag</code></td>
+  <td>boolean</td>
+  <td>1 means an interpreter was needed.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>weekend_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the visit occurred on a weekend.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>door_to_triage_minutes</code></td>
+  <td>number</td>
+  <td>Minutes from arrival to triage.</td>
+  <td><code>11</code></td>
+</tr>
+
+<tr>
+  <td><code>triage_to_room_minutes</code></td>
+  <td>number</td>
+  <td>Minutes from triage to rooming.</td>
+  <td><code>32</code></td>
+</tr>
+
+<tr>
+  <td><code>door_to_provider_minutes</code></td>
+  <td>number</td>
+  <td>Minutes from arrival to first provider contact.</td>
+  <td><code>61</code></td>
+</tr>
+
+<tr>
+  <td><code>door_to_disposition_minutes</code></td>
+  <td>number</td>
+  <td>Minutes from arrival to the disposition decision.</td>
+  <td><code>162</code></td>
+</tr>
+
+<tr>
+  <td><code>length_of_stay_minutes</code></td>
+  <td>number</td>
+  <td>Total ED length of stay in minutes.</td>
+  <td><code>193</code></td>
+</tr>
+
+<tr>
+  <td><code>left_without_being_seen_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient left before being seen by a provider.</td>
+  <td><code>0</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds4-inpatient-clean-csv">
+  <h2>Inpatient discharges</h2>
+  <p class="dict-desc">One row per inpatient discharge.</p>
+  <p class="dict-file"><a href="datasets/DS4_inpatient_clean.csv" download><code>DS4_inpatient_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>discharge_id</code></td>
+  <td>text</td>
+  <td>Unique discharge identifier.</td>
+  <td><code>IPD001565</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP010878</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Hospital; joins to facility_id in the facility dimension.</td>
+  <td><code>HOSP01</code></td>
+</tr>
+
+<tr>
+  <td><code>admission_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time of admission (YYYY-MM-DD HH:MM).</td>
+  <td><code>2024-01-01 00:15</code></td>
+</tr>
+
+<tr>
+  <td><code>discharge_datetime</code></td>
+  <td>datetime</td>
+  <td>Date and time of discharge (YYYY-MM-DD HH:MM).</td>
+  <td><code>2024-01-05 15:15</code></td>
+</tr>
+
+<tr>
+  <td><code>length_of_stay_days</code></td>
+  <td>number</td>
+  <td>Length of stay in days.</td>
+  <td><code>4.6</code></td>
+</tr>
+
+<tr>
+  <td><code>admit_source</code></td>
+  <td>text</td>
+  <td>Where the patient was admitted from (Direct, ED, Transfer).</td>
+  <td><code>Direct</code></td>
+</tr>
+
+<tr>
+  <td><code>admission_type</code></td>
+  <td>text</td>
+  <td>Admission type (Elective, Urgent, Emergent).</td>
+  <td><code>Urgent</code></td>
+</tr>
+
+<tr>
+  <td><code>service_line</code></td>
+  <td>text</td>
+  <td>Clinical service line of the stay.</td>
+  <td><code>Medicine</code></td>
+</tr>
+
+<tr>
+  <td><code>principal_icd10cm_code</code></td>
+  <td>text</td>
+  <td>Principal ICD-10-CM diagnosis code.</td>
+  <td><code>I11.0</code></td>
+</tr>
+
+<tr>
+  <td><code>principal_diagnosis_group</code></td>
+  <td>text</td>
+  <td>Grouped principal diagnosis.</td>
+  <td><code>Heart failure</code></td>
+</tr>
+
+<tr>
+  <td><code>case_group</code></td>
+  <td>text</td>
+  <td>Case grouping (Medical or Surgical).</td>
+  <td><code>Medical</code></td>
+</tr>
+
+<tr>
+  <td><code>comorbidity_count</code></td>
+  <td>integer</td>
+  <td>Number of comorbidities coded for the stay.</td>
+  <td><code>6</code></td>
+</tr>
+
+<tr>
+  <td><code>risk_score</code></td>
+  <td>number</td>
+  <td>Clinical risk score; higher values indicate higher risk.</td>
+  <td><code>46.2</code></td>
+</tr>
+
+<tr>
+  <td><code>ed_admit_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient was admitted through the emergency department.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>surgery_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a surgical procedure was performed during the stay.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>icu_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient spent time in the ICU.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY03</code></td>
+</tr>
+
+<tr>
+  <td><code>discharge_disposition</code></td>
+  <td>text</td>
+  <td>Where the patient went after discharge (Home, SNF, and similar).</td>
+  <td><code>Home</code></td>
+</tr>
+
+<tr>
+  <td><code>followup_within_7d_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a follow-up visit occurred within 7 days of discharge.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>home_health_ordered_flag</code></td>
+  <td>boolean</td>
+  <td>1 means home health services were ordered at discharge.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>snf_discharge_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient was discharged to a skilled nursing facility.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>total_charges_usd</code></td>
+  <td>number</td>
+  <td>Total charges for the stay, in US dollars.</td>
+  <td><code>8659.58</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_admits_12m</code></td>
+  <td>integer</td>
+  <td>Inpatient admissions in the prior 12 months.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_ed_visits_12m</code></td>
+  <td>integer</td>
+  <td>ED visits in the prior 12 months.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>readmission_30d_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient was readmitted within 30 days.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>readmission_days</code></td>
+  <td>integer</td>
+  <td>Days from discharge to readmission; blank when no readmission occurred.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>mortality_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient died during the stay.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>age_at_admit</code></td>
+  <td>integer</td>
+  <td>Patient age in years at admission.</td>
+  <td><code>71</code></td>
+</tr>
+
+<tr>
+  <td><code>preferred_language</code></td>
+  <td>text</td>
+  <td>Preferred language for care communication.</td>
+  <td><code>English</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>Patient ZIP-area group; joins to the geography dimension.</td>
+  <td><code>ZA020</code></td>
+</tr>
+
+<tr>
+  <td><code>deprivation_quintile</code></td>
+  <td>integer</td>
+  <td>Area deprivation quintile from 1 (least deprived) to 5 (most deprived).</td>
+  <td><code>4</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds5-claim-header-clean-csv">
+  <h2>Claim headers</h2>
+  <p class="dict-desc">One row per submitted claim (revenue cycle).</p>
+  <p class="dict-file"><a href="datasets/DS5_claim_header_clean.csv" download><code>DS5_claim_header_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>claim_id</code></td>
+  <td>text</td>
+  <td>Unique claim identifier; joins to claim_id on the claim lines.</td>
+  <td><code>CLM001052</code></td>
+</tr>
+
+<tr>
+  <td><code>encounter_source_id</code></td>
+  <td>text</td>
+  <td>Source visit identifier linking the claim to the appointment.</td>
+  <td><code>APT028457</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP002479</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Rendering site; joins to facility_id in the facility dimension.</td>
+  <td><code>PC01</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_id</code></td>
+  <td>text</td>
+  <td>Rendering provider; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0003</code></td>
+</tr>
+
+<tr>
+  <td><code>service_date</code></td>
+  <td>date</td>
+  <td>Date the service was rendered.</td>
+  <td><code>2024-01-01</code></td>
+</tr>
+
+<tr>
+  <td><code>claim_submit_date</code></td>
+  <td>date</td>
+  <td>Date the claim was submitted to the payer.</td>
+  <td><code>2024-01-07</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY01</code></td>
+</tr>
+
+<tr>
+  <td><code>service_category</code></td>
+  <td>text</td>
+  <td>Category of service (Office visit, Urgent care, and similar).</td>
+  <td><code>Office visit</code></td>
+</tr>
+
+<tr>
+  <td><code>site_of_service</code></td>
+  <td>text</td>
+  <td>Site where the service was rendered.</td>
+  <td><code>Office</code></td>
+</tr>
+
+<tr>
+  <td><code>claim_type</code></td>
+  <td>text</td>
+  <td>Claim type (Professional or Institutional).</td>
+  <td><code>Professional</code></td>
+</tr>
+
+<tr>
+  <td><code>diagnosis_chapter</code></td>
+  <td>text</td>
+  <td>ICD chapter grouping of the diagnosis.</td>
+  <td><code>Factors influencing health status</code></td>
+</tr>
+
+<tr>
+  <td><code>billed_charge_usd</code></td>
+  <td>number</td>
+  <td>Amount billed, in US dollars.</td>
+  <td><code>176.69</code></td>
+</tr>
+
+<tr>
+  <td><code>allowed_amount_usd</code></td>
+  <td>number</td>
+  <td>Payer-allowed amount, in US dollars.</td>
+  <td><code>102.48</code></td>
+</tr>
+
+<tr>
+  <td><code>paid_amount_usd</code></td>
+  <td>number</td>
+  <td>Amount paid by the payer, in US dollars.</td>
+  <td><code>92.49</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_responsibility_usd</code></td>
+  <td>number</td>
+  <td>Amount owed by the patient, in US dollars.</td>
+  <td><code>9.99</code></td>
+</tr>
+
+<tr>
+  <td><code>contractual_adjustment_usd</code></td>
+  <td>number</td>
+  <td>Contractual write-off, in US dollars.</td>
+  <td><code>74.21</code></td>
+</tr>
+
+<tr>
+  <td><code>denial_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the claim was denied.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>denial_reason_group</code></td>
+  <td>text</td>
+  <td>Grouped denial reason; blank when the claim was not denied.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>clean_claim_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the claim was submitted without errors (a clean claim).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_auth_required_flag</code></td>
+  <td>boolean</td>
+  <td>1 means prior authorization was required.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>prior_auth_obtained_flag</code></td>
+  <td>boolean</td>
+  <td>1 means prior authorization was obtained; blank when it was not required.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>network_status</code></td>
+  <td>text</td>
+  <td>Network status of the claim (In-network or Out-of-network).</td>
+  <td><code>In-network</code></td>
+</tr>
+
+<tr>
+  <td><code>appeal_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the claim was appealed.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>appeal_outcome</code></td>
+  <td>text</td>
+  <td>Outcome of the appeal; blank when no appeal was filed.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>final_status</code></td>
+  <td>text</td>
+  <td>Final claim status (Paid, Denied, Pending).</td>
+  <td><code>Paid</code></td>
+</tr>
+
+<tr>
+  <td><code>days_to_first_submission</code></td>
+  <td>integer</td>
+  <td>Days from the service date to first submission.</td>
+  <td><code>6</code></td>
+</tr>
+
+<tr>
+  <td><code>days_to_final_payment</code></td>
+  <td>integer</td>
+  <td>Days from submission to final payment.</td>
+  <td><code>26</code></td>
+</tr>
+
+<tr>
+  <td><code>claim_line_count</code></td>
+  <td>integer</td>
+  <td>Number of lines on the claim.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>high_cost_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the claim was flagged as high-cost.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>month_key</code></td>
+  <td>text</td>
+  <td>Year-month key for grouping (YYYY-MM).</td>
+  <td><code>2024-01</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds5-claim-line-optional-csv">
+  <h2>Claim lines (optional)</h2>
+  <p class="dict-desc">One row per claim line; optional supplement.</p>
+  <p class="dict-file"><a href="datasets/DS5_claim_line_optional.csv" download><code>DS5_claim_line_optional.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>claim_line_id</code></td>
+  <td>text</td>
+  <td>Unique claim line identifier.</td>
+  <td><code>CLM000001-L1</code></td>
+</tr>
+
+<tr>
+  <td><code>claim_id</code></td>
+  <td>text</td>
+  <td>Claim header; joins to claim_id in the claim headers.</td>
+  <td><code>CLM000001</code></td>
+</tr>
+
+<tr>
+  <td><code>encounter_source_id</code></td>
+  <td>text</td>
+  <td>Source visit identifier linking the line to the appointment.</td>
+  <td><code>APT007988</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP010825</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Rendering site; joins to facility_id in the facility dimension.</td>
+  <td><code>UC02</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_id</code></td>
+  <td>text</td>
+  <td>Rendering provider; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0104</code></td>
+</tr>
+
+<tr>
+  <td><code>service_date</code></td>
+  <td>date</td>
+  <td>Date the service was rendered.</td>
+  <td><code>2024-04-03</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY03</code></td>
+</tr>
+
+<tr>
+  <td><code>service_category</code></td>
+  <td>text</td>
+  <td>Category of service.</td>
+  <td><code>Urgent care</code></td>
+</tr>
+
+<tr>
+  <td><code>site_of_service</code></td>
+  <td>text</td>
+  <td>Site where the service was rendered.</td>
+  <td><code>Urgent care</code></td>
+</tr>
+
+<tr>
+  <td><code>claim_type</code></td>
+  <td>text</td>
+  <td>Claim type (Professional or Institutional).</td>
+  <td><code>Professional</code></td>
+</tr>
+
+<tr>
+  <td><code>revenue_or_service_group_code</code></td>
+  <td>text</td>
+  <td>Grouped revenue or service code for the line.</td>
+  <td><code>RV020</code></td>
+</tr>
+
+<tr>
+  <td><code>service_group_description</code></td>
+  <td>text</td>
+  <td>Description of the service group.</td>
+  <td><code>Urgent evaluation</code></td>
+</tr>
+
+<tr>
+  <td><code>units</code></td>
+  <td>integer</td>
+  <td>Number of service units on the line.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>line_charge_usd</code></td>
+  <td>number</td>
+  <td>Billed charge for the line, in US dollars.</td>
+  <td><code>9.69</code></td>
+</tr>
+
+<tr>
+  <td><code>line_allowed_usd</code></td>
+  <td>number</td>
+  <td>Allowed amount for the line, in US dollars.</td>
+  <td><code>4.86</code></td>
+</tr>
+
+<tr>
+  <td><code>line_paid_usd</code></td>
+  <td>number</td>
+  <td>Paid amount for the line, in US dollars.</td>
+  <td><code>4.18</code></td>
+</tr>
+
+<tr>
+  <td><code>month_key</code></td>
+  <td>text</td>
+  <td>Year-month key for grouping (YYYY-MM).</td>
+  <td><code>2024-04</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds6-survey-responses-clean-csv">
+  <h2>Survey responses</h2>
+  <p class="dict-desc">One row per patient-experience survey response.</p>
+  <p class="dict-file"><a href="datasets/DS6_survey_responses_clean.csv" download><code>DS6_survey_responses_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>survey_response_id</code></td>
+  <td>text</td>
+  <td>Unique survey response identifier.</td>
+  <td><code>SRV00001</code></td>
+</tr>
+
+<tr>
+  <td><code>sample_id</code></td>
+  <td>text</td>
+  <td>Sampling frame identifier for the survey wave.</td>
+  <td><code>SMP00001</code></td>
+</tr>
+
+<tr>
+  <td><code>source_encounter_id</code></td>
+  <td>text</td>
+  <td>Visit identifier linking the survey to the appointment.</td>
+  <td><code>APT032641</code></td>
+</tr>
+
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Patient; joins to patient_id in the patient dimension.</td>
+  <td><code>RBP000851</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Site of the visit; joins to facility_id in the facility dimension.</td>
+  <td><code>SP06</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_id</code></td>
+  <td>text</td>
+  <td>Provider of the visit; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0095</code></td>
+</tr>
+
+<tr>
+  <td><code>survey_mode_offered</code></td>
+  <td>text</td>
+  <td>Mode in which the survey was offered (Paper, SMS, Portal).</td>
+  <td><code>Paper</code></td>
+</tr>
+
+<tr>
+  <td><code>survey_mode_completed</code></td>
+  <td>text</td>
+  <td>Mode in which the survey was completed.</td>
+  <td><code>Paper</code></td>
+</tr>
+
+<tr>
+  <td><code>survey_language</code></td>
+  <td>text</td>
+  <td>Language of the completed survey.</td>
+  <td><code>English</code></td>
+</tr>
+
+<tr>
+  <td><code>days_after_visit</code></td>
+  <td>integer</td>
+  <td>Days between the visit and the survey response.</td>
+  <td><code>8</code></td>
+</tr>
+
+<tr>
+  <td><code>timely_appointment_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for getting a timely appointment, on a 1-4 scale.</td>
+  <td><code>4</code></td>
+</tr>
+
+<tr>
+  <td><code>staff_courtesy_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for staff courtesy, on a 1-4 scale.</td>
+  <td><code>3</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_listened_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for the provider listening carefully, on a 1-4 scale.</td>
+  <td><code>4</code></td>
+</tr>
+
+<tr>
+  <td><code>provider_explained_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for the provider explaining things clearly, on a 1-4 scale.</td>
+  <td><code>4</code></td>
+</tr>
+
+<tr>
+  <td><code>care_coordination_score_1_4</code></td>
+  <td>number</td>
+  <td>Score for care coordination, on a 1-4 scale.</td>
+  <td><code>3.0</code></td>
+</tr>
+
+<tr>
+  <td><code>office_staff_helpful_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for office staff helpfulness, on a 1-4 scale.</td>
+  <td><code>3</code></td>
+</tr>
+
+<tr>
+  <td><code>wait_time_perception_score_1_4</code></td>
+  <td>number</td>
+  <td>Score for perceived wait time, on a 1-4 scale.</td>
+  <td><code>4.0</code></td>
+</tr>
+
+<tr>
+  <td><code>overall_provider_rating_0_10</code></td>
+  <td>number</td>
+  <td>Overall provider rating on a 0-10 scale.</td>
+  <td><code>10.0</code></td>
+</tr>
+
+<tr>
+  <td><code>recommend_practice_rating_0_10</code></td>
+  <td>number</td>
+  <td>Likelihood to recommend the practice, on a 0-10 scale; blank when not answered.</td>
+  <td><code>10.0</code></td>
+</tr>
+
+<tr>
+  <td><code>portal_results_helpful_score_1_4</code></td>
+  <td>number</td>
+  <td>Score for portal results being helpful, on a 1-4 scale.</td>
+  <td><code>3.0</code></td>
+</tr>
+
+<tr>
+  <td><code>confidence_in_care_plan_score_1_4</code></td>
+  <td>integer</td>
+  <td>Score for confidence in the care plan, on a 1-4 scale.</td>
+  <td><code>3</code></td>
+</tr>
+
+<tr>
+  <td><code>comment_theme_primary</code></td>
+  <td>text</td>
+  <td>Primary theme of the free-text comment; blank when no comment was given.</td>
+  <td><code>Communication</code></td>
+</tr>
+
+<tr>
+  <td><code>completion_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the survey was completed.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>source_setting</code></td>
+  <td>text</td>
+  <td>Care setting of the source visit (Ambulatory, and similar).</td>
+  <td><code>Ambulatory</code></td>
+</tr>
+
+<tr>
+  <td><code>overall_top_box_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the overall provider rating was top-box (9 or 10).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>recommend_top_box_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the recommend rating was top-box (9 or 10).</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>communication_composite_score</code></td>
+  <td>number</td>
+  <td>Composite of the communication items, on a 1-4 scale.</td>
+  <td><code>3.67</code></td>
+</tr>
+
+<tr>
+  <td><code>access_composite_score</code></td>
+  <td>number</td>
+  <td>Composite of the access items, on a 1-4 scale.</td>
+  <td><code>3.67</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds7-registry-clean-csv">
+  <h2>Care registry</h2>
+  <p class="dict-desc">One row per active registry patient.</p>
+  <p class="dict-file"><a href="datasets/DS7_registry_clean.csv" download><code>DS7_registry_clean.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>patient_id</code></td>
+  <td>text</td>
+  <td>Unique synthetic identifier for the patient; joins to patient_id in the event tables.</td>
+  <td><code>RBP000001</code></td>
+</tr>
+
+<tr>
+  <td><code>registry_date</code></td>
+  <td>date</td>
+  <td>Date of the registry snapshot.</td>
+  <td><code>2025-12-31</code></td>
+</tr>
+
+<tr>
+  <td><code>pcp_provider_id</code></td>
+  <td>text</td>
+  <td>Primary care provider; joins to provider_id in the provider dimension.</td>
+  <td><code>RBPV0019</code></td>
+</tr>
+
+<tr>
+  <td><code>facility_id</code></td>
+  <td>text</td>
+  <td>Primary site; joins to facility_id in the facility dimension.</td>
+  <td><code>PC05</code></td>
+</tr>
+
+<tr>
+  <td><code>payer_id</code></td>
+  <td>text</td>
+  <td>Payer; joins to payer_id in the payer dimension.</td>
+  <td><code>PAY04</code></td>
+</tr>
+
+<tr>
+  <td><code>zip_area_id</code></td>
+  <td>text</td>
+  <td>ZIP-area group; joins to zip_area_id in the geography dimension.</td>
+  <td><code>ZA003</code></td>
+</tr>
+
+<tr>
+  <td><code>age</code></td>
+  <td>integer</td>
+  <td>Age in years at the snapshot date.</td>
+  <td><code>90</code></td>
+</tr>
+
+<tr>
+  <td><code>sex_at_birth</code></td>
+  <td>text</td>
+  <td>Recorded sex at birth (Female or Male).</td>
+  <td><code>Female</code></td>
+</tr>
+
+<tr>
+  <td><code>race_ethnicity_group</code></td>
+  <td>text</td>
+  <td>Grouped race and ethnicity category.</td>
+  <td><code>Black non-Hispanic</code></td>
+</tr>
+
+<tr>
+  <td><code>preferred_language</code></td>
+  <td>text</td>
+  <td>Preferred language for care communication.</td>
+  <td><code>Spanish</code></td>
+</tr>
+
+<tr>
+  <td><code>interpreter_needed_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient needs an interpreter.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>deprivation_quintile</code></td>
+  <td>integer</td>
+  <td>Area deprivation quintile from 1 (least deprived) to 5 (most deprived).</td>
+  <td><code>3</code></td>
+</tr>
+
+<tr>
+  <td><code>food_insecurity_flag</code></td>
+  <td>boolean</td>
+  <td>1 means food insecurity was screened positive.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>transportation_barrier_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a transportation barrier was screened positive.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>housing_instability_flag</code></td>
+  <td>boolean</td>
+  <td>1 means housing instability was screened positive.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>diabetes_flag</code></td>
+  <td>boolean</td>
+  <td>1 means diabetes is on the registry record.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>hypertension_flag</code></td>
+  <td>boolean</td>
+  <td>1 means hypertension is on the registry record.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>copd_flag</code></td>
+  <td>boolean</td>
+  <td>1 means COPD is on the registry record.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>depression_flag</code></td>
+  <td>boolean</td>
+  <td>1 means depression is on the registry record.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>a1c_value</code></td>
+  <td>number</td>
+  <td>Most recent hemoglobin A1c, as a percentage.</td>
+  <td><code>8.1</code></td>
+</tr>
+
+<tr>
+  <td><code>a1c_test_date</code></td>
+  <td>date</td>
+  <td>Date of the most recent A1c test.</td>
+  <td><code>2025-01-12</code></td>
+</tr>
+
+<tr>
+  <td><code>bp_systolic_last</code></td>
+  <td>integer</td>
+  <td>Most recent systolic blood pressure, in mmHg.</td>
+  <td><code>125</code></td>
+</tr>
+
+<tr>
+  <td><code>bp_diastolic_last</code></td>
+  <td>integer</td>
+  <td>Most recent diastolic blood pressure, in mmHg.</td>
+  <td><code>77</code></td>
+</tr>
+
+<tr>
+  <td><code>bmi</code></td>
+  <td>number</td>
+  <td>Body mass index.</td>
+  <td><code>32.5</code></td>
+</tr>
+
+<tr>
+  <td><code>smoker_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient currently smokes.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>flu_vaccine_current_flag</code></td>
+  <td>boolean</td>
+  <td>1 means flu vaccination is current.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>colorectal_screening_up_to_date_flag</code></td>
+  <td>boolean</td>
+  <td>1 means colorectal cancer screening is up to date.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>mammogram_up_to_date_flag</code></td>
+  <td>boolean</td>
+  <td>1 means mammogram screening is up to date; blank when the patient is not in the screening population.</td>
+  <td><code></code></td>
+</tr>
+
+<tr>
+  <td><code>eye_exam_up_to_date_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the diabetic eye exam is up to date.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>medication_adherence_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the patient is adherent to prescribed medications.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>er_visits_12m</code></td>
+  <td>integer</td>
+  <td>ED visits in the prior 12 months.</td>
+  <td><code>2</code></td>
+</tr>
+
+<tr>
+  <td><code>inpatient_admits_12m</code></td>
+  <td>integer</td>
+  <td>Inpatient admissions in the prior 12 months.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>care_gap_count</code></td>
+  <td>integer</td>
+  <td>Number of open care gaps.</td>
+  <td><code>2</code></td>
+</tr>
+
+<tr>
+  <td><code>risk_tier</code></td>
+  <td>text</td>
+  <td>Risk tier (Low, Medium, High).</td>
+  <td><code>Medium</code></td>
+</tr>
+
+<tr>
+  <td><code>care_manager_assigned_flag</code></td>
+  <td>boolean</td>
+  <td>1 means a care manager is assigned.</td>
+  <td><code>0</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds8-sampling-scenarios-csv">
+  <h2>Sampling scenarios</h2>
+  <p class="dict-desc">Sampling and study-design vignettes.</p>
+  <p class="dict-file"><a href="datasets/DS8_sampling_scenarios.csv" download><code>DS8_sampling_scenarios.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>scenario_id</code></td>
+  <td>text</td>
+  <td>Unique scenario identifier.</td>
+  <td><code>SCN001</code></td>
+</tr>
+
+<tr>
+  <td><code>target_population</code></td>
+  <td>text</td>
+  <td>The population the scenario asks about.</td>
+  <td><code>Adults with at least one primary care visit in the last year</code></td>
+</tr>
+
+<tr>
+  <td><code>sampling_frame</code></td>
+  <td>text</td>
+  <td>The list actually sampled from.</td>
+  <td><code>EHR registry roster</code></td>
+</tr>
+
+<tr>
+  <td><code>sampling_method</code></td>
+  <td>text</td>
+  <td>Sampling method used (Simple random, Stratified, Cluster).</td>
+  <td><code>Simple random</code></td>
+</tr>
+
+<tr>
+  <td><code>weighting_needed_flag</code></td>
+  <td>boolean</td>
+  <td>1 means survey weights are needed for valid population estimates.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>bias_risk</code></td>
+  <td>text</td>
+  <td>The main bias risk in the scenario.</td>
+  <td><code>Nonresponse bias</code></td>
+</tr>
+
+<tr>
+  <td><code>recommended_summary</code></td>
+  <td>text</td>
+  <td>Suggested student task for summarizing the scenario.</td>
+  <td><code>Describe the likely target population and who may be missing.</code></td>
+</tr>
+
+<tr>
+  <td><code>study_type_hint</code></td>
+  <td>text</td>
+  <td>Hint about the study type.</td>
+  <td><code>observational</code></td>
+</tr>
+
+<tr>
+  <td><code>best_chart</code></td>
+  <td>text</td>
+  <td>Recommended chart for the scenario.</td>
+  <td><code>stacked bar chart</code></td>
+</tr>
+
+<tr>
+  <td><code>likely_unit_of_analysis</code></td>
+  <td>text</td>
+  <td>The likely unit of analysis (patient, household, encounter).</td>
+  <td><code>household</code></td>
+</tr>
+
+<tr>
+  <td><code>key_missing_information</code></td>
+  <td>text</td>
+  <td>Key information missing from the scenario.</td>
+  <td><code>measurement timing</code></td>
+</tr>
+
+<tr>
+  <td><code>teaching_focus</code></td>
+  <td>text</td>
+  <td>The teaching point of the vignette.</td>
+  <td><code>unit of analysis</code></td>
+</tr>
+
+<tr>
+  <td><code>difficulty_level</code></td>
+  <td>text</td>
+  <td>Difficulty level of the vignette.</td>
+  <td><code>introductory</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ds8-studies-master-csv">
+  <h2>Studies master</h2>
+  <p class="dict-desc">Study summaries for evidence literacy.</p>
+  <p class="dict-file"><a href="datasets/DS8_studies_master.csv" download><code>DS8_studies_master.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>study_id</code></td>
+  <td>text</td>
+  <td>Unique study identifier.</td>
+  <td><code>ST001</code></td>
+</tr>
+
+<tr>
+  <td><code>topic</code></td>
+  <td>text</td>
+  <td>Topic of the study.</td>
+  <td><code>Primary care no-shows</code></td>
+</tr>
+
+<tr>
+  <td><code>study_design</code></td>
+  <td>text</td>
+  <td>Study design (cohort, trial, QI, and similar).</td>
+  <td><code>cohort</code></td>
+</tr>
+
+<tr>
+  <td><code>population</code></td>
+  <td>text</td>
+  <td>Study population.</td>
+  <td><code>Ambulatory adults with primary care appointments</code></td>
+</tr>
+
+<tr>
+  <td><code>setting</code></td>
+  <td>text</td>
+  <td>Setting where the study was conducted.</td>
+  <td><code>multiclinic health system</code></td>
+</tr>
+
+<tr>
+  <td><code>data_source_type</code></td>
+  <td>text</td>
+  <td>Type of data source (EHR, experiment, survey).</td>
+  <td><code>EHR</code></td>
+</tr>
+
+<tr>
+  <td><code>sample_n</code></td>
+  <td>integer</td>
+  <td>Sample size (number of participants or records).</td>
+  <td><code>1600</code></td>
+</tr>
+
+<tr>
+  <td><code>exposure_or_intervention</code></td>
+  <td>text</td>
+  <td>Exposure or intervention studied.</td>
+  <td><code>SMS reminder program</code></td>
+</tr>
+
+<tr>
+  <td><code>comparator</code></td>
+  <td>text</td>
+  <td>Comparison group.</td>
+  <td><code>No reminder</code></td>
+</tr>
+
+<tr>
+  <td><code>outcome</code></td>
+  <td>text</td>
+  <td>Primary outcome measured.</td>
+  <td><code>No-show rate</code></td>
+</tr>
+
+<tr>
+  <td><code>effect_measure</code></td>
+  <td>text</td>
+  <td>Effect measure reported (RR for risk ratio, difference, and similar).</td>
+  <td><code>RR</code></td>
+</tr>
+
+<tr>
+  <td><code>main_result</code></td>
+  <td>text</td>
+  <td>Main result as reported.</td>
+  <td><code>0.82 (95% CI 0.76-0.89)</code></td>
+</tr>
+
+<tr>
+  <td><code>ci_or_p_value</code></td>
+  <td>text</td>
+  <td>Confidence interval or p-value; Not reported when absent.</td>
+  <td><code>Not reported</code></td>
+</tr>
+
+<tr>
+  <td><code>key_limitation</code></td>
+  <td>text</td>
+  <td>Key limitation of the study.</td>
+  <td><code>Residual confounding due to clinic workflow differences</code></td>
+</tr>
+
+<tr>
+  <td><code>evidence_strength_tier</code></td>
+  <td>text</td>
+  <td>Tiered evidence strength (Low, Moderate, High).</td>
+  <td><code>Moderate</code></td>
+</tr>
+
+<tr>
+  <td><code>source_type</code></td>
+  <td>text</td>
+  <td>Publication source type (Journal, Report).</td>
+  <td><code>Journal</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ph1-places-county-wide-csv">
+  <h2>PLACES county (wide)</h2>
+  <p class="dict-desc">CDC PLACES-style county estimates, wide form.</p>
+  <p class="dict-file"><a href="datasets/PH1_places_county_wide.csv" download><code>PH1_places_county_wide.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>county_fips</code></td>
+  <td>text</td>
+  <td>5-digit FIPS county code; joins to county tables.</td>
+  <td><code>01029</code></td>
+</tr>
+
+<tr>
+  <td><code>county_name</code></td>
+  <td>text</td>
+  <td>County name.</td>
+  <td><code>Cleburne</code></td>
+</tr>
+
+<tr>
+  <td><code>state_abbr</code></td>
+  <td>text</td>
+  <td>Two-letter state abbreviation.</td>
+  <td><code>AL</code></td>
+</tr>
+
+<tr>
+  <td><code>region</code></td>
+  <td>text</td>
+  <td>Census-style region.</td>
+  <td><code>South</code></td>
+</tr>
+
+<tr>
+  <td><code>urban_rural_group</code></td>
+  <td>text</td>
+  <td>Urbanicity grouping (Urban core, Suburban, Small town, Rural).</td>
+  <td><code>Urban core</code></td>
+</tr>
+
+<tr>
+  <td><code>adult_population_band</code></td>
+  <td>text</td>
+  <td>Banded adult population size of the county.</td>
+  <td><code>250k+</code></td>
+</tr>
+
+<tr>
+  <td><code>obesity_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults with obesity, as a percentage.</td>
+  <td><code>33.6</code></td>
+</tr>
+
+<tr>
+  <td><code>diagnosed_diabetes_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults with diagnosed diabetes, as a percentage.</td>
+  <td><code>17.2</code></td>
+</tr>
+
+<tr>
+  <td><code>high_blood_pressure_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults with high blood pressure, as a percentage.</td>
+  <td><code>36.5</code></td>
+</tr>
+
+<tr>
+  <td><code>current_smoking_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults who currently smoke, as a percentage.</td>
+  <td><code>16.6</code></td>
+</tr>
+
+<tr>
+  <td><code>binge_drinking_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults reporting binge drinking, as a percentage.</td>
+  <td><code>15.6</code></td>
+</tr>
+
+<tr>
+  <td><code>physical_inactivity_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults reporting no physical activity, as a percentage.</td>
+  <td><code>26.8</code></td>
+</tr>
+
+<tr>
+  <td><code>routine_checkup_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults with a routine checkup in the past year, as a percentage.</td>
+  <td><code>72.6</code></td>
+</tr>
+
+<tr>
+  <td><code>mammography_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of eligible women with a recent mammogram, as a percentage.</td>
+  <td><code>68.2</code></td>
+</tr>
+
+<tr>
+  <td><code>colorectal_screening_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of eligible adults up to date on colorectal screening, as a percentage.</td>
+  <td><code>69.5</code></td>
+</tr>
+
+<tr>
+  <td><code>uninsured_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults without health insurance, as a percentage.</td>
+  <td><code>14.3</code></td>
+</tr>
+
+<tr>
+  <td><code>poor_mental_health_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults reporting poor mental health, as a percentage.</td>
+  <td><code>19.0</code></td>
+</tr>
+
+<tr>
+  <td><code>poor_physical_health_pct</code></td>
+  <td>number</td>
+  <td>Modeled share of adults reporting poor physical health, as a percentage.</td>
+  <td><code>17.4</code></td>
+</tr>
+
+<tr>
+  <td><code>release_year</code></td>
+  <td>integer</td>
+  <td>PLACES release year for the estimates.</td>
+  <td><code>2025</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ph1-places-county-long-csv">
+  <h2>PLACES county (long)</h2>
+  <p class="dict-desc">CDC PLACES-style county estimates, long form.</p>
+  <p class="dict-file"><a href="datasets/PH1_places_county_long.csv" download><code>PH1_places_county_long.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>county_fips</code></td>
+  <td>text</td>
+  <td>5-digit FIPS county code; joins to county tables.</td>
+  <td><code>01029</code></td>
+</tr>
+
+<tr>
+  <td><code>county_name</code></td>
+  <td>text</td>
+  <td>County name.</td>
+  <td><code>Cleburne</code></td>
+</tr>
+
+<tr>
+  <td><code>state_abbr</code></td>
+  <td>text</td>
+  <td>Two-letter state abbreviation.</td>
+  <td><code>AL</code></td>
+</tr>
+
+<tr>
+  <td><code>region</code></td>
+  <td>text</td>
+  <td>Census-style region.</td>
+  <td><code>South</code></td>
+</tr>
+
+<tr>
+  <td><code>urban_rural_group</code></td>
+  <td>text</td>
+  <td>Urbanicity grouping (Urban core, Suburban, Small town, Rural).</td>
+  <td><code>Urban core</code></td>
+</tr>
+
+<tr>
+  <td><code>measure_id</code></td>
+  <td>text</td>
+  <td>Measure identifier; joins to measure_id in the measure lookup.</td>
+  <td><code>obesity_pct</code></td>
+</tr>
+
+<tr>
+  <td><code>measure_label</code></td>
+  <td>text</td>
+  <td>Human-readable measure label.</td>
+  <td><code>Obesity among adults</code></td>
+</tr>
+
+<tr>
+  <td><code>estimate_pct</code></td>
+  <td>number</td>
+  <td>Modeled estimate for the measure, as a percentage.</td>
+  <td><code>33.6</code></td>
+</tr>
+
+<tr>
+  <td><code>low_ci</code></td>
+  <td>number</td>
+  <td>Lower bound of the confidence interval, as a percentage.</td>
+  <td><code>32.7</code></td>
+</tr>
+
+<tr>
+  <td><code>high_ci</code></td>
+  <td>number</td>
+  <td>Upper bound of the confidence interval, as a percentage.</td>
+  <td><code>34.5</code></td>
+</tr>
+
+<tr>
+  <td><code>release_year</code></td>
+  <td>integer</td>
+  <td>PLACES release year for the estimates.</td>
+  <td><code>2025</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ph1-places-measure-lookup-csv">
+  <h2>PLACES measure lookup</h2>
+  <p class="dict-desc">Measure lookup for the PLACES companion.</p>
+  <p class="dict-file"><a href="datasets/PH1_places_measure_lookup.csv" download><code>PH1_places_measure_lookup.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>measure_id</code></td>
+  <td>text</td>
+  <td>Unique measure identifier; joins to measure_id in the long-form county file.</td>
+  <td><code>obesity_pct</code></td>
+</tr>
+
+<tr>
+  <td><code>measure_label</code></td>
+  <td>text</td>
+  <td>Human-readable measure label.</td>
+  <td><code>Obesity among adults</code></td>
+</tr>
+
+<tr>
+  <td><code>unit</code></td>
+  <td>text</td>
+  <td>Unit of the measure.</td>
+  <td><code>Percent</code></td>
+</tr>
+
+<tr>
+  <td><code>polarity</code></td>
+  <td>text</td>
+  <td>Whether higher or lower values are desirable.</td>
+  <td><code>Lower is better</code></td>
+</tr>
+
+<tr>
+  <td><code>suggested_chart</code></td>
+  <td>text</td>
+  <td>Suggested chart type for the measure.</td>
+  <td><code>Choropleth or bar</code></td>
+</tr>
+
+<tr>
+  <td><code>numerator_concept</code></td>
+  <td>text</td>
+  <td>What the numerator counts.</td>
+  <td><code>Adults meeting the measure definition</code></td>
+</tr>
+
+<tr>
+  <td><code>denominator_concept</code></td>
+  <td>text</td>
+  <td>What the denominator counts.</td>
+  <td><code>Eligible adult population</code></td>
+</tr>
+
+<tr>
+  <td><code>teaching_note</code></td>
+  <td>text</td>
+  <td>Teaching suggestion for using the measure.</td>
+  <td><code>Use for chronic disease burden comparison</code></td>
+</tr></tbody></table></div>
+</section>
+<section class="dict-section" id="dict-ph2-brfss2022-teaching-extract-csv">
+  <h2>BRFSS teaching extract</h2>
+  <p class="dict-desc">BRFSS-style weighted adult survey sample.</p>
+  <p class="dict-file"><a href="datasets/PH2_brfss2022_teaching_extract.csv" download><code>PH2_brfss2022_teaching_extract.csv</code></a></p>
+  <div class="table-wrap"><table class="dict-table"><thead><tr><th>Column</th><th>Type</th><th>Definition</th><th>Example</th></tr></thead><tbody>
+<tr>
+  <td><code>respondent_id</code></td>
+  <td>text</td>
+  <td>Unique respondent identifier.</td>
+  <td><code>BRF22000001</code></td>
+</tr>
+
+<tr>
+  <td><code>state_fips</code></td>
+  <td>text</td>
+  <td>2-digit state FIPS code.</td>
+  <td><code>53</code></td>
+</tr>
+
+<tr>
+  <td><code>state_abbr</code></td>
+  <td>text</td>
+  <td>Two-letter state abbreviation.</td>
+  <td><code>WA</code></td>
+</tr>
+
+<tr>
+  <td><code>interview_month</code></td>
+  <td>integer</td>
+  <td>Month of the interview (1-12).</td>
+  <td><code>9</code></td>
+</tr>
+
+<tr>
+  <td><code>sex</code></td>
+  <td>text</td>
+  <td>Respondent sex.</td>
+  <td><code>Male</code></td>
+</tr>
+
+<tr>
+  <td><code>age_group</code></td>
+  <td>text</td>
+  <td>Age group band.</td>
+  <td><code>18-24</code></td>
+</tr>
+
+<tr>
+  <td><code>race_ethnicity_group</code></td>
+  <td>text</td>
+  <td>Grouped race and ethnicity category.</td>
+  <td><code>White non-Hispanic</code></td>
+</tr>
+
+<tr>
+  <td><code>education_group</code></td>
+  <td>text</td>
+  <td>Grouped educational attainment.</td>
+  <td><code>Some college</code></td>
+</tr>
+
+<tr>
+  <td><code>income_group</code></td>
+  <td>text</td>
+  <td>Grouped household income band.</td>
+  <td><code>25k-49k</code></td>
+</tr>
+
+<tr>
+  <td><code>general_health</code></td>
+  <td>text</td>
+  <td>Self-rated general health.</td>
+  <td><code>Very good</code></td>
+</tr>
+
+<tr>
+  <td><code>bmi_category</code></td>
+  <td>text</td>
+  <td>BMI category (Underweight, Normal, Overweight, Obesity).</td>
+  <td><code>Normal</code></td>
+</tr>
+
+<tr>
+  <td><code>current_smoker_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent currently smokes.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>physical_activity_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent reported any physical activity.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>diabetes_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent reported diabetes.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>high_bp_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent reported high blood pressure.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>insured_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent has health insurance.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>usual_source_of_care_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent has a usual source of care.</td>
+  <td><code>1</code></td>
+</tr>
+
+<tr>
+  <td><code>poor_mental_health_days</code></td>
+  <td>integer</td>
+  <td>Days of poor mental health in the past 30 days.</td>
+  <td><code>8</code></td>
+</tr>
+
+<tr>
+  <td><code>poor_physical_health_days</code></td>
+  <td>integer</td>
+  <td>Days of poor physical health in the past 30 days.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>flu_vaccine_flag</code></td>
+  <td>boolean</td>
+  <td>1 means the respondent received a flu vaccine.</td>
+  <td><code>0</code></td>
+</tr>
+
+<tr>
+  <td><code>final_weight</code></td>
+  <td>number</td>
+  <td>Final survey weight for population estimates.</td>
+  <td><code>1792.95</code></td>
+</tr>
+
+<tr>
+  <td><code>stratum</code></td>
+  <td>integer</td>
+  <td>Sampling stratum identifier.</td>
+  <td><code>5320</code></td>
+</tr>
+
+<tr>
+  <td><code>psu</code></td>
+  <td>integer</td>
+  <td>Primary sampling unit identifier.</td>
+  <td><code>53403</code></td>
+</tr>
+
+<tr>
+  <td><code>source_variable_map</code></td>
+  <td>text</td>
+  <td>Pipe-delimited map from teaching columns to source BRFSS variable names.</td>
+  <td><code>_STATE|SEXVAR|X_AGE_G|X_RACE_G|EDUCA|INCOME3|GENHLTH|BMI5CAT|SMOKE100|EXERANY2|DIABETE4|BPHIGH6|HLTHPLN1|PERSDOC3|MENTHLTH|PHYSHLTH|FLUSHOT7|_LLCPWT|_STSTR|_PSU</code></td>
+</tr></tbody></table></div>
+</section>
+    </article>
+    
+  </main>
+  
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

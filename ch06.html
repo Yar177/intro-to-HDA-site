@@ -1,0 +1,1281 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Excel Foundations: Formulas, Functions, References, and Charts — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="Learn the Excel formulas analysts actually use: relative and absolute references, COUNTIFS, SUMIFS, AVERAGEIFS, descriptive statistics, and charts that answer questions.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch06.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Excel Foundations: Formulas, Functions, References, and Charts — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="Learn the Excel formulas analysts actually use: relative and absolute references, COUNTIFS, SUMIFS, AVERAGEIFS, descriptive statistics, and charts that answer questions.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch06.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"Chapter","headline":"Excel Foundations: Formulas, Functions, References, and Charts","position":6,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch06.html","teaches":"essential excel formulas for data analysis","educationalLevel":"beginner","learningResourceType":"chapter"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is the difference between relative and absolute cell references in Excel?","acceptedAnswer":{"@type":"Answer","text":"A relative reference such as B2 shifts when the formula is copied, which is the usual choice. An absolute reference such as $B$2 stays locked on the same cell no matter where it is copied. A mixed reference locks only the row or only the column."}},{"@type":"Question","name":"Which Excel function counts rows that meet conditions?","acceptedAnswer":{"@type":"Answer","text":"COUNTIFS counts rows meeting one or more conditions, SUMIFS adds a column for matching rows, and AVERAGEIFS averages them. Counting with a condition is the most frequently used operation in healthcare analytics, since nearly every measure is a count over a defined group."}},{"@type":"Question","name":"How do you choose the right chart type in Excel?","acceptedAnswer":{"@type":"Answer","text":"The chart type follows the question: a column or bar chart compares one value across categories, a line chart tracks a value over time, and a histogram shows how the values of a single variable are distributed."}},{"@type":"Question","name":"What is an Excel scorecard?","acceptedAnswer":{"@type":"Answer","text":"A scorecard is a single formatted page that reports the measures a clinic watches, built from formulas that read directly from the data. When the data changes, every figure recalculates, and every number traces back to its source."}}]}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item active" href="ch06.html"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Reading a Result Honestly</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 6 · 55 minutes</p>
+    <p class="last-updated">Last updated October 16, 2026</p>
+    <article class="prose">
+      <section id="sec:ch06" class="level1">
+<h1>Excel Foundations: Formulas, Functions, References, and Charts</h1><aside class="learn-box" aria-label="What you will learn"><h2>What you will learn</h2><p>You will learn to write formulas that stay correct as data changes, summarize columns with core functions, choose charts that answer comparison questions, and build a self-updating scorecard.</p></aside>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>Maria is an analyst at a community clinic. The practice manager asks
+her for a standing summary of the appointment records: how many
+appointments the clinic scheduled, the share that ended as no-shows, and
+whether any day of the week carries a heavier no-show burden than the
+others. The file Maria works from holds two years of appointments. She
+could read it, tally the categories by eye, and type the totals into a
+slide, but that approach has two weaknesses. The counts have to be
+recomputed by hand whenever the data changes, and a reader has no way to
+confirm where each number came from.</p>
+<p>A spreadsheet solves both problems. In this chapter you build the
+summary as a set of formulas that read directly from the appointment
+file. Every figure traces back to the data, and when the data in the
+Appointments Table are updated, every figure recalculates. Chapter 3
+introduced the Excel workbench and its core tools. This chapter puts
+those tools to work and produces a reusable <strong>scorecard</strong>,
+a single formatted page that reports the measures the clinic watches.
+The techniques here are used in every chapter that follows, so this is
+where they are established.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Navigate a worksheet and select cells, columns, and the entire
+sheet.</li>
+<li>Write formulas and control how they copy with relative, absolute,
+and mixed references.</li>
+<li>Apply the core calculation functions: <code>SUM</code>,
+<code>ROWS</code>, <code>COUNTIFS</code>, <code>SUMIFS</code>,
+<code>AVERAGE</code>, <code>AVERAGEIFS</code>, and <code>IF</code>.</li>
+<li>Summarize a column with the descriptive-statistic functions
+<code>MEDIAN</code>, <code>STDEV.S</code>, <code>MIN</code>, and
+<code>MAX</code>.</li>
+<li>Organize data by sorting and filtering, and choose a chart that
+answers a comparison question.</li>
+<li>Build and format a one-page scorecard that recalculates itself when
+the data changes.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>A spreadsheet records not only a result but the calculation that
+produced it, which is what makes a worksheet auditable: a reviewer can
+open any cell and read the formula behind the number. This section
+builds the groundwork for writing formulas that stay correct as the data
+changes, in three parts:</p>
+<ul>
+<li><strong>references</strong> that control how a formula copies from
+cell to cell,</li>
+<li><strong>functions</strong> that count, add, and summarize a
+column,</li>
+<li><strong>sorting, filtering, and charts</strong> that organize the
+rows and display the result.</li>
+</ul>
+<p>The walkthrough and practice sections then apply these techniques to
+real appointment and emergency-department files.</p>
+</div>
+<section id="navigating-the-worksheet" class="level3">
+<h3>Navigating the worksheet</h3>
+<p>A worksheet is a grid. Columns run across the top, labeled with
+letters (A, B, C), and rows run down the side, numbered (1, 2, 3). Every
+cell has an address formed from its column letter and row number, so
+<code>B2</code> is the cell in column B, row 2. The address of the
+currently selected cell appears in the <strong>Name Box</strong>, at the
+left end of the formula bar.</p>
+<p>A few selection techniques cover nearly all routine work:</p>
+<ul>
+<li>Click a cell to select it.</li>
+<li>Click and drag to select a rectangular block of cells.</li>
+<li>Click a column letter to select the entire column, or a row number
+for the entire row.</li>
+<li>Click the <strong>Select All button</strong>, the small triangle in
+the top-left corner where the column letters meet the row numbers, to
+select every cell on the sheet at once.</li>
+</ul>
+<p>This chapter works entirely from the ribbon menus along the top of
+the window. The ribbon is organized the same way on Windows and on
+macOS, though a few tab and command names differ slightly; those
+differences are noted where they matter. Where a keyboard shortcut is
+faster, both versions are given, such as Ctrl+S on Windows and Cmd+S on
+macOS to save.</p>
+<figure id="fig:ch06-worksheet">
+<img src="figures/generated/ch_06_worksheet_anatomy.png"
+alt="Figure 1: The parts of an Excel worksheet: the column letters and row numbers that form each cell address, the Name Box, the formula bar, and the Select All button. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 1: The parts of an Excel
+worksheet: the column letters and row numbers that form each cell
+address, the Name Box, the formula bar, and the Select All button.
+Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="writing-formulas" class="level3">
+<h3>Writing formulas</h3>
+<div class="definition">
+<p>A <strong>formula</strong> is a cell entry that begins with an equals
+sign and computes a result from other cells, such as <code>=B2+C2</code>
+or <code>=D2/D3</code>.</p>
+</div>
+<p>The purpose of a formula is to reference cells rather than fixed
+numbers. When a referenced cell changes, every formula that depends on
+it updates automatically. A few rules cover most situations:</p>
+<ul>
+<li>Begin every formula with <code>=</code>.</li>
+<li>Use <code>+</code>, <code>-</code>, <code>*</code>, and
+<code>/</code> for arithmetic.</li>
+<li>Parentheses set the order of operations: <code>=(C2+D2)/E2</code>
+adds before it divides.</li>
+<li>The formula bar displays the formula; the cell displays its
+result.</li>
+</ul>
+<div class="keypoint">
+<p>Enter <code>=B2/C2</code>, not <code>=413/2560</code>. A formula that
+references cells recalculates when the data changes, while a value typed
+in by hand becomes outdated as soon as the data is updated and leaves no
+record of how it was computed.</p>
+</div>
+<figure id="fig:ch06-recalc">
+<img src="figures/generated/ch_06_formula_vs_typed.png"
+alt="Figure 2: A typed-in number and a formula look alike until the data changes: the formula recalculates on its own, while the typed value silently goes stale. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 2: A typed-in number and a formula
+look alike until the data changes: the formula recalculates on its own,
+while the typed value silently goes stale. Source: concept
+schematic.</figcaption>
+</figure>
+</section>
+<section
+id="controlling-how-formulas-copy-relative-absolute-and-mixed-references"
+class="level3">
+<h3>Controlling how formulas copy: relative, absolute, and mixed
+references</h3>
+<p>When you copy a formula from one cell to another, Excel adjusts its
+cell references to match the new position. That adjustment is usually
+what you want, but not always, and the difference between the reference
+types is a common source of errors that produce no warning.</p>
+<div class="definition">
+<p>Excel offers three reference types. The dollar sign is the lock: it
+freezes whatever part of the address follows it.</p>
+<ul>
+<li>A <strong>relative reference</strong> (<code>B2</code>) shifts in
+both directions when the formula is copied. This is the default and the
+usual choice.</li>
+<li>An <strong>absolute reference</strong> (<code>$B$2</code>) is locked
+on both the column and the row, so it always points at the same cell no
+matter where it is copied.</li>
+<li>A <strong>mixed reference</strong> (<code>B$2</code> or
+<code>$B2</code>) locks only one part: <code>B$2</code> fixes the row,
+and <code>$B2</code> fixes the column.</li>
+</ul>
+</div>
+<p>Figure 3 shows what each reference type becomes when a formula
+entered in cell <code>B2</code> is filled down to the next row and
+filled right to the next column. Filling in only one direction can hide
+the difference, so the figure fills in both.</p>
+<figure id="fig:ch06-refs">
+<img src="figures/generated/ch_06_reference_types.png"
+alt="Figure 3: What a formula entered in cell B2 becomes when it is filled down and filled across, for each reference type. The dollar sign freezes the part of the address that follows it. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 3: What a formula entered in cell
+<code>B2</code> becomes when it is filled down and filled across, for
+each reference type. The dollar sign freezes the part of the address
+that follows it. Source: concept schematic.</figcaption>
+</figure>
+<p>A short rule covers each type:</p>
+<ul>
+<li>Use a <strong>relative</strong> reference when each copy of a
+formula should point at a new row (or column), which is the common
+case.</li>
+<li>Use an <strong>absolute</strong> reference when every copy must
+point at the same cell. A typical use case is a shared denominator or
+target: when you divide each clinic’s no-show count by one grand total
+in <code>$B$20</code>, locking that cell keeps every row dividing by the
+same value as the formula is filled down.</li>
+<li>Use a <strong>mixed</strong> reference when a formula is copied
+across a grid and one direction must stay fixed. For example, when a
+table of rates is divided by a single column of patient counts in column
+<code>B</code>, writing <code>$B2</code> fixes the column while the row
+moves, so each rate pairs with the correct patient count.</li>
+</ul>
+<div class="caution">
+<p>When a column of results looks wrong below the first row, check the
+reference type first. A denominator that should have been locked as
+<code>$B$20</code> but was left relative as <code>B20</code> slides to
+<code>B21</code>, <code>B22</code>, and so on, dividing by the wrong
+cell each time and producing values that look plausible but are
+incorrect. A pair of dollar signs prevents it.</p>
+</div>
+<div class="tryit">
+<p>Enter <code>=A1</code> in cell <code>C3</code>, then copy it to
+<code>D3</code> and to <code>C4</code>. Note how both parts of the
+address move. Now change it to <code>=$A$1</code> and copy it to the
+same two cells. Predict what each copy will show before you look, then
+confirm that every copy still reads <code>=$A$1</code>.</p>
+</div>
+</section>
+<section id="core-calculation-functions" class="level3">
+<h3>Core calculation functions</h3>
+<div class="definition">
+<p>A <strong>function</strong> is a named calculation that takes its
+inputs in parentheses, such as <code>=AVERAGE(B2:B100)</code>.</p>
+</div>
+<p>A small set of functions covers most calculations in daily analytic
+work. The examples below use short cell ranges for clarity; in the
+walkthrough you will refer to Table columns by name instead.</p>
+<table>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Function</th>
+<th>What it calculates</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SUM</code></td>
+<td>Adds the numbers in a range</td>
+<td><code>=SUM(B2:B100)</code></td>
+</tr>
+<tr>
+<td><code>ROWS</code></td>
+<td>Counts the rows in a range or Table</td>
+<td><code>=ROWS(B2:B100)</code></td>
+</tr>
+<tr>
+<td><code>COUNTIFS</code></td>
+<td>Counts rows meeting one or more conditions</td>
+<td><code>=COUNTIFS(C2:C100, "No Show")</code></td>
+</tr>
+<tr>
+<td><code>SUMIFS</code></td>
+<td>Adds a column for rows meeting conditions</td>
+<td><code>=SUMIFS(B2:B100, C2:C100, "Completed")</code></td>
+</tr>
+<tr>
+<td><code>AVERAGE</code></td>
+<td>Returns the mean of a range</td>
+<td><code>=AVERAGE(D2:D100)</code></td>
+</tr>
+<tr>
+<td><code>AVERAGEIFS</code></td>
+<td>Returns the mean for rows meeting conditions</td>
+<td><code>=AVERAGEIFS(B2:B100, C2:C100, "Completed")</code></td>
+</tr>
+<tr>
+<td><code>IF</code></td>
+<td>Returns one value when a test is true, another when it is false</td>
+<td><code>=IF(B7&gt;B8, "Above", "At or below")</code></td>
+</tr>
+<tr>
+<td><code>ROUND</code></td>
+<td>Rounds a number to a set number of decimals</td>
+<td><code>=ROUND(B2/B3, 3)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Counting with a condition is the most frequently used operation in
+healthcare analytics, because nearly every measure is a count over a
+defined group. The no-show rate from Chapter 3 is exactly this: count
+the no-shows, count the completed-or-no-show appointments, and divide
+the first by the second.</p>
+<figure id="fig:ch06-funcanatomy">
+<img src="figures/generated/ch_06_function_anatomy.png"
+alt="Figure 4: The parts of a function call, using COUNTIFS over the Appointments Table: the function name, the range it examines, and the condition it tests. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 4: The parts of a function call,
+using <code>COUNTIFS</code> over the <code>Appointments</code> Table:
+the function name, the range it examines, and the condition it tests.
+Source: concept schematic.</figcaption>
+</figure>
+<p><code>ROUND</code> changes the stored value of a number, which
+affects any later calculation that uses it. When you only want to change
+how a number is displayed, use number formatting instead (covered in the
+walkthrough), which leaves the underlying value intact. Reserve
+<code>ROUND</code> for cases where the rounded value itself must be
+stored and reused.</p>
+<div class="keypoint">
+<p><code>COUNTIFS</code> over a defined group is the basis of most
+healthcare measures. Once you are fluent with it, rates, counts, and
+category breakdowns all become the same operation with different
+conditions.</p>
+</div>
+<figure id="fig:ch06-funcchooser">
+<img src="figures/generated/ch_06_function_chooser.png"
+alt="Figure 5: A quick guide to choosing a function from the question you are asking, matching each of the core functions to the task it performs. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 5: A quick guide to choosing a
+function from the question you are asking, matching each of the core
+functions to the task it performs. Source: concept
+schematic.</figcaption>
+</figure>
+</section>
+<section id="summarizing-a-column-with-descriptive-statistics"
+class="level3">
+<h3>Summarizing a column with descriptive statistics</h3>
+<p>The same mechanics that count and add also compute the summary
+numbers that describe a single column of values. Chapters 9 and 10 cover
+how to choose among these summaries and interpret them; the functions
+themselves are listed here so you can produce them.</p>
+<table>
+<thead>
+<tr>
+<th>Function</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AVERAGE</code></td>
+<td>The mean, the arithmetic center of the values</td>
+</tr>
+<tr>
+<td><code>MEDIAN</code></td>
+<td>The middle value, which is less affected by extremes</td>
+</tr>
+<tr>
+<td><code>STDEV.S</code></td>
+<td>The standard deviation, a measure of spread</td>
+</tr>
+<tr>
+<td><code>MIN</code>, <code>MAX</code></td>
+<td>The smallest and largest values</td>
+</tr>
+</tbody>
+</table>
+<p>These functions ignore blank cells. <code>AVERAGE</code>,
+<code>MEDIAN</code>, <code>MIN</code>, <code>MAX</code>, and
+<code>STDEV.S</code> compute their result only from the cells that
+actually contain a number, so a column with missing values is summarized
+over the recorded values alone. That behavior is usually convenient, but
+it means a reported average describes only the records that have data, a
+point the walkthrough returns to.</p>
+<p>Excel offers two standard-deviation functions, and they answer
+different questions:</p>
+<ul>
+<li>Use <code>STDEV.S</code> when the data at hand are treated as a
+<strong>sample</strong> drawn from a larger population, which is the
+common situation in analytics.</li>
+<li>Use <code>STDEV.P</code> when the file contains the <strong>entire
+population</strong> you want to describe.</li>
+</ul>
+<p>This chapter treats its datasets as samples of ongoing clinic
+activity, so it uses <code>STDEV.S</code> throughout.</p>
+</section>
+<section id="organizing-data-sorting-and-filtering" class="level3">
+<h3>Organizing data: sorting and filtering</h3>
+<p>Before a column can be summarized or charted, it often helps to
+reorder or narrow the rows. Two commands handle this, and both operate
+on the data itself rather than on a separate copy.</p>
+<ul>
+<li><strong>Sorting</strong> rearranges the rows by the values in a
+chosen column, placing them in ascending or descending order. It changes
+the physical order of the rows, not only what you see. Open it from
+<strong>Data &gt; Sort</strong>, choose the column to sort by, and set
+the direction.</li>
+<li><strong>Filtering</strong> hides the rows that do not meet a
+condition, leaving the matching rows visible while the hidden rows
+remain in the file. When data is formatted as a Table, each column
+header carries a small arrow; clicking it opens a menu where you check
+the values to keep. Clearing the filter restores every row.</li>
+</ul>
+<p>Sorting is useful when you want to see the largest or smallest values
+at the top, such as the specialties with the highest no-show rates.
+Filtering is useful when you want to work with one subset at a time,
+such as completed visits only. Neither command deletes a row, so both
+are safe to apply and undo while you explore the data.</p>
+<figure id="fig:ch06-sortfilter">
+<img src="figures/generated/ch_06_sort_filter_chart.png"
+alt="Figure 6: Sorting reorders the rows, filtering hides the rows that do not match, and charting pictures a prepared summary; none of the three changes the underlying values. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 6: Sorting reorders the rows,
+filtering hides the rows that do not match, and charting pictures a
+prepared summary; none of the three changes the underlying values.
+Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="visualizing-results-with-charts" class="level3">
+<h3>Visualizing results with charts</h3>
+<p>A chart converts a small summary into a picture, so a reader sees a
+comparison or a trend at a glance instead of scanning a column of
+numbers. Charts are central to how analysts communicate findings, and
+Chapter 11 develops data visualization in depth. For now, one principle
+is enough: the chart type follows the question being asked.</p>
+<ul>
+<li>A <strong>column or bar chart</strong> compares one value across
+categories, such as the no-show rate for each weekday.</li>
+<li>A <strong>line chart</strong> tracks a value over time, such as
+monthly volume across a year.</li>
+<li>A <strong>histogram</strong> shows how the values of a single
+variable are distributed, such as the spread of patient ages.</li>
+</ul>
+<figure id="fig:ch06-chartchooser">
+<img src="figures/generated/ch_06_chart_chooser.png"
+alt="Figure 7: Choosing a chart by the question it answers: compare categories with a column or bar chart, track change over time with a line chart, and show a distribution with a histogram. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 7: Choosing a chart by the
+question it answers: compare categories with a column or bar chart,
+track change over time with a line chart, and show a distribution with a
+histogram. Source: concept schematic.</figcaption>
+</figure>
+<p>To build a chart in Excel, select the labels and the values you want
+to plot, then choose a chart type from the <strong>Insert &gt;
+Charts</strong> group. Excel draws the chart on the sheet, where you can
+add a title and adjust the axes. Because the chart reads from the cells
+you selected, it updates automatically when those cells recalculate.</p>
+<p>Figure 8 is a column chart of the no-show rate for each day of the
+week, the kind you assemble from a short summary in a few steps. The
+weekdays from Monday through Friday cluster closely, between about 15.7
+and 16.8 percent, while Saturday and Sunday fall well below them, near 8
+and 11 percent. The weekend rates rest on far fewer appointments,
+however, so the apparent difference should be read with that smaller
+volume in mind.</p>
+<figure id="fig:ch06-weekday">
+<img src="figures/generated/ch_06_weekday_bars.png"
+alt="Figure 8: No-show rate by day of the week, compared with the 16.1 percent overall rate, from the 30,571 completed-or-no-show appointments in datasets/DS2_appointments_clean.csv. Weekdays cluster near the overall rate; weekend rates are lower but rest on far fewer appointments. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 8: No-show rate by day of the
+week, compared with the 16.1 percent overall rate, from the 30,571
+completed-or-no-show appointments in
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>. Weekdays cluster near
+the overall rate; weekend rates are lower but rest on far fewer
+appointments. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>The column, line, and histogram cover the questions this chapter
+asks, but they are only part of a wider toolkit. Other chart families
+answer other questions: some show how a whole divides into parts or how
+values are distributed (Figure 9), and others show how two variables
+relate or how categories nest inside one another (Figure 10). You do not
+need these yet. Chapter 11 returns to data visualization in depth and
+explains when each one is the right choice; for now, treat the two
+figures below as a preview of what is ahead.</p>
+<figure id="fig:ch06-charts-composition">
+<img src="figures/generated/ch_06_charts_composition.png"
+alt="Figure 9: Chart families for composition and distribution: a pie or stacked bar chart shows how a whole divides into parts, while a box plot summarizes how a single variable is spread. These are developed in Chapter 11. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 9: Chart families for composition
+and distribution: a pie or stacked bar chart shows how a whole divides
+into parts, while a box plot summarizes how a single variable is spread.
+These are developed in Chapter 11. Source: concept
+schematic.</figcaption>
+</figure>
+<figure id="fig:ch06-charts-relationships">
+<img src="figures/generated/ch_06_charts_relationships.png"
+alt="Figure 10: Chart families for relationships and hierarchies: a scatter plot shows how two variables relate, while a treemap or sunburst shows how categories nest inside one another. These are developed in Chapter 11. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 10: Chart families for
+relationships and hierarchies: a scatter plot shows how two variables
+relate, while a treemap or sunburst shows how categories nest inside one
+another. These are developed in Chapter 11. Source: concept
+schematic.</figcaption>
+</figure>
+</section>
+<section id="recognizing-and-handling-error-values" class="level3">
+<h3>Recognizing and handling error values</h3>
+<p>When a formula cannot return a valid result, Excel displays an
+<strong>error value</strong> in place of a number. Learning to read
+these values is part of building reliable worksheets, because each one
+points to a specific, common cause. The most frequent are:</p>
+<ul>
+<li><code>#DIV/0!</code> divides by zero or by an empty cell, often a
+denominator that has not yet been filled in.</li>
+<li><code>#N/A</code> means a lookup found no matching value.</li>
+<li><code>#VALUE!</code> means a formula received text where it expected
+a number.</li>
+<li><code>#REF!</code> means a referenced cell was deleted, so the
+formula no longer has a valid target.</li>
+<li><code>#NAME?</code> means Excel did not recognize a name in the
+formula, usually a misspelled function (<code>=AVERGE(...)</code>) or a
+function that an older version of Excel does not include.</li>
+</ul>
+<p>When a formula may fail for a reason you expect and understand, you
+can replace the error with a readable message. The <code>IFERROR</code>
+function does this: <code>=IFERROR(B2/C2, "no data")</code> returns the
+division when it succeeds and the text when it would otherwise produce
+an error.</p>
+<div class="caution">
+<p>Use <code>IFERROR</code> only when you know which failure you are
+catching. Because it replaces <em>every</em> error with the same
+message, it can also conceal a genuine mistake, such as a misspelled
+column name, that you would rather see and fix. When the only problem
+you expect is an empty denominator, a more specific formula makes the
+intent clear: <code>=IF(C2=0, "no data", B2/C2)</code> handles the zero
+case without hiding unrelated errors.</p>
+</div>
+<figure id="fig:ch06-errors">
+<img src="figures/generated/ch_06_error_values.png"
+alt="Figure 11: The common Excel error values, what each one signals, and the likely cause to check first. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 11: The common Excel error values,
+what each one signals, and the likely cause to check first. Source:
+concept schematic.</figcaption>
+</figure>
+</section>
+</section>
+<section id="walkthrough-build-a-clinic-no-show-scorecard"
+class="level2">
+<h2>Walkthrough: build a clinic no-show scorecard</h2>
+<p>This build turns the raw appointment file into the one-page scorecard
+in Figure 13. Figure 12 previews the path from raw rows to that finished
+page. Every number on it is computed by a formula that reads from the
+data, so no calculated result is typed by hand.</p>
+<p>The scorecard reports the <strong>no-show rate</strong>, so it is
+worth stating the measure precisely before building it. The rate counts
+no-shows and divides by the appointments that were either completed or
+recorded as a no-show. Early cancellations, late cancellations, and
+rescheduled appointments are excluded from the denominator, because a
+canceled visit is a different event from a patient who simply did not
+arrive. The 14 percent target used below is an illustrative teaching
+value, not a published standard; a real scorecard would use a target set
+by the organization. The scorecard summarizes the entire appointment
+file, which spans two years and 36,000 appointments; to report a single
+month instead, you would first filter the Table to that month.</p>
+<div class="definition">
+<p>A <strong>scorecard</strong> is a one-page summary of the few numbers
+that matter most, each shown next to a target or a comparison so a
+reader can judge performance at a glance. The headline numbers on it are
+its <strong>key performance indicators (KPIs)</strong>.</p>
+</div>
+<figure id="fig:ch06-workflow">
+<img src="figures/generated/ch_06_scorecard_workflow.png"
+alt="Figure 12: An overview of the build ahead: raw appointment rows become a named Table, formulas compute the KPIs, and formatting and a chart produce a one-page scorecard that recalculates when the source data changes. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 12: An overview of the build
+ahead: raw appointment rows become a named Table, formulas compute the
+KPIs, and formatting and a chart produce a one-page scorecard that
+recalculates when the source data changes. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you start: open
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, and immediately save a
+working copy as an Excel workbook so the original stays untouched. Work
+only in the copy.</p>
+</div>
+<p><strong>Part A. Set up the data.</strong> First convert the raw file
+into a named Table so that every later formula can refer to its columns
+by name.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> in Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name it <code>ch06_scorecard.xlsx</code>.
+Work in this file from here on.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>. Excel outlines the whole data range;
+confirm <strong>My table has headers</strong> is checked, and click
+<strong>OK</strong>. The data becomes a banded Table.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), click in the <strong>Table
+Name</strong> box, type <code>Appointments</code>, and press Enter.</li>
+<li>Add a new worksheet with the <strong>+</strong> beside the sheet
+tabs, then double-click the new tab, type <code>Scorecard</code>, and
+press Enter.</li>
+</ol>
+<p><strong>Part B. Title the scorecard.</strong> A clear title and a
+little formatting turn a grid of numbers into something a manager will
+read.</p>
+<ol start="6" type="1">
+<li>On the <code>Scorecard</code> sheet, click <code>A1</code>, type
+<code>Clinic No-Show Scorecard</code>, and press Enter.</li>
+<li>Select <code>A1:F1</code>, then choose <strong>Home &gt; Alignment
+&gt; Merge &amp; Center</strong>. The title spans the full width. (On a
+data sheet, never merge cells, because merged cells break sorting and
+formulas; here the Scorecard is an output sheet, so it is safe. If you
+prefer to avoid merging entirely, <strong>Center Across
+Selection</strong> in the alignment options gives the same look without
+combining cells.)</li>
+<li>With the merged cell selected, apply <strong>Bold</strong> and size
+14, set <strong>Home &gt; Font &gt; Fill Color</strong> to a dark blue,
+and set <strong>Font Color</strong> to white.</li>
+</ol>
+<p><strong>Part C. Build the KPI block.</strong> The KPI block holds the
+headline numbers the clinic watches every month. Each one is a single
+formula over the <code>Appointments</code> Table.</p>
+<ol start="9" type="1">
+<li>In <code>A3</code> type <code>Metric</code> and in <code>B3</code>
+type <code>Value</code>. Select <code>A3:B3</code> and click
+<strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Total appointments</code>; in
+<code>B4</code> enter <code>=ROWS(Appointments)</code>. Cell
+<code>B4</code> shows <code>36000</code>.</li>
+<li>In <code>A5</code> type <code>No-shows</code>; in <code>B5</code>
+enter
+<code>=COUNTIFS(Appointments[attendance_outcome], "No Show")</code>.
+Cell <code>B5</code> shows <code>4913</code>.</li>
+<li>In <code>A6</code> type <code>Completed or no-show</code>; in
+<code>B6</code> enter<br />
+<code>=COUNTIFS(Appointments[attendance_outcome], "Completed") + B5</code><br />
+Cell <code>B6</code> shows <code>30571</code>. This is the denominator
+of the no-show rate.</li>
+<li>In <code>A7</code> type <code>No-show rate</code>; in
+<code>B7</code> enter <code>=B5/B6</code>. For now it shows
+<code>0.161</code>; you will format it as a percentage later.</li>
+<li>In <code>A8</code> type <code>Target</code>; in <code>B8</code> type
+<code>0.14</code>.</li>
+<li>In <code>A9</code> type <code>Status</code>; in <code>B9</code>
+enter <code>=IF(B7&gt;B8, "Above target", "At or below target")</code>.
+Cell <code>B9</code> shows <code>Above target</code>.</li>
+<li>In <code>A10</code> type <code>Telehealth visits</code>; in
+<code>B10</code> enter
+<code>=COUNTIFS(Appointments[telehealth_flag], 1)</code>. Cell
+<code>B10</code> shows <code>5199</code>.</li>
+<li>In <code>A11</code> type
+<code>Telehealth share (of all appointments)</code>; in <code>B11</code>
+enter <code>=B10/B4</code>. It shows <code>0.144</code>. The denominator
+is every appointment, including the ones that were canceled or
+rescheduled.</li>
+<li>In <code>A12</code> type <code>Recorded copay, completed</code>; in
+<code>B12</code> enter<br />
+<code>=SUMIFS(Appointments[copay_usd], Appointments[attendance_outcome], "Completed")</code><br />
+It shows <code>447047.58</code>. <code>SUMIFS</code> adds the copay only
+for completed visits and skips the blank copay cells.</li>
+<li>In <code>A13</code> type <code>Avg recorded copay, completed</code>;
+in <code>B13</code> enter<br />
+<code>=AVERAGEIFS(Appointments[copay_usd], Appointments[attendance_outcome], "Completed")</code><br />
+It shows about <code>28.51</code>. Because the function ignores blanks,
+this is the average among completed visits that have a recorded
+copay.</li>
+</ol>
+<p><strong>Part D. Add an age distribution.</strong> A few one-line
+statistics describe the ages recorded across the appointments. These are
+the summary functions from the concepts section.</p>
+<ol start="20" type="1">
+<li>In <code>D3</code> type <code>Statistic</code> and in
+<code>E3</code> type <code>Years</code>. Select <code>D3:E3</code> and
+click <strong>Bold</strong>.</li>
+<li>In <code>D4</code> type <code>Mean</code>; in <code>E4</code> enter
+<code>=AVERAGE(Appointments[patient_age])</code>. It shows about
+<code>52.7</code>.</li>
+<li>In <code>D5</code> type <code>Median</code>; in <code>E5</code>
+enter <code>=MEDIAN(Appointments[patient_age])</code>. It shows
+<code>53</code>.</li>
+<li>In <code>D6</code> type <code>Std dev</code>; in <code>E6</code>
+enter <code>=STDEV.S(Appointments[patient_age])</code>. It shows about
+<code>20.9</code>.</li>
+<li>In <code>D7</code> type <code>Youngest</code>; in <code>E7</code>
+enter <code>=MIN(Appointments[patient_age])</code>. It shows
+<code>0</code>.</li>
+<li>In <code>D8</code> type <code>Oldest</code>; in <code>E8</code>
+enter <code>=MAX(Appointments[patient_age])</code>. It shows
+<code>90</code>.</li>
+<li>In <code>D9</code> type <code>Range</code>; in <code>E9</code> enter
+<code>=E8-E7</code>. It shows <code>90</code>.</li>
+</ol>
+<p>These statistics describe age <em>across appointments</em>, not
+across patients. A patient with several appointments contributes a value
+each time, so frequent visitors count more than once. The result is
+therefore the age profile of the clinic’s visits, not of its distinct
+patients. Chapter 4 explains why the unit of analysis matters; to
+describe the patients themselves, you would first reduce the file to one
+row per patient.</p>
+<p><strong>Part E. Build the day-of-week breakdown.</strong> This block
+asks whether any day runs higher than the clinic as a whole. It is the
+same <code>COUNTIFS</code> operation with an added condition, plus one
+absolute reference that locks the clinic-wide rate.</p>
+<ol start="27" type="1">
+<li>In <code>A16:E16</code> type the headers <code>Day</code>,
+<code>No-shows</code>, <code>Completed or no-show</code>,
+<code>Rate</code>, and <code>vs Clinic</code>. Select
+<code>A16:E16</code> and click <strong>Bold</strong>.</li>
+<li>In <code>A17:A23</code> type <code>Monday</code>,
+<code>Tuesday</code>, <code>Wednesday</code>, <code>Thursday</code>,
+<code>Friday</code>, <code>Saturday</code>, and <code>Sunday</code>, one
+per row.</li>
+<li>In <code>B17</code> enter<br />
+<code>=COUNTIFS(Appointments[appointment_weekday], A17,</code><br />
+<code>Appointments[attendance_outcome], "No Show")</code><br />
+Cell <code>B17</code> shows <code>992</code>.</li>
+<li>In <code>C17</code> enter<br />
+<code>=COUNTIFS(Appointments[appointment_weekday], A17,</code><br />
+<code>Appointments[attendance_outcome], "Completed") + B17</code><br />
+Cell <code>C17</code> shows <code>5890</code>.</li>
+<li>In <code>D17</code> enter <code>=B17/C17</code>. It shows about
+<code>0.168</code>.</li>
+<li>In <code>E17</code> enter <code>=D17-$B$7</code>. The
+<code>$B$7</code> locks the clinic-wide no-show rate so every row
+compares to the same 16.1 percent. It shows about
+<code>0.007</code>.</li>
+<li>Select <code>B17:E17</code>. Point at the small square at the
+bottom-right corner of the selection, the <strong>fill handle</strong>,
+and drag it down to row 23. The formulas copy, shifting their row
+references but keeping <code>$B$7</code> fixed. Saturday’s rate
+(<code>D22</code>) shows about <code>0.083</code>, far below the
+weekdays, though it rests on only about 500 appointments.</li>
+</ol>
+<p><strong>Part F. Highlight with conditional formatting.</strong>
+Conditional formatting shades a cell based on its value, so a reader
+sees the pattern without reading every number.</p>
+<ol start="34" type="1">
+<li>Select <code>D17:D23</code>. Choose <strong>Home &gt; Conditional
+Formatting &gt; Data Bars</strong> and pick a blue fill. A bar now fills
+each rate cell in proportion to its value.</li>
+<li>Select <code>B9</code>. Choose <strong>Home &gt; Conditional
+Formatting &gt; Highlight Cells Rules &gt; Text that Contains</strong>,
+type <code>Above target</code>, and pick a red fill. The status cell
+turns red when the clinic is above target.</li>
+</ol>
+<p><strong>Part G. Add the chart.</strong> A column chart makes the
+day-of-week comparison instant.</p>
+<ol start="36" type="1">
+<li>Select <code>A17:A23</code>, then hold <code>Ctrl</code>
+(<code>Cmd</code> on macOS) and also select <code>D17:D23</code>. Choose
+<strong>Insert &gt; Charts &gt; Clustered Column</strong>. Click the
+chart title and type <code>No-show rate by day</code>.</li>
+</ol>
+<p><strong>Part H. Format and finish.</strong> A last pass makes the
+numbers readable and the sheet printable.</p>
+<ol start="37" type="1">
+<li>Select <code>B4:B6</code>, then hold <code>Ctrl</code>
+(<code>Cmd</code> on macOS) and also select <code>B10</code>. Apply
+<strong>Home &gt; Number &gt; Comma Style</strong> and click
+<strong>Decrease Decimal</strong> until no decimals show. The counts
+read <code>36,000</code>, <code>4,913</code>, <code>30,571</code>, and
+<code>5,199</code>.</li>
+<li>Select <code>B7</code>, then add <code>B8</code> and
+<code>B11</code> to the selection. Apply <strong>Home &gt; Number &gt;
+Percent Style</strong> and <strong>Increase Decimal</strong> once. They
+read <code>16.1%</code>, <code>14.0%</code>, and
+<code>14.4%</code>.</li>
+<li>Select <code>B12</code>, apply <strong>Home &gt; Number &gt;
+Accounting Number Format</strong>, then click <strong>Decrease
+Decimal</strong> twice so no cents show: it reads <code>$447,048</code>
+(the stored value is still <code>447047.58</code>). Select
+<code>B13</code>, apply <strong>Accounting Number Format</strong>: it
+reads <code>$28.51</code>.</li>
+<li>Select <code>D17:E23</code>, apply <strong>Percent Style</strong>
+and one decimal. Monday’s rate reads <code>16.8%</code> and its gap
+reads <code>0.7%</code>. Because the <code>vs Clinic</code> column
+subtracts one rate from another, that <code>0.7%</code> is 0.7
+<em>percentage points</em> above the clinic-wide rate, not 0.7 percent
+of it.</li>
+<li>Select <code>A3:B13</code>, apply <strong>Home &gt; Font &gt;
+Borders &gt; All Borders</strong>. Do the same for <code>D3:E9</code>
+and <code>A16:E23</code>.</li>
+<li>Select each header row (<code>A3:B3</code>, <code>D3:E3</code>,
+<code>A16:E16</code>), apply <strong>Bold</strong>, and set a light
+<strong>Fill Color</strong> so the headers stand out.</li>
+<li>Click the <strong>Select All button</strong>, then choose
+<strong>Home &gt; Format &gt; AutoFit Column Width</strong> so nothing
+is cut off.</li>
+<li>Set the print layout: choose <strong>Page Layout &gt; Orientation
+&gt; Landscape</strong>, and in <strong>Page Layout &gt; Scale to
+Fit</strong> set <strong>Width</strong> to <strong>1 page</strong> so
+the whole scorecard fits across the sheet. Select <code>A1:H23</code>
+and choose <strong>Page Layout &gt; Print Area &gt; Set Print
+Area</strong>.</li>
+<li>Open <strong>File &gt; Print</strong> to preview. Confirm that the
+KPI block, the age block, and the day-of-week block with its chart all
+appear together on a single page and that the chart is not split; nudge
+the chart if it overlaps a block.</li>
+<li>Save with Ctrl+S (Cmd+S on macOS). Your sheet should resemble
+Figure 13.</li>
+</ol>
+<figure id="fig:ch06-scorecard">
+<img src="figures/generated/ch_06_scorecard.png"
+alt="Figure 13: A stylized view of the finished clinic no-show scorecard: a KPI block, an age distribution, and a day-of-week breakdown with a chart, all driven by formulas over the Appointments Table. Your worksheet will carry the same numbers; the exact layout and spacing may differ. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 13: A stylized view of the
+finished clinic no-show scorecard: a KPI block, an age distribution, and
+a day-of-week breakdown with a chart, all driven by formulas over the
+<code>Appointments</code> Table. Your worksheet will carry the same
+numbers; the exact layout and spacing may differ. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>Every number on the sheet traces back to the Table, and no calculated
+result was typed by hand. When the data in the Appointments Table are
+updated, the whole scorecard recalculates.</p>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These two exercises reuse the walkthrough’s techniques on new
+questions. The first is fully guided, like the walkthrough, so you have
+a second worked example to lean on. The second fades the support: it
+names the function and the cells and gives you a value to check against,
+but leaves you to assemble each formula yourself, which is the real
+skill. Try each block before checking the answer key.</p>
+<section id="practice-a-an-emergency-department-summary" class="level3">
+<h3>Practice A: an emergency-department summary</h3>
+<p>Build a summary for the emergency department from a different file,
+so you see that the same techniques work on another similarly structured
+dataset.</p>
+<p>Goal: a one-page summary that reports total visits, length-of-stay
+(LOS) statistics, the share of visits where the patient left without
+being seen, and average LOS by triage acuity, with a chart.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, then choose
+<strong>File &gt; Save As</strong> and save a copy as
+<code>ch06_ed_summary.xlsx</code>.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong>, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab, set the <strong>Table
+Name</strong> to <code>ED</code>.</li>
+<li>Add a worksheet and rename it <code>Summary</code>.</li>
+<li>In <code>A1</code> type <code>ED Throughput Summary</code>. Select
+<code>A1:D1</code>, choose <strong>Merge &amp; Center</strong>, then
+make it <strong>Bold</strong>, size 14, with a dark fill and white
+font.</li>
+<li>In <code>A3</code> type <code>Metric</code> and in <code>B3</code>
+type <code>Value</code>; select <code>A3:B3</code> and click
+<strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Total visits</code>; in
+<code>B4</code> enter <code>=ROWS(ED)</code>. It shows
+<code>18000</code>.</li>
+<li>In <code>A5</code> type <code>Mean LOS (min)</code>; in
+<code>B5</code> enter <code>=AVERAGE(ED[length_of_stay_minutes])</code>.
+It shows about <code>210</code>. The 584 visits with no recorded LOS are
+skipped by the function.</li>
+<li>In <code>A6</code> type <code>Median LOS</code>; in <code>B6</code>
+enter <code>=MEDIAN(ED[length_of_stay_minutes])</code>. It shows
+<code>190</code>.</li>
+<li>In <code>A7</code> type <code>LOS std dev</code>; in <code>B7</code>
+enter <code>=STDEV.S(ED[length_of_stay_minutes])</code>. It shows about
+<code>90</code>.</li>
+<li>In <code>A8</code> type <code>Shortest stay</code>; in
+<code>B8</code> enter <code>=MIN(ED[length_of_stay_minutes])</code>. It
+shows <code>74</code>.</li>
+<li>In <code>A9</code> type <code>Longest stay</code>; in
+<code>B9</code> enter <code>=MAX(ED[length_of_stay_minutes])</code>. It
+shows <code>1225</code>.</li>
+<li>In <code>A10</code> type <code>Left without being seen</code>; in
+<code>B10</code> enter<br />
+<code>=COUNTIFS(ED[left_without_being_seen_flag], 1)</code><br />
+It shows <code>584</code>.</li>
+<li>In <code>A11</code> type <code>Left-without-seen share</code>; in
+<code>B11</code> enter <code>=B10/B4</code>, then format it as a
+percentage with one decimal. It shows about <code>3.2%</code>.</li>
+<li>In <code>A13</code> type <code>Triage level</code> and in
+<code>B13</code> type <code>Avg LOS (min)</code>; make
+<code>A13:B13</code> <strong>Bold</strong>.</li>
+<li>In <code>A14:A18</code> type <code>1</code>, <code>2</code>,
+<code>3</code>, <code>4</code>, and <code>5</code>.</li>
+<li>In <code>B14</code> enter
+<code>=AVERAGEIFS(ED[length_of_stay_minutes], ED[triage_acuity], A14)</code>,
+then drag the <strong>fill handle</strong> down to <code>B18</code>.
+Level <code>1</code> shows about <code>265</code> and level
+<code>5</code> about <code>200</code>.</li>
+<li>Select <code>B14:B18</code> and apply <strong>Home &gt; Conditional
+Formatting &gt; Data Bars</strong>.</li>
+<li>Select <code>A14:A18</code>, hold <code>Ctrl</code>
+(<code>Cmd</code> on macOS), also select <code>B14:B18</code>, and
+choose <strong>Insert &gt; Charts &gt; Clustered Column</strong>. Title
+it <code>Average LOS by triage acuity</code>.</li>
+<li>Apply <strong>All Borders</strong> to your blocks, click the
+<strong>Select All button</strong>, choose <strong>AutoFit Column
+Width</strong>, and save.</li>
+</ol>
+</section>
+<section id="practice-b-no-show-rate-by-specialty" class="level3">
+<h3>Practice B: no-show rate by specialty</h3>
+<p>Return to <code>ch06_scorecard.xlsx</code> and break the no-show rate
+down a different way, comparing each specialty to the clinic as a whole.
+This exercise names the function and the cells but leaves the formula
+for you to build.</p>
+<p>Goal: a sorted table and chart of the no-show rate for each
+specialty, each compared with the clinic-wide rate using a locked
+reference.</p>
+<ol type="1">
+<li>Add a new worksheet and rename it <code>Specialty</code>.</li>
+<li>In <code>A1</code> type <code>No-Show Rate by Specialty</code>, then
+merge and center it across <code>A1:E1</code> and format it bold, size
+14, with a dark fill and white font, as in the walkthrough.</li>
+<li>In <code>G1</code> type <code>Clinic overall</code>. In
+<code>H1</code>, reference the cell on the <code>Scorecard</code> sheet
+that holds the clinic-wide no-show rate (<code>=Scorecard!B7</code>),
+and format <code>H1</code> as a percentage with one decimal. It shows
+<code>16.1%</code>; this is the value every specialty is measured
+against.</li>
+<li>In <code>A3:E3</code> type the headers <code>Specialty</code>,
+<code>No-shows</code>, <code>Completed or no-show</code>,
+<code>Rate</code>, and <code>vs Clinic</code>, and bold the row. In
+<code>A4:A11</code>, list the eight specialties:
+<code>Primary care</code>, <code>Urgent care</code>,
+<code>Behavioral health</code>, <code>Cardiology</code>,
+<code>Orthopedics</code>, <code>OB/GYN</code>,
+<code>Endocrinology</code>, and <code>Pulmonology</code>.</li>
+<li>In <code>B4</code>, use <code>=COUNTIFS(...)</code> over the
+<code>Appointments</code> columns to count the no-shows for the
+specialty in <code>A4</code>.
+<ul>
+<li><code>COUNTIFS</code> takes a column, then the condition it must
+meet, and you can give it more than one pair: here the specialty column
+must match <code>A4</code>, <strong>and</strong> the outcome column must
+match <code>"No Show"</code>.</li>
+<li>Keep <code>A4</code> relative (no dollar signs) so each row counts
+its own specialty when you copy down.</li>
+</ul></li>
+<li>In <code>C4</code>, build a matching <code>=COUNTIFS(...)</code> for
+the same specialty with the outcome <code>"Completed"</code>, then add
+the no-show count (<code>+ B4</code>) so the cell holds the
+completed-or-no-show denominator.</li>
+<li>In <code>D4</code>, compute the rate by dividing the no-shows by the
+denominator (<code>=B4/C4</code>).</li>
+<li>In <code>E4</code>, subtract the clinic-wide rate from this
+specialty’s rate. Lock the clinic cell with an <strong>absolute
+reference</strong> (<code>$H$1</code>) so every row compares against the
+same number, and leave <code>D4</code> relative.</li>
+<li>Select <code>B4:E4</code> and drag the <strong>fill handle</strong>
+down to row 11. Because <code>$H$1</code> is locked and the other
+references are relative, each specialty computes its own counts, rate,
+and gap.</li>
+<li>Select <code>D4:D11</code> and <code>E4:E11</code> and format them
+as percentages with one decimal.</li>
+<li>Select any cell in <code>A3:E11</code> and sort by <code>Rate</code>
+from largest to smallest (<strong>Data &gt; Sort</strong>). Then add
+data bars to <code>D4:D11</code> (<strong>Home &gt; Conditional
+Formatting &gt; Data Bars</strong>).</li>
+<li>Make a <strong>Clustered Bar</strong> chart of the specialties
+against their rates: select <code>A4:A11</code>, hold <code>Ctrl</code>
+(<code>Cmd</code> on macOS), also select <code>D4:D11</code>, choose
+<strong>Insert &gt; Charts &gt; Clustered Bar</strong>, and title it
+<code>No-show rate by specialty</code>.</li>
+<li>Apply <strong>All Borders</strong>, <strong>AutoFit Column
+Width</strong>, and save.
+<ul>
+<li><strong>Check your work:</strong> <code>Behavioral health</code>
+should top the list at about <code>18.5%</code> and
+<code>Urgent care</code> sit lowest at about <code>11.2%</code>;
+<code>Primary care</code> (about <code>16.4%</code>) lands just above
+the clinic-wide <code>16.1%</code>. If every specialty shows the same
+gap in column <code>E</code>, the clinic cell was not locked, so check
+for <code>$H$1</code>.</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="going-deeper" class="level2">
+<h2>Going deeper</h2>
+<div class="goingdeeper">
+<p>As a summary grows past a handful of cells, a formula-by-formula
+sheet becomes hard to maintain, and a PivotTable does the same counting
+with less to break. The signal to switch is repetition: if you are
+writing the same <code>COUNTIFS</code> for Monday, Tuesday, Wednesday,
+and on down the week, you are rebuilding a PivotTable by hand. Chapter 3
+introduced the PivotTable as one of the four core tools, and the rest of
+the book relies on it heavily. Formulas and PivotTables are
+complementary rather than competing. Formulas suit a few targeted
+numbers, and PivotTables suit summarizing a column across many groups at
+once.</p>
+</div>
+<figure id="fig:ch06-pivot">
+<img src="figures/generated/ch_06_formula_vs_pivot.png"
+alt="Figure 14: When to reach for a formula and when to reach for a PivotTable: a few targeted numbers favor formulas, while summarizing a column across many groups favors a PivotTable. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 14: When to reach for a formula
+and when to reach for a PivotTable: a few targeted numbers favor
+formulas, while summarizing a column across many groups favors a
+PivotTable. Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="real-world-spotlight" class="level2">
+<h2>Real-world spotlight</h2>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. An analyst built a clinic scorecard that divided each
+clinic’s no-show count by the total across all clinics, using a formula
+like <code>=B2/B20</code>. It looked correct at the top of the column
+and drifted into implausible values below, because the denominator
+<code>B20</code> was never locked and slid down one row with each copy.
+Half the scorecard was wrong, and the error went unnoticed until a
+clinic questioned its number. A single pair of dollar signs,
+<code>=B2/$B$20</code>, would have prevented it. The lesson is small and
+durable: when a formula must always point at the same cell, lock it, and
+when a column of results looks off, check the reference type first.</p>
+</div>
+<figure id="fig:ch06-dollarsign">
+<img src="figures/generated/ch_06_absolute_ref_error.png"
+alt="Figure 15: How one missing dollar sign corrupts a report: left relative, the denominator B20 slides to B21, B22, and on down, so every row after the first divides by the wrong cell. Locking it as $B$20 fixes every row. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 15: How one missing dollar sign
+corrupts a report: left relative, the denominator <code>B20</code>
+slides to <code>B21</code>, <code>B22</code>, and on down, so every row
+after the first divides by the wrong cell. Locking it as
+<code>$B$20</code> fixes every row. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="recap">
+<ul>
+<li>The Select All button, clicking, and dragging select cells; the
+Insert tab turns a range into a named Table.</li>
+<li>A formula references cells, so the sheet recalculates itself when
+the data changes.</li>
+<li>A relative reference shifts when copied, an absolute reference is
+locked with dollar signs, and a mixed reference locks only the row or
+the column.</li>
+<li><code>SUM</code>, <code>ROWS</code>, <code>COUNTIFS</code>,
+<code>SUMIFS</code>, <code>AVERAGE</code>, <code>AVERAGEIFS</code>, and
+<code>IF</code> cover most calculations; <code>COUNTIFS</code> over a
+defined group is the basis of most healthcare measures.</li>
+<li><code>MEDIAN</code>, <code>STDEV.S</code>, <code>MIN</code>, and
+<code>MAX</code> summarize a column and ignore blank cells; sorting,
+filtering, and a well-chosen chart turn those numbers into a scorecard a
+reader will use.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Explain the difference between <code>B2</code>, <code>$B$2</code>,
+and <code>B$2</code>, and give a situation where each is the right
+choice.</li>
+<li>Write a formula that counts the appointments where
+<code>telehealth_flag</code> is <code>1</code> and
+<code>attendance_outcome</code> is <code>"No Show"</code>.</li>
+<li>Using the <code>Appointments</code> Table, write the formulas for
+the mean, median, and standard deviation of
+<code>patient_age</code>.</li>
+<li>A formula <code>=B2/B20</code> is filled down a column and the
+results are wrong below the first row. State the most likely cause and
+the fix.</li>
+<li>You must show the no-show rate for each day of the week. Name the
+chart type you would use and one reason it fits the question.</li>
+<li>A copay column contains many blank cells. Explain what
+<code>=AVERAGE(Appointments[copay_usd])</code> computes over such a
+column, and why the result does not describe every appointment.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p>Practice A (ED summary): the Table holds <code>18000</code> visits;
+the mean recorded length of stay is about <code>210</code> minutes, the
+median is <code>190</code>, and the standard deviation is about
+<code>90</code>, so the mean sits above the median and the distribution
+is right-skewed. The shortest stay is <code>74</code> minutes and the
+longest is <code>1225</code>; in <code>584</code> visits, about
+<code>3.2%</code> of all visits, the patient left without being seen,
+and those are the visits with no recorded LOS. Average length of stay
+rises with acuity, from about <code>200</code> minutes at triage level 5
+to about <code>265</code> at level 1.</p>
+<p>Practice B (specialty): <code>Behavioral health</code> has the
+highest no-show rate at about <code>18.5%</code> and
+<code>Urgent care</code> the lowest at about <code>11.2%</code>.
+<code>Primary care</code> is <code>16.4%</code>, close to the
+clinic-wide rate of <code>16.1%</code>. The <code>vs Clinic</code>
+column, locked to <code>$H$1</code>, shows which specialties run above
+or below the overall rate.</p>
+<p>End-of-chapter exercises: (1) <code>B2</code> shifts when copied,
+<code>$B$2</code> never moves, and <code>B$2</code> keeps the row fixed
+while the column can shift; use <code>$B$2</code> for a fixed total,
+<code>B2</code> to point at a new row each time, and <code>B$2</code>
+when filling across but holding one row. (2)
+<code>=COUNTIFS(Appointments[telehealth_flag], 1, Appointments[attendance_outcome], "No Show")</code>.
+(3) <code>=AVERAGE(Appointments[patient_age])</code>,
+<code>=MEDIAN(Appointments[patient_age])</code>,
+<code>=STDEV.S(Appointments[patient_age])</code>. (4) The denominator
+<code>B20</code> is a relative reference and slides to <code>B21</code>,
+<code>B22</code>, and so on as the formula is copied; lock it as
+<code>$B$20</code>. (5) A column or bar chart, because the question
+compares one value, the no-show rate, across categories (the days of the
+week). (6) It returns the mean of only the appointments that have a
+recorded copay, because <code>AVERAGE</code> ignores blank cells;
+appointments with no copay value are left out of both the total and the
+count, so the average does not represent every appointment.</p>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Brown, N., Lave, B., Puncochar, H., Romey, J., Schatz, M.,
+Schneider, A., &amp; Shingledecker, D. (2020). <em>Beginning Excel
+2019.</em> Open Oregon Educational Resources.
+https://openoregon.pressbooks.pub/beginningexcel19/</li>
+<li>Microsoft. (2024). <em>Overview of formulas in Excel.</em> Microsoft
+Support.
+https://support.microsoft.com/en-us/excel/get-started/overview-of-formulas-in-excel</li>
+<li>Walkenbach, J. (2013). <em>Excel 2013 formulas.</em> Wiley.</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Formula</dt>
+<dd>
+A cell entry beginning with an equals sign that computes a result from
+other cells.
+</dd>
+<dt>Cell address</dt>
+<dd>
+The label for a cell formed from its column letter and row number, such
+as <code>B2</code>.
+</dd>
+<dt>Name Box</dt>
+<dd>
+The box at the left of the formula bar that shows the address of the
+selected cell.
+</dd>
+<dt>Relative reference</dt>
+<dd>
+A cell reference that shifts when the formula is copied, such as
+<code>B2</code>.
+</dd>
+<dt>Absolute reference</dt>
+<dd>
+A cell reference locked with dollar signs so it does not move when
+copied, such as <code>$B$2</code>.
+</dd>
+<dt>Mixed reference</dt>
+<dd>
+A cell reference that locks only the row or only the column, such as
+<code>B$2</code> or <code>$B2</code>.
+</dd>
+<dt>Fill handle</dt>
+<dd>
+The small square at the bottom-right corner of a selection that copies a
+formula to adjacent cells when dragged.
+</dd>
+<dt>Function</dt>
+<dd>
+A named calculation that takes its inputs in parentheses, such as
+<code>AVERAGE(range)</code>.
+</dd>
+<dt>Structured reference</dt>
+<dd>
+A reference that names a Table column, such as
+<code>Appointments[patient_age]</code>, instead of a cell range.
+</dd>
+<dt>Scorecard</dt>
+<dd>
+A one-page summary of the few numbers that matter most, each shown
+against a target or comparison.
+</dd>
+<dt>Key performance indicator (KPI)</dt>
+<dd>
+A headline number that tracks something an organization watches, such as
+the no-show rate.
+</dd>
+<dt>Conditional formatting</dt>
+<dd>
+Shading or marking a cell automatically based on its value, such as data
+bars or a color rule.
+</dd>
+<dt>Standard deviation</dt>
+<dd>
+A measure of how far values typically fall from the mean, calculated in
+Excel with <code>STDEV.S</code> for a sample.
+</dd>
+<dt>Error value</dt>
+<dd>
+A code such as <code>#DIV/0!</code> or <code>#NAME?</code> that Excel
+shows when a formula cannot return a valid result.
+</dd>
+<dt>Sort</dt>
+<dd>
+Reordering the rows of a table by the values in a column, which changes
+the order of the rows themselves.
+</dd>
+<dt>Filter</dt>
+<dd>
+Hiding the rows of a table that do not meet a condition, so a subset can
+be read, without deleting any rows.
+</dd>
+<dt>Percentage point</dt>
+<dd>
+The arithmetic difference between two percentages, as distinct from a
+percent change; 16.8% minus 14.0% is 2.8 percentage points.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section class="faq-section" aria-label="Frequently asked questions">
+<h2>Frequently asked questions</h2>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">What is the difference between relative and absolute cell references in Excel?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">A relative reference such as B2 shifts when the formula is copied, which is the usual choice. An absolute reference such as $B$2 stays locked on the same cell no matter where it is copied. A mixed reference locks only the row or only the column.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">Which Excel function counts rows that meet conditions?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">COUNTIFS counts rows meeting one or more conditions, SUMIFS adds a column for matching rows, and AVERAGEIFS averages them. Counting with a condition is the most frequently used operation in healthcare analytics, since nearly every measure is a count over a defined group.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">How do you choose the right chart type in Excel?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">The chart type follows the question: a column or bar chart compares one value across categories, a line chart tracks a value over time, and a histogram shows how the values of a single variable are distributed.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">What is an Excel scorecard?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">A scorecard is a single formatted page that reports the measures a clinic watches, built from formulas that read directly from the data. When the data changes, every figure recalculates, and every number traces back to its source.</p>
+  </div>
+</div>
+</section><details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch06,
+  author = {Sher, Hoshiar J.},
+  title = {Excel Foundations: Formulas, Functions, References, and Charts},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch06.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch06,
+  author = {Sher, Hoshiar J.},
+  title = {Excel Foundations: Formulas, Functions, References, and Charts},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch06.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch05.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="pn next" href="appendix-a-capstone-project.html"><span class="pn-dir">Next</span><span class="pn-title">Appendix A. Semester Capstone Project</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-a-clinic-no-show-scorecard">Walkthrough: build a clinic no-show scorecard</a><a href="#practice-on-your-own">Practice on your own</a><a href="#going-deeper">Going deeper</a><a href="#real-world-spotlight">Real-world spotlight</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

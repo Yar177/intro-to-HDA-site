@@ -1,0 +1,19 @@
+facility_id,facility_name,facility_type,region,county_fips,zip_area_id,urban_rural_group,bed_count,teaching_site_flag,service_line_focus,opening_year,active_flag
+HOSP01,Riverbend Medical Center,Hospital,Central,36055,ZA010,Urban core,320,1,Acute care hospital,1998,1
+ED01,Riverbend Medical Center Emergency Department,ED,Central,36055,ZA010,Urban core,0,1,Emergency care,1998,1
+UC01,Riverbend East Urgent Care,Urgent care,East,36069,ZA024,Suburban,0,0,Urgent care,2011,1
+UC02,Riverbend West Urgent Care,Urgent care,West,36073,ZA058,Small town,0,0,Urgent care,2014,1
+PC01,Riverbend Downtown Family Medicine,Primary care clinic,Central,36055,ZA004,Urban core,0,1,Primary care,2007,1
+PC02,Riverbend South Family Medicine,Primary care clinic,South,36051,ZA046,Rural,0,0,Primary care,2009,1
+PC03,Riverbend East Primary Care,Primary care clinic,East,36069,ZA025,Suburban,0,0,Primary care,2010,1
+PC04,Riverbend West Primary Care,Primary care clinic,West,36073,ZA054,Small town,0,0,Primary care,2012,1
+PC05,Riverbend North Family Medicine,Primary care clinic,North,36117,ZA036,Small town,0,0,Primary care,2013,1
+PC06,Riverbend Midtown Internal Medicine,Primary care clinic,Central,36055,ZA012,Urban core,0,1,Primary care,2005,1
+SP01,Riverbend Cardiology Center,Specialty clinic,Central,36055,ZA011,Urban core,0,1,Cardiology,2008,1
+SP02,Riverbend Endocrinology and Metabolism,Specialty clinic,Central,36055,ZA013,Urban core,0,1,Endocrinology,2010,1
+SP03,Riverbend Behavioral Health,Specialty clinic,Central,36055,ZA015,Urban core,0,1,Behavioral health,2006,1
+SP04,Riverbend Women's Health,Specialty clinic,East,36069,ZA026,Suburban,0,0,OB/GYN,2011,1
+SP05,Riverbend Orthopedics and Sports Medicine,Specialty clinic,Central,36055,ZA014,Urban core,0,1,Orthopedics,2012,1
+SP06,Riverbend Pulmonary and Sleep Medicine,Specialty clinic,Central,36055,ZA016,Urban core,0,1,Pulmonology,2014,1
+IM01,Riverbend Imaging Center,Imaging center,Central,36055,ZA017,Urban core,0,1,Imaging,2009,1
+LAB01,Riverbend Laboratory Services,Lab center,Central,36055,ZA018,Urban core,0,1,Laboratory,2004,1

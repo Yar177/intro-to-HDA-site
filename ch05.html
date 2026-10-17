@@ -1,0 +1,1332 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Healthcare Coding, Terminology, Governance, Privacy, and Ethics — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="ICD-10-CM, CPT, SNOMED CT, LOINC: what each healthcare coding system records, how codes shape payment and privacy, and how analysts group codes in Excel.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch05.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Healthcare Coding, Terminology, Governance, Privacy, and Ethics — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="ICD-10-CM, CPT, SNOMED CT, LOINC: what each healthcare coding system records, how codes shape payment and privacy, and how analysts group codes in Excel.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch05.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@context":"https://schema.org","@type":"Chapter","headline":"Healthcare Coding, Terminology, Governance, Privacy, and Ethics","position":5,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch05.html","teaches":"healthcare coding systems explained","educationalLevel":"beginner","learningResourceType":"chapter"},{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"What is ICD-10-CM?","acceptedAnswer":{"@type":"Answer","text":"ICD-10-CM is the US system for classifying diagnoses, maintained by the CDC. Its alphanumeric codes, such as E11.65 for type 2 diabetes with hyperglycemia, run three to seven characters, with the first three forming a broad category."}},{"@type":"Question","name":"What is the difference between ICD-10-CM, CPT, and SNOMED CT?","acceptedAnswer":{"@type":"Answer","text":"ICD-10-CM classifies diagnoses for reporting and payment. CPT names billable professional and outpatient services. SNOMED CT captures fine-grained clinical meaning and relationships in the health record. Each answers a different question about the same episode of care."}},{"@type":"Question","name":"Why does medical coding affect how hospitals get paid?","acceptedAnswer":{"@type":"Answer","text":"Codes drive payment: a claim's diagnosis and procedure codes determine what the payer reimburses. Coding-related problems are among the most common reasons claims are denied, so coding is never a neutral clerical act."}},{"@type":"Question","name":"How do analysts group thousands of ICD-10 codes for analysis?","acceptedAnswer":{"@type":"Answer","text":"Analysts roll detailed codes up to three-character categories and broader ranges, since tens of thousands of codes are too many to chart one by one. In Excel this is done with a lookup table that maps each code to its group."}}]}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item active" href="ch05.html"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><span class="nav-item disabled"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Reading a Result Honestly</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 5 · 52 minutes</p>
+    <p class="last-updated">Last updated October 16, 2026</p>
+    <article class="prose">
+      <section id="sec:ch05" class="level1">
+<h1>Healthcare Coding, Terminology, Governance, Privacy, and Ethics</h1><aside class="learn-box" aria-label="What you will learn"><h2>What you will learn</h2><p>You will learn the major US code and terminology systems, how coding drives payment, how governance and HIPAA protect privacy, and how bias enters coded data.</p></aside>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>The following is an illustrative scenario, not a specific patient or
+organization.</p>
+<p>A patient arrives at a hospital short of breath and leaves four days
+later. At discharge, a trained medical coder reviews the chart and
+assigns the <strong>principal diagnosis</strong>, the condition found
+after study to be chiefly responsible for the admission. Here that is
+ICD-10-CM code <code>I11.0</code>, hypertensive heart disease with heart
+failure. (Complete coding also adds an <code>I50</code> code to name the
+type of heart failure.)</p>
+<p>That one code helps the hospital report the stay, group similar
+cases, and support a claim. It does not replace the clinical record.
+Before an analyst counts it, four questions matter:</p>
+<ul>
+<li>Was the diagnosis coded consistently? (<strong>coding</strong>)</li>
+<li>Which official definition governs the field?
+(<strong>governance</strong>)</li>
+<li>Which linked fields could identify the patient?
+(<strong>privacy</strong>)</li>
+<li>Could the resulting report help one group while disadvantaging
+another? (<strong>ethics</strong>)</li>
+</ul>
+<p>These four questions are the four responsibilities this chapter
+follows, in order: coding, governance, privacy, and ethics.</p>
+<figure id="fig:ch05-four">
+<img src="figures/generated/ch_05_four_responsibilities.png"
+alt="Figure 1: One coded record, I11.0, raises four questions at once: was it coded consistently (coding), which definition governs the field (governance), which linked fields could identify the patient (privacy), and could the resulting report disadvantage a group (ethics). The chapter follows these four responsibilities in order." />
+<figcaption aria-hidden="true">Figure 1: One coded record,
+<code>I11.0</code>, raises four questions at once: was it coded
+consistently (coding), which definition governs the field (governance),
+which linked fields could identify the patient (privacy), and could the
+resulting report disadvantage a group (ethics). The chapter follows
+these four responsibilities in order.</figcaption>
+</figure>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Distinguish the major US code and terminology systems, and interpret
+the structure of an ICD-10-CM diagnosis code.</li>
+<li>Explain how payment incentives and data governance shape the coded
+data used in analysis.</li>
+<li>Recognize protected health information, apply the minimum necessary
+standard, and distinguish the two HIPAA (Health Insurance Portability
+and Accountability Act) de-identification methods.</li>
+<li>Identify how measurement choices, missing data, and interpretation
+can introduce bias into coded healthcare data.</li>
+<li>Group raw diagnosis codes into readable categories in Excel with a
+lookup.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<p>Healthcare data is not raw observation. It is a translation of care
+into agreed categories, managed by rules, protected by law, and used in
+decisions that affect people. This chapter follows that translation
+through four connected layers: coding, governance, privacy, and
+ethics.</p>
+<section id="from-care-to-code-code-sets-and-terminology"
+class="level3">
+<h3>From care to code: code sets and terminology</h3>
+<p>A <strong>code set</strong> is a standardized list of categories used
+to record one part of care. Diagnoses, the reason care happened, are
+recorded in <strong>ICD-10-CM</strong> (International Classification of
+Diseases, Tenth Revision, Clinical Modification), a system of
+alphanumeric codes such as <code>E10.10</code> for type 1 diabetes
+mellitus with ketoacidosis without coma, or <code>R07.9</code> for chest
+pain, unspecified. The procedures and services a clinician performs are
+recorded in other systems.</p>
+<p>These systems are not all the same kind of thing, and the difference
+matters:</p>
+<ul>
+<li>A <strong>classification</strong> such as ICD-10-CM sorts clinical
+detail into a fixed set of reporting categories for statistics and
+payment.</li>
+<li>A <strong>clinical terminology</strong> such as SNOMED CT
+(Systematized Nomenclature of Medicine Clinical Terms) captures
+fine-grained clinical meaning and the relationships between concepts in
+the health record.</li>
+<li>An <strong>administrative code set</strong> such as CPT (Current
+Procedural Terminology) names billable services.</li>
+</ul>
+<p>What the three share is standardization: an agreed list that lets two
+organizations mean the same thing by the same code, so one hospital’s
+data can be compared with another’s, and this year’s with last year’s
+(National Library of Medicine, n.d.-b).</p>
+<p>That shared meaning is the whole point. A measure is only comparable
+if everyone counting it starts from the same categories. When a clinic
+in Buffalo and a clinic in Boston both record heart failure as the same
+ICD-10-CM code, their heart-failure rates can sit in the same table.
+Without a standard, every organization would invent its own labels and
+no number could travel.</p>
+<p>Coding buys that comparability, and it charges detail in return. When
+a four-day clinical picture becomes <code>I11.0</code>, the specifics
+that did not fit the category are gone, and two patients with the same
+code can be quite different people. A code is best read as a careful
+summary made under rules, not as a neutral photograph of the
+patient.</p>
+<figure id="fig:ch05-care2code">
+<img src="figures/generated/ch_05_care_to_code.png"
+alt="Figure 2: A rich clinical story passes through coding rules to become a standardized code. The organization gains comparability across hospitals and years, and loses the clinical detail that did not fit the category. Read a code as a summary made under rules, not a photograph of the patient." />
+<figcaption aria-hidden="true">Figure 2: A rich clinical story passes
+through coding rules to become a standardized code. The organization
+gains comparability across hospitals and years, and loses the clinical
+detail that did not fit the category. Read a code as a summary made
+under rules, not a photograph of the patient.</figcaption>
+</figure>
+<div class="keypoint">
+<p>A code standardizes care so it can be counted and compared, which is
+exactly what makes analysis possible. The same step discards detail, so
+read a code as a summary, not as raw truth.</p>
+</div>
+<p>Standardization is not free, and this matters for a reason beyond
+today’s lesson: code systems are updated on a schedule, so the same code
+can mean slightly different things across years. Whenever you work with
+coded data over time, you also need to know which version of the code
+set produced it. Chapter 8 returns to this when it cleans longitudinal
+data.</p>
+<figure id="fig:ch05-version">
+<img src="figures/generated/ch_05_code_versioning.png"
+alt="Figure 3: Because a code set is revised on a schedule, the same code can mean slightly different things across releases. Storing the code system and its version alongside each value, and joining by the service date, keeps a multi-year trend honest. Figure 3 previews a habit Chapter 8 develops when it cleans longitudinal data." />
+<figcaption aria-hidden="true">Figure 3: Because a code set is revised
+on a schedule, the same code can mean slightly different things across
+releases. Storing the code system and its version alongside each value,
+and joining by the service date, keeps a multi-year trend honest.
+Figure 3 previews a habit Chapter 8 develops when it cleans longitudinal
+data.</figcaption>
+</figure>
+</section>
+<section id="a-short-tour-of-the-major-code-systems" class="level3">
+<h3>A short tour of the major code systems</h3>
+<p>No single system records everything. One encounter may include a
+diagnosis code, a procedure code, a laboratory terminology, and payment
+codes. The easiest way to tell them apart is to ask what question each
+system answers. Table 1 provides that map. You do not need to memorize
+every system. For this book, three systems do most of the work:
+ICD-10-CM for diagnoses, ICD-10-PCS for inpatient procedures, and CPT
+for outpatient and professional services. Treat the rest of the table as
+a reference you can return to when a field uses one of them.</p>
+<table id="tbl:ch05-codes">
+<caption>Table 1: A selective, question-led guide to common US
+healthcare code and terminology systems. It is not exhaustive; it shows
+the systems a US analyst meets most often. A single encounter can
+contain fields from several systems. Sources: CDC, CMS, AMA, SNOMED
+International, Regenstrief Institute, FDA, and NLM (see
+References).</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question the field answers</th>
+<th>System</th>
+<th>Example or format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>What diagnosis was documented?</td>
+<td>ICD-10-CM</td>
+<td><code>I11.0</code></td>
+</tr>
+<tr>
+<td>What procedure occurred during an inpatient stay?</td>
+<td>ICD-10-PCS</td>
+<td>7 characters</td>
+</tr>
+<tr>
+<td>What professional or outpatient service was reported?</td>
+<td>CPT</td>
+<td>5 characters; <code>99213</code> is numeric</td>
+</tr>
+<tr>
+<td>What supply, drug, ambulance service, or other item was
+reported?</td>
+<td>HCPCS Level II</td>
+<td>1 letter + 4 digits</td>
+</tr>
+<tr>
+<td>What clinical finding or problem appears in the health record?</td>
+<td>SNOMED CT</td>
+<td>numeric concept identifier</td>
+</tr>
+<tr>
+<td>What laboratory test or observation was recorded?</td>
+<td>LOINC</td>
+<td>number + hyphen + check digit</td>
+</tr>
+<tr>
+<td>Which payment group represents the inpatient stay?</td>
+<td>MS-DRG</td>
+<td>3 digits</td>
+</tr>
+<tr>
+<td>What drug product was dispensed or billed?</td>
+<td>NDC</td>
+<td>10 digits in 3 segments; billed as 11</td>
+</tr>
+<tr>
+<td>What type or location of service appears on an institutional
+bill?</td>
+<td>Revenue code</td>
+<td>4 digits</td>
+</tr>
+</tbody>
+</table>
+<p>The systems fall into three practical kinds:</p>
+<ul>
+<li><strong>Classifications</strong> sort care into reporting
+categories: ICD-10-CM for diagnoses, ICD-10-PCS (ICD-10 Procedure Coding
+System) for inpatient procedures, and the <strong>MS-DRG</strong>
+(Medicare Severity Diagnosis-Related Group) that places a whole
+inpatient stay into one payment group.</li>
+<li><strong>Clinical terminologies</strong> capture detailed clinical
+meaning in the health record: SNOMED CT for findings and problems, and
+LOINC (Logical Observation Identifiers Names and Codes) for laboratory
+tests and observations.</li>
+<li><strong>Administrative code sets</strong> identify services,
+products, and billing items: CPT and HCPCS Level II (Healthcare Common
+Procedure Coding System) for services and supplies, NDC (National Drug
+Code) for drug products, and revenue codes for the type or location of a
+service on an institutional bill.</li>
+</ul>
+<p>These systems coexist within a single episode of care rather than
+competing. Figure 4 follows one patient episode and names the system
+that records each step.</p>
+<figure id="fig:ch05-episode">
+<img src="figures/generated/ch_05_one_episode.png"
+alt="Figure 4: One patient episode recorded across several code systems. A clinical finding (SNOMED CT) and a laboratory test (LOINC) enter the care record; the diagnosis (ICD-10-CM) and any inpatient procedure (ICD-10-PCS) classify it; a professional service (CPT) and a drug or supply (HCPCS Level II and NDC) are reported; and the institutional claim (revenue codes) and the inpatient stay’s payment group (MS-DRG) complete the billing view. The systems coexist because each answers a different question about the same episode." />
+<figcaption aria-hidden="true">Figure 4: One patient episode recorded
+across several code systems. A clinical finding (SNOMED CT) and a
+laboratory test (LOINC) enter the care record; the diagnosis (ICD-10-CM)
+and any inpatient procedure (ICD-10-PCS) classify it; a professional
+service (CPT) and a drug or supply (HCPCS Level II and NDC) are
+reported; and the institutional claim (revenue codes) and the inpatient
+stay’s payment group (MS-DRG) complete the billing view. The systems
+coexist because each answers a different question about the same
+episode.</figcaption>
+</figure>
+<p>Maintenance also matters because definitions and annual updates come
+from different organizations:</p>
+<ul>
+<li>The Centers for Disease Control and Prevention (CDC), through its
+National Center for Health Statistics, maintains ICD-10-CM.</li>
+<li>The Centers for Medicare &amp; Medicaid Services (CMS) maintains
+ICD-10-PCS, HCPCS Level II, and MS-DRGs.</li>
+<li>The American Medical Association maintains CPT, and the National
+Uniform Billing Committee maintains revenue codes.</li>
+<li>SNOMED International maintains SNOMED CT, and the Regenstrief
+Institute maintains LOINC.</li>
+<li>The U.S. Food and Drug Administration maintains the NDC directory,
+and the National Library of Medicine maintains RxNorm, a terminology of
+normalized clinical drug names.</li>
+</ul>
+<p>A few of these systems are easy to confuse because they cover
+overlapping ground. Figure 5 places the most commonly mixed-up pairs
+side by side and states what sets each apart.</p>
+<figure id="fig:ch05-confused">
+<img src="figures/generated/ch_05_codes_confused.png"
+alt="Figure 5: Code systems that are easily confused, compared side by side. ICD-10-CM classifies diagnoses for reporting, while SNOMED CT captures detailed clinical findings in the record; ICD-10-PCS records inpatient procedures, while CPT reports professional and outpatient services; HCPCS Level II and NDC both touch drugs and supplies but from different angles; and a revenue code marks the type of service on an institutional bill, while an MS-DRG groups the whole stay for payment. Match the system to the question before trusting a coded field." />
+<figcaption aria-hidden="true">Figure 5: Code systems that are easily
+confused, compared side by side. ICD-10-CM classifies diagnoses for
+reporting, while SNOMED CT captures detailed clinical findings in the
+record; ICD-10-PCS records inpatient procedures, while CPT reports
+professional and outpatient services; HCPCS Level II and NDC both touch
+drugs and supplies but from different angles; and a revenue code marks
+the type of service on an institutional bill, while an MS-DRG groups the
+whole stay for payment. Match the system to the question before trusting
+a coded field.</figcaption>
+</figure>
+<p>CPT is licensed, so an organization cannot freely redistribute its
+complete code list in an open dataset or product. Other systems also
+have publication and use requirements. Confirm those requirements before
+redistributing code content (American Medical Association, 2025; Centers
+for Medicare &amp; Medicaid Services, 2026).</p>
+</section>
+<section id="the-anatomy-of-an-icd-10-cm-code" class="level3">
+<h3>The anatomy of an ICD-10-CM code</h3>
+<p>Figure 6 shows how ICD-10-CM moves from a broad code range to a
+detailed diagnosis code. The official manual calls its broadest
+divisions <em>chapters</em>. Here, that word means a section of the
+ICD-10-CM codebook, not a chapter of this textbook. To avoid that
+ambiguity, the figure uses the phrase <em>broad code range</em>.</p>
+<p>Within each broad range, the first three characters form a category.
+Additional characters after the decimal point add clinical detail. For
+example, <code>E11</code> means type 2 diabetes mellitus, while
+<code>E11.65</code> specifies type 2 diabetes mellitus with
+hyperglycemia (Centers for Disease Control and Prevention, 2026). Codes
+run three to seven characters, and a few three-character categories are
+complete codes on their own, such as <code>I10</code> for essential
+hypertension.</p>
+<figure id="fig:ch05-icd">
+<img src="figures/generated/ch_05_icd_specificity.png"
+alt="Figure 6: ICD-10-CM organizes diagnoses from a broad code range to a three-character category and then to a detailed diagnosis code (E00–E89 to E11 to E11.65). Grouping for analysis moves in the opposite direction. The display form E11.65 and the stored form E1165 are the same code, so formats must be standardized before a join. Illustrative type 2 diabetes example." />
+<figcaption aria-hidden="true">Figure 6: ICD-10-CM organizes diagnoses
+from a broad code range to a three-character category and then to a
+detailed diagnosis code (<code>E00</code>–<code>E89</code> to
+<code>E11</code> to <code>E11.65</code>). Grouping for analysis moves in
+the opposite direction. The display form <code>E11.65</code> and the
+stored form <code>E1165</code> are the same code, so formats must be
+standardized before a join. Illustrative type 2 diabetes
+example.</figcaption>
+</figure>
+<p>That structure makes grouping possible. There are tens of thousands
+of ICD-10-CM codes, far too many to chart one bar each. Analysts
+therefore move from detailed codes to three-character categories and
+broader ranges. The walkthrough later in this chapter applies that
+method.</p>
+<p>The decimal point is a display convention, not part of the code’s
+meaning; the meaning lives in the characters themselves. Stored data
+often drops the dot, so <code>E11.9</code> and <code>E119</code> are the
+same code written two ways. Before joining coded tables, confirm which
+format each file uses. Otherwise, valid records may fail to match.</p>
+</section>
+<section id="coding-follows-the-money" class="level3">
+<h3>Coding follows the money</h3>
+<p>Coding is not a neutral clerical act, because codes drive payment.
+Open <a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, a file of 48,000
+claims a provider sent to payers. This teaching file does not store the
+raw codes themselves. Instead it summarizes each claim with a
+<code>diagnosis_chapter</code>, a <code>service_category</code>, and a
+<code>denial_flag</code> that marks whether a claim experienced a denial
+at some point in processing.</p>
+<p>In this file, 3,138 claims (about 6.5 percent) experienced a denial.
+Some were later paid, partially paid, appealed, or left open, and 2,456
+ended in a denied final status. The denial reasons concentrate in a few
+categories:</p>
+<ul>
+<li><code>Coding</code> (778) and <code>Medical necessity</code> (755)
+are the two largest, each about a quarter of all denials.</li>
+<li><code>Auth</code> (593) is next.</li>
+</ul>
+<p>A coding-related denial means the payer judged the claim’s codes
+against its rules, so codes are chosen with payment in mind, not only
+clinical description.</p>
+<p>That incentive leaves fingerprints in the data. The largest
+<code>diagnosis_chapter</code> in the file is not a disease at all. It
+is “Factors influencing health status” (16,546 of 48,000 claims), the
+ICD-10-CM chapter for encounters such as screenings and follow-ups,
+which is common in outpatient billing. None of this means the codes are
+dishonest. It means a code reflects the rules and incentives under which
+it was assigned, so two organizations with different coding practices
+can produce different numbers from identical care. Read a code as a
+summary shaped by payment, and you will ask better questions of it.</p>
+<p>Payment pulls in both directions. A denial withholds money for a code
+the payer rejects, while fuller coding of severity and complications can
+raise an inpatient stay’s MS-DRG payment or a patient’s risk-adjustment
+score. The incentive is not only to avoid denials but also to capture
+everything the record supports, which is why a count of codes is never a
+neutral count of disease.</p>
+<figure id="fig:ch05-payment">
+<img src="figures/generated/ch_05_coding_payment.png"
+alt="Figure 7: Coding sits between the clinical record and payment: documentation leads to code assignment, which leads to a claim the payer judges against its rules. In datasets/DS5_claim_header_clean.csv, 3,138 of 48,000 claims (6.5 percent) were denied at some stage, and Coding (778) is the single largest denial reason. A coded count therefore reflects payment rules, not clinical description alone." />
+<figcaption aria-hidden="true">Figure 7: Coding sits between the
+clinical record and payment: documentation leads to code assignment,
+which leads to a claim the payer judges against its rules. In
+<a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, 3,138 of 48,000 claims
+(6.5 percent) were denied at some stage, and <code>Coding</code> (778)
+is the single largest denial reason. A coded count therefore reflects
+payment rules, not clinical description alone.</figcaption>
+</figure>
+<div class="caution">
+<p>A count of diagnosis codes is a count of what was coded and billed,
+not a direct count of disease. Before comparing coded rates across
+organizations or years, ask whether coding practices, payer rules, or
+the code set version differ. A difference in the data can be a
+difference in coding rather than in health.</p>
+</div>
+</section>
+<section id="governance-keeps-definitions-honest" class="level3">
+<h3>Governance keeps definitions honest</h3>
+<p><strong>Data governance</strong> is the set of rules and roles that
+decide how data is defined, produced, and used (DAMA International,
+2017). If coding turns care into categories and payment pulls on those
+categories, governance keeps a category consistent from one report to
+the next. Three governance tools matter in daily analytic work:</p>
+<ul>
+<li>A <strong>data dictionary</strong> records what each field means,
+its allowed values, and how it is calculated.</li>
+<li>A <strong>data steward</strong> is accountable for a dataset and can
+state what a field does and does not mean.</li>
+<li><strong>Data lineage</strong> records where a field came from and
+how it changed, so an analyst can trace a questionable result back to
+its source.</li>
+</ul>
+<p>Recall from Chapter 4 that two analysts can compute different patient
+counts when they use different definitions of a patient. Governance
+reduces that disagreement by making one definition official and naming
+someone responsible for it.</p>
+<figure id="fig:ch05-govtools">
+<img src="figures/generated/ch_05_governance_tools.png"
+alt="Figure 8: The three governance tools work together: a data dictionary defines each field, a data steward owns the definition, and data lineage traces where a field came from. Together they make a measure such as the 30-day readmission rate official, reusable, and explainable." />
+<figcaption aria-hidden="true">Figure 8: The three governance tools work
+together: a data dictionary defines each field, a data steward owns the
+definition, and data lineage traces where a field came from. Together
+they make a measure such as the 30-day readmission rate official,
+reusable, and explainable.</figcaption>
+</figure>
+<p>Governance also separates slow-moving descriptive tables from daily
+transactions. <strong>Reference data</strong> is a small, shared lookup
+list, such as the set of valid facility types or payer categories.
+<strong>Master data</strong> is the authoritative record of core
+business entities: the patient, provider, and facility lists that
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a> and its companions provide,
+one agreed row per entity that every report joins to.</p>
+<figure id="fig:ch05-dataroles">
+<img src="figures/generated/ch_05_data_roles.png"
+alt="Figure 9: Three roles of data in an analysis. Reference data is a small shared lookup of valid values; master data is the authoritative, one-row-per-entity record of patients, providers, and facilities; transaction data records the individual events, such as visits and claims, that join to both. Governing the first two keeps the third comparable across reports." />
+<figcaption aria-hidden="true">Figure 9: Three roles of data in an
+analysis. Reference data is a small shared lookup of valid values;
+master data is the authoritative, one-row-per-entity record of patients,
+providers, and facilities; transaction data records the individual
+events, such as visits and claims, that join to both. Governing the
+first two keeps the third comparable across reports.</figcaption>
+</figure>
+<p>When these shared tables are governed, “Behavioral Health” means the
+same place in every dashboard. Without governance, teams struggle to
+resolve disagreements because no definition is official. The data still
+describes real people, which brings the next duty.</p>
+<div class="keypoint">
+<p>Governance is what lets two reports agree. A field is only
+trustworthy when someone owns its definition and that definition is
+written down, versioned, and reviewable.</p>
+</div>
+</section>
+<section id="privacy-is-a-legal-and-ethical-duty" class="level3">
+<h3>Privacy is a legal and ethical duty</h3>
+<p>Within a HIPAA-covered setting, health information that can be tied
+to an individual is <strong>protected health information (PHI)</strong>.
+A name, birth date, address, or another identifier can create that link.
+In the United States, the <strong>Health Insurance Portability and
+Accountability Act (HIPAA)</strong> sets the rules for using and
+disclosing PHI.</p>
+<p>HIPAA applies to <strong>covered entities</strong> (health plans,
+most healthcare providers, and healthcare clearinghouses) and to the
+<strong>business associates</strong> that handle PHI on their behalf. If
+you analyze patient data inside one of these organizations, its rules
+apply to your work (U.S. Department of Health and Human Services, n.d.).
+Three HIPAA rules shape that work:</p>
+<ul>
+<li>The <strong>Privacy Rule</strong> governs who may use or receive PHI
+and for what purpose.</li>
+<li>The <strong>Security Rule</strong> requires administrative,
+physical, and technical safeguards for electronic PHI, including access
+controls and audit controls.</li>
+<li>The <strong>Breach Notification Rule</strong> requires notification
+after certain breaches of unsecured PHI.</li>
+</ul>
+<p>Covered entities may use PHI without separate patient authorization
+for treatment, payment, and defined healthcare operations. Many internal
+quality-improvement, utilization, and business-planning analyses can
+qualify as operations, but the purpose, authorization, organizational
+policy, and minimum necessary still have to be confirmed; the permission
+is purpose-specific, not a blanket allowance.</p>
+<p>From the Privacy Rule comes the idea that shapes daily analytic work:
+the <strong>minimum necessary</strong> standard. It asks for a
+reasonable effort to limit PHI to what the task requires, rather than a
+strict count of fields, and it does not apply to everything (for
+example, it does not restrict disclosures to a provider for treatment).
+For most analytic work, it means an analyst computing a readmission rate
+needs a way to link stays and a readmission outcome, not a patient’s
+name, full birth date, or home address. For example, a stable patient
+key with admission and discharge dates is enough to decide whether a
+second stay fell within thirty days; the patient’s name and street
+address answer no part of that question and only add risk. Pulling those
+fields anyway widens the risk for no analytic gain.</p>
+<figure id="fig:ch05-minnec">
+<img src="figures/generated/ch_05_minimum_necessary.png"
+alt="Figure 10: Minimum necessary in practice. To compute a 30-day readmission rate, an analyst needs only a stable linkage key, the admission and discharge dates, and a readmission flag. The patient’s name, full birth date, and street address answer no part of the question and add re-identification risk, so they stay out of the working file." />
+<figcaption aria-hidden="true">Figure 10: Minimum necessary in practice.
+To compute a 30-day readmission rate, an analyst needs only a stable
+linkage key, the admission and discharge dates, and a readmission flag.
+The patient’s name, full birth date, and street address answer no part
+of the question and add re-identification risk, so they stay out of the
+working file.</figcaption>
+</figure>
+<div class="caution">
+<p>Protecting patients is part of the job, not a step someone else
+handles. Pull only the fields the task needs, never copy identifiers
+into a working spreadsheet without cause, and treat every real patient
+file as PHI unless your privacy or compliance office has confirmed in
+writing that it has been de-identified.</p>
+</div>
+<p>The teaching datasets in this book are synthetic and carry no real
+PHI, which is exactly why they are safe to practice on. A real version
+of <a class="ds-ref" href="datasets/DS1_patient_dim.csv" download title="Download DS1_patient_dim.csv"><code>datasets/DS1_patient_dim.csv</code></a>, with a true birth date and
+home area for each patient, would be PHI and would live under access
+controls.</p>
+</section>
+<section id="de-identification-safe-harbor-and-expert-determination"
+class="level3">
+<h3>De-identification: Safe Harbor and Expert Determination</h3>
+<p>When data must be shared more widely, HIPAA allows it to be
+<strong>de-identified</strong>, the process of reducing identifiers so
+the data no longer identifies an individual and there is no reasonable
+basis to believe it can do so. The Privacy Rule provides two methods
+(U.S. Department of Health and Human Services [HHS], 2012):</p>
+<ol type="1">
+<li><strong>Safe Harbor</strong> removes eighteen specified categories
+of identifier, including names, most elements of dates, geographic
+subdivisions smaller than a state, record numbers, phone numbers, and
+email addresses. It also requires that the organization have no actual
+knowledge that the remaining information could still identify a person.
+Limited geographic and age information may remain only when the method’s
+specific conditions are met. Figure 11 illustrates the basic idea:
+direct identifiers disappear, dates and geography are reduced, and the
+diagnosis code remains because the analysis needs it.</li>
+<li><strong>Expert Determination</strong> uses accepted statistical and
+scientific principles. A qualified expert determines and documents that
+the risk of identifying a person is very small.</li>
+</ol>
+<figure id="fig:ch05-deid">
+<img src="figures/generated/ch_05_hipaa_paths.png"
+alt="Figure 11: Three HIPAA de-identification and sharing paths compared. Safe Harbor removes or reduces eighteen identifier categories and keeps only year-level dates and limited geography; Expert Determination uses a documented statistical assessment and can retain more detail; a limited data set keeps some dates and partial geography but remains PHI and requires a data use agreement. Choose the path by what the analysis needs and what the rules require." />
+<figcaption aria-hidden="true">Figure 11: Three HIPAA de-identification
+and sharing paths compared. Safe Harbor removes or reduces eighteen
+identifier categories and keeps only year-level dates and limited
+geography; Expert Determination uses a documented statistical assessment
+and can retain more detail; a limited data set keeps some dates and
+partial geography but remains PHI and requires a data use agreement.
+Choose the path by what the analysis needs and what the rules
+require.</figcaption>
+</figure>
+<p>Expert Determination can sometimes retain more detail than Safe
+Harbor’s fixed list. Neither method makes risk zero. The same HHS
+guidance explains that combinations of indirect identifiers can make a
+person unique, so apparently anonymous data may be linked to an outside
+source. De-identification therefore requires a documented method, not a
+quick deletion of names.</p>
+<p>Between full PHI and de-identified data sits the <strong>limited data
+set</strong>. It still counts as PHI, but it may keep certain dates and
+partial geographic detail, such as city or ZIP code, once direct
+identifiers are removed. A covered entity may share it for research,
+public health, or operations only under a <strong>data use
+agreement</strong>. The distinction is practical: Safe Harbor’s
+year-only dates cannot support a new 30-day readmission calculation,
+while a limited data set’s service dates can. (A released Safe Harbor
+file could still include a readmission indicator that was derived before
+the dates were generalized.)</p>
+<div class="keypoint">
+<p>De-identification lowers risk; it does not erase it. Removing a name
+is not enough when a birth date, a ZIP code, and a sex can single a
+person out. Treat de-identification as a documented method, Safe Harbor
+or Expert Determination, not as a casual cleanup.</p>
+</div>
+<figure id="fig:ch05-reid">
+<img src="figures/generated/ch_05_reidentification.png"
+alt="Figure 12: Removing the name is not enough. Even after direct identifiers are gone, a birth date, a small-area code, and sex can still be distinctive. In datasets/DS1_patient_dim.csv, 11,954 of 12,000 patients (99.6 percent) are unique on that combination, so an outside record could re-identify them. The zip_area_id shown is an illustrative value; in the dataset it is a synthetic area key (for example ZA003), not a postal ZIP code. Exercise 8 reproduces the 99.6 percent figure." />
+<figcaption aria-hidden="true">Figure 12: Removing the name is not
+enough. Even after direct identifiers are gone, a birth date, a
+small-area code, and sex can still be distinctive. In
+<a class="ds-ref" href="datasets/DS1_patient_dim.csv" download title="Download DS1_patient_dim.csv"><code>datasets/DS1_patient_dim.csv</code></a>, 11,954 of 12,000 patients
+(99.6 percent) are unique on that combination, so an outside record
+could re-identify them. The <code>zip_area_id</code> shown is an
+illustrative value; in the dataset it is a synthetic area key (for
+example <code>ZA003</code>), not a postal ZIP code. Exercise 8
+reproduces the 99.6 percent figure.</figcaption>
+</figure>
+<p>Making data safe to use is necessary, but it is not the same as
+making it fair to use, which is the fourth and last layer.</p>
+</section>
+<section id="ethics-coded-data-can-carry-bias" class="level3">
+<h3>Ethics: coded data can carry bias</h3>
+<p>Coded data reflects the system that produced it, and that system can
+carry bias. Watch for three points where it can enter:</p>
+<ul>
+<li><strong>What is measured:</strong> A field such as
+<code>sdoh_risk_score</code>, a social determinants of health (SDOH)
+score, is a model output. If the model learns from care patterns shaped
+by unequal access, it may reproduce those patterns.</li>
+<li><strong>Who is missing:</strong> A patient who never reaches care
+generates no encounter code. People with the greatest barriers can
+therefore be the least visible in the data.</li>
+<li><strong>How a difference is interpreted:</strong> A measured gap may
+be real, but the chart alone does not establish its cause.</li>
+</ul>
+<figure id="fig:ch05-bias">
+<img src="figures/generated/ch_05_bias_sources.png"
+alt="Figure 13: Three points where bias can enter coded data: what is measured (a model output such as sdoh_risk_score can reproduce unequal patterns), who is missing (patients who never reach care generate no code), and how a difference is interpreted (a gap is an association, not a proven cause). A calculation can be correct while the measure, sample, or interpretation is unfair." />
+<figcaption aria-hidden="true">Figure 13: Three points where bias can
+enter coded data: what is measured (a model output such as
+<code>sdoh_risk_score</code> can reproduce unequal patterns), who is
+missing (patients who never reach care generate no code), and how a
+difference is interpreted (a gap is an association, not a proven cause).
+A calculation can be correct while the measure, sample, or
+interpretation is unfair.</figcaption>
+</figure>
+<p>Figure 14 shows the third kind using the population-health registry
+in <a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>. The measure is the
+colorectal-cancer screening up-to-date rate, computed within each
+neighborhood deprivation quintile for a dataset-defined teaching cohort
+of patients aged 45 and older. A <strong>neighborhood deprivation
+quintile</strong> ranks neighborhoods by a combined measure of
+socioeconomic disadvantage and then splits them into five equal-sized
+groups, so quintile 1 is the least-deprived fifth of neighborhoods and
+quintile 5 the most. The registry records a screening status for all
+5,547 patients in that cohort. This cohort is a teaching simplification,
+not a full clinical quality measure; a standard measure such as HEDIS
+(the Healthcare Effectiveness Data and Information Set) restricts the
+denominator to ages 45 to 75.</p>
+<p>The rate is about 70 percent in the three least-deprived quintiles,
+59 percent in the fourth, and 46 percent in the most-deprived. Read the
+most-deprived bar with care: it holds only 26 patients, under 1 percent
+of the registry, so its rate is uncertain and could shift by more than
+ten points with a handful of cases. A nearly empty group is itself worth
+noting, because it ties back to who is missing from the data.</p>
+<p>The gap across the larger quintiles is present in the data, but its
+cause is not established by the chart. A lower rate in more-deprived
+areas may reflect barriers to access rather than patients declining
+care. Treat the pattern as an association to investigate, not evidence
+that those patients are less responsible. Recall the rule from Chapter
+1: a comparison reveals patterns worth investigating, not proven
+causes.</p>
+<figure id="fig:ch05-sdoh">
+<img src="figures/generated/ch_05_sdoh_fairness.png"
+alt="Figure 14: Colorectal screening up-to-date rate by neighborhood deprivation quintile, for a dataset-defined teaching cohort of patients aged 45 and older (n=5,547). The denominator is the cohort count per quintile, shown as n; the most-deprived quintile (n=26, marked with an asterisk) is too small for a stable rate. This teaching cohort is broader than a standard clinical measure, which uses ages 45 to 75. The pattern is an association to investigate, not a proven cause; a lower rate may reflect access barriers rather than patient choice. Source: datasets/DS7_registry_clean.csv." />
+<figcaption aria-hidden="true">Figure 14: Colorectal screening
+up-to-date rate by neighborhood deprivation quintile, for a
+dataset-defined teaching cohort of patients aged 45 and older (n=5,547).
+The denominator is the cohort count per quintile, shown as n; the
+most-deprived quintile (n=26, marked with an asterisk) is too small for
+a stable rate. This teaching cohort is broader than a standard clinical
+measure, which uses ages 45 to 75. The pattern is an association to
+investigate, not a proven cause; a lower rate may reflect access
+barriers rather than patient choice. Source:
+<a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>.</figcaption>
+</figure>
+<figure id="fig:ch05-sdoh-ig">
+<img src="figures/generated/ch_05_screening_infographic.png"
+alt="Figure 15: An infographic summary of the same screening rates (Figure 14), pairing each quintile’s rate with its cohort size and repeating the caution that the most-deprived group (n=26) is too small for a stable estimate and that the pattern is an association, not a proven cause. Source: datasets/DS7_registry_clean.csv." />
+<figcaption aria-hidden="true">Figure 15: An infographic summary of the
+same screening rates (Figure 14), pairing each quintile’s rate with its
+cohort size and repeating the caution that the most-deprived group
+(n=26) is too small for a stable estimate and that the pattern is an
+association, not a proven cause. Source:
+<a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>.</figcaption>
+</figure>
+<p>Fairness, then, is not a separate topic bolted onto analysis. It is a
+set of questions you ask of your own numbers: who is in this data, who
+is missing, what was actually measured, and could this measure
+disadvantage someone. Chapter 14 returns to these questions when it
+builds a risk model directly.</p>
+</section>
+</section>
+<section id="walkthrough-group-diagnosis-codes-in-excel" class="level2">
+<h2>Walkthrough: group diagnosis codes in Excel</h2>
+<p>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> in Excel. Each of
+the 8,500 rows represents one hospital stay. Column J,
+<code>principal_icd10cm_code</code>, contains values such as
+<code>I11.0</code>, <code>E11.65</code>, and <code>J18.9</code>. You
+will extract each three-character category, attach a readable label, and
+count the labels. This applies the Chapter 3 lookup tools to clinical
+codes.</p>
+<p>A comma-separated values (CSV) file holds no Excel formatting,
+Tables, or PivotTables, and anything you add is lost if you save it back
+as CSV. So save the workbook first. Choose File, then Save As, pick
+Excel Workbook (<code>.xlsx</code>) as the type, and name it
+<code>ch05_inpatient.xlsx</code>. Work in that file from here on.
+(Chapter 7 will show how to import a file as a refreshable query with
+Data, then From Text/CSV; a plain Save As is enough here.)</p>
+<p>Now format the data as a Table so the formulas stay readable. Click
+any cell in the data, press <code>Ctrl+T</code> (on a Mac,
+<code>Cmd+T</code>), confirm that the Table has headers, and click
+OK.</p>
+<ol type="1">
+<li><strong>Extract the category.</strong> In the first empty column to
+the right of the data, type the header <code>icd_category</code>. In the
+cell below it, type <code>=LEFT([@[principal_icd10cm_code]], 3)</code>
+and press Enter. The <code>LEFT</code> function keeps the first three
+characters, so <code>I11.0</code> becomes <code>I11</code>. Excel fills
+the column down the Table for you.</li>
+<li><strong>Build the lookup on its own sheet.</strong> Add a new
+worksheet (click the plus sign by the sheet tabs) and name it
+<code>lookup</code>. Keeping the lookup off the data sheet means a later
+sort or filter cannot disturb it. On the <code>lookup</code> sheet, type
+two headings, <code>category</code> and <code>label</code>. Under them,
+enter five rows: <code>I21</code> and
+<code>Acute myocardial infarction</code>, <code>I50</code> and
+<code>Heart failure</code>, <code>J18</code> and <code>Pneumonia</code>,
+<code>E11</code> and <code>Type 2 diabetes</code>, and <code>F32</code>
+and <code>Depression</code>. Select the two columns and press
+<code>Ctrl+T</code>; in the Table Design tab, rename the Table
+<code>dx_lookup</code>.</li>
+<li><strong>Attach the label.</strong> Back on the data Table, add a
+column headed <code>dx_label</code>. In its first cell type
+<code>=XLOOKUP([@icd_category], dx_lookup[category], dx_lookup[label], "Other")</code>
+and press Enter. <code>XLOOKUP</code> finds the category in
+<code>dx_lookup</code> and returns its label; the fourth argument,
+<code>"Other"</code>, is what to show when a category is not in your
+short list, so nothing is left blank. (If your Excel version has no
+<code>XLOOKUP</code>, use
+<code>=IFERROR(VLOOKUP([@icd_category], dx_lookup, 2, FALSE), "Other")</code>
+instead.)</li>
+<li><strong>Count the labels.</strong> Click any cell in the data, then
+on the ribbon choose Insert, then PivotTable, and accept the default
+location. In the PivotTable fields, drag <code>dx_label</code> to Rows
+and <code>discharge_id</code> to Values. Because
+<code>discharge_id</code> is text, Excel counts it, giving one row per
+label with the number of stays. Click the count column and sort largest
+to smallest.</li>
+</ol>
+<p>Check your work against these counts: Other 6,970; Type 2 diabetes
+387; Acute myocardial infarction 345; Heart failure 321; Pneumonia 301;
+Depression 176. They sum to 8,500, one per stay. If your six numbers
+match and sum to 8,500, the lookup worked. Two results then deserve a
+pause. First, “Other” holds the large majority, because your five-row
+lookup covers only five categories, and the opening scenario’s own code
+<code>I11.0</code> falls into “Other” since <code>I11</code> is not on
+your list. A large “Other” here is the expected result of a deliberately
+short list, not a mistake in your formulas. Second, your
+<code>Acute myocardial infarction</code> count (345) is far below the
+figure’s broader <code>Cardiac ischemia</code> group (1,043), because
+acute myocardial infarction is only one part of that grouping.</p>
+<figure id="fig:ch05-grouping">
+<img src="figures/generated/ch_05_grouping_count.png"
+alt="Figure 16: Why the grouping definition changes the count. Your five-row lookup maps the single code I21 to acute myocardial infarction and counts 345 stays. The provided Cardiac ischemia group is broader, adding other ischemic heart-disease codes to reach 1,043. Neither count is wrong; they answer to different definitions, which is why a grouping is only trustworthy when its definition is documented." />
+<figcaption aria-hidden="true">Figure 16: Why the grouping definition
+changes the count. Your five-row lookup maps the single code
+<code>I21</code> to acute myocardial infarction and counts 345 stays.
+The provided <code>Cardiac ischemia</code> group is broader, adding
+other ischemic heart-disease codes to reach 1,043. Neither count is
+wrong; they answer to different definitions, which is why a grouping is
+only trustworthy when its definition is documented.</figcaption>
+</figure>
+<p>Your PivotTable now reports stays by readable category instead of by
+cryptic code, the same move that produced Figure 17. That figure uses
+the dataset’s own <code>principal_diagnosis_group</code> column (column
+K), a grouping provided with the teaching data. It will not match your
+hand-built lookup, for two reasons. You mapped only five categories, and
+the provided grouping uses its own definitions: its
+<code>Cardiac ischemia</code> group is broader than the single
+<code>I21</code> code you used, which by itself means acute myocardial
+infarction. The provided grouping also mixes diagnosis-based and
+procedure-based categories, so labels such as
+<code>Orthopedic surgery</code> and <code>General surgery</code>
+describe what was done, not a diagnosis. Worse, the teaching dataset
+ships this field without a crosswalk showing which codes map to each
+group, so you cannot fully reproduce or audit it. That is the lesson:
+grouping requires a definition, and a field is only truly governed when
+its definition is documented, owned, and reviewable.</p>
+<figure id="fig:ch05-dx">
+<img src="figures/generated/ch_05_diagnosis_groups.png"
+alt="Figure 17: The ten most common values of the provided principal_diagnosis_group field across 8,500 inpatient stays. The field mixes diagnosis-based and procedure-based labels (for example, Orthopedic surgery), so it is a teaching grouping to audit, not a clean diagnosis classification. Source: datasets/DS4_inpatient_clean.csv." />
+<figcaption aria-hidden="true">Figure 17: The ten most common values of
+the provided <code>principal_diagnosis_group</code> field across 8,500
+inpatient stays. The field mixes diagnosis-based and procedure-based
+labels (for example, <code>Orthopedic surgery</code>), so it is a
+teaching grouping to audit, not a clean diagnosis classification.
+Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>.</figcaption>
+</figure>
+<figure id="fig:ch05-dx-ig">
+<img src="figures/generated/ch_05_top10_infographic.png"
+alt="Figure 18: An infographic summary of the same ten groups (Figure 17), highlighting that two of the top labels, Orthopedic surgery and General surgery, describe procedures rather than diagnoses. Counts match the chart above. Source: datasets/DS4_inpatient_clean.csv." />
+<figcaption aria-hidden="true">Figure 18: An infographic summary of the
+same ten groups (Figure 17), highlighting that two of the top labels,
+<code>Orthopedic surgery</code> and <code>General surgery</code>,
+describe procedures rather than diagnoses. Counts match the chart above.
+Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>.</figcaption>
+</figure>
+<p>Counting that provided grouping, <code>Cardiac ischemia</code> leads
+with 1,043 stays, followed by <code>Heart failure</code> at 987 and
+<code>Pneumonia/Respiratory infection</code> at 956.
+<code>Behavioral health</code> is also in the top ten, with 550 stays.
+These are the dataset’s own labels, so the count is only as trustworthy
+as that undocumented grouping.</p>
+<p>Read the finished count through the chapter’s four layers:</p>
+<ul>
+<li><strong>Coding:</strong> Standardized diagnosis codes make the count
+possible.</li>
+<li><strong>Governance:</strong> The provided
+<code>principal_diagnosis_group</code> is more consistent than an ad-hoc
+lookup, but the teaching dataset ships it without a crosswalk, so its
+definition cannot be fully reviewed. A governed field would carry that
+documentation.</li>
+<li><strong>Privacy:</strong> In a real system, the diagnoses may be
+linked to patient identifiers and therefore be PHI.</li>
+<li><strong>Ethics:</strong> A comparison across neighborhoods requires
+questions about access, missingness, and interpretation before anyone
+assigns a cause.</li>
+</ul>
+<p>The count is only the first result. Responsible analysis also asks
+how the data was defined, protected, and interpreted.</p>
+<div class="tryit">
+<p>Open <a class="ds-ref" href="datasets/DS1_patient_dim.csv" download title="Download DS1_patient_dim.csv"><code>datasets/DS1_patient_dim.csv</code></a> and read the column
+headers. Imagine this were a real patient file rather than synthetic
+data. In that case the whole record is PHI, diagnosis included, because
+it is tied to an identifiable person. The questions below are about
+which fields are the <em>identifiers</em>.</p>
+<ol type="1">
+<li>List three columns that are direct or indirect identifiers, and for
+each, say whether you would actually need it to compute an inpatient
+readmission rate.</li>
+<li>For one of those three, describe how the Safe Harbor method would
+reduce it rather than delete it outright (for example, what
+<code>birth_date</code> would become).</li>
+<li>Name one column you would take to a data steward to have defined
+before you trusted it in a report.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+<div class="goingdeeper">
+<p>Safe Harbor follows a fixed list. Expert Determination instead
+examines how combinations of indirect identifiers distinguish people in
+a particular dataset and context.</p>
+<p>One statistical idea used in disclosure-risk work is
+<em>k</em>-anonymity. Under this approach:</p>
+<ul>
+<li>Analysts select columns that could help identify someone when
+combined.</li>
+<li>Each released record must belong to a group of at least <em>k</em>
+records that share the same quasi-identifier values, so each person
+blends with at least <em>k</em> minus 1 others.</li>
+<li>Values may be grouped or suppressed until no record stands
+alone.</li>
+</ul>
+<p>For example, grouping age into bands or reducing geographic detail
+can make a combination less identifying. <em>K</em>-anonymity is not
+itself the HIPAA standard and does not address every attack. Expert
+Determination requires a qualified expert to assess and document the
+overall risk. Figure 19 shows a small example.</p>
+</div>
+<figure id="fig:ch05-kanon">
+<img src="figures/generated/ch_05_kanonymity.png"
+alt="Figure 19: A small k-anonymity example. Three records that are each unique on exact age, full geography, and sex become a group of three when age is banded and geography is broadened, so each person shares quasi-identifier values with at least k minus 1 others. Grouping and suppression lower uniqueness but do not, by themselves, meet the HIPAA standard." />
+<figcaption aria-hidden="true">Figure 19: A small <em>k</em>-anonymity
+example. Three records that are each unique on exact age, full
+geography, and sex become a group of three when age is banded and
+geography is broadened, so each person shares quasi-identifier values
+with at least <em>k</em> minus 1 others. Grouping and suppression lower
+uniqueness but do not, by themselves, meet the HIPAA
+standard.</figcaption>
+</figure>
+<div class="realworld">
+<p>A study of a commercial care-management algorithm found substantial
+racial bias in who was identified for extra support (Obermeyer et al.,
+2019). The algorithm used predicted healthcare cost as a proxy for
+health need. Because less money was spent on Black patients than on
+White patients with the same measured level of illness, the proxy
+understated the needs of Black patients.</p>
+<p>Race did not need to appear as an input for the result to be unfair.
+The problem began with the outcome the algorithm was asked to predict. A
+measure can be calculated correctly and still be the wrong measure for
+the decision. Figure 20 traces how the proxy choice produced the
+bias.</p>
+</div>
+<figure id="fig:ch05-costproxy">
+<img src="figures/generated/ch_05_cost_proxy.png"
+alt="Figure 20: How a reasonable-looking proxy produced biased results in the Obermeyer et al. (2019) study. The algorithm predicted healthcare cost as a stand-in for health need, but spending is shaped by access and many other factors, not illness alone. At the same risk score, Black patients had greater measured illness than White patients, so the cost proxy understated their need and they were less likely to be selected for extra support. Race was not an input; the bias entered through the outcome the model was trained to predict." />
+<figcaption aria-hidden="true">Figure 20: How a reasonable-looking proxy
+produced biased results in the Obermeyer et al. (2019) study. The
+algorithm predicted healthcare cost as a stand-in for health need, but
+spending is shaped by access and many other factors, not illness alone.
+At the same risk score, Black patients had greater measured illness than
+White patients, so the cost proxy understated their need and they were
+less likely to be selected for extra support. Race was not an input; the
+bias entered through the outcome the model was trained to
+predict.</figcaption>
+</figure>
+<div class="recap">
+<ul>
+<li>Coding turns care into standardized categories that can be counted
+and compared, at the cost of detail and under the influence of payment
+rules.</li>
+<li>No single code system records everything: diagnoses, procedures,
+services, and billing each have their own, and a column of codes is
+meaningless until you know which system produced it.</li>
+<li>Governance, through data dictionaries, data stewards, and lineage,
+keeps definitions official so that reports agree.</li>
+<li>Patient-level data held by covered entities and business associates
+is usually protected health information; apply minimum necessary, and
+treat de-identification as a documented method (Safe Harbor or Expert
+Determination), not a casual delete.</li>
+<li>Coded data can carry bias from the system that produced it, so
+fairness is a set of questions you ask of your own numbers. One coded
+record asks four things of the analyst at once: coding, governance,
+privacy, and ethics.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Name the code system you would use to record each of the following,
+and say why: the reason a patient was admitted; the surgery performed
+during an inpatient stay; an office visit billed by a physician.</li>
+<li>Explain in two sentences why two patients with the same ICD-10-CM
+code may not be clinically identical.</li>
+<li>Using <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, name one
+benefit and one cost of analyzing <code>principal_diagnosis_group</code>
+instead of <code>principal_icd10cm_code</code>.</li>
+<li>Using <a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, explain what
+a nonzero <code>denial_flag</code> rate suggests about the claim that
+coding is purely a clinical description, and name one thing you would
+check before comparing coded diagnosis rates across two
+organizations.</li>
+<li>Define the role of a data steward, and give one question you would
+take to them before publishing a diagnosis-based report.</li>
+<li>Give one analytic task you could do with a Safe Harbor de-identified
+extract, and one that would require identifiable PHI (such as contacting
+a specific patient), and justify each.</li>
+<li>Figure 14 shows colorectal screening falling as neighborhood
+deprivation rises. Give two questions you would ask before concluding
+that patients in the most-deprived areas are less likely to complete
+recommended screening.</li>
+<li>Using <a class="ds-ref" href="datasets/DS1_patient_dim.csv" download title="Download DS1_patient_dim.csv"><code>datasets/DS1_patient_dim.csv</code></a>, calculate how many
+patients are unique on the combination of <code>birth_date</code>,
+<code>zip_area_id</code>, and <code>sex_at_birth</code>. Save the file
+as a workbook and format the data as a Table. Add a column headed
+<code>combo</code> and type
+<code>=[@birth_date]&amp;"|"&amp;[@zip_area_id]&amp;"|"&amp;[@sex_at_birth]</code>
+to join the three values into one text key. In a second column headed
+<code>times_seen</code>, type <code>=COUNTIFS([combo], [@combo])</code>
+to count how often each combination appears. Finally, in any empty cell,
+type <code>=COUNTIF([times_seen], 1)</code> to count the combinations
+that occur exactly once. What does that number, as a share of all 12,000
+patients, say about re-identification risk?</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It.</strong> (1) Direct or indirect identifiers in the
+file include <code>patient_id</code> (a direct record identifier),
+<code>birth_date</code>, and <code>zip_area_id</code> (a small-area
+identifier); <code>death_date</code> is another. A readmission-rate
+calculation needs a stable, authorized linkage key to connect a
+patient’s stays (here <code>patient_id</code> serves that role), but it
+does not need the birth date or ZIP area directly; an age band can stand
+in when age is required. (2) Under Safe Harbor, <code>birth_date</code>
+is reduced to the year only, and for anyone over 89 even the year is
+withheld (ages 90 and older are grouped together). Geography is also
+generalized: for a real postal ZIP code, Safe Harbor keeps only the
+first three digits, and replaces even those with <code>000</code> when
+they cover a population of 20,000 or fewer. Note that
+<code>zip_area_id</code> here is a synthetic small-area identifier
+(values like <code>ZA003</code>), not a postal ZIP code; in a real
+dataset you would judge its disclosure risk from the area it represents.
+The field is generalized, not simply deleted. (3) Take
+<code>sdoh_risk_score</code> to the data steward responsible for the
+registry to have it defined before using it, because it is a model
+output whose source, inputs, intended use, and limitations need
+documentation.</p>
+<p><strong>Exercises</strong></p>
+<ol type="1">
+<li>The admission reason uses ICD-10-CM. An inpatient surgery uses
+ICD-10-PCS. A physician office visit is reported with CPT.</li>
+<li>An ICD-10-CM code is a category, so details outside that category
+are not preserved. Two people with the same code may differ in severity,
+cause, comorbidity, and treatment.</li>
+<li>Grouped diagnoses produce a manageable number of readable categories
+for charts and comparisons. The cost is lost clinical detail, and the
+result depends on the grouping definition.</li>
+<li>A nonzero denial rate shows that payers evaluate claims against
+coding and payment rules, so coded claims are not purely clinical
+descriptions. Before comparing organizations, check coding practices,
+payer mix, reporting periods, and code-set versions.</li>
+<li>A data steward is accountable for a dataset and can state what its
+fields mean. Before publication, ask for the official numerator,
+denominator, exclusions, reporting period, and code-set version.</li>
+<li>A de-identified extract can support counts of diagnosis groups or
+screening rates when identity is not needed. Contacting a specific
+patient, or confirming a named person’s history, requires identifiable
+data and an authorized purpose. (Linking records across organizations
+does not always need direct identifiers, because privacy-preserving
+token methods exist, but those are beyond this chapter.)</li>
+<li>Ask whether the gap may reflect access barriers rather than patient
+choice. Also ask whether screening status and missing data are recorded
+consistently across neighborhoods, and note that the most-deprived
+quintile has only 26 eligible patients, so its rate is unstable.</li>
+<li>The <code>combo</code> column joins the three fields,
+<code>COUNTIFS</code> counts how often each combination appears, and
+<code>COUNTIF([times_seen], 1)</code> counts the singletons. About 99.6
+percent of patients (11,954 of 12,000) are unique on those three fields.
+A birth date, a small geographic area, and sex together single out
+almost everyone, which is why Safe Harbor generalizes dates and
+geography rather than keeping them exact.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<p>Primary sources for the code systems and rules discussed in this
+chapter:</p>
+<p>American Medical Association. (2025). <em>CPT (Current Procedural
+Terminology)</em>. https://www.ama-assn.org/practice-management/cpt</p>
+<p>Centers for Disease Control and Prevention, National Center for
+Health Statistics. (2026). <em>ICD-10-CM files (FY 2027)</em>.
+https://www.cdc.gov/nchs/icd/icd-10-cm/files.html</p>
+<p>Centers for Medicare &amp; Medicaid Services. (2026). <em>Code sets
+overview</em>.
+https://www.cms.gov/priorities/key-initiatives/burden-reduction/administrative-simplification/code-sets</p>
+<p>DAMA International. (2017). <em>DAMA-DMBOK: Data management body of
+knowledge</em> (2nd ed.). Technics Publications.</p>
+<p>National Library of Medicine. (n.d.-a). <em>RxNorm</em>.
+https://www.nlm.nih.gov/research/umls/rxnorm/index.html</p>
+<p>National Library of Medicine. (n.d.-b). <em>SNOMED CT</em>.
+https://www.nlm.nih.gov/healthit/snomedct/index.html</p>
+<p>Obermeyer, Z., Powers, B., Vogeli, C., &amp; Mullainathan, S. (2019).
+Dissecting racial bias in an algorithm used to manage the health of
+populations. <em>Science, 366</em>(6464), 447-453.
+https://doi.org/10.1126/science.aax2342</p>
+<p>Regenstrief Institute. (n.d.). <em>LOINC</em>. https://loinc.org/</p>
+<p>U.S. Department of Health and Human Services, Office for Civil
+Rights. (2012). <em>Guidance regarding methods for de-identification of
+protected health information in accordance with the HIPAA Privacy
+Rule</em>.
+https://www.hhs.gov/hipaa/for-professionals/special-topics/de-identification/index.html</p>
+<p>U.S. Department of Health and Human Services, Office for Civil
+Rights. (n.d.). <em>Summary of the HIPAA Privacy Rule</em>.
+https://www.hhs.gov/hipaa/for-professionals/privacy/laws-regulations/index.html</p>
+<p>U.S. Food and Drug Administration. (n.d.). <em>National Drug Code
+Directory</em>.
+https://www.fda.gov/drugs/drug-approvals-and-databases/national-drug-code-directory</p>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Code set</dt>
+<dd>
+A standardized list of categories used to record one part of care, such
+as ICD-10-CM for diagnoses.
+</dd>
+<dt>Classification</dt>
+<dd>
+A code system that sorts clinical detail into a fixed set of reporting
+categories, such as ICD-10-CM.
+</dd>
+<dt>Clinical terminology</dt>
+<dd>
+A code system that captures fine-grained clinical meaning and
+relationships, such as SNOMED CT.
+</dd>
+<dt>Administrative code set</dt>
+<dd>
+A code system that identifies services, products, or billing items, such
+as CPT or HCPCS Level II.
+</dd>
+<dt>Principal diagnosis</dt>
+<dd>
+The condition found after study to be chiefly responsible for a hospital
+admission.
+</dd>
+<dt>ICD-10-CM</dt>
+<dd>
+The system of alphanumeric codes used in the United States to record
+diagnoses.
+</dd>
+<dt>ICD-10-PCS</dt>
+<dd>
+The code system used to record inpatient procedures.
+</dd>
+<dt>CPT</dt>
+<dd>
+The American Medical Association’s licensed code set for outpatient and
+professional services.
+</dd>
+<dt>HCPCS Level II</dt>
+<dd>
+A code set for supplies, drugs, and non-physician services, maintained
+by CMS.
+</dd>
+<dt>MS-DRG (Medicare Severity Diagnosis-Related Group)</dt>
+<dd>
+A three-digit payment group that represents an inpatient stay for
+Medicare payment.
+</dd>
+<dt>Revenue code</dt>
+<dd>
+A four-digit code on an institutional bill that marks where and what
+type of service was provided.
+</dd>
+<dt>SNOMED CT</dt>
+<dd>
+A detailed clinical terminology used in electronic health records to
+capture findings and problems.
+</dd>
+<dt>LOINC</dt>
+<dd>
+The standard for identifying laboratory tests and clinical observations
+across systems; it does not encode the measured result value.
+</dd>
+<dt>NDC (National Drug Code)</dt>
+<dd>
+A drug-product identifier assigned by the FDA as 10 digits in three
+segments, commonly normalized to 11 digits for billing; the FDA moves to
+a 12-digit format in 2033.
+</dd>
+<dt>RxNorm</dt>
+<dd>
+A terminology of normalized names for clinical drugs, maintained by the
+National Library of Medicine.
+</dd>
+<dt>Data governance</dt>
+<dd>
+The rules and roles that decide how data is defined, produced, and used.
+</dd>
+<dt>Data dictionary</dt>
+<dd>
+A document recording what each field means, its allowed values, and how
+it is calculated.
+</dd>
+<dt>Data steward</dt>
+<dd>
+A person accountable for a dataset who can say authoritatively what its
+fields mean.
+</dd>
+<dt>Data lineage</dt>
+<dd>
+The record of where a field came from and what was done to it along the
+way.
+</dd>
+<dt>Reference data</dt>
+<dd>
+A small, shared lookup list of valid values, such as facility types or
+payer categories.
+</dd>
+<dt>Master data</dt>
+<dd>
+The authoritative record of core business entities, such as the patient,
+provider, and facility lists.
+</dd>
+<dt>Protected health information (PHI)</dt>
+<dd>
+Health data that can be tied to an identifiable individual, held by a
+covered entity or business associate.
+</dd>
+<dt>HIPAA</dt>
+<dd>
+The Health Insurance Portability and Accountability Act, which sets US
+rules for using and disclosing PHI.
+</dd>
+<dt>Covered entity</dt>
+<dd>
+A health plan, healthcare clearinghouse, or healthcare provider that
+transmits health information electronically in connection with
+HIPAA-standard transactions.
+</dd>
+<dt>Business associate</dt>
+<dd>
+A person or organization that handles PHI on behalf of a covered entity,
+and is bound by HIPAA.
+</dd>
+<dt>Minimum necessary</dt>
+<dd>
+The HIPAA standard of making a reasonable effort to limit PHI to what a
+task requires.
+</dd>
+<dt>De-identification</dt>
+<dd>
+The process of reducing identifiers until data no longer reasonably
+identifies anyone.
+</dd>
+<dt>Safe Harbor</dt>
+<dd>
+The HIPAA de-identification method that removes or reduces eighteen
+specified categories of identifier.
+</dd>
+<dt>Expert Determination</dt>
+<dd>
+The HIPAA de-identification method in which a qualified expert
+determines and documents that re-identification risk is very small.
+</dd>
+<dt>Limited data set</dt>
+<dd>
+PHI with direct identifiers removed but some dates and partial geography
+retained, shareable only under a data use agreement.
+</dd>
+<dt>Data use agreement</dt>
+<dd>
+A contract under which a covered entity may share a limited data set for
+research, public health, or operations.
+</dd>
+<dt>Quasi-identifier</dt>
+<dd>
+A field that is not a direct identifier but can single out a person in
+combination, such as birth date, sex, and ZIP code.
+</dd>
+<dt>k-anonymity</dt>
+<dd>
+A disclosure-risk property in which every record shares its
+quasi-identifier values with at least k minus 1 other records.
+</dd>
+<dt>Re-identification</dt>
+<dd>
+Linking apparently anonymous data back to a person, often by combining
+it with an outside source.
+</dd>
+<dt>Risk adjustment</dt>
+<dd>
+The use of diagnosis codes to account for how sick a population is,
+which affects payment.
+</dd>
+<dt>Neighborhood deprivation quintile</dt>
+<dd>
+One of five equal-sized groups of neighborhoods ranked by a combined
+measure of socioeconomic disadvantage, from least to most deprived.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<section class="faq-section" aria-label="Frequently asked questions">
+<h2>Frequently asked questions</h2>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">What is ICD-10-CM?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">ICD-10-CM is the US system for classifying diagnoses, maintained by the CDC. Its alphanumeric codes, such as E11.65 for type 2 diabetes with hyperglycemia, run three to seven characters, with the first three forming a broad category.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">What is the difference between ICD-10-CM, CPT, and SNOMED CT?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">ICD-10-CM classifies diagnoses for reporting and payment. CPT names billable professional and outpatient services. SNOMED CT captures fine-grained clinical meaning and relationships in the health record. Each answers a different question about the same episode of care.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">Why does medical coding affect how hospitals get paid?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">Codes drive payment: a claim&#39;s diagnosis and procedure codes determine what the payer reimburses. Coding-related problems are among the most common reasons claims are denied, so coding is never a neutral clerical act.</p>
+  </div>
+</div>
+<div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+  <h3 itemprop="name">How do analysts group thousands of ICD-10 codes for analysis?</h3>
+  <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+    <p itemprop="text">Analysts roll detailed codes up to three-character categories and broader ranges, since tens of thousands of codes are too many to chart one by one. In Excel this is done with a lookup table that maps each code to its group.</p>
+  </div>
+</div>
+</section><details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch05,
+  author = {Sher, Hoshiar J.},
+  title = {Healthcare Coding, Terminology, Governance, Privacy, and Ethics},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch05.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch05,
+  author = {Sher, Hoshiar J.},
+  title = {Healthcare Coding, Terminology, Governance, Privacy, and Ethics},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch05.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch04.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 4: Working with Data: Structure, Measures, and Study Design</span></a><a class="pn next" href="ch06.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-group-diagnosis-codes-in-excel">Walkthrough: group diagnosis codes in Excel</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>
