@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Cleaning, Transforming, and Validating Data — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="An analyst opens an appointment export with 36,000 rows and sees blanks everywhere. The cancel time is empty for most rows, and the wait time is empty for thousands more. Her first instinct is that the file is broken and that someone lost data, and she is about to email the source team. Before she d">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch08.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Cleaning, Transforming, and Validating Data — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="An analyst opens an appointment export with 36,000 rows and sees blanks everywhere. The cancel time is empty for most rows, and the wait time is empty for thousands more. Her first instinct is that the file is broken and that someone lost data, and she is about to email the source team. Before she d">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch08.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Cleaning, Transforming, and Validating Data","position":8,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch08.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item active" href="ch08.html"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Reading a Result Honestly</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 8 · 50 minutes</p>
+    <p class="last-updated">Last updated November 2, 2026</p>
+    <article class="prose">
+      <section id="sec:ch08" class="level1">
+<h1>Cleaning, Transforming, and Validating Data</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>An analyst opens an appointment export with 36,000 rows and sees
+blanks everywhere. The cancel time is empty for most rows, and the wait
+time is empty for thousands more. Her first instinct is that the file is
+broken and that someone lost data, and she is about to email the source
+team. Before she does, she checks one thing, and the concern resolves.
+The blanks are not lost data. They are the data telling her something,
+because you cannot record a cancel time for a visit that was never
+canceled. Cleaning is not the work of erasing blanks. It is the work of
+understanding them. This chapter is about making data trustworthy, which
+is a different job from making it look tidy.</p>
+<p>A quick look at three appointments shows why a blank is not
+automatically an error. In Table 1, each outcome leaves a different
+field empty, and in every case the empty field is correct.</p>
+<table id="tbl:ch08-blanks">
+<caption>Table 1: Three appointments with different outcomes. A
+completed visit has a seen time but no cancel time; a no-show has
+neither; a canceled visit has a cancel time but no seen time. Each blank
+is correct for its outcome. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>appointment_id</th>
+<th>attendance_outcome</th>
+<th>seen_datetime</th>
+<th>cancel_datetime</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>APT000126</td>
+<td>Completed</td>
+<td>2024-01-01 08:12</td>
+<td>(blank)</td>
+</tr>
+<tr>
+<td>APT022207</td>
+<td>No Show</td>
+<td>(blank)</td>
+<td>(blank)</td>
+</tr>
+<tr>
+<td>APT027760</td>
+<td>Early Cancel</td>
+<td>(blank)</td>
+<td>2023-12-31 13:00</td>
+</tr>
+</tbody>
+</table>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Distinguish structural missing data from true missing data, and
+choose the right response to each.</li>
+<li>Profile a dataset with counts and summary statistics before you
+analyze it.</li>
+<li>Run a validation battery: row counts, key uniqueness, domain and
+range, and referential checks.</li>
+<li>Detect outliers with the 1.5 times IQR (interquartile range) rule
+and decide what to do with them.</li>
+<li>Transform fields safely without changing what the data means.</li>
+<li>Build cleaning steps you can trust and repeat.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>Data cleaning is the work of making a dataset trustworthy, not the
+work of making it look neat. A file can look tidy and still be wrong,
+and a file full of blanks can be perfectly correct. This section builds
+the judgment and the checks that separate trustworthy work from fragile
+spreadsheet output, in four parts:</p>
+<ul>
+<li><strong>missingness</strong>, distinguishing a blank that is correct
+from a blank that is a gap,</li>
+<li><strong>profiling</strong>, looking at a column’s shape before
+computing on it,</li>
+<li><strong>validation</strong>, a short battery of checks that catches
+most problems,</li>
+<li><strong>outliers and transformation</strong>, handling extreme
+values and reshaping data without changing its meaning.</li>
+</ul>
+</div>
+<section id="two-kinds-of-missing-value" class="level3">
+<h3>Two kinds of missing value</h3>
+<div class="definition">
+<p><strong>Data cleaning</strong> is the work of making a dataset
+trustworthy and ready for analysis. <strong>Structural missing</strong>
+data is blank because the value does not apply to that record.
+<strong>True missing</strong> data is blank when a value should exist
+but was not recorded.</p>
+</div>
+<p>A common mistake is to treat every blank as an error. There are two
+kinds of missing value, and they call for opposite responses:</p>
+<ul>
+<li><strong>Structural missing</strong> is correct and must stay empty.
+A canceled appointment has no seen-time, so <code>seen_datetime</code>
+is blank, and that blank is the right answer.</li>
+<li><strong>True missing</strong> is a real gap you have to handle. A
+wait time absent for a patient who was clearly seen is a value that
+should exist, so it needs a documented decision about whether to record,
+impute, or exclude it (Little &amp; Rubin, 2019).</li>
+</ul>
+<p>Figure 1 puts the two side by side. The rule that follows is strict:
+filling a structural blank with a zero is not cleaning, it is
+corruption, because it invents an event that never happened.</p>
+<figure id="fig:ch08-missing-types">
+<img src="figures/generated/ch_08_missing_types.png"
+alt="Figure 1: Two kinds of blank call for opposite responses. On the left, a completed visit has no cancel time, so the blank is correct and should stay empty. On the right, a completed visit has no wait time, a value that should have been recorded, so the blank needs a documented decision. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 1: Two kinds of blank call for
+opposite responses. On the left, a completed visit has no cancel time,
+so the blank is correct and should stay empty. On the right, a completed
+visit has no wait time, a value that should have been recorded, so the
+blank needs a documented decision. Source: concept
+schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you touch a blank, decide which kind it is. Structural missing
+means “not applicable” and should stay empty. True missing means “should
+be here but is not” and needs a documented decision, never a silent
+fill.</p>
+</div>
+<div class="caution">
+<p>Filling structural blanks with a zero is the most damaging “cleaning”
+an analyst can do. A zero is a number, so it enters every average, sum,
+and chart as if a real event had happened. The real-world spotlight at
+the end of this chapter shows a wait-time average that collapsed for
+exactly this reason.</p>
+</div>
+</section>
+<section id="profiling-look-before-you-compute" class="level3">
+<h3>Profiling: look before you compute</h3>
+<div class="definition">
+<p><strong>Data profiling</strong> is the quick first pass that
+describes each field, its count of values, its minimum and maximum, and
+its center, so you learn the shape of the data before you analyze
+it.</p>
+</div>
+<p>Profiling is the habit of looking before computing. Recall the
+summary functions from Chapter 6, <code>AVERAGE</code>,
+<code>MEDIAN</code>, <code>MIN</code>, <code>MAX</code>, and
+<code>COUNTA</code>, and add a quick frequency count with
+<code>COUNTIF</code> or a PivotTable. Run them on each numeric field
+first, and three kinds of problem surface:</p>
+<ul>
+<li>An <strong>impossible value</strong>, such as an age of 200 or a
+negative wait time, shows up as a minimum or maximum that cannot be
+real.</li>
+<li>A <strong>heap</strong>, such as hundreds of records all recording
+exactly age 0, is invisible in the mean and median but shows up in a
+frequency count as a single value that repeats far more than its
+neighbors.</li>
+<li>A <strong>silent gap</strong>, such as a field that
+<code>COUNTA</code> shows is far shorter than the row count, shows up as
+a count that does not match the number of rows.</li>
+</ul>
+<p>Profiling does not fix anything. It tells you where to look, and it
+is the least costly check in this chapter. Chapter 9 builds on these
+same summaries to describe data for its own sake; here they are a
+diagnostic.</p>
+</section>
+<section id="validation-is-a-battery-of-checks" class="level3">
+<h3>Validation is a battery of checks</h3>
+<div class="definition">
+<p><strong>Validation</strong> is the set of checks that confirm the
+data means what you think it means.</p>
+</div>
+<p>A few checks catch most problems, and a short, repeatable battery is
+the backbone of practical data cleaning (van der Loo &amp; de Jonge,
+2018). Figure 2 lays out the four checks, and none of them is
+advanced:</p>
+<ul>
+<li><strong>Row counts.</strong> Count the rows before and after every
+step. A join or filter that changes the count unexpectedly is a warning
+sign.</li>
+<li><strong>Key completeness and uniqueness.</strong> Confirm the
+primary key has no blanks and no duplicates, because a blank or a
+duplicate key silently distorts your counts.</li>
+<li><strong>Domain and range.</strong> Confirm each field holds only
+allowed values: a flag that is <code>0</code> or <code>1</code> and
+nothing else (a <strong>domain check</strong> on an allowed set), and a
+wait time that is never negative (a <strong>range check</strong> on an
+interval).</li>
+<li><strong>Referential integrity.</strong> Confirm every foreign key
+still resolves to its dimension, the idea introduced in Chapter 4, so no
+facility or payer code points at nothing.</li>
+</ul>
+<figure id="fig:ch08-battery">
+<img src="figures/generated/ch_08_validation_battery.png"
+alt="Figure 2: The validation battery: four checks that catch most problems, each with the kind of error it is designed to surface. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 2: The validation battery: four
+checks that catch most problems, each with the kind of error it is
+designed to surface. Source: concept schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>A dataset that passes every check has not passed by luck. It passes
+because you deliberately asked the questions a flawed dataset would
+fail. Run the same battery every time, and a new problem surfaces
+instead of hiding.</p>
+</div>
+</section>
+<section id="outliers-unusually-distant-values" class="level3">
+<h3>Outliers: unusually distant values</h3>
+<p>The battery so far asks yes-or-no questions. Outliers need a
+different lens, because an outlier may be a valid extreme or a data
+error, and a range check flags neither: each value, taken on its own,
+can fall within the allowed range.</p>
+<div class="definition">
+<p>An <strong>outlier</strong> is a value far from the bulk of the data.
+The <strong>quartiles</strong> split sorted values into four equal
+parts: the first quartile (Q1) is the 25th percentile and the third
+quartile (Q3) is the 75th. The <strong>interquartile range
+(IQR)</strong> is Q3 minus Q1, the span of the middle half. A value is
+an outlier under the <strong>1.5 times IQR rule</strong> if it sits
+below Q1 minus 1.5 times IQR or above Q3 plus 1.5 times IQR.</p>
+</div>
+<p>A <strong>box plot</strong> draws this rule as a picture (Tukey,
+1977). Figure 3 labels every part: the box spans Q1 to Q3, the line
+inside is the median, the whiskers reach the farthest ordinary values,
+and the dashed line is the upper fence at Q3 plus 1.5 times IQR.
+Anything past a fence is an outlier.</p>
+<figure id="fig:ch08-boxanatomy">
+<img src="figures/generated/ch_08_boxplot_anatomy.png"
+alt="Figure 3: Anatomy of a box plot, with the 1.5 times IQR rule labeled on total visit length. The box holds the middle half of visits (Q1 = 13 to Q3 = 30 minutes), the median is 21, and the upper fence sits at 55.5 minutes. The 71 points beyond it are outliers. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 3: Anatomy of a box plot, with the
+1.5 times IQR rule labeled on total visit length. The box holds the
+middle half of visits (Q1 = 13 to Q3 = 30 minutes), the median is 21,
+and the upper fence sits at 55.5 minutes. The 71 points beyond it are
+outliers. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>The fence is a short calculation you can run in Excel.</p>
+<div class="excelformula">
+<p>Compute the quartiles, then the fence, from the visit-length column:
+<code>=QUARTILE.INC(Appointments[total_visit_minutes], 1)</code> returns
+<code>13</code> (Q1) and
+<code>=QUARTILE.INC(Appointments[total_visit_minutes], 3)</code> returns
+<code>30</code> (Q3). The upper fence is
+<code>Q3 + 1.5 * (Q3 - Q1)</code> = <code>30 + 1.5 * 17</code> =
+<code>55.5</code>, and
+<code>=COUNTIF(Appointments[total_visit_minutes], "&gt;"&amp;55.5)</code>
+returns <code>71</code> outliers.</p>
+</div>
+<p>Detecting an outlier is straightforward. Deciding how to handle it is
+the harder task, and it calls for judgment rather than a reflex.
+Figure 4 lays out the four defensible choices:</p>
+<ul>
+<li><strong>Investigate and correct</strong> when the value is a data
+error, such as a typo or a unit mix-up.</li>
+<li><strong>Keep it</strong> when the value is real, and report it with
+a summary that resists outliers, such as the median and the IQR, rather
+than the mean.</li>
+<li><strong>Cap at the fence</strong> only under a rule you state in
+advance, replacing a beyond-fence value with the fence value while
+keeping the raw value in place. (Replacing values beyond chosen
+percentiles with those percentile values is the related technique of
+<strong>winsorizing</strong>.)</li>
+<li><strong>Exclude and document</strong> when the value falls outside
+the defined scope of the analysis, recording the rule and why you
+applied it.</li>
+</ul>
+<figure id="fig:ch08-decision">
+<img src="figures/generated/ch_08_outlier_decision.png"
+alt="Figure 4: What to do with an outlier: four defensible choices by situation, with silent deletion flagged as the one to avoid. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 4: What to do with an outlier:
+four defensible choices by situation, with silent deletion flagged as
+the one to avoid. Source: concept schematic.</figcaption>
+</figure>
+<div class="caution">
+<p>The one move to avoid by default is deleting an outlier silently. It
+changes the result and leaves no trace, so no reviewer, including you,
+can tell what the number would have been. A valid observation should not
+be altered merely because it moves an average; when the skew is genuine,
+prefer a summary that resists outliers, such as the median, and keep the
+original value. If a value must go, exclude it on purpose and write down
+why.</p>
+</div>
+</section>
+<section id="transforming-without-distorting" class="level3">
+<h3>Transforming without distorting</h3>
+<div class="definition">
+<p><strong>Transformation</strong> is reshaping data into the form
+analysis needs, such as standardizing dates, mapping messy codes to
+clean ones, or deriving a new column like a length of stay from two
+timestamps.</p>
+</div>
+<p>The rule is simple and strict: a transformation may change the shape
+of the data, but it must not change its meaning. Figure 5 shows the safe
+pattern, mapping a messy status column to one standard value in a new
+column while the raw column stays untouched. Recall from Chapter 7 that
+a status field should hold one consistent value everywhere, a basic
+principle of well-organized spreadsheet data (Broman &amp; Woo, 2018);
+making that true is a transformation. Silently rounding, recoding, or
+dropping rows in a way that shifts a result is not.</p>
+<figure id="fig:ch08-transform">
+<img src="figures/generated/ch_08_transformation.png"
+alt="Figure 5: A safe transformation maps a messy status column to one standard value in a new column, while the raw column stays in place so every value traces back to its source. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 5: A safe transformation maps a
+messy status column to one standard value in a new column, while the raw
+column stays in place so every value traces back to its source. Source:
+concept schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Keep the raw data untouched and transform into new columns or sheets.
+Then you can always trace a cleaned value back to the value it came
+from, which is what makes the cleaning defensible.</p>
+</div>
+<div class="tryit">
+<p>Open <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> and look at the
+<code>cancel_datetime</code> column for three rows: one
+<code>Completed</code>, one <code>No Show</code>, and one
+<code>Early Cancel</code>. For each, decide whether a blank
+<code>cancel_datetime</code> is structural or true missing, and say in
+one sentence what you would do with it. Check your reasoning against
+Table 1.</p>
+</div>
+</section>
+</section>
+<section id="walkthrough-build-an-appointment-data-quality-report"
+class="level2">
+<h2>Walkthrough: build an appointment data-quality report</h2>
+<p>This build turns the raw appointment file into the one-page
+data-quality report in Figure 6. Every number on it is computed by a
+formula that reads from the <code>Appointments</code> Table, so when the
+Table’s rows change, the report recalculates. To make next month’s
+export refresh automatically, import it with Power Query as in Chapter
+7; the report then updates with <strong>Data &gt; Refresh All</strong>.
+The report gathers four things in one place: a profile of the file, a
+read on its missingness, the validation battery, and the outlier
+count.</p>
+<figure id="fig:ch08-quality">
+<img src="figures/generated/ch_08_quality_report.png"
+alt="Figure 6: A stylized view of the finished appointment data-quality report: a profile, a missingness read, the validation battery, and the outlier count, all driven by formulas over the Appointments Table. Your worksheet will carry the same numbers; the exact layout may differ. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 6: A stylized view of the finished
+appointment data-quality report: a profile, a missingness read, the
+validation battery, and the outlier count, all driven by formulas over
+the <code>Appointments</code> Table. Your worksheet will carry the same
+numbers; the exact layout may differ. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you start: open
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, and immediately save a
+working copy as an Excel workbook so the original stays untouched. Work
+only in the copy. These teaching files hold no real patient information;
+real patient data must stay in approved, secure storage, and you should
+make a local working copy only when you are authorized to.</p>
+</div>
+<p><strong>Part A. Set up the data.</strong> Convert the raw file into a
+named Table so every formula can refer to its columns by name.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> in Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name it <code>ch08_quality.xlsx</code>.
+Work in this file from here on.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong> is checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Appointments</code>.</li>
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs,
+double-click the new tab, type <code>Quality</code>, and press
+Enter.</li>
+<li>In <code>A1</code> type
+<code>Appointment Data Quality Report</code>. Select <code>A1:B1</code>,
+choose <strong>Home &gt; Alignment &gt; Merge &amp; Center</strong>,
+then make it <strong>Bold</strong>, size 14, with a dark blue
+<strong>Fill Color</strong> and white <strong>Font Color</strong>.</li>
+</ol>
+<p><strong>Part B. Profile the file.</strong> A handful of summary
+statistics describe the visit-length column before you trust it. These
+are the Chapter 6 functions used as a diagnostic.</p>
+<ol start="7" type="1">
+<li>In <code>A3</code> type <code>Measure</code> and in <code>B3</code>
+type <code>Value</code>; select <code>A3:B3</code> and click
+<strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Total rows</code>; in <code>B4</code>
+enter <code>=ROWS(Appointments)</code>. Cell <code>B4</code> shows
+<code>36000</code>.</li>
+<li>In <code>A5</code> type <code>Mean visit minutes</code>; in
+<code>B5</code> enter
+<code>=AVERAGE(Appointments[total_visit_minutes])</code>. It shows about
+<code>22.1</code>. The function ignores blanks, so this is the mean
+among visits that have a recorded length.</li>
+<li>In <code>A6</code> type <code>Median visit minutes</code>; in
+<code>B6</code> enter
+<code>=MEDIAN(Appointments[total_visit_minutes])</code>. It shows
+<code>21</code>.</li>
+<li>In <code>A7</code> type <code>Shortest visit</code>; in
+<code>B7</code> enter
+<code>=MIN(Appointments[total_visit_minutes])</code>. It shows
+<code>8</code>.</li>
+<li>In <code>A8</code> type <code>Longest visit</code>; in
+<code>B8</code> enter
+<code>=MAX(Appointments[total_visit_minutes])</code>. It shows
+<code>78</code>. Neither extreme is impossible, so the profile signals
+no problem; the longest visit is one to examine later, not to
+delete.</li>
+</ol>
+<p><strong>Part C. Measure missingness.</strong> Count the blanks, then
+test whether they are structural. Figure 7 shows the same read as one
+picture: the cancel time is blank in 84.9 percent of rows (most visits
+were never canceled), the visit times in 28.7 percent (the not-completed
+visits), and the copay in 38.7 percent (the field to review).</p>
+<figure id="fig:ch08-missing">
+<img src="figures/generated/ch_08_missingness.png"
+alt="Figure 7: Share of missing values in each appointment field that has any. Most gaps are structural, not errors: cancel times for visits never canceled, visit times for visits never completed. The copay gap matches no outcome group, so it is the one to review. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 7: Share of missing values in each
+appointment field that has any. Most gaps are structural, not errors:
+cancel times for visits never canceled, visit times for visits never
+completed. The copay gap matches no outcome group, so it is the one to
+review. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<ol start="13" type="1">
+<li>In <code>A10</code> type <code>Missing visit times</code>; in
+<code>B10</code> enter
+<code>=COUNTBLANK(Appointments[seen_datetime])</code>. It shows
+<code>10342</code>.</li>
+<li>In <code>A11</code> type <code>Not completed</code>; in
+<code>B11</code> enter
+<code>=COUNTIFS(Appointments[attendance_outcome], "&lt;&gt;Completed")</code>.
+It also shows <code>10342</code>. Matching totals are a hint, not a
+proof, because two different groups can share a count, so confirm the
+records line up. In <code>A12</code> type
+<code>Visit-time mismatches</code>; in <code>B12</code> enter<br />
+<code>=COUNTIFS(Appointments[attendance_outcome], "Completed", Appointments[seen_datetime], "") + COUNTIFS(Appointments[attendance_outcome], "&lt;&gt;Completed", Appointments[seen_datetime], "&lt;&gt;")</code><br />
+It returns <code>0</code>: no completed visit lacks a seen-time, and no
+incomplete visit has one. The blank visit times are therefore
+structural.</li>
+<li>In <code>A13</code> type <code>Missing copay</code>; in
+<code>B13</code> enter
+<code>=COUNTBLANK(Appointments[copay_usd])</code>. It shows
+<code>13923</code>, about 38.7 percent. This one matches no outcome
+group, so flag it for review rather than assuming it is acceptable; the
+Try It at the end of the chapter tracks down its cause.</li>
+</ol>
+<p><strong>Part D. Run the validation battery.</strong> Each check is a
+short formula, and each is expected to come back clean.</p>
+<ol start="16" type="1">
+<li>Check the key for completeness and uniqueness. In <code>A14</code>
+type <code>Blank appointment IDs</code>; in <code>B14</code> enter
+<code>=COUNTBLANK(Appointments[appointment_id])</code>, which returns
+<code>0</code>. In <code>A15</code> type
+<code>Distinct appointment IDs</code>; in <code>B15</code> enter
+<code>=ROWS(UNIQUE(Appointments[appointment_id]))</code>, which returns
+<code>36000</code>, equal to <code>B4</code>, so no key is blank and
+none is duplicated. (On Excel 2019 or earlier, which has no
+<code>UNIQUE</code>, use
+<code>=SUMPRODUCT(1/COUNTIF(Appointments[appointment_id], Appointments[appointment_id]))</code>
+instead, but expect it to be slow on 36,000 rows.)</li>
+<li>In <code>A16</code> type <code>Bad no_show_flag values</code>; in
+<code>B16</code> enter<br />
+<code>=COUNTIFS(Appointments[no_show_flag], "&lt;&gt;0", Appointments[no_show_flag], "&lt;&gt;1")</code><br />
+It shows <code>0</code>, so every flag is a valid <code>0</code> or
+<code>1</code> (a domain check).</li>
+<li>In <code>A17</code> type <code>Negative wait times</code>; in
+<code>B17</code> enter
+<code>=COUNTIF(Appointments[wait_to_room_minutes], "&lt;0")</code>. It
+shows <code>0</code>, so no impossible wait time is present (a range
+check).</li>
+<li>In <code>A18</code> type <code>Facilities not in dimension</code>.
+To check referential integrity you need the facility list in the same
+workbook, so import it with Power Query as in Chapter 7: choose
+<strong>Data &gt; Get Data &gt; From Text/CSV</strong>, select
+<a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a>, and click
+<strong>Load</strong>. Excel adds it on a new sheet as a Table; rename
+the sheet <code>Facilities</code> and the Table
+<code>FacilityDim</code>. Then in <code>B18</code> enter<br />
+<code>=SUMPRODUCT(--(COUNTIF(FacilityDim[facility_id], Appointments[facility_id])=0))</code><br />
+It shows <code>0</code>, so every appointment’s facility code resolves
+to a real facility.</li>
+</ol>
+<p><strong>Part E. Flag the outliers.</strong> Compute the fence from
+the quartiles, then count the values beyond it.</p>
+<ol start="20" type="1">
+<li>In <code>A19</code> type <code>Q1 visit minutes</code>; in
+<code>B19</code> enter
+<code>=QUARTILE.INC(Appointments[total_visit_minutes], 1)</code>. It
+shows <code>13</code>.</li>
+<li>In <code>A20</code> type <code>Q3 visit minutes</code>; in
+<code>B20</code> enter
+<code>=QUARTILE.INC(Appointments[total_visit_minutes], 3)</code>. It
+shows <code>30</code>.</li>
+<li>In <code>A21</code> type <code>Upper fence</code>; in
+<code>B21</code> enter <code>=B20 + 1.5*(B20-B19)</code>. It shows
+<code>55.5</code>.</li>
+<li>In <code>A22</code> type <code>Outliers beyond fence</code>; in
+<code>B22</code> enter
+<code>=COUNTIF(Appointments[total_visit_minutes], "&gt;"&amp;B21)</code>.
+It shows <code>71</code>, the 71 points past the dashed fence in
+Figure 3.</li>
+</ol>
+<p><strong>Part F. Add a safe transformation.</strong> Record the
+outlier test as a new column, leaving the raw visit length
+untouched.</p>
+<ol start="24" type="1">
+<li>Click the first empty column header to the right of the Table and
+type <code>visit_over_fence</code>; the Table extends to include
+it.</li>
+<li>In the first cell of the new column, enter<br />
+<code>=IF([@total_visit_minutes]="", "", IF([@total_visit_minutes]&gt;Quality!$B$21, 1, 0))</code><br />
+Excel fills the formula down the whole column. Each row now carries a
+<code>1</code> when the visit is beyond the fence, a <code>0</code> when
+it is not, and a blank when the visit length itself is blank. The raw
+<code>total_visit_minutes</code> column is unchanged, so every flag
+traces back to its source.</li>
+</ol>
+<p><strong>Part G. Format and finish.</strong> A last pass makes the
+numbers readable.</p>
+<ol start="26" type="1">
+<li>Select <code>B5:B6</code>, apply <strong>Home &gt; Number</strong>
+and one decimal. Select <code>B4</code>, then add <code>B10:B13</code>,
+<code>B15</code>, and <code>B22</code> to the selection, apply
+<strong>Comma Style</strong>, and remove the decimals so the counts read
+<code>36,000</code> and <code>13,923</code>.</li>
+<li>Select <code>A3:B22</code>, apply <strong>Home &gt; Font &gt;
+Borders &gt; All Borders</strong>, click the <strong>Select All
+button</strong>, and choose <strong>Home &gt; Format &gt; AutoFit Column
+Width</strong>.</li>
+<li>Save with Ctrl+S (Cmd+S on macOS). Your sheet should resemble
+Figure 6.</li>
+</ol>
+<p>Every number on the sheet traces back to the Table, and no calculated
+result was typed by hand. When the appointment data are updated, the
+whole report recalculates.</p>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These exercises reuse the walkthrough’s techniques on new questions.
+The first is fully guided, like the walkthrough. The second fades the
+support: it names the functions and gives a value to check against, but
+leaves you to assemble the formulas.</p>
+<section id="practice-a-validate-the-emergency-department-file"
+class="level3">
+<h3>Practice A: validate the emergency-department file</h3>
+<p>Run the same profile, missingness read, validation battery, and
+outlier check on a different file, to confirm that the method
+transfers.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, then choose
+<strong>File &gt; Save As</strong> and save a copy named
+<code>ch08_ed_quality.xlsx</code>.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>. On the <strong>Table Design</strong> tab, set the
+<strong>Table Name</strong> to <code>ED</code>.</li>
+<li>Add a worksheet named <code>Quality</code>. In <code>A1</code> type
+<code>ED Data Quality Report</code>, then merge <code>A1:B1</code>, and
+format it bold, size 14, with a dark fill and white font.</li>
+<li>In <code>A3</code> type <code>Measure</code> and in <code>B3</code>
+type <code>Value</code>; make <code>A3:B3</code>
+<strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Total rows</code>; in <code>B4</code>
+enter <code>=ROWS(ED)</code>. It shows <code>18000</code>.</li>
+<li>In <code>A5</code> type <code>Mean LOS (min)</code>; in
+<code>B5</code> enter <code>=AVERAGE(ED[length_of_stay_minutes])</code>.
+It shows about <code>210</code>, the mean length of stay (LOS). In
+<code>A6</code> type <code>Median LOS</code>; in <code>B6</code> enter
+<code>=MEDIAN(ED[length_of_stay_minutes])</code>. It shows
+<code>190</code>; the mean above the median is consistent with right
+skew.</li>
+<li>In <code>A7</code> type <code>Shortest stay</code>; in
+<code>B7</code> enter <code>=MIN(ED[length_of_stay_minutes])</code>
+(shows <code>74</code>). In <code>A8</code> type
+<code>Longest stay</code>; in <code>B8</code> enter
+<code>=MAX(ED[length_of_stay_minutes])</code> (shows
+<code>1225</code>).</li>
+<li>In <code>A10</code> type <code>Missing LOS</code>; in
+<code>B10</code> enter
+<code>=COUNTBLANK(ED[length_of_stay_minutes])</code> (shows
+<code>584</code>). In <code>A11</code> type
+<code>Left without being seen</code>; in <code>B11</code> enter
+<code>=COUNTIFS(ED[left_without_being_seen_flag], 1)</code> (also
+<code>584</code>). To confirm the same records, in <code>A12</code> type
+<code>LOS mismatches</code>; in <code>B12</code> enter<br />
+<code>=COUNTIFS(ED[left_without_being_seen_flag], 1, ED[length_of_stay_minutes], "&lt;&gt;") + COUNTIFS(ED[left_without_being_seen_flag], 0, ED[length_of_stay_minutes], "")</code><br />
+It returns <code>0</code>, so every missing length of stay belongs to a
+left-without-being-seen encounter: the missingness is structural.</li>
+<li>In <code>A13</code> type <code>Distinct encounter IDs</code>; in
+<code>B13</code> enter <code>=ROWS(UNIQUE(ED[encounter_id]))</code>. It
+shows <code>18000</code>, equal to the row count, and
+<code>=COUNTBLANK(ED[encounter_id])</code> returns <code>0</code>, so
+the key is complete and unique.</li>
+<li>In <code>A14</code> type <code>Bad triage levels</code>; in
+<code>B14</code> enter
+<code>=COUNTIFS(ED[triage_acuity], "&lt;1") + COUNTIFS(ED[triage_acuity], "&gt;5")</code>.
+It shows <code>0</code>, so every triage level is a valid <code>1</code>
+through <code>5</code> (a domain check). In <code>A15</code> type
+<code>Negative LOS</code>; in <code>B15</code> enter
+<code>=COUNTIF(ED[length_of_stay_minutes], "&lt;0")</code>. It shows
+<code>0</code> (a range check).</li>
+<li>In <code>A16:A19</code> type <code>Q1 LOS</code>,
+<code>Q3 LOS</code>, <code>Upper fence</code>, and
+<code>Outliers beyond fence</code>. In <code>B16</code> enter
+<code>=QUARTILE.INC(ED[length_of_stay_minutes], 1)</code> (shows
+<code>165</code>), in <code>B17</code>
+<code>=QUARTILE.INC(ED[length_of_stay_minutes], 3)</code> (shows
+<code>227</code>), in <code>B18</code> <code>=B17 + 1.5*(B17-B16)</code>
+(the fence, <code>320</code>), and in <code>B19</code>
+<code>=COUNTIF(ED[length_of_stay_minutes], "&gt;"&amp;B18)</code> (shows
+<code>780</code>).</li>
+<li>Apply <strong>All Borders</strong>, click the <strong>Select All
+button</strong>, choose <strong>AutoFit Column Width</strong>, and
+save.</li>
+</ol>
+</section>
+<section id="practice-b-flag-the-long-ed-stays-and-find-their-source"
+class="level3">
+<h3>Practice B: flag the long ED stays and find their source</h3>
+<p>Return to <code>ch08_ed_quality.xlsx</code>, record the outlier test
+as a new column, then break the long stays down by disposition, with
+less guidance. This exercise names the functions and the cells and gives
+you values to check against, but leaves the formulas for you to
+build.</p>
+<p>Goal: a flag column, a total of the long stays, a by-disposition
+breakdown, data bars, and a chart.</p>
+<ol type="1">
+<li>Click the first empty column header to the right of the
+<code>ED</code> Table and type <code>los_over_fence</code>.</li>
+<li>In the first cell of the new column, build an <code>=IF(...)</code>
+that returns a blank when <code>length_of_stay_minutes</code> is empty,
+a <code>1</code> when it is greater than the fence you computed in
+<code>B18</code>, and a <code>0</code> otherwise.
+<ul>
+<li><code>IF</code> takes a test, then the value when true, then the
+value when false, and the tests can nest: first test for the blank, then
+test against the fence.</li>
+<li>Lock the fence cell with an <strong>absolute reference</strong>
+(<code>Quality!$B$18</code>) so every row compares to the same
+value.</li>
+</ul></li>
+<li>On the <code>Quality</code> sheet, in <code>A21</code> type
+<code>Long stays flagged</code>; in <code>B21</code> total the column
+with <code>=COUNTIFS(ED[los_over_fence], 1)</code>.
+<ul>
+<li><strong>Check your work:</strong> it should total <code>780</code>,
+matching the outlier count from Practice A, step 11. If it totals far
+more than <code>780</code>, nearly every stay, the fence reference was
+not locked, so check for <code>Quality!$B$18</code>.</li>
+</ul></li>
+<li>Break the long stays down by disposition. In <code>A23</code> type
+<code>Disposition</code> and in <code>B23</code> type
+<code>Long stays</code>; select <code>A23:B23</code> and click
+<strong>Bold</strong>. In <code>A24:A28</code> type <code>Admit</code>,
+<code>Observe</code>, <code>Transfer</code>, <code>Home</code>, and
+<code>Eloped</code>, one per row.</li>
+<li>In <code>B24</code> enter
+<code>=COUNTIFS(ED[disposition], A24, ED[los_over_fence], 1)</code>,
+then drag the <strong>fill handle</strong> down to <code>B28</code>.
+<ul>
+<li>Keep <code>A24</code> relative (no dollar signs) so each row counts
+its own disposition.</li>
+</ul></li>
+<li>Select any cell in <code>A23:B28</code> and sort by
+<code>Long stays</code> from largest to smallest (<strong>Data &gt;
+Sort</strong>).</li>
+<li>Select <code>B24:B28</code> and apply <strong>Home &gt; Conditional
+Formatting &gt; Data Bars</strong>. Then select <code>A24:A28</code>,
+hold <code>Ctrl</code> (<code>Cmd</code> on macOS), also select
+<code>B24:B28</code>, choose <strong>Insert &gt; Charts &gt; Clustered
+Bar</strong>, and title it <code>Long stays by disposition</code>.</li>
+<li>Apply <strong>All Borders</strong>, click the <strong>Select All
+button</strong>, choose <strong>AutoFit Column Width</strong>, and save.
+<ul>
+<li><strong>Check your work:</strong> <code>Admit</code> tops the list
+with <code>589</code> long stays, followed by <code>Observe</code>
+(<code>135</code>) and <code>Transfer</code> (<code>56</code>);
+<code>Home</code> and <code>Eloped</code> show <code>0</code>, so the
+five add to <code>780</code>. In this teaching file, every long ED stay
+ends in an admission, an observation stay, or a transfer, and none in a
+discharge home. That pattern reflects boarding, patients held in the
+emergency department while they wait for an inpatient bed, so these long
+stays are a real operational signal rather than data errors. Read the
+clean split as a feature of this dataset, not a rule that holds in every
+hospital.</li>
+</ul></li>
+</ol>
+<div class="tryit">
+<p>In <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, the
+<code>copay_usd</code> field is blank in 38.7 percent of rows. You
+suspect the blanks are structural because telehealth visits may carry no
+copay. Propose a test of that idea, state exactly what you would count,
+and say what each result would tell you. If the telehealth test does not
+explain the blanks, name one other field you would profile next, and
+decide what to do with the blanks in each case. The answer key is at the
+end of the chapter.</p>
+</div>
+</section>
+</section>
+<section id="going-deeper" class="level2">
+<h2>Going deeper</h2>
+<div class="goingdeeper">
+<p>The 1.5 times IQR rule is not the only way to flag outliers. A second
+method uses the <strong>z-score</strong>, the number of standard
+deviations a value sits from the mean: label anything beyond about three
+standard deviations an outlier. The two methods usually agree, but they
+part ways on skewed data. The IQR rule is built from quartiles, which a
+long right tail barely moves, so it stays stable. The z-score is built
+from the mean and standard deviation, which a long tail pulls outward,
+so on right-skewed healthcare data like length of stay or cost the
+z-score method flags too few high values. Chapter 10 develops the normal
+distribution and the standard deviation that the z-score depends on;
+until a distribution is roughly symmetric, prefer the IQR rule. And
+whichever you use, remember the habit from Chapter 7: write your
+cleaning as repeatable steps, in Power Query or in formulas, so next
+month’s export is a refresh rather than a rebuild.</p>
+</div>
+</section>
+<section id="real-world-spotlight" class="level2">
+<h2>Real-world spotlight</h2>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A team reported that average patient wait time had dropped
+sharply, and leadership celebrated. An analyst traced the improvement to
+its cause. During cleaning, someone had filled the blank wait times with
+zeros to “get rid of the blanks.” Those blanks were the no-shows and
+cancellations, patients who never waited at all, and adding thousands of
+false zeros dragged the average down. The wait had not improved; the
+data had been corrupted by a well-meaning fill. Once the structural
+blanks were restored to empty, the real average returned, and it was
+higher than the number in the celebrated report.</p>
+</div>
+<div class="recap">
+<ul>
+<li>Cleaning makes data trustworthy, not merely tidy; a neat file can
+still be wrong, and a file full of blanks can be correct.</li>
+<li>Structural missing means “not applicable” and must stay blank; true
+missing is a real gap that needs a documented decision, never a silent
+fill.</li>
+<li>Profile each field with counts and summary statistics first, to
+surface impossible values, heaps, and gaps before you compute.</li>
+<li>A short validation battery, row counts, key completeness and
+uniqueness, domain and range, and referential checks, catches most
+problems; the 1.5 times IQR rule flags outliers, which sit far from the
+rest and may be valid or erroneous.</li>
+<li>Transform the shape of data, never its meaning; keep the raw data
+traceable and write cleaning as repeatable steps.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Give one healthcare example of structural missing data and one of
+true missing data, and state how you would handle each.</li>
+<li>Name two things profiling a numeric column can reveal that a row
+count alone cannot, and give the Excel function you would use for
+each.</li>
+<li>Using Figure 7, explain why the 28.7 percent missingness in the
+visit-time fields is not a data-quality problem.</li>
+<li>Write the domain check, in words or an Excel formula, that would
+catch a <code>no_show_flag</code> value of <code>2</code>.</li>
+<li>The visit-length column has Q1 = 13 and Q3 = 30 minutes. Compute the
+upper fence under the 1.5 times IQR rule, and state how many minutes a
+visit must exceed to be flagged an outlier.</li>
+<li>A join grows a table from 8,500 to 9,140 rows. Name the two
+validation checks you would run first and what each would reveal.</li>
+<li>Explain why filling blank <code>wait_to_room_minutes</code> with
+<code>0</code> changes the meaning of the data, using the real-world
+spotlight as your example.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (copay).</strong> First test the telehealth idea.
+Count the blank copays for telehealth and in-person visits, for example
+<code>=COUNTIFS(Appointments[telehealth_flag], 1, Appointments[copay_usd], "")</code>
+for telehealth and the matching count for <code>telehealth_flag</code>
+of <code>0</code>, then divide each by its group size. Both rates are
+about 39 percent, essentially equal, so the test rules out telehealth as
+the explanation. Ruling out one cause does not make the blanks true
+missing, so profile them by <code>payer_id</code> next, for example
+<code>=COUNTIFS(Appointments[payer_id], "PAY03", Appointments[copay_usd], "")</code>
+or a PivotTable of blank copays by payer. Three payers are blank on
+every row (PAY03 Traditional Medicare, PAY05 Managed Medicaid, and PAY08
+Workers Compensation and Other, together 12,687 rows, or 91 percent of
+the blanks), and self-pay PAY07 is blank on 43 percent. The missingness
+is therefore largely structural, tied to payer and benefit design rather
+than to a recording failure, because those plans carry coinsurance or no
+fixed copay. Leave the structural blanks empty and exclude them from any
+average copay; treat only the partial PAY07 pattern as a true gap to
+document and confirm with a data steward.</p>
+<p><strong>Practice A (ED quality).</strong> The file holds
+<code>18000</code> encounters, and the <code>encounter_id</code> key is
+complete and unique. The mean length of stay is about <code>210</code>
+minutes and the median is <code>190</code>, consistent with right skew;
+the shortest stay is <code>74</code> minutes and the longest
+<code>1225</code>. The <code>584</code> missing lengths of stay match
+the <code>584</code> left-without-being-seen encounters, and the
+mismatch check returns <code>0</code>, so that missingness is
+structural. Triage levels are all valid <code>1</code> through
+<code>5</code> and no stay is negative. With Q1 = <code>165</code> and
+Q3 = <code>227</code>, the fence is <code>320</code> minutes, and
+<code>780</code> stays run past it.</p>
+<p><strong>Practice B (long stays).</strong> The
+<code>los_over_fence</code> column totals <code>780</code>. By
+disposition, <code>Admit</code> has <code>589</code> long stays,
+<code>Observe</code> <code>135</code>, and <code>Transfer</code>
+<code>56</code>, while <code>Home</code> and <code>Eloped</code> have
+<code>0</code>; the five add to <code>780</code>. If the flag totals far
+more than <code>780</code>, the fence cell was not locked with
+<code>Quality!$B$18</code>.</p>
+<p><strong>End-of-chapter exercises.</strong></p>
+<ol type="1">
+<li>Structural: a <code>cancel_datetime</code> for a completed visit,
+left blank, which stays blank. True: a blood pressure that should have
+been taken at a visit but is missing, which needs a documented
+decision.</li>
+<li>Profiling can reveal an impossible minimum or maximum
+(<code>MIN</code>, <code>MAX</code>) and a silent gap where the
+recorded-value count is short (<code>COUNTA</code> against the row
+count); a frequency count (<code>COUNTIF</code> or a PivotTable) can
+also reveal a heap.</li>
+<li>The visit times are blank only for the 10,342 appointments that were
+not completed, which have no visit to time, so the blank is structural
+and correct.</li>
+<li><code>=COUNTIFS(Appointments[no_show_flag], "&lt;&gt;0", Appointments[no_show_flag], "&lt;&gt;1")</code>,
+which counts flags that are neither <code>0</code> nor <code>1</code>
+and would return a non-zero result if a <code>2</code> were
+present.</li>
+<li>The fence is <code>30 + 1.5 * (30 - 13) = 55.5</code>, so a visit
+must exceed <code>55.5</code> minutes, that is, run <code>56</code>
+minutes or longer, to be flagged.</li>
+<li>Row counts, which reveal that the join added <code>640</code> rows,
+and key completeness and uniqueness, which would reveal whether a blank
+or duplicated key multiplied the matches.</li>
+<li>The blank wait times belong to patients who never waited, so
+replacing them with <code>0</code> adds thousands of false zeros that
+pull the average wait down, reporting an improvement that did not
+happen.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Broman, K. W., &amp; Woo, K. H. (2018). Data organization in
+spreadsheets. <em>The American Statistician, 72</em>(1), 2-10.
+https://doi.org/10.1080/00031305.2017.1375989</li>
+<li>Little, R. J. A., &amp; Rubin, D. B. (2019). <em>Statistical
+analysis with missing data</em> (3rd ed.). Wiley.</li>
+<li>Tukey, J. W. (1977). <em>Exploratory data analysis.</em>
+Addison-Wesley.</li>
+<li>van der Loo, M., &amp; de Jonge, E. (2018). <em>Statistical data
+cleaning with applications in R.</em> Wiley.</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Data cleaning</dt>
+<dd>
+The work of making a dataset trustworthy and ready for analysis.
+</dd>
+<dt>Structural missing</dt>
+<dd>
+A blank that is correct because the value does not apply to that record.
+</dd>
+<dt>True missing</dt>
+<dd>
+A blank where a value should exist but was not recorded.
+</dd>
+<dt>Data profiling</dt>
+<dd>
+A quick first pass that describes each field’s count, range, and center
+before analysis.
+</dd>
+<dt>Validation</dt>
+<dd>
+The set of checks that confirm the data means what the analyst thinks it
+means.
+</dd>
+<dt>Range check</dt>
+<dd>
+A validation that confirms a field’s values fall within an allowed
+interval, such as a wait time of zero or more.
+</dd>
+<dt>Domain check</dt>
+<dd>
+A validation that confirms a field holds only values from an allowed
+set, such as a flag of 0 or 1.
+</dd>
+<dt>Referential integrity</dt>
+<dd>
+The property that every foreign key resolves to a record in its
+dimension table.
+</dd>
+<dt>Outlier</dt>
+<dd>
+A value far from the bulk of the data, which may be a valid extreme or
+an error.
+</dd>
+<dt>Quartile</dt>
+<dd>
+A value that splits sorted data into quarters; Q1 is the 25th percentile
+and Q3 the 75th.
+</dd>
+<dt>Interquartile range (IQR)</dt>
+<dd>
+The span of the middle half of the data, Q3 minus Q1.
+</dd>
+<dt>Box plot</dt>
+<dd>
+A chart that shows the median, the interquartile box, the whiskers, and
+outliers beyond the fence.
+</dd>
+<dt>Capping</dt>
+<dd>
+Replacing a value beyond a fence with the fence value, under a rule
+stated in advance, while keeping the raw value.
+</dd>
+<dt>Winsorize</dt>
+<dd>
+To replace values beyond chosen percentiles with those percentile
+values, reducing the influence of extremes.
+</dd>
+<dt>Z-score</dt>
+<dd>
+The number of standard deviations a value sits from the mean.
+</dd>
+<dt>Transformation</dt>
+<dd>
+Reshaping data into the form analysis needs without changing its
+meaning.
+</dd>
+<dt>Imputation</dt>
+<dd>
+Filling a true missing value with an estimated one, as a documented and
+deliberate choice.
+</dd>
+<dt>Reproducibility</dt>
+<dd>
+The property that a cleaning process can be rerun to produce the same
+result.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch08,
+  author = {Sher, Hoshiar J.},
+  title = {Cleaning, Transforming, and Validating Data},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch08.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch08,
+  author = {Sher, Hoshiar J.},
+  title = {Cleaning, Transforming, and Validating Data},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch08.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch07.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 7: Importing Data and Building a Reusable Excel Workflow</span></a><a class="pn next" href="ch09.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 9: Summarizing Data: Descriptive Statistics and Grouping</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-an-appointment-data-quality-report">Walkthrough: build an appointment data-quality report</a><a href="#practice-on-your-own">Practice on your own</a><a href="#going-deeper">Going deeper</a><a href="#real-world-spotlight">Real-world spotlight</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

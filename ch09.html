@@ -1,0 +1,1952 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Summarizing Data: Descriptive Statistics and Grouping — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="An operations manager reviews a report that states a single figure: the average emergency department (ED) length of stay is 210 minutes. The manager sets a target of 200 minutes and asks the charge nurses to reach it.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch09.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Summarizing Data: Descriptive Statistics and Grouping — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="An operations manager reviews a report that states a single figure: the average emergency department (ED) length of stay is 210 minutes. The manager sets a target of 200 minutes and asks the charge nurses to reach it.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch09.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Summarizing Data: Descriptive Statistics and Grouping","position":9,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch09.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" aria-label="Contents"><div class="sidebar-head">Contents</div><div class="nav-list"><a class="nav-item" href="preface.html"><span class="nav-num">·</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item active" href="ch09.html"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><span class="nav-item disabled"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Reading a Result Honestly</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head">Appendices</div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head">Resources</div><div class="nav-list"><a class="nav-item" href="datasets.html"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 9 · 50 minutes</p>
+    <p class="last-updated">Last updated November 2, 2026</p>
+    <article class="prose">
+      <section id="sec:ch09" class="level1">
+<h1>Summarizing Data: Descriptive Statistics and Grouping</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>An operations manager reviews a report that states a single figure:
+the average emergency department (ED) length of stay is 210 minutes. The
+manager sets a target of 200 minutes and asks the charge nurses to reach
+it.</p>
+<p>The report leaves out two facts that change the picture:</p>
+<ul>
+<li><strong>The typical stay is shorter than the average.</strong> Half
+of the patients with a recorded stay leave the ED within 190
+minutes.</li>
+<li><strong>A long tail of slower visits holds the average above that
+midpoint.</strong> The tail includes 264 stays of more than ten hours.
+All of them are admitted patients waiting in the ED for an inpatient bed
+(a situation known as boarding), a delay that ED staff do not
+control.</li>
+</ul>
+<p>A target based on the average alone therefore treats a feature of the
+slowest visits as a problem of the typical visit. This chapter shows how
+to summarize a column so that one figure does not misrepresent the data
+behind it. The Real World box at the end of the chapter returns to the
+manager’s target.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Build frequency tables and cross-tabulations of counts and
+percentages for categorical fields, and calculate a rate as the average
+of a 0/1 flag over a defined denominator.</li>
+<li>Calculate the mean, median, and mode, and select among them
+according to the type and shape of the data.</li>
+<li>Describe spread with the range, percentiles, the interquartile
+range, and the standard deviation.</li>
+<li>Interpret the shape of a distribution from a histogram and from the
+difference between the mean and the median.</li>
+<li>Summarize a measure by group with a PivotTable and with conditional
+formulas, including group medians.</li>
+<li>Report a summary in a single line that states the count, a center, a
+spread, the period, and any exclusions.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>A complete summary of a column answers four questions, in this
+order:</p>
+<ul>
+<li><strong>How many?</strong> The number of records the summary
+describes.</li>
+<li><strong>Where is the center?</strong> A typical value, such as the
+mean or the median.</li>
+<li><strong>How spread out are the values?</strong> A measure such as
+the interquartile range or the standard deviation.</li>
+<li><strong>What is the shape?</strong> Whether the values are
+distributed evenly or extend in a long tail.</li>
+</ul>
+<p>Most analyses add a fifth question: <strong>does the summary differ
+between groups?</strong></p>
+</div>
+<p>Chapter 6 introduced the functions that compute these statistics, and
+Chapter 8 applied them to profile a file for data-quality problems. This
+chapter treats the same statistics as findings to be reported.</p>
+<p>Most examples use <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>,
+which records 18,000 ED visits from January 2024 through December 2025.
+The principal measure is <code>length_of_stay_minutes</code>, the number
+of minutes from a patient’s arrival to departure.</p>
+<p>The <code>DS</code> prefix numbers the book’s operational teaching
+datasets, and the <code>PH</code> prefix numbers its public health
+datasets. This chapter uses <code>DS2</code> (appointments),
+<code>DS3</code> (ED visits), <code>DS5</code> (claims),
+<code>DS6</code> (patient survey responses), and <code>PH1</code>
+(county public health measures).</p>
+<div class="caution">
+<p><strong>About the teaching data.</strong> Every dataset in this book
+is synthetic, as Chapter 5 explained, so none contains protected health
+information. The files are also simplified:</p>
+<ul>
+<li><strong><code>DS3</code> is tidier than real ED data.</strong> No
+visit discharged home lasts longer than 315 minutes, and every stay
+longer than 600 minutes belongs to an admitted patient who is
+boarding.</li>
+<li><strong><code>PH1</code> is not a CDC release.</strong> It pairs
+real county names and Federal Information Processing Standards (FIPS)
+codes with synthetic estimates modeled on the Population Level Analysis
+and Community Estimates (PLACES) program of the Centers for Disease
+Control and Prevention (CDC, 2024). Its values describe no actual county
+and cannot estimate national prevalence.</li>
+</ul>
+</div>
+<section id="start-with-the-count" class="level3">
+<h3>Start with the count</h3>
+<div class="definition">
+<p><strong>Descriptive statistics</strong> are numbers that summarize
+the count, center, spread, and shape of a column. The <strong>sample
+size</strong>, written <strong>n</strong>, is the number of records from
+which a statistic is computed.</p>
+</div>
+<p>The count often differs from the number of rows. The ED file contains
+18,000 rows, but only 17,416 record a length of stay. Recall from
+Chapter 8 that the other 584 visits ended with the patient leaving
+without being seen (<code>LWBS</code> in the <code>disposition</code>
+column); these blanks are structural, so every statistic for
+<code>length_of_stay_minutes</code> uses 17,416 visits. Figure 1 traces
+how the 18,000 rows divide.</p>
+<figure id="fig:ch09-which-visits">
+<img src="figures/generated/ch_09_which_visits.png"
+alt="Figure 1: The count depends on the measure. All 18,000 ED visits enter the disposition percentages, but only the 17,416 visits with a recorded stay enter the length-of-stay statistics; the 584 LWBS visits are structural blanks, not zero-minute stays. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 1: The count depends on the
+measure. All 18,000 ED visits enter the disposition percentages, but
+only the 17,416 visits with a recorded stay enter the length-of-stay
+statistics; the 584 LWBS visits are structural blanks, not zero-minute
+stays. Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>,
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>Excel provides a separate function for each definition of a count
+(Table 1). Using the wrong one is a common reason that two reports of
+the same file disagree.</p>
+<table id="tbl:ch09-counts" style="width:100%;">
+<caption>Table 1: Five counting functions applied to the ED Table.
+<code>ROWS</code> counts every visit, while <code>COUNT</code> counts
+only visits with a numeric length of stay. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, 18,000 visits,
+January 2024 to December 2025.</caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 60%" />
+<col style="width: 8%" />
+</colgroup>
+<thead>
+<tr>
+<th>Function</th>
+<th>Counts</th>
+<th>ED example</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ROWS</code></td>
+<td>Rows in a Table or range</td>
+<td><code>=ROWS(ED)</code></td>
+<td>18,000</td>
+</tr>
+<tr>
+<td><code>COUNT</code></td>
+<td>Cells containing a number</td>
+<td><code>=COUNT(ED[length_of_stay_minutes])</code></td>
+<td>17,416</td>
+</tr>
+<tr>
+<td><code>COUNTA</code></td>
+<td>Cells that are not empty</td>
+<td><code>=COUNTA(ED[disposition])</code></td>
+<td>18,000</td>
+</tr>
+<tr>
+<td><code>COUNTBLANK</code></td>
+<td>Empty cells</td>
+<td><code>=COUNTBLANK(ED[length_of_stay_minutes])</code></td>
+<td>584</td>
+</tr>
+<tr>
+<td><code>COUNTIFS</code></td>
+<td>Rows meeting one or more conditions</td>
+<td><code>=COUNTIFS(ED[disposition], "Admit")</code></td>
+<td>1,127</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>status bar</strong> at the bottom of the Excel window
+offers a check without formulas: it displays the
+<strong>Average</strong>, <strong>Count</strong>, and
+<strong>Sum</strong> of any selected range, and right-clicking it adds
+<strong>Minimum</strong> and <strong>Maximum</strong>.</p>
+<div class="keypoint">
+<p>Report n with every statistic. A median of 190 minutes computed from
+17,416 visits is far more stable than the same median computed from 12
+visits.</p>
+</div>
+</section>
+<section id="summarizing-a-category-frequency-tables-and-rates"
+class="level3">
+<h3>Summarizing a category: frequency tables and rates</h3>
+<div class="definition">
+<p>A <strong>frequency table</strong> lists each category of a field
+with the number of records in that category. The <strong>relative
+frequency</strong> is a category’s count divided by the total, usually
+expressed as a percentage. The <strong>mode</strong> is the most
+frequent category.</p>
+</div>
+<p>A categorical field such as <code>disposition</code> has no
+arithmetic mean. Its standard summary is a frequency table, shown in
+Table 2. The mode is <code>Home</code>, which accounts for 76.5 percent
+of visits.</p>
+<table id="tbl:ch09-dispo">
+<caption>Table 2: Frequency table of ED disposition. Each visit has one
+disposition, so the percentages share a single denominator of 18,000
+visits and sum to 100 percent. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, January 2024 to
+December 2025.</caption>
+<thead>
+<tr>
+<th>Disposition</th>
+<th>Visits</th>
+<th>Percent of all visits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Home</td>
+<td>13,769</td>
+<td>76.5%</td>
+</tr>
+<tr>
+<td>Observe</td>
+<td>1,946</td>
+<td>10.8%</td>
+</tr>
+<tr>
+<td>Admit</td>
+<td>1,127</td>
+<td>6.3%</td>
+</tr>
+<tr>
+<td>LWBS (left without being seen)</td>
+<td>584</td>
+<td>3.2%</td>
+</tr>
+<tr>
+<td>Eloped</td>
+<td>388</td>
+<td>2.2%</td>
+</tr>
+<tr>
+<td>Transfer</td>
+<td>186</td>
+<td>1.0%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>18,000</strong></td>
+<td><strong>100.0%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The table can be built with <code>COUNTIFS</code> and
+<code>ROWS(ED)</code> or with a PivotTable (described later). Two
+conventions keep it accurate:</p>
+<ul>
+<li><strong>State the denominator.</strong> “6.3 percent of visits ended
+in admission” uses all 18,000 visits; excluding the 584 LWBS visits
+would change every percentage.</li>
+<li><strong>Preserve the order of ordinal categories.</strong> Sort a
+nominal field such as disposition by frequency, but keep triage levels
+and rating scales in their natural order.</li>
+</ul>
+<p>A <strong>rate</strong> is a relative frequency with a complete
+definition. Recall from Chapter 4 that a rate requires four parts: a
+numerator, a denominator, a statement of what it includes and excludes,
+and a time window.</p>
+<p>Many healthcare files record events as a <strong>flag</strong>, a
+column coded <code>1</code> when the event occurred and <code>0</code>
+when it did not. The average of a flag equals the proportion of 1s, so
+<code>AVERAGE</code> returns a rate over whichever rows it is given.
+Strictly, a share of records is a proportion; healthcare quality
+reporting conventionally calls it a rate, and this book follows that
+usage.</p>
+<div class="caution">
+<p>In <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>,
+<code>no_show_flag</code> is <code>0</code> for every appointment that
+is not a no-show, including cancellations and reschedules.
+<code>=AVERAGE(Appointments[no_show_flag])</code> therefore divides the
+4,913 no-shows by all 36,000 appointments and returns <strong>13.6
+percent</strong>. The Chapter 1 rate uses the 30,571 completed or
+no-show appointments as its denominator and is <strong>16.1
+percent</strong>. Restrict the rows before averaging a flag.</p>
+</div>
+<p>Figure 2 sets the two calculations side by side.</p>
+<figure id="fig:ch09-rate-denominators">
+<img src="figures/generated/ch_09_rate_denominators.png"
+alt="Figure 2: The same 4,913 no-shows produce two rates. Averaging no_show_flag over all 36,000 appointments gives 13.6 percent; restricting the denominator to the 30,571 completed or no-show appointments gives the defined rate of 16.1 percent. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 2: The same 4,913 no-shows produce
+two rates. Averaging <code>no_show_flag</code> over all 36,000
+appointments gives 13.6 percent; restricting the denominator to the
+30,571 completed or no-show appointments gives the defined rate of 16.1
+percent. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<div class="excelformula">
+<p>The defined no-show rate, numerator over denominator:<br />
+<code>=COUNTIFS(Appointments[attendance_outcome], "No Show") /</code><br />
+<code>(COUNTIFS(Appointments[attendance_outcome], "Completed")</code><br />
+<code>+ COUNTIFS(Appointments[attendance_outcome], "No Show"))</code><br />
+returns <code>0.1607</code>, formatted as <code>16.1%</code>. Chapter 3
+(Exercise 7) computed the same rate for every clinic with a
+PivotTable.</p>
+</div>
+</section>
+<section id="the-center-mean-median-and-mode" class="level3">
+<h3>The center: mean, median, and mode</h3>
+<div class="definition">
+<p>The <strong>mean</strong> is the sum of the values divided by their
+count. The <strong>median</strong> is the middle value of the sorted
+data, so half the records fall at or below it and half at or above it.
+For numeric data, the mode is the value that occurs most often.</p>
+</div>
+<p>The mean and the median measure a typical value in different
+ways:</p>
+<ul>
+<li>The <strong>mean</strong> uses every value, so each extreme value
+shifts it.</li>
+<li>The <strong>median</strong> depends only on the middle of the sorted
+values, so extreme values have little effect on it.</li>
+</ul>
+<p>Figure 3 illustrates the difference. When the longest of five stays
+becomes 600 minutes, the median remains 190 and the mean rises to 264, a
+value greater than four of the five observations.</p>
+<figure id="fig:ch09-center">
+<img src="figures/generated/ch_09_center_example.png"
+alt="Figure 3: One long stay moves the mean, not the median. Row A shows five stays of 150, 170, 190, 210, and 230 minutes: the median is the middle (third) sorted value, 190, and the mean is their total divided by five, 950 ÷ 5 = 190. Row B replaces the 230-minute stay with a 600-minute stay. The middle value is still 190, but the total rises to 1,320, so the mean rises to 264, longer than four of the five stays. Illustrative values." />
+<figcaption aria-hidden="true">Figure 3: One long stay moves the mean,
+not the median. Row A shows five stays of 150, 170, 190, 210, and 230
+minutes: the median is the middle (third) sorted value, 190, and the
+mean is their total divided by five, 950 ÷ 5 = 190. Row B replaces the
+230-minute stay with a 600-minute stay. The middle value is still 190,
+but the total rises to 1,320, so the mean rises to 264, longer than four
+of the five stays. Illustrative values.</figcaption>
+</figure>
+<p>The ED file shows the same pattern: a long right tail raises the mean
+(210) 20 minutes above the median (190). The tail is broad rather than a
+few extreme values:</p>
+<ul>
+<li>Removing the 16 stays longer than 1,000 minutes lowers the mean by
+less than one minute.</li>
+<li>Removing all 264 stays longer than 600 minutes still leaves the mean
+11 minutes above the median.</li>
+</ul>
+<p>Neither statistic is incorrect; each answers a different question
+(Freedman et al., 2007), and Table 3 matches the measure to the
+data.</p>
+<table id="tbl:ch09-center" style="width:100%;">
+<caption>Table 3: Selecting a measure of center by type and shape of
+data. Sources: 17,416 ED visits with a recorded stay
+(<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>) and 5,500 survey
+responses
+(<a class="ds-ref" href="datasets/DS6_survey_responses_clean.csv" download title="Download DS6_survey_responses_clean.csv"><code>datasets/DS6_survey_responses_clean.csv</code></a>).</caption>
+<colgroup>
+<col style="width: 18%" />
+<col style="width: 33%" />
+<col style="width: 22%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Type of data</th>
+<th>Example field</th>
+<th>Preferred center</th>
+<th>Reason</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nominal category</td>
+<td><code>disposition</code></td>
+<td>Mode, with percentages</td>
+<td>Categories have no order or average</td>
+</tr>
+<tr>
+<td>Ordinal scale</td>
+<td><code>staff_courtesy_score_1_4</code></td>
+<td>Median, or top-box percentage</td>
+<td>Intervals between ratings are not equal</td>
+</tr>
+<tr>
+<td>Numeric, approximately symmetric</td>
+<td><code>door_to_provider_minutes</code></td>
+<td>Mean</td>
+<td>Mean (43.4) and median (43) agree</td>
+</tr>
+<tr>
+<td>Numeric, skewed</td>
+<td><code>length_of_stay_minutes</code></td>
+<td>Median; add the mean when totals matter</td>
+<td>The tail draws the mean away from typical values</td>
+</tr>
+</tbody>
+</table>
+<p>Rating scales and the numeric mode require particular care:</p>
+<ul>
+<li><strong>Rating scales.</strong> On
+<code>staff_courtesy_score_1_4</code>, the median is 4 and the mean is
+3.47. A mean assumes equal intervals between ratings, which a rating
+scale does not guarantee.
+<ul>
+<li>Public reports of the Hospital Consumer Assessment of Healthcare
+Providers and Systems (HCAHPS) survey therefore use a <strong>top-box
+score</strong>, the percentage of responses in the most favorable
+category (Centers for Medicare &amp; Medicaid Services [CMS],
+n.d.).</li>
+<li>Here the top-box score is 55.2 percent of 5,500 responses.</li>
+</ul></li>
+<li><strong>The numeric mode.</strong> For ED length of stay,
+<code>MODE.SNGL</code> returns 173 minutes, shared by only 209 visits
+(1.2 percent), while 174 minutes occurs 207 times. Exact-value modes are
+generally uninformative for continuous measurements, although the mode
+remains useful for categorical and genuinely discrete variables.</li>
+</ul>
+<p>In Excel, <code>AVERAGE</code> and <code>MEDIAN</code> (Chapter 6)
+return the mean and median, and <code>MODE.SNGL</code> returns a numeric
+mode; the mode of a text field is the top row of its frequency
+table.</p>
+<div class="keypoint">
+<p>The mean describes the average per record, which determines totals.
+The median describes the typical record. When the two differ
+substantially, the distribution is asymmetric, and the median is usually
+the better description of a typical case.</p>
+</div>
+</section>
+<section id="spread-how-far-the-values-scatter" class="level3">
+<h3>Spread: how far the values scatter</h3>
+<div class="definition">
+<ul>
+<li>The <strong>range</strong> is the largest value minus the
+smallest.</li>
+<li>A <strong>percentile</strong> is the value at or below which a given
+percentage of the data falls.</li>
+<li>The quartiles and the <strong>interquartile range (IQR)</strong>
+from Chapter 8 are the 25th and 75th percentiles and the distance
+between them.</li>
+<li>The <strong>standard deviation (SD)</strong> measures the typical
+distance of values from the mean.</li>
+</ul>
+</div>
+<p>A center without a spread is incomplete: two EDs can share a median
+of 190 minutes while one discharges nearly every patient within 170 to
+210 minutes and the other within one to ten hours. Figure 4 compares
+four measures of spread.</p>
+<figure id="fig:ch09-spread">
+<img src="figures/generated/ch_09_spread_measures.png"
+alt="Figure 4: Four measures of spread, each shaded on the same histogram of the 17,416 ED visits with a recorded stay. The range covers every visit but depends on the two most extreme stays; the 10th to 90th percentile covers about 81 percent of visits and the interquartile range about 51 percent, centered on the median; the mean plus or minus one SD is lopsided on these skewed data, with 1.2 percent of visits below it and 6.5 percent above. Percentiles use PERCENTILE.INC, and the 148 stays above 700 minutes are not drawn. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 4: Four measures of spread, each
+shaded on the same histogram of the 17,416 ED visits with a recorded
+stay. The range covers every visit but depends on the two most extreme
+stays; the 10th to 90th percentile covers about 81 percent of visits and
+the interquartile range about 51 percent, centered on the median; the
+mean plus or minus one SD is lopsided on these skewed data, with 1.2
+percent of visits below it and 6.5 percent above. Percentiles use
+<code>PERCENTILE.INC</code>, and the 148 stays above 700 minutes are not
+drawn. Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>,
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>Each measure answers a different question:</p>
+<ul>
+<li><strong>Range (74 to 1,225 minutes)</strong> depends entirely on the
+two most extreme visits.</li>
+<li><strong>10th to 90th percentile (146 to 280 minutes)</strong>
+excludes the extreme tenth at each end; the 90th percentile can serve as
+a service standard (“90 percent of patients leave within 280
+minutes”).</li>
+<li><strong>IQR (165 to 227 minutes; 62)</strong> covers the middle
+half. Chapter 8 used it as an outlier fence; as a summary, it pairs with
+the median.</li>
+<li><strong>SD (about 90 minutes)</strong> uses every value and pairs
+with the mean.</li>
+</ul>
+<p>Table 4 calculates the least intuitive of the four, the SD, for five
+illustrative door-to-provider times.</p>
+<table id="tbl:ch09-sd">
+<caption>Table 4: Calculating a standard deviation for five illustrative
+waits. The distances always sum to zero, so they are squared before they
+are combined. Illustrative values.</caption>
+<thead>
+<tr>
+<th>Wait (minutes)</th>
+<th>Distance from the mean of 45</th>
+<th>Distance squared</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>30</td>
+<td>-15</td>
+<td>225</td>
+</tr>
+<tr>
+<td>40</td>
+<td>-5</td>
+<td>25</td>
+</tr>
+<tr>
+<td>45</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>50</td>
+<td>5</td>
+<td>25</td>
+</tr>
+<tr>
+<td>60</td>
+<td>15</td>
+<td>225</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>0</strong></td>
+<td><strong>500</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The calculation has five steps:</p>
+<ol type="1">
+<li>Compute the mean: 225 divided by 5 is 45 minutes.</li>
+<li>Subtract the mean from each value to obtain its distance from the
+center.</li>
+<li>Square each distance so that values above and below the mean both
+contribute positively.</li>
+<li>Sum the squares (500) and divide by one less than the count (4). The
+result, 125, is the <strong>variance</strong>.</li>
+<li>Take the square root of the variance: the square root of 125 is
+approximately 11.2 minutes.</li>
+</ol>
+<p>Figure 5 summarizes the calculation: squaring prevents the distances
+from cancelling, and the square root returns the result to minutes.</p>
+<figure id="fig:ch09-sd-steps">
+<img src="figures/generated/ch_09_sd_steps.png"
+alt="Figure 5: From squared distances to a standard deviation for the five illustrative waits in Table 4. The squared distances sum to 500; dividing by n minus 1 gives a variance of 125 square minutes, and its square root, about 11.2 minutes, is the sample SD returned by STDEV.S. Illustrative values." />
+<figcaption aria-hidden="true">Figure 5: From squared distances to a
+standard deviation for the five illustrative waits in Table 4. The
+squared distances sum to 500; dividing by n minus 1 gives a variance of
+125 square minutes, and its square root, about 11.2 minutes, is the
+sample SD returned by <code>STDEV.S</code>. Illustrative
+values.</figcaption>
+</figure>
+<p>Excel offers two versions of the calculation, and the choice depends
+on how the analysis defines its population:</p>
+<ul>
+<li><strong><code>STDEV.P</code></strong> divides by n. It applies when
+the records are the complete population of interest and no wider process
+is being described. It returns 10.0 for the five waits.</li>
+<li><strong><code>STDEV.S</code></strong> divides by n minus 1. It
+applies when the records are a sample from an ongoing process. It
+returns 11.2.</li>
+</ul>
+<p>This book follows Chapter 6 and uses <code>STDEV.S</code> throughout,
+treating each file as a sample of ongoing activity. For the 17,416 ED
+visits the two functions differ by less than 0.01 minute, but the
+distinction matters for small groups (Freedman et al., 2007). Chapter 10
+interprets the SD in relation to the normal distribution.</p>
+<p>The walkthrough completes the spread measures with three more
+calculations:</p>
+<ul>
+<li>the range, <code>MAX</code> minus <code>MIN</code>;</li>
+<li>percentiles, such as <code>PERCENTILE.INC(values, 0.9)</code> for
+the 90th percentile;</li>
+<li>quartiles, with <code>QUARTILE.INC</code> (Chapter 8).</li>
+</ul>
+<div class="caution">
+<p>The SD is influenced by the tail in the same way as the mean. For ED
+length of stay, the mean plus or minus one SD spans about 120 to 300
+minutes, yet only 1.2 percent of visits are shorter than 120 minutes. On
+skewed data, describe spread with percentiles or the IQR.</p>
+</div>
+<p>The minimum, Q1, median, Q3, and maximum form the <strong>five-number
+summary</strong> (Tukey, 1977). For ED length of stay they are 74, 165,
+190, 227, and 1,225 minutes.</p>
+<p>A box plot draws a closely related picture:</p>
+<ul>
+<li>the box spans Q1 to Q3, with a line at the median;</li>
+<li>the whiskers extend to the most extreme values that are not outliers
+under the 1.5 times IQR rule from Chapter 8;</li>
+<li>values beyond the whiskers are plotted as separate points.</li>
+</ul>
+<p>Chapter 8 used a box plot to locate the outlier fences. Figure 6
+reads the same parts on nine illustrative stays and adds two features of
+Excel’s chart: an x for the mean and a point for each value beyond a
+whisker.</p>
+<figure id="fig:ch09-read-box">
+<img src="figures/generated/ch_09_read_box_plot.png"
+alt="Figure 6: How to read a box plot, using nine illustrative stays (80, 120, 160, 170, 190, 200, 220, 260, and 600 minutes). The box spans Q1 (160) to Q3 (220), the thick line marks the median (190), and the x marks the mean (222.2). The fences lie 90 minutes (1.5 times the IQR of 60) beyond the box, at 70 and 310, so the whiskers stop at the observed values 80 and 260, and the stay of 600 minutes is plotted as a separate point. Quartiles use QUARTILE.INC. Illustrative values." />
+<figcaption aria-hidden="true">Figure 6: How to read a box plot, using
+nine illustrative stays (80, 120, 160, 170, 190, 200, 220, 260, and 600
+minutes). The box spans Q1 (160) to Q3 (220), the thick line marks the
+median (190), and the x marks the mean (222.2). The fences lie 90
+minutes (1.5 times the IQR of 60) beyond the box, at 70 and 310, so the
+whiskers stop at the observed values 80 and 260, and the stay of 600
+minutes is plotted as a separate point. Quartiles use
+<code>QUARTILE.INC</code>. Illustrative values.</figcaption>
+</figure>
+<p>Figure 7 turns the same nine stays into a reading guide: what each
+part means and how the fences decide where the whiskers stop.</p>
+<figure id="fig:ch09-box-interpret">
+<img src="figures/generated/ch_09_box_plot_interpret.png"
+alt="Figure 7: How to interpret a box plot, using the same nine illustrative stays. Q1 and Q3 (160 and 220) hold the middle half, the median is 190, and the mean is 222.2 because the 600-minute stay pulls it up. The IQR is 60, so the fences are 160 minus 90, or 70, and 220 plus 90, or 310; the upper whisker stops at 260, the most extreme stay inside the fence. Quartiles use QUARTILE.INC. Illustrative values." />
+<figcaption aria-hidden="true">Figure 7: How to interpret a box plot,
+using the same nine illustrative stays. Q1 and Q3 (160 and 220) hold the
+middle half, the median is 190, and the mean is 222.2 because the
+600-minute stay pulls it up. The IQR is 60, so the fences are 160 minus
+90, or 70, and 220 plus 90, or 310; the upper whisker stops at 260, the
+most extreme stay inside the fence. Quartiles use
+<code>QUARTILE.INC</code>. Illustrative values.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Pair a center with a measure of spread that behaves the same way: the
+median with the IQR or percentiles, both resistant to extreme values,
+and the mean with the SD (Diez et al., 2019).</p>
+</div>
+</section>
+<section id="shape-histograms-and-skew" class="level3">
+<h3>Shape: histograms and skew</h3>
+<div class="definition">
+<ul>
+<li>The <strong>distribution</strong> of a column is the pattern of how
+often each value occurs.</li>
+<li>A <strong>histogram</strong> displays a distribution as bars, each
+counting the values that fall in one <strong>bin</strong>, a range of
+equal width.</li>
+<li>A distribution is <strong>symmetric</strong> when its two sides
+approximately mirror each other and <strong>skewed</strong> when one
+tail extends farther than the other. A right-skewed distribution has a
+long tail toward high values.</li>
+</ul>
+</div>
+<p>Summary statistics compress the shape of a distribution; a histogram
+displays it (Çetinkaya-Rundel &amp; Hardin, 2021). Figure 8 presents
+three shapes from the teaching data.</p>
+<figure id="fig:ch09-shapes">
+<img src="figures/generated/ch_09_three_shapes.png"
+alt="Figure 8: Three distribution shapes with the mean and median marked: door-to-provider time and ED length of stay (17,416 visits each; stays above 600 minutes in the last bin), and the overall provider rating (5,335 responses, 0 to 10 scale). Sources: datasets/DS3_ed_throughput_clean.csv and datasets/DS6_survey_responses_clean.csv." />
+<figcaption aria-hidden="true">Figure 8: Three distribution shapes with
+the mean and median marked: door-to-provider time and ED length of stay
+(17,416 visits each; stays above 600 minutes in the last bin), and the
+overall provider rating (5,335 responses, 0 to 10 scale). Sources:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a> and
+<a class="ds-ref" href="datasets/DS6_survey_responses_clean.csv" download title="Download DS6_survey_responses_clean.csv"><code>datasets/DS6_survey_responses_clean.csv</code></a>.</figcaption>
+</figure>
+<p>The panels illustrate three shapes:</p>
+<ul>
+<li><strong>Approximately symmetric: door-to-provider time.</strong> The
+mean (43.4 minutes) and median (43) agree. A smaller second peak near 65
+to 70 minutes comes from triage level 5, whose mean wait is 66 minutes
+against 13 at level 1, so the shape is a blend of groups.</li>
+<li><strong>Right-skewed: length of stay.</strong> A long right tail,
+thin beyond 600 minutes, raises the mean (210) above the median (190).
+As the discussion of the center showed, the stays beyond 600 minutes
+explain only part of the gap.</li>
+<li><strong>Concentrated at the top of the scale: provider
+rating.</strong> On a short, bounded scale the mean (8.34) can exceed
+the median (8) despite a longer lower tail, so the top-box percentage is
+more informative than the gap.</li>
+</ul>
+<p>Durations and costs are often right-skewed because they have a floor
+of zero but no fixed ceiling. Door-to-provider time in this file is not,
+so examine the shape each time. For durations and costs, a mean well
+above the median indicates a right tail, and the <code>SKEW</code>
+function quantifies this, returning about 4.5 for length of stay and
+0.08 for door-to-provider time.</p>
+<p>A histogram’s appearance depends on its bin width (Figure 9):
+five-minute bins show random variation and 150-minute bins conceal the
+skew. Choose a width that is meaningful in the data’s units, such as 30
+minutes or $500.</p>
+<figure id="fig:ch09-bins">
+<img src="figures/generated/ch_09_bin_width.png"
+alt="Figure 9: The same ED stays under three bin widths; stays up to 600 minutes are shown (17,152 of 17,416 visits). Source: datasets/DS3_ed_throughput_clean.csv." />
+<figcaption aria-hidden="true">Figure 9: The same ED stays under three
+bin widths; stays up to 600 minutes are shown (17,152 of 17,416 visits).
+Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>.</figcaption>
+</figure>
+<p>Excel offers three tools for examining shape:</p>
+<ul>
+<li><strong>Histogram chart.</strong> Select the numeric cells and
+choose <strong>Insert &gt; Insert Statistic Chart &gt;
+Histogram</strong>. Right-click the horizontal axis and choose
+<strong>Format Axis</strong> to set the <strong>Bin width</strong>, an
+<strong>Overflow bin</strong> for all values above a cutoff, and an
+<strong>Underflow bin</strong> for all values at or below a cutoff.</li>
+<li><strong>Numeric frequency table.</strong> <code>COUNTIFS</code> with
+a lower and an upper condition counts one bin:
+<code>=COUNTIFS(ED[length_of_stay_minutes], "&gt;150", ED[length_of_stay_minutes], "&lt;=180")</code>
+returns <code>4866</code>.</li>
+<li><strong>Analysis ToolPak.</strong> <strong>Data &gt; Data Analysis
+&gt; Descriptive Statistics</strong> writes a static table of the mean,
+median, mode, SD, range, count, and skewness (Chapter 3 explains how to
+enable the add-in); it does not recalculate when the data change.</li>
+</ul>
+<div class="keypoint">
+<p>Examine the shape before selecting a summary. A histogram, or the
+mean and median side by side, indicates whether the mean will describe a
+typical case or overstate it.</p>
+</div>
+</section>
+<section id="comparing-groups" class="level3">
+<h3>Comparing groups</h3>
+<p>Most operational questions concern groups, such as length of stay by
+triage level or charges by service line. Chapter 6 calculated the mean
+length of stay by triage level with <code>AVERAGEIFS</code>; Figure 10
+adds the median.</p>
+<figure id="fig:ch09-acuity">
+<img src="figures/generated/ch_09_los_by_acuity.png"
+alt="Figure 10: Mean and median ED length of stay by triage acuity level (1 is the most urgent), with the number of visits with a recorded stay in each level (17,416 in total). Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 10: Mean and median ED length of
+stay by triage acuity level (1 is the most urgent), with the number of
+visits with a recorded stay in each level (17,416 in total). Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<p>The median stay falls from 236 minutes at triage level 1 to about 182
+at levels 4 and 5, a gradient that the overall median of 190 conceals.
+The mean exceeds the median at every level because each group has its
+own right tail.</p>
+<p>These differences are associations; the comparison alone does not
+establish why higher-acuity visits are longer.</p>
+<p>Excel provides <code>AVERAGEIFS</code> but no <code>MEDIANIFS</code>,
+so a group median requires <code>MEDIAN</code> wrapped around two
+<code>IF</code> tests:</p>
+<ul>
+<li>the first <code>IF</code> retains a stay only when its row belongs
+to the group;</li>
+<li>the second <code>IF</code> excludes blank stays, which Excel would
+otherwise evaluate as zeros.</li>
+</ul>
+<div class="excelformula">
+<p>Median length of stay for the triage level in cell
+<code>A18</code>:<br />
+<code>=MEDIAN(IF(ED[triage_acuity]=A18,</code><br />
+<code>IF(ED[length_of_stay_minutes]&lt;&gt;"", ED[length_of_stay_minutes])))</code><br />
+For level 1, the formula returns <code>236</code>.<br />
+In Microsoft 365 and Excel 2021, press Enter. In Excel 2019 and earlier,
+confirm it as a legacy array formula with Ctrl+Shift+Enter (the same
+keys on macOS).</p>
+</div>
+<div class="excelformula">
+<p>In current Microsoft 365 versions, <strong>GROUPBY</strong> returns
+all group medians from one formula:<br />
+<code>=GROUPBY(ED[triage_acuity], ED[length_of_stay_minutes], MEDIAN,</code><br />
+<code>, , , ED[length_of_stay_minutes]&lt;&gt;"")</code><br />
+Three empty arguments retain the defaults, and the last excludes blank
+stays. The result lists each triage level’s median and a total row of
+<code>190</code>.</p>
+</div>
+<p>Groups can also differ in spread. Figure 11 compares the stays for
+each disposition:</p>
+<ul>
+<li><strong>Discharged home:</strong> a median of 181 minutes, with a
+middle half from 161 to 204.</li>
+<li><strong>Admitted:</strong> a median of 327 minutes, with a middle
+half from 285 to 584, a box nearly seven times as wide.</li>
+</ul>
+<p>A median alone would conceal that admitted stays are far less
+predictable. Points beyond the whiskers appear in every group (196 in
+total, 152 of them among discharges home).</p>
+<figure id="fig:ch09-dispo-box">
+<img src="figures/generated/ch_09_los_by_disposition.png"
+alt="Figure 11: ED length of stay by disposition, in the style of an Excel box-and-whisker chart. Admitted visits have both a longer typical stay (median 327 against 181 minutes for discharges home) and a middle half about seven times as wide (IQR about 299 against 43 minutes). Each box spans Q1 to Q3, the line marks the median, the x marks the mean, whiskers extend to the most extreme values within 1.5 times the IQR, and values beyond the whiskers are plotted as points. Groups are ordered by median; Excel orders them by first appearance in the data. LWBS visits have no length of stay and are not shown. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 11: ED length of stay by
+disposition, in the style of an Excel box-and-whisker chart. Admitted
+visits have both a longer typical stay (median 327 against 181 minutes
+for discharges home) and a middle half about seven times as wide (IQR
+about 299 against 43 minutes). Each box spans Q1 to Q3, the line marks
+the median, the x marks the mean, whiskers extend to the most extreme
+values within 1.5 times the IQR, and values beyond the whiskers are
+plotted as points. Groups are ordered by median; Excel orders them by
+first appearance in the data. LWBS visits have no length of stay and are
+not shown. Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>,
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>To draw the chart in Excel:</p>
+<ol type="1">
+<li>Filter the <code>disposition</code> column to exclude
+<code>LWBS</code>, whose stays are blank.</li>
+<li>Copy the visible <code>disposition</code> values to column
+<code>A</code> of a new sheet, and the visible
+<code>length_of_stay_minutes</code> values to column
+<code>B</code>.</li>
+<li>Return to the data sheet and choose <strong>Data &gt; Clear</strong>
+to remove the filter, so that later steps use all 18,000 visits.</li>
+<li>On the new sheet, select both columns and choose <strong>Insert &gt;
+Insert Statistic Chart &gt; Box and Whisker</strong>. Excel draws
+vertical boxes and plots points beyond the whiskers, as in the
+figure.</li>
+<li>Right-click a box, choose <strong>Format Data Series</strong>, and
+set <strong>Quartile Calculation</strong> to <strong>Inclusive
+median</strong>, the option closest to <code>QUARTILE.INC</code>.</li>
+</ol>
+<div class="caution">
+<p>Report the count beside every group statistic. A median based on 186
+transfers is less stable than one based on 13,769 discharges home;
+Chapter 10 quantifies this uncertainty.</p>
+</div>
+</section>
+<section id="pivottables-for-group-summaries" class="level3">
+<h3>PivotTables for group summaries</h3>
+<p>Chapters 3 and 4 used a PivotTable to count records by group. It
+produces many of this chapter’s summaries without a formula for each
+group; Figure 12 shows the layout behind the disposition frequency
+table.</p>
+<figure id="fig:ch09-pivot">
+<img src="figures/generated/ch_09_pivot_anatomy.png"
+alt="Figure 12: From fields to a frequency table. Placing disposition in Rows and encounter_id in Values twice produces one row per disposition, a count of visits, and, with Show Values As &gt; % of Column Total applied to the second copy, each disposition’s share of all visits. Column headers are renamed as in walkthrough step 23. Source: datasets/DS3_ed_throughput_clean.csv, 18,000 visits." />
+<figcaption aria-hidden="true">Figure 12: From fields to a frequency
+table. Placing <code>disposition</code> in Rows and
+<code>encounter_id</code> in Values twice produces one row per
+disposition, a count of visits, and, with <strong>Show Values As &gt; %
+of Column Total</strong> applied to the second copy, each disposition’s
+share of all visits. Column headers are renamed as in walkthrough step
+23. Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, 18,000
+visits.</figcaption>
+</figure>
+<p>A field in <strong>Rows</strong> produces one row per category, and a
+field in <strong>Values</strong> is summarized for each row. Two
+settings, reached by right-clicking a value, control the summary:</p>
+<ul>
+<li><strong>Value Field Settings &gt; Summarize Values By</strong>
+selects the calculation: <strong>Count</strong> (the default for text),
+<strong>Sum</strong> (the default for numbers),
+<strong>Average</strong>, <strong>Max</strong>, <strong>Min</strong>, or
+<strong>StdDev</strong> (equivalent to <code>STDEV.S</code>).</li>
+<li><strong>Show Values As</strong> converts values to percentages;
+<strong>% of Column Total</strong> turns a count into a relative
+frequency.</li>
+</ul>
+<p>Further features support descriptive work:</p>
+<ul>
+<li><strong>Average of a flag</strong> returns a rate for each group; a
+field in <strong>Filters</strong> restricts the denominator first.</li>
+<li><strong>Count</strong> includes only non-empty cells, so
+<strong>Count of length_of_stay_minutes</strong> returns 17,416 and
+<strong>Count of encounter_id</strong> 18,000.</li>
+<li><strong>Group</strong> (right-click a numeric row value) creates
+bins; fields containing blanks or text cannot be grouped.</li>
+<li><strong>Slicers</strong> (<strong>PivotTable Analyze &gt; Insert
+Slicer</strong>) filter by category with buttons.</li>
+<li><strong>Refresh</strong> (<strong>PivotTable Analyze &gt;
+Refresh</strong>) is required after the source data change.</li>
+</ul>
+<div class="caution">
+<p>A standard PivotTable cannot compute a median or a percentile;
+<strong>Summarize Values By</strong> offers Sum, Count, Average, Max,
+Min, Product, the standard deviation, and the variance. For skewed data,
+compute group medians with <code>MEDIAN(IF(...))</code> or
+<code>GROUPBY</code> rather than presenting averages as typical
+values.</p>
+</div>
+<p>In summary, conditional formulas compute any statistic and
+recalculate automatically, PivotTables are faster to build but lack
+medians, and <code>GROUPBY</code> combines both strengths in Microsoft
+365.</p>
+</section>
+<section id="cross-tabulating-two-categorical-fields" class="level3">
+<h3>Cross-tabulating two categorical fields</h3>
+<div class="definition">
+<p>A <strong>cross-tabulation</strong>, also called a contingency table,
+counts records by two categorical fields at once, with one field in the
+rows and the other in the columns. Each cell counts the records that
+share both categories.</p>
+</div>
+<p>A frequency table describes one field; a cross-tabulation describes
+how two fields occur together. In a PivotTable, place
+<code>triage_acuity</code> in <strong>Rows</strong>,
+<code>disposition</code> in <strong>Columns</strong>, and a count of
+<code>encounter_id</code> in <strong>Values</strong>. Table 5 shows the
+result as row percentages, with the three smallest dispositions grouped
+as “Other” to keep the table compact; Practice A shows how to create the
+group.</p>
+<table id="tbl:ch09-crosstab">
+<caption>Table 5: Disposition by triage level as row percentages: each
+row sums to 100 percent of that level’s visits, allowing for rounding.
+“Other” combines LWBS, Eloped, and Transfer. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, all 18,000 visits,
+January 2024 to December 2025.</caption>
+<thead>
+<tr>
+<th>Triage level</th>
+<th>Visits</th>
+<th>Home</th>
+<th>Observe</th>
+<th>Admit</th>
+<th>Other</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>429</td>
+<td>67.4%</td>
+<td>9.6%</td>
+<td>12.6%</td>
+<td>10.5%</td>
+</tr>
+<tr>
+<td>2</td>
+<td>1,542</td>
+<td>72.0%</td>
+<td>10.1%</td>
+<td>11.1%</td>
+<td>6.8%</td>
+</tr>
+<tr>
+<td>3</td>
+<td>4,734</td>
+<td>76.4%</td>
+<td>11.0%</td>
+<td>6.0%</td>
+<td>6.6%</td>
+</tr>
+<tr>
+<td>4</td>
+<td>6,751</td>
+<td>76.8%</td>
+<td>11.2%</td>
+<td>5.4%</td>
+<td>6.6%</td>
+</tr>
+<tr>
+<td>5</td>
+<td>4,544</td>
+<td>78.4%</td>
+<td>10.3%</td>
+<td>5.7%</td>
+<td>5.6%</td>
+</tr>
+<tr>
+<td><strong>All</strong></td>
+<td><strong>18,000</strong></td>
+<td><strong>76.5%</strong></td>
+<td><strong>10.8%</strong></td>
+<td><strong>6.3%</strong></td>
+<td><strong>6.4%</strong></td>
+</tr>
+</tbody>
+</table>
+<p>The choice of percentage determines the question a cross-tabulation
+answers:</p>
+<ul>
+<li><strong>% of Row Total</strong> answers “of the visits at each
+triage level, what share ended in each disposition?” About 12 percent of
+visits at levels 1 and 2 ended in admission, against 5 to 6 percent at
+levels 3 to 5.</li>
+<li><strong>% of Column Total</strong> answers “of the visits with each
+disposition, what share came from each triage level?” It describes the
+composition of a group, such as admitted patients.</li>
+</ul>
+<p>Figure 13 applies both readings to the same cell, the 54 level 1
+visits that ended in admission.</p>
+<figure id="fig:ch09-row-col">
+<img src="figures/generated/ch_09_row_column_pct.png"
+alt="Figure 13: One cell, two percentages. The 54 admitted level 1 visits are 12.6 percent of all 429 level 1 visits (% of Row Total) but 4.8 percent of all 1,127 admitted visits (% of Column Total). “Other” combines every disposition except Admit. Source: datasets/DS3_ed_throughput_clean.csv, all 18,000 visits, grouped from Table 5." />
+<figcaption aria-hidden="true">Figure 13: One cell, two percentages. The
+54 admitted level 1 visits are 12.6 percent of all 429 level 1 visits (%
+of Row Total) but 4.8 percent of all 1,127 admitted visits (% of Column
+Total). “Other” combines every disposition except Admit. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, all 18,000 visits,
+grouped from Table 5.</figcaption>
+</figure>
+<p>Report the row counts with row percentages: level 1 has only 429
+visits, so each admission moves its percentage by about a quarter of a
+point.</p>
+</section>
+<section id="writing-the-summary-line" class="level3">
+<h3>Writing the summary line</h3>
+<p>A <strong>summary line</strong> reports a measure in one sentence
+that a reader can quote without being misled. It states five elements:
+the measure, a center, a spread, the count, and the period, together
+with any exclusions. Compare two versions:</p>
+<ul>
+<li><strong>Incomplete:</strong> “Average ED length of stay is 210
+minutes.”</li>
+<li><strong>Complete:</strong> “Median ED length of stay was 190 minutes
+(IQR 165 to 227) across 17,416 visits with a recorded stay, January 2024
+to December 2025; the 584 visits that left without being seen are
+excluded.”</li>
+</ul>
+<p>Figure 14 labels the elements of the complete version.</p>
+<figure id="fig:ch09-summary-line">
+<img src="figures/generated/ch_09_summary_line.png"
+alt="Figure 14: Anatomy of a complete summary line. The incomplete version reports only an average; the complete version states the measure, a center, a spread, the count, the period, and the exclusions, so it can be quoted on its own. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 14: Anatomy of a complete summary
+line. The incomplete version reports only an average; the complete
+version states the measure, a center, a spread, the count, the period,
+and the exclusions, so it can be quoted on its own. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<p>A summary line places a number in the context a reader needs to
+interpret it (Spiegelhalter, 2019). For approximately symmetric data,
+report the mean with its SD: “mean door-to-provider time was 43.4
+minutes (SD 17.2) across 17,416 visits.” Round consistently, for example
+to whole minutes and to one decimal place for percentages.</p>
+<p>In Excel, the ampersand (<code>&amp;</code>) joins text and the
+<code>TEXT</code> function formats a number within a sentence;
+<code>TEXT(B4, "#,##0")</code> displays 17,416 with a thousands
+separator. The walkthrough uses both, together with <code>MIN</code> and
+<code>MAX</code> of the arrival dates, to build a summary line that
+updates with the data.</p>
+</section>
+</section>
+<section id="walkthrough-build-an-ed-length-of-stay-profile"
+class="level2">
+<h2>Walkthrough: build an ED length-of-stay profile</h2>
+<p>This build produces the one-page profile in Figure 16: an overall
+summary of length of stay, a histogram, a summary by triage level with
+group medians, a frequency table of dispositions, and a summary line.
+Every component is linked to the <code>ED</code> Table by formulas, so
+the profile recalculates when the data change.</p>
+<div class="keypoint">
+<p>Before you start:</p>
+<ul>
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a> and save a
+working copy as an Excel workbook so the original file remains
+unchanged.</li>
+<li>In the CSV as opened in Excel, <code>triage_acuity</code> is column
+<code>J</code>, <code>disposition</code> is column <code>Y</code>,
+<code>door_to_provider_minutes</code> is column <code>AI</code>, and
+<code>length_of_stay_minutes</code> is column <code>AK</code>.</li>
+<li>If you built the Power Query import in Chapter 7, you can load the
+file through it instead. The profile then updates with <strong>Data &gt;
+Refresh All</strong> when a new extract arrives.</li>
+</ul>
+</div>
+<p><strong>Part A. Set up the workbook.</strong></p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a> in
+Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, select <strong>Excel
+Workbook (.xlsx)</strong>, and name the file
+<code>ch09_ed_profile.xlsx</code>.</li>
+<li>Click any cell in the data and press Ctrl+T (Cmd+T on macOS).
+Confirm that <strong>My table has headers</strong> is checked, and click
+<strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (<strong>Table</strong> on
+macOS), set the <strong>Table Name</strong> to <code>ED</code>.</li>
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs
+and rename it <code>Profile</code>.</li>
+<li>In <code>A1</code>, type <code>ED Length of Stay Profile</code>.
+Select <code>A1:D1</code>, choose <strong>Home &gt; Merge &amp;
+Center</strong>, and format the cell as <strong>Bold</strong>, size 14,
+with a dark blue fill and white font.
+<ul>
+<li>Merging is acceptable on a report sheet such as this one (Chapter
+6), but not in a data table, where it breaks sorting and filtering
+(Chapter 3).</li>
+</ul></li>
+</ol>
+<p><strong>Part B. Inspect the column with the status bar.</strong></p>
+<ol start="7" type="1">
+<li>Return to the data sheet. Point to the top edge of the
+<code>length_of_stay_minutes</code> header in column <code>AK</code>
+until the pointer becomes a down arrow, then click once. Excel selects
+the column’s values without the header.</li>
+<li>Read the status bar. <strong>Average</strong> shows about
+<code>209.85</code>, <strong>Count</strong> shows <code>17,416</code>,
+and <strong>Sum</strong> shows <code>3,654,737</code>. Right-click the
+status bar and tick <strong>Minimum</strong> and
+<strong>Maximum</strong>, which show <code>74</code> and
+<code>1,225</code>.</li>
+</ol>
+<p><strong>Part C. Build the overall summary.</strong></p>
+<ol start="9" type="1">
+<li>On the <code>Profile</code> sheet, type <code>Measure</code> in
+<code>A3</code> and <code>Value</code> in <code>B3</code>, then make
+<code>A3:B3</code> <strong>Bold</strong>.</li>
+<li>Enter each label and formula in Table 6, one row at a time, with the
+label in column <code>A</code> and the formula in column <code>B</code>.
+Confirm each result against the final column before continuing.</li>
+</ol>
+<table id="tbl:ch09-walk-formulas">
+<caption>Table 6: The overall summary, rows 4 to 15 of the
+<code>Profile</code> sheet. Results are rounded to two decimals; before
+formatting, Excel may display more digits, such as
+<code>209.8494</code>. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>.</caption>
+<colgroup>
+<col style="width: 4%" />
+<col style="width: 22%" />
+<col style="width: 62%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr>
+<th>Row</th>
+<th>Label (column A)</th>
+<th>Formula (column B)</th>
+<th>Shows (rounded)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>4</td>
+<td>Visits with a recorded stay</td>
+<td><code>=COUNT(ED[length_of_stay_minutes])</code></td>
+<td>17416</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Visits with no stay recorded</td>
+<td><code>=COUNTBLANK(ED[length_of_stay_minutes])</code></td>
+<td>584</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Mean (minutes)</td>
+<td><code>=AVERAGE(ED[length_of_stay_minutes])</code></td>
+<td>209.85</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Median (minutes)</td>
+<td><code>=MEDIAN(ED[length_of_stay_minutes])</code></td>
+<td>190</td>
+</tr>
+<tr>
+<td>8</td>
+<td>Standard deviation</td>
+<td><code>=STDEV.S(ED[length_of_stay_minutes])</code></td>
+<td>90.33</td>
+</tr>
+<tr>
+<td>9</td>
+<td>Shortest stay</td>
+<td><code>=MIN(ED[length_of_stay_minutes])</code></td>
+<td>74</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Q1 (25th percentile)</td>
+<td><code>=QUARTILE.INC(ED[length_of_stay_minutes], 1)</code></td>
+<td>165</td>
+</tr>
+<tr>
+<td>11</td>
+<td>Q3 (75th percentile)</td>
+<td><code>=QUARTILE.INC(ED[length_of_stay_minutes], 3)</code></td>
+<td>227</td>
+</tr>
+<tr>
+<td>12</td>
+<td>IQR (Q3 minus Q1)</td>
+<td><code>=B11-B10</code></td>
+<td>62</td>
+</tr>
+<tr>
+<td>13</td>
+<td>90th percentile</td>
+<td><code>=PERCENTILE.INC(ED[length_of_stay_minutes], 0.9)</code></td>
+<td>280</td>
+</tr>
+<tr>
+<td>14</td>
+<td>Longest stay</td>
+<td><code>=MAX(ED[length_of_stay_minutes])</code></td>
+<td>1225</td>
+</tr>
+<tr>
+<td>15</td>
+<td>Mean minus median</td>
+<td><code>=B6-B7</code></td>
+<td>19.85</td>
+</tr>
+</tbody>
+</table>
+<ol start="11" type="1">
+<li>Select <code>B6:B15</code> and click <strong>Home &gt; Decrease
+Decimal</strong> until no decimals remain; the mean reads
+<code>210</code>, the standard deviation <code>90</code>, and the
+difference <code>20</code>. Then select <code>B4:B5</code>, hold Ctrl
+(Cmd on macOS), add <code>B14</code>, apply <strong>Comma
+Style</strong>, and click <strong>Decrease Decimal</strong> twice so
+that the counts read <code>17,416</code> and <code>584</code>.</li>
+</ol>
+<p>The completed block reports a count of 17,416 visits, a median of 190
+minutes, a middle half from 165 to 227 minutes, and a mean 20 minutes
+above the median, which indicates a right tail.</p>
+<p><strong>Part D. Draw the histogram.</strong></p>
+<ol start="12" type="1">
+<li>On the data sheet, select the values of
+<code>length_of_stay_minutes</code> as in step 7.</li>
+<li>Choose <strong>Insert &gt; Insert Statistic Chart &gt;
+Histogram</strong> (on macOS, <strong>Insert</strong>, then the
+<strong>Statistical chart</strong> icon, then
+<strong>Histogram</strong>).</li>
+<li>Right-click the horizontal axis and choose <strong>Format
+Axis</strong>. Under <strong>Axis Options</strong>, set <strong>Bin
+width</strong> to <code>30</code>, tick <strong>Overflow bin</strong>
+and enter <code>600</code>, and tick <strong>Underflow bin</strong> and
+enter <code>90</code>.</li>
+<li>Change the chart title to <code>ED length of stay (minutes)</code>.
+Choose <strong>Chart Design &gt; Move Chart</strong>, select
+<strong>Object in</strong>, choose <code>Profile</code>, and click
+<strong>OK</strong>. Position the chart beside the summary, near cell
+<code>F3</code>.
+<ul>
+<li><strong>Check your work:</strong> the tallest bar is the bin labeled
+<code>(150, 180]</code>, with 4,866 visits (point to a bar to display
+its count). The underflow bar, for stays of 90 minutes or less, holds 10
+visits, and the overflow bar labeled <code>&gt;600</code> holds 264. The
+chart should match the shape of Figure 15.</li>
+</ul></li>
+</ol>
+<figure id="fig:ch09-los">
+<img src="figures/generated/ch_09_los_distribution.png"
+alt="Figure 15: The expected Excel histogram for the walkthrough: 17,416 visits with a recorded stay in 30-minute bins, labeled as Excel labels them, with an underflow bin at 90 minutes (10 visits) and an overflow bin above 600 minutes (264 visits). The overflow bar pools every stay from 601 to 1,225 minutes, so it is not another 30-minute interval. The median (190) and mean (210) are marked. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 15: The expected Excel histogram
+for the walkthrough: 17,416 visits with a recorded stay in 30-minute
+bins, labeled as Excel labels them, with an underflow bin at 90 minutes
+(10 visits) and an overflow bin above 600 minutes (264 visits). The
+overflow bar pools every stay from 601 to 1,225 minutes, so it is not
+another 30-minute interval. The median (190) and mean (210) are marked.
+Source: <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, January 2024
+to December 2025.</figcaption>
+</figure>
+<p><strong>Part E. Summarize by triage level.</strong></p>
+<ol start="16" type="1">
+<li>In <code>A17:D17</code>, type <code>Triage</code>,
+<code>Visits</code>, <code>Mean</code>, and <code>Median</code>, and
+make the row <strong>Bold</strong>. In <code>A18:A22</code>, type
+<code>1</code> through <code>5</code>.</li>
+<li>In <code>B18</code>, enter
+<code>=COUNTIFS(ED[triage_acuity], A18, ED[length_of_stay_minutes], "&lt;&gt;")</code>.
+It shows <code>411</code>. The <code>"&lt;&gt;"</code> condition counts
+only non-blank stays, so the count matches the visits used by the mean
+and the median.</li>
+<li>In <code>C18</code>, enter
+<code>=AVERAGEIFS(ED[length_of_stay_minutes], ED[triage_acuity], A18)</code>.
+It shows about <code>264.7</code>.</li>
+<li>In <code>D18</code>, enter the following formula as a single line
+(it is divided here to fit the page):<br />
+<code>=MEDIAN(IF(ED[triage_acuity]=A18,</code><br />
+<code>IF(ED[length_of_stay_minutes]&lt;&gt;"", ED[length_of_stay_minutes])))</code><br />
+It shows <code>236</code>. A result of <code>233</code> indicates that
+the inner <code>IF</code> is missing and blank stays are being counted
+as zeros.</li>
+<li>Select <code>B18:D18</code> and drag the <strong>fill
+handle</strong> to row 22. Remove the decimals from <code>C18:D22</code>
+with <strong>Decrease Decimal</strong>.
+<ul>
+<li><strong>Check your work:</strong> the visit counts are
+<code>411</code>, <code>1,497</code>, <code>4,559</code>,
+<code>6,539</code>, and <code>4,410</code>; the means are
+<code>265</code>, <code>245</code>, <code>216</code>, <code>201</code>,
+and <code>200</code>; and the medians are <code>236</code>,
+<code>217</code>, <code>199</code>, <code>182</code>, and
+<code>183</code>, as in Figure 10.</li>
+</ul></li>
+</ol>
+<p><strong>Part F. Build a frequency table with a
+PivotTable.</strong></p>
+<ol start="21" type="1">
+<li>Click any cell in the <code>ED</code> Table, choose <strong>Insert
+&gt; PivotTable</strong>, accept <strong>New Worksheet</strong>, and
+click <strong>OK</strong>. Rename the new sheet
+<code>Disposition</code>.</li>
+<li>In the <strong>PivotTable Fields</strong> pane, drag
+<code>disposition</code> to <strong>Rows</strong>, then drag
+<code>encounter_id</code> to <strong>Values</strong> twice. The columns
+read <strong>Count of encounter_id</strong> and <strong>Count of
+encounter_id2</strong>, each with a grand total of
+<code>18,000</code>.</li>
+<li>Right-click a value in the second column and choose <strong>Show
+Values As &gt; % of Column Total</strong>. Right-click a value in the
+first column and choose <strong>Sort &gt; Sort Largest to
+Smallest</strong>. Then click the header cell <strong>Count of
+encounter_id</strong>, type <code>Visits</code>, and press Enter; rename
+the second header <code>% of visits</code> in the same way.
+<ul>
+<li><strong>Check your work:</strong> <code>Home</code> appears first
+with <code>13,769</code> visits and <code>76.5%</code>, and
+<code>Transfer</code> appears last with <code>186</code> and
+<code>1.0%</code>, as in Figure 12.</li>
+</ul></li>
+</ol>
+<p><strong>Part G. Format the sheet and write the summary
+line.</strong></p>
+<ol start="24" type="1">
+<li>Select <code>A3:D22</code> and apply <strong>Home &gt; Borders &gt;
+All Borders</strong>. With the range still selected, choose <strong>Home
+&gt; Format &gt; AutoFit Column Width</strong>, which fits columns
+<code>A</code> to <code>D</code> to the summary blocks. Format the
+columns before step 25 so that the long sentence does not widen column
+<code>A</code>.</li>
+<li>In <code>A24</code>, enter the following formula as a single line
+(it is divided here to fit the page):<br />
+<code>="Median ED length of stay was "&amp;TEXT(B7, "0")&amp;" minutes (IQR "</code><br />
+<code>&amp;TEXT(B10, "0")&amp;" to "&amp;TEXT(B11, "0")&amp;") across "&amp;TEXT(B4, "#,##0")</code><br />
+<code>&amp;" visits with a recorded stay, "&amp;TEXT(MIN(ED[arrival_date]), "mmmm yyyy")</code><br />
+<code>&amp;" to "&amp;TEXT(MAX(ED[arrival_date]), "mmmm yyyy")&amp;"; "&amp;TEXT(B5, "#,##0")</code><br />
+<code>&amp;" visits that left without being seen were excluded."</code><br />
+The cell shows: “Median ED length of stay was 190 minutes (IQR 165 to
+227) across 17,416 visits with a recorded stay, January 2024 to December
+2025; 584 visits that left without being seen were excluded.”
+<ul>
+<li><code>MIN</code> and <code>MAX</code> read the arrival dates, so the
+period also updates with the data.</li>
+<li>The format codes <code>"mmmm yyyy"</code> and <code>"#,##0"</code>
+assume an English-language version of Excel; other language versions use
+local codes, such as <code>JJJJ</code> for the year in German.</li>
+</ul></li>
+<li>Select <code>A24:D27</code>, choose <strong>Home &gt; Merge &amp;
+Center &gt; Merge Cells</strong>, and click <strong>Wrap Text</strong>
+and <strong>Top Align</strong> so that the sentence wraps within the
+block. Save with Ctrl+S (Cmd+S on macOS). The sheet should match
+Figure 16.</li>
+</ol>
+<figure id="fig:ch09-profile">
+<img src="figures/generated/ch_09_profile_sheet.png" style="width:85.0%"
+alt="Figure 16: Checkpoint for the completed Profile worksheet, reconstructed from the chapter’s values: (1) the overall summary in A3:B15, (2) the histogram placed near F3 in step 15, (3) the summary by triage level with group medians in A17:D22, and (4) the summary line in the merged block A24:D27. Every value is linked to the ED Table by a formula, and the disposition frequency table is on the separate Disposition sheet. Source: datasets/DS3_ed_throughput_clean.csv, 18,000 visits (17,416 with a recorded stay)." />
+<figcaption aria-hidden="true">Figure 16: Checkpoint for the completed
+<code>Profile</code> worksheet, reconstructed from the chapter’s values:
+(1) the overall summary in <code>A3:B15</code>, (2) the histogram placed
+near <code>F3</code> in step 15, (3) the summary by triage level with
+group medians in <code>A17:D22</code>, and (4) the summary line in the
+merged block <code>A24:D27</code>. Every value is linked to the
+<code>ED</code> Table by a formula, and the disposition frequency table
+is on the separate <code>Disposition</code> sheet. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, 18,000 visits (17,416
+with a recorded stay).</figcaption>
+</figure>
+<p>The completed profile answers the chapter’s five questions: how many
+(row 4), center (rows 6 and 7), spread (rows 8 to 13), shape (the
+histogram and row 15), and groups (rows 17 to 22 and the
+<code>Disposition</code> sheet).</p>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These exercises apply the walkthrough’s methods to new questions.
+Practice A is fully guided and extends the PivotTable from one
+categorical field to two. Practice B names the functions and provides
+values for checking, but leaves the formulas to you.</p>
+<section id="practice-a-cross-tabulate-triage-level-and-disposition"
+class="level3">
+<h3>Practice A: cross-tabulate triage level and disposition</h3>
+<p>Chapter 3 built a PivotTable of the no-show rate for each clinic.
+This practice builds the cross-tabulation in Table 5 and applies the
+rule of reporting n beside every percentage. Use
+<code>ch09_ed_profile.xlsx</code>.</p>
+<ol type="1">
+<li>Click any cell in the <code>ED</code> Table, choose <strong>Insert
+&gt; PivotTable</strong>, accept <strong>New Worksheet</strong>, and
+click <strong>OK</strong>. Rename the new sheet
+<code>Crosstab</code>.</li>
+<li>Drag <code>triage_acuity</code> to <strong>Rows</strong> and
+<code>disposition</code> to <strong>Columns</strong>.</li>
+<li>Drag <code>encounter_id</code> to <strong>Values</strong>. It
+appears as <strong>Count of encounter_id</strong>.
+<ul>
+<li><strong>Check your work:</strong> the <strong>Grand Total</strong>
+column reads <code>429</code>, <code>1,542</code>, <code>4,734</code>,
+<code>6,751</code>, and <code>4,544</code>, and the overall total is
+<code>18,000</code>. Record these row counts; they are the n behind each
+row’s percentages.</li>
+</ul></li>
+<li>Hold Ctrl (Cmd on macOS) and click the column labels
+<code>Eloped</code>, <code>LWBS</code>, and <code>Transfer</code>.
+Right-click one of them and choose <strong>Group</strong>. Excel adds a
+field named <code>disposition2</code> and labels the new group
+<code>Group1</code>.</li>
+<li>Click the <code>Group1</code> label, type <code>Other</code>, and
+press Enter. Then drag <code>disposition</code> out of the
+<strong>Columns</strong> area so that only <code>disposition2</code>
+remains.
+<ul>
+<li><strong>Check your work:</strong> the columns read
+<code>Admit</code>, <code>Home</code>, <code>Observe</code>, and
+<code>Other</code>, and the <code>Other</code> count at level 1 is
+<code>45</code>.</li>
+<li>Grouping combines clinically different outcomes (leaving before
+being seen, leaving during care, and transfer to another facility) only
+to produce a compact teaching table. Report them separately whenever the
+distinction matters.</li>
+</ul></li>
+<li>Right-click any value and choose <strong>Show Values As &gt; % of
+Row Total</strong>. Each row’s <strong>Grand Total</strong> now reads
+<code>100.00%</code>.</li>
+<li>Right-click any value, choose <strong>Number Format</strong>, and
+select <strong>Percentage</strong> with one decimal place.
+<ul>
+<li><strong>Check your work:</strong> the <code>Admit</code> column
+reads <code>12.6%</code> at level 1 and <code>5.7%</code> at level 5,
+and the <code>Home</code> column reads <code>67.4%</code> and
+<code>78.4%</code>, as in Table 5.</li>
+</ul></li>
+<li>Choose <strong>PivotTable Analyze &gt; Insert Slicer</strong>, tick
+<code>arrival_mode</code>, and click <strong>OK</strong>.</li>
+<li>Click <code>EMS</code> (emergency medical services) in the slicer.
+<ul>
+<li><strong>Check your work:</strong> among visits that arrived by
+ambulance, <code>19.2%</code> of level 1 visits ended in admission.</li>
+</ul></li>
+<li>Right-click any value and choose <strong>Show Values As &gt; No
+Calculation</strong> to display counts again.
+<ul>
+<li><strong>Check your work:</strong> level 1 has only <code>52</code>
+EMS visits, <code>10</code> of them admitted. A percentage based on 52
+visits moves by about two points with each additional admission, so it
+must be reported with its count.</li>
+</ul></li>
+<li>Click <strong>Clear Filter</strong> on the slicer and save.</li>
+</ol>
+</section>
+<section id="practice-b-billed-charges-a-strongly-skewed-measure"
+class="level3">
+<h3>Practice B: billed charges, a strongly skewed measure</h3>
+<p>Open <a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, save a copy as
+<code>ch09_claims.xlsx</code>, and create a Table named
+<code>Claims</code>. The measure is <code>billed_charge_usd</code>
+(column <code>M</code>), the amount billed on each of 48,000 claims with
+service dates from January 2024 through December 2025. The grouping
+field is <code>service_category</code> (column <code>I</code>).</p>
+<ol type="1">
+<li>On a new sheet named <code>Profile</code>, compute the count, mean,
+median, Q1, Q3, and 90th percentile with <code>COUNT</code>,
+<code>AVERAGE</code>, <code>MEDIAN</code>, <code>QUARTILE.INC</code>,
+and <code>PERCENTILE.INC</code>.
+<ul>
+<li><strong>Check your work:</strong> n = <code>48,000</code>; mean
+<code>$3,952.56</code>; median <code>$750.27</code>; Q1
+<code>$206.35</code>; Q3 <code>$2,059.98</code>; 90th percentile
+<code>$12,283.97</code>.</li>
+</ul></li>
+<li>Compare the mean and the median and state what they indicate about
+the shape of the distribution.</li>
+<li>Draw a histogram of <code>billed_charge_usd</code> with a bin width
+of <code>500</code> and an overflow bin at <code>20000</code>, and
+compare it with your statement in step 2.</li>
+<li>List the eight service categories and calculate the claim count and
+median billed charge for each, following walkthrough steps 17 and 19.
+Because <code>billed_charge_usd</code> has no blanks, a single
+<code>IF</code> is sufficient; in Microsoft 365, <code>GROUPBY</code> is
+an alternative.
+<ul>
+<li><strong>Check your work:</strong> <code>Inpatient stay</code> has
+the highest median, <code>$13,853.22</code> on <code>8,500</code>
+claims, and <code>Office visit</code> the lowest, <code>$175.66</code>
+on <code>13,740</code> claims.</li>
+</ul></li>
+<li>Calculate the share of all billed dollars attributable to inpatient
+stays, using <code>SUMIFS</code> for the numerator and <code>SUM</code>
+for the denominator.
+<ul>
+<li><strong>Check your work:</strong> about <code>83.2%</code>, from
+<code>17.7%</code> of claims.</li>
+</ul></li>
+<li>Write a summary line with <code>TEXT</code> and <code>&amp;</code>
+that reports the median, the IQR, the count of claims, and the service
+period, and states that no claims were excluded. Format dollar amounts
+with <code>TEXT(cell, "$#,##0")</code>.</li>
+</ol>
+<p>When you have finished, compare your step 5 result with Figure 17: a
+grouping can hold a small share of the records but most of the dollars,
+so a report must state which denominator it uses.</p>
+<figure id="fig:ch09-claims">
+<img src="figures/generated/ch_09_claims_share.png"
+alt="Figure 17: Claim volume is not dollar volume. Inpatient stays are 8,500 of 48,000 claims (17.7 percent) but account for 83.2 percent of billed dollars. Billed charges are amounts billed, not amounts paid or the cost of care. Source: datasets/DS5_claim_header_clean.csv, 48,000 claims, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 17: Claim volume is not dollar
+volume. Inpatient stays are 8,500 of 48,000 claims (17.7 percent) but
+account for 83.2 percent of billed dollars. Billed charges are amounts
+billed, not amounts paid or the cost of care. Source:
+<a class="ds-ref" href="datasets/DS5_claim_header_clean.csv" download title="Download DS5_claim_header_clean.csv"><code>datasets/DS5_claim_header_clean.csv</code></a>, 48,000 claims, January
+2024 to December 2025.</figcaption>
+</figure>
+<div class="tryit">
+<p>Determine whether the mean or the median better describes
+<code>door_to_provider_minutes</code>, then examine whether the wait
+differs by day of the week. Use <code>ch09_ed_profile.xlsx</code>.</p>
+<ol type="1">
+<li>On the data sheet, select the values of
+<code>door_to_provider_minutes</code> (column <code>AI</code>).</li>
+<li>Record the <strong>Average</strong> shown on the status bar.</li>
+<li>On the <code>Profile</code> sheet, type
+<code>Door-to-provider median</code> in <code>F20</code> and enter
+<code>=MEDIAN(ED[door_to_provider_minutes])</code> in
+<code>G20</code>.</li>
+<li>Compare the two values and write one sentence selecting the mean or
+the median.</li>
+<li>Insert a PivotTable from the <code>ED</code> Table on a new sheet.
+Place <code>arrival_day_of_week</code> in <strong>Rows</strong> and
+<code>door_to_provider_minutes</code> in <strong>Values</strong>.</li>
+<li>Change the summary to <strong>Average</strong> and format the values
+with one decimal place.</li>
+<li>Compare the seven days and write one sentence describing the size of
+any difference.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+<div class="goingdeeper">
+<p>The mean remains essential for skewed data when the question concerns
+totals, because a total equals the mean multiplied by the count.</p>
+<p>The 17,416 ED visits in this file sum to 3,654,737 minutes, about
+60,900 hours. A staffing plan based on the median of 190 minutes would
+understate that workload by about 5,800 hours. The same reasoning
+applies to billed revenue, so operational reports often present the
+median, the mean, and one or two percentiles together.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A health system ties a bonus to reducing mean ED length of
+stay, as the manager in the opening scenario did. Staff soon recognize
+two problems with the target:</p>
+<ul>
+<li><strong>The mean reflects a delay the ED does not control.</strong>
+The longest stays, patients boarding while they wait for inpatient beds,
+hold the mean well above the typical stay, and bed availability is
+managed elsewhere in the hospital.</li>
+<li><strong>The mean overlooks routine improvements.</strong> Better
+routine patient flow moves the mean only slightly, so it receives little
+attention, and the median, which reflects the typical patient’s
+experience, barely changes.</li>
+</ul>
+<p>Leadership then replaces the single target with two measures: the
+median length of stay, owned by the ED, and the 90th percentile, owned
+jointly with inpatient bed management. Each measure now corresponds to a
+problem that a specific team can act on.</p>
+</div>
+<div class="recap">
+<ul>
+<li>A complete summary reports the count, center, spread, and shape of a
+column, and often compares groups.</li>
+<li>Categorical fields are summarized with frequency tables and
+cross-tabulations; a rate is the average of a 0/1 flag, computed only
+over the rows its definition includes.</li>
+<li>The mean is sensitive to extreme values and the median is not; for
+skewed measures such as durations and costs, the median describes a
+typical case and the mean describes totals.</li>
+<li>Pair the median with the IQR or percentiles and the mean with the
+SD, and confirm the shape with a histogram whose bin width is meaningful
+in the data’s units.</li>
+<li>PivotTables provide counts, averages, and percentages but not
+medians; use <code>MEDIAN(IF(...))</code> or <code>GROUPBY</code> for
+group medians, and report every result as a summary line with its count,
+period, and exclusions.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>In the appointment file,
+<code>=AVERAGE(Appointments[no_show_flag])</code> returns 13.6 percent,
+whereas the Chapter 1 no-show rate is 16.1 percent. Explain the
+difference and write a formula that returns 16.1 percent.</li>
+<li>Select a measure of center for each field and justify each choice in
+one sentence: <code>disposition</code>,
+<code>staff_courtesy_score_1_4</code>,
+<code>door_to_provider_minutes</code>, and
+<code>billed_charge_usd</code>.</li>
+<li>Five patients waited 20, 25, 30, 35, and 90 minutes. Calculate the
+mean, median, range, and sample standard deviation, following the steps
+for Table 4.</li>
+<li><a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a> holds one row for
+each of 3,143 counties and county equivalents, with synthetic
+PLACES-style estimates (see the About the teaching data box).
+<ul>
+<li>Calculate the count, mean, median, SD, Q1, and Q3 of
+<code>obesity_pct</code>, and describe the shape of the
+distribution.</li>
+<li>Using <code>adult_population_band</code>, explain why the mean of
+the county percentages is not the percentage of all adults with
+obesity.</li>
+<li>Identify two further limits on what county-level percentages can
+show.</li>
+</ul></li>
+<li>A colleague requests the median ED length of stay for each
+<code>arrival_mode</code> from a PivotTable. Explain why <strong>Value
+Field Settings</strong> cannot provide it, and write a formula that
+can.</li>
+<li>Using <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, calculate
+the count, median, Q1, and Q3 of <code>length_of_stay_minutes</code> for
+visits with a <code>disposition</code> of <code>Admit</code>, and write
+a summary line.</li>
+<li>Using the Real World box, explain why the median and the 90th
+percentile together form a better target than the mean.</li>
+<li>A director asks, “How long do ED patients wait to see a provider?”
+List three questions you would ask to define the measure, then write a
+summary line for <code>door_to_provider_minutes</code> that states the
+count, a center, a spread, the period, and any exclusions, and justify
+your choice of center.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It.</strong></p>
+<ul>
+<li><strong>Mean or median.</strong> The mean (about 43.4 minutes) and
+median (43) agree, so the distribution is approximately symmetric, apart
+from the second peak from triage level 5. The mean with its SD of 17.2
+minutes is appropriate.</li>
+<li><strong>Day of week.</strong> Weekdays average 42.4 to 43.1 minutes,
+and Saturday (44.8) and Sunday (44.9) about two minutes longer. Each day
+has more than 2,300 visits, but a two-minute difference is small
+relative to an SD of 17 minutes: a modest association, not evidence of a
+cause.</li>
+</ul>
+<p><strong>Practice A.</strong></p>
+<ul>
+<li><strong>Row counts:</strong> 429, 1,542, 4,734, 6,751, and
+4,544.</li>
+<li><strong>Row percentages:</strong> admissions are 12.6 percent at
+level 1 and 11.1 percent at level 2, against 5.4 to 6.0 percent at
+levels 3 to 5, while discharges home rise from 67.4 to 78.4
+percent.</li>
+<li><strong>EMS slicer:</strong> level 1 admissions reach 19.2 percent,
+but the figure rests on 10 admissions among 52 visits, so it should be
+reported as “10 of 52 (19.2 percent).”</li>
+</ul>
+<p><strong>Practice B.</strong></p>
+<ul>
+<li><strong>Shape:</strong> a mean more than five times the median
+indicates strong right skew, which the histogram confirms.</li>
+<li><strong>Groups:</strong> medians range from $175.66 (office visits)
+to $13,853.22 (inpatient stays), so combining different services
+contributes substantially to the skew.</li>
+<li><strong>Inpatient share:</strong> inpatient stays are 17.7 percent
+of claims but about 83.2 percent of billed dollars.</li>
+<li><strong>Summary line:</strong> “Median billed charge was $750 per
+claim (IQR $206 to $2,060) across all 48,000 claims with service dates
+from January 2024 to December 2025; no claims were excluded.”</li>
+</ul>
+<p><strong>Exercises.</strong></p>
+<ol type="1">
+<li><code>no_show_flag</code> is 0 for cancellations and reschedules as
+well as completed visits, so averaging it over every row divides 4,913
+no-shows by 36,000 appointments. The Chapter 1 denominator is 30,571:
+<code>=COUNTIFS(Appointments[attendance_outcome], "No Show") / (COUNTIFS(Appointments[attendance_outcome], "Completed") + COUNTIFS(Appointments[attendance_outcome], "No Show"))</code>.</li>
+<li><code>disposition</code>: the mode with percentages, because it is
+nominal. <code>staff_courtesy_score_1_4</code>: the median or top-box
+percentage, because it is ordinal.
+<code>door_to_provider_minutes</code>: the mean, because it is
+approximately symmetric. <code>billed_charge_usd</code>: the median,
+because it is strongly right-skewed, with the mean added when totals
+matter.</li>
+<li>Mean 40 minutes; median 30; range 70. The squared distances (400,
+225, 100, 25, and 2,500) sum to 3,250; divided by 4, the variance is
+812.5, and the standard deviation is about 28.5 minutes.</li>
+<li>To one decimal: n = 3,143; mean 31.3 percent; median 31.3; SD 6.3;
+Q1 26.9; Q3 35.6.
+<ul>
+<li><strong>Shape:</strong> approximately symmetric (<code>SKEW</code>
+about 0.08).</li>
+<li><strong>Why the mean is not the adult percentage:</strong> the mean
+of county percentages weights every county equally, so in this file the
+1,004 counties in the smallest population band count as much as the 492
+in the largest. Smaller counties have a slightly higher median (31.9
+against 30.5). The banded results therefore suggest that population
+weighting could produce a lower value, but the direction and size cannot
+be calculated from population bands alone.</li>
+<li><strong>Further limits:</strong> the values are synthetic teaching
+estimates and cannot estimate actual U.S. obesity prevalence; a county
+percentage does not establish any individual resident’s risk; and a
+geographic association, such as a higher percentage in one region, does
+not establish its cause.</li>
+</ul></li>
+<li><strong>Summarize Values By</strong> has no median option. Use
+<code>=MEDIAN(IF(ED[arrival_mode]=A2, IF(ED[length_of_stay_minutes]&lt;&gt;"", ED[length_of_stay_minutes])))</code>,
+or <code>GROUPBY</code> with <code>MEDIAN</code>. The medians are 187
+minutes (EMS), 189 (Other), 182 (Police), 203 (Transfer), and 191
+(Walk-in).</li>
+<li>n = 1,127; median 327 minutes; Q1 285; Q3 583.5. Summary line:
+“Median ED length of stay for admitted patients was 327 minutes (IQR 285
+to 584) across 1,127 visits, January 2024 to December 2025.” The mean,
+about 436 minutes, indicates that this group is also right-skewed.</li>
+<li>The mean combined two problems in one number and was held above the
+typical stay by boarding, which ED staff could not control. The median
+measures routine flow, which the ED can improve, and the 90th percentile
+isolates the long stays, so each measure has a responsible team.</li>
+<li>Sample answer:
+<ul>
+<li><strong>Questions to ask:</strong> Does “wait” mean arrival to
+provider, or arrival to triage? All visits, or particular triage levels?
+Which period?</li>
+<li><strong>Summary line:</strong> the mean (43.4 minutes) and median
+(43) agree, so the mean with its SD is appropriate: “Mean
+door-to-provider time was 43.4 minutes (SD 17.2) across 17,416 visits,
+January 2024 to December 2025; the 584 visits that left without being
+seen have no provider time and are excluded.”</li>
+<li><strong>Follow-up:</strong> because the wait rises from a mean of 13
+minutes at triage level 1 to 66 at level 5, a useful follow-up reports
+the summary by triage level.</li>
+</ul></li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Centers for Disease Control and Prevention. (2024). <em>PLACES:
+Local data for better health.</em> <a href="https://www.cdc.gov/places/"
+class="uri">https://www.cdc.gov/places/</a></li>
+<li>Centers for Medicare &amp; Medicaid Services. (n.d.). <em>Summary of
+HCAHPS survey results.</em> HCAHPS Online. <a
+href="https://hcahpsonline.org/en/summary-analyses/"
+class="uri">https://hcahpsonline.org/en/summary-analyses/</a></li>
+<li>Çetinkaya-Rundel, M., &amp; Hardin, J. (2021). <em>Introduction to
+modern statistics.</em> OpenIntro. <a
+href="https://www.openintro.org/book/ims/"
+class="uri">https://www.openintro.org/book/ims/</a></li>
+<li>Diez, D. M., Çetinkaya-Rundel, M., &amp; Barr, C. D. (2019).
+<em>OpenIntro statistics</em> (4th ed.). OpenIntro. <a
+href="https://www.openintro.org/book/os/"
+class="uri">https://www.openintro.org/book/os/</a></li>
+<li>Freedman, D., Pisani, R., &amp; Purves, R. (2007).
+<em>Statistics</em> (4th ed.). W. W. Norton.</li>
+<li>Spiegelhalter, D. (2019). <em>The art of statistics: How to learn
+from data.</em> Basic Books.</li>
+<li>Tukey, J. W. (1977). <em>Exploratory data analysis.</em>
+Addison-Wesley.</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Descriptive statistics</dt>
+<dd>
+Numbers that summarize the count, center, spread, and shape of a column.
+</dd>
+<dt>Sample size (n)</dt>
+<dd>
+The number of records from which a statistic is computed.
+</dd>
+<dt>Frequency table</dt>
+<dd>
+A table that lists each category of a field with the number of records
+in that category.
+</dd>
+<dt>Relative frequency</dt>
+<dd>
+A category’s count divided by the total, usually expressed as a
+percentage.
+</dd>
+<dt>Mode</dt>
+<dd>
+The most frequent category or value in a column.
+</dd>
+<dt>Flag</dt>
+<dd>
+A column coded 1 when an event occurred and 0 when it did not, so that
+its average is a rate.
+</dd>
+<dt>Mean</dt>
+<dd>
+The sum of the values divided by their count.
+</dd>
+<dt>Median</dt>
+<dd>
+The middle value of sorted data, with half the records at or below it
+and half at or above it.
+</dd>
+<dt>Top-box score</dt>
+<dd>
+The percentage of survey responses in the most favorable category of a
+rating scale.
+</dd>
+<dt>Range</dt>
+<dd>
+The largest value minus the smallest value.
+</dd>
+<dt>Percentile</dt>
+<dd>
+The value at or below which a given percentage of the data falls.
+</dd>
+<dt>Variance</dt>
+<dd>
+The average squared distance of values from the mean, computed with n
+minus 1 for a sample.
+</dd>
+<dt>Standard deviation</dt>
+<dd>
+The square root of the variance, expressing the typical distance of
+values from the mean in the units of the data.
+</dd>
+<dt>Five-number summary</dt>
+<dd>
+The minimum, first quartile, median, third quartile, and maximum of a
+column.
+</dd>
+<dt>Distribution</dt>
+<dd>
+The pattern of how often each value of a column occurs.
+</dd>
+<dt>Histogram</dt>
+<dd>
+A chart that counts the values falling in each of a series of
+equal-width bins.
+</dd>
+<dt>Bin</dt>
+<dd>
+One of the equal-width ranges into which a histogram divides a numeric
+column.
+</dd>
+<dt>Symmetric</dt>
+<dd>
+Describes a distribution whose two sides approximately mirror each
+other.
+</dd>
+<dt>Skew</dt>
+<dd>
+Asymmetry in a distribution in which one tail extends farther than the
+other.
+</dd>
+<dt>Slicer</dt>
+<dd>
+A set of buttons that filters a PivotTable by category.
+</dd>
+<dt>Cross-tabulation</dt>
+<dd>
+A table, also called a contingency table, that counts records by two
+categorical fields at once, one in the rows and one in the columns.
+</dd>
+<dt>Summary line</dt>
+<dd>
+A single sentence that reports a measure’s center, spread, count,
+period, and exclusions.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch09,
+  author = {Sher, Hoshiar J.},
+  title = {Summarizing Data: Descriptive Statistics and Grouping},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch09.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch09,
+  author = {Sher, Hoshiar J.},
+  title = {Summarizing Data: Descriptive Statistics and Grouping},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch09.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch08.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 8: Cleaning, Transforming, and Validating Data</span></a><a class="pn next" href="appendix-a-capstone-project.html"><span class="pn-dir">Next</span><span class="pn-title">Appendix A. Semester Capstone Project</span></a></div>
+  </main>
+  <aside class="on-this-page" aria-label="On this page"><div class="otp-head">On this page</div><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-an-ed-length-of-stay-profile">Walkthrough: build an ED length-of-stay profile</a><a href="#practice-on-your-own">Practice on your own</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

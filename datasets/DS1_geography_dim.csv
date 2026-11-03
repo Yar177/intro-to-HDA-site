@@ -1,0 +1,61 @@
+zip_area_id,zip_code_prefix,county_fips,county_name,state_abbr,region,urban_rural_group,deprivation_quintile,median_household_income,uninsured_rate_pct,transit_access_group,broadband_access_pct
+ZA001,14601,36055,Monroe,NY,Central,Urban core,2,94356,10.0,Low,83.3
+ZA002,14502,36055,Monroe,NY,Central,Urban core,1,82942,8.9,High,83.9
+ZA003,14603,36055,Monroe,NY,Central,Urban core,3,85512,12.0,High,73.0
+ZA004,14504,36055,Monroe,NY,Central,Urban core,3,67586,9.0,High,84.1
+ZA005,14605,36055,Monroe,NY,Central,Urban core,1,95324,7.4,Medium,79.0
+ZA006,14506,36055,Monroe,NY,Central,Urban core,3,62707,9.6,High,84.6
+ZA007,14607,36055,Monroe,NY,Central,Urban core,2,75064,11.8,Low,85.7
+ZA008,14508,36055,Monroe,NY,Central,Urban core,2,91289,9.5,Low,85.7
+ZA009,14609,36055,Monroe,NY,Central,Urban core,3,70354,10.3,High,85.3
+ZA010,14510,36055,Monroe,NY,Central,Urban core,3,67307,10.4,High,80.3
+ZA011,14611,36055,Monroe,NY,Central,Urban core,1,83483,9.6,High,98.0
+ZA012,14512,36055,Monroe,NY,Central,Urban core,2,71255,7.7,Medium,78.8
+ZA013,14613,36055,Monroe,NY,Central,Urban core,4,59906,11.5,Medium,81.5
+ZA014,14514,36055,Monroe,NY,Central,Urban core,2,78435,9.0,High,81.5
+ZA015,14615,36055,Monroe,NY,Central,Suburban,3,69690,10.7,High,78.6
+ZA016,14516,36055,Monroe,NY,Central,Suburban,4,62251,12.8,High,72.3
+ZA017,14617,36055,Monroe,NY,Central,Suburban,3,58995,9.3,Low,78.5
+ZA018,14518,36055,Monroe,NY,Central,Suburban,3,80863,9.7,Medium,80.4
+ZA019,14619,36055,Monroe,NY,Central,Suburban,3,76406,11.0,High,88.7
+ZA020,14520,36055,Monroe,NY,Central,Suburban,4,74658,12.9,High,79.9
+ZA021,14401,36069,Ontario,NY,East,Suburban,4,59341,14.1,Low,79.2
+ZA022,14502,36069,Ontario,NY,East,Suburban,2,78626,8.3,Medium,91.9
+ZA023,14403,36069,Ontario,NY,East,Suburban,2,83796,11.0,Low,86.0
+ZA024,14504,36069,Ontario,NY,East,Suburban,4,47277,13.1,Medium,84.8
+ZA025,14405,36069,Ontario,NY,East,Suburban,3,70191,11.5,Medium,86.4
+ZA026,14506,36069,Ontario,NY,East,Suburban,3,58432,13.7,Medium,81.8
+ZA027,14407,36069,Ontario,NY,East,Suburban,2,76344,7.6,Medium,84.1
+ZA028,14508,36069,Ontario,NY,East,Suburban,3,81634,8.4,Low,82.4
+ZA029,14409,36069,Ontario,NY,East,Suburban,4,45248,11.6,Low,76.8
+ZA030,14510,36069,Ontario,NY,East,Suburban,3,56085,9.5,Medium,78.8
+ZA031,14411,36069,Ontario,NY,East,Suburban,2,82940,10.4,Low,88.3
+ZA032,14512,36069,Ontario,NY,East,Suburban,2,68459,8.8,Low,81.1
+ZA033,14501,36117,Wayne,NY,North,Small town,2,93292,11.0,Low,87.7
+ZA034,14402,36117,Wayne,NY,North,Small town,3,65574,11.5,Low,90.7
+ZA035,14503,36117,Wayne,NY,North,Small town,3,60857,11.9,Low,87.5
+ZA036,14404,36117,Wayne,NY,North,Small town,4,70405,11.7,Medium,79.5
+ZA037,14505,36117,Wayne,NY,North,Small town,3,73757,11.5,Low,83.1
+ZA038,14406,36117,Wayne,NY,North,Small town,4,58042,14.1,Medium,78.5
+ZA039,14507,36117,Wayne,NY,North,Small town,2,76643,14.2,Medium,91.8
+ZA040,14408,36117,Wayne,NY,North,Small town,3,64018,11.0,Low,86.8
+ZA041,14509,36117,Wayne,NY,North,Small town,4,72749,10.6,Low,75.0
+ZA042,14410,36117,Wayne,NY,North,Small town,3,58342,12.6,Low,82.2
+ZA043,14401,36051,Livingston,NY,South,Rural,1,74706,8.2,Low,79.3
+ZA044,14502,36051,Livingston,NY,South,Rural,3,74338,11.7,Low,74.5
+ZA045,14403,36051,Livingston,NY,South,Rural,2,84309,13.2,Low,76.6
+ZA046,14504,36051,Livingston,NY,South,Rural,4,61033,16.5,Low,76.0
+ZA047,14405,36051,Livingston,NY,South,Rural,3,83162,10.8,Low,83.1
+ZA048,14506,36051,Livingston,NY,South,Rural,4,63082,15.8,Low,73.8
+ZA049,14407,36051,Livingston,NY,South,Rural,3,73388,12.5,Low,82.4
+ZA050,14508,36051,Livingston,NY,South,Rural,4,53803,11.8,Low,85.3
+ZA051,14409,36051,Livingston,NY,South,Rural,5,49725,17.3,Medium,72.1
+ZA052,14510,36051,Livingston,NY,South,Rural,3,65648,11.0,Medium,74.7
+ZA053,14401,36073,Orleans,NY,West,Rural,4,55555,16.2,Low,75.0
+ZA054,14102,36073,Orleans,NY,West,Rural,4,56749,15.1,Low,82.5
+ZA055,14403,36073,Orleans,NY,West,Rural,4,41774,13.5,Low,74.8
+ZA056,14104,36073,Orleans,NY,West,Rural,4,64618,14.5,Low,68.1
+ZA057,14405,36073,Orleans,NY,West,Rural,3,74068,7.4,Low,84.1
+ZA058,14106,36073,Orleans,NY,West,Rural,3,61431,12.6,Low,83.1
+ZA059,14407,36073,Orleans,NY,West,Rural,3,66923,12.9,Medium,78.8
+ZA060,14108,36073,Orleans,NY,West,Rural,2,81710,13.7,Low,86.5
