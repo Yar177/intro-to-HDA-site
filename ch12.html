@@ -1,0 +1,1918 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Simple Linear Regression for Numerical Outcomes — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="A financial analyst at Riverbend Health System is preparing the budget assumptions for next year’s inpatient units. The chief financial officer asks a specific question: when an inpatient stay lasts one day longer, how much higher are its charges, on average? Everyone at the meeting expects longer s">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch12.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Simple Linear Regression for Numerical Outcomes — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="A financial analyst at Riverbend Health System is preparing the budget assumptions for next year’s inpatient units. The chief financial officer asks a specific question: when an inpatient stay lasts one day longer, how much higher are its charges, on average? Everyone at the meeting expects longer s">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch12.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Simple Linear Regression for Numerical Outcomes","position":12,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch12.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item active" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><span class="nav-item disabled" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant (coming soon)" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant, coming soon"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification (coming soon)" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification, coming soon"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication (coming soon)" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication, coming soon"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 12 · 50 minutes</p>
+    <p class="last-updated">Last updated November 11, 2026</p>
+    <article class="prose">
+      <section id="sec:ch12" class="level1">
+<h1>Simple Linear Regression for Numerical Outcomes</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>A financial analyst at Riverbend Health System is preparing the
+budget assumptions for next year’s inpatient units. The chief financial
+officer asks a specific question: when an inpatient stay lasts one day
+longer, how much higher are its charges, on average? Everyone at the
+meeting expects longer stays to carry higher charges, but a budget needs
+a figure in dollars, and the expectation alone does not supply one.</p>
+<p>Table 1 lists five stays from the hospital’s discharge file. The
+first four rise in an orderly way, by roughly $2,000 for each added day.
+The fifth, a 5.7-day cardiology stay that included time in the intensive
+care unit (ICU), carries charges of almost $125,000, several times what
+its length alone would suggest.</p>
+<div class="table-wrap"><table id="tbl:ch12-stays">
+<caption>Table 1: Five inpatient stays chosen to show the range of the
+data: four that sit close to the overall pattern and one far above it.
+Total charges are the hospital’s billed charges in U.S. dollars, not the
+cost of providing the care. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</caption>
+<thead>
+<tr>
+<th>Stay</th>
+<th>Service line</th>
+<th>Length of stay (days)</th>
+<th>Total charges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IPD006443</td>
+<td>Obstetrics</td>
+<td>2.0</td>
+<td>$10,398.00</td>
+</tr>
+<tr>
+<td>IPD005873</td>
+<td>Medicine</td>
+<td>4.6</td>
+<td>$15,967.01</td>
+</tr>
+<tr>
+<td>IPD001939</td>
+<td>Surgery</td>
+<td>7.0</td>
+<td>$21,206.39</td>
+</tr>
+<tr>
+<td>IPD007584</td>
+<td>Medicine</td>
+<td>12.0</td>
+<td>$30,974.13</td>
+</tr>
+<tr>
+<td>IPD005645</td>
+<td>Cardiology (with ICU care)</td>
+<td>5.7</td>
+<td>$124,953.57</td>
+</tr>
+</tbody>
+</table></div>
+<p>Chapter 10 measured how closely two numerical measures move together
+with the <strong>correlation coefficient</strong>, written
+<code>r</code> and also called Pearson’s r, a number from −1 to 1. This
+chapter fits the straight line that summarizes that movement, reads its
+slope as dollars per day, and checks how well the line describes stays
+like the fifth one. The walkthrough answers the analyst’s question.
+Whether shortening stays would reduce charges by the same amount is a
+different question; the Real World box at the end of the chapter returns
+to it, and Chapter 13 develops the tools to approach it.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Describe the direction, form, strength, and unusual points of a
+relationship from a scatterplot before fitting a line.</li>
+<li>Fit a least-squares line in Excel with a chart trendline and with
+the <code>SLOPE</code>, <code>INTERCEPT</code>, and <code>RSQ</code>
+functions, and write its equation in the units of the data.</li>
+<li>Interpret the slope and the intercept in plain language, including
+when the intercept has no practical meaning.</li>
+<li>Calculate predicted values and residuals, and use a residual plot to
+judge whether a straight line describes the data adequately.</li>
+<li>Interpret R-squared as the share of variation the line accounts for,
+and relate it to the correlation coefficient from Chapter 10.</li>
+<li>Recognize the limits of a regression line: extrapolation,
+influential points, and the difference between association and
+cause.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>A regression line turns “these two measures rise together” into a
+statement with units: how much one measure changes, on average, for each
+one-unit difference in another. This section develops simple linear
+regression in five steps:</p>
+<ul>
+<li><strong>look</strong>, reading the scatterplot before fitting
+anything,</li>
+<li><strong>fit</strong>, finding the least-squares line and its
+intercept and slope,</li>
+<li><strong>read</strong>, stating the slope and the intercept in the
+units of the data and using the line to predict,</li>
+<li><strong>check</strong>, judging the fit with residuals, a residual
+plot, and R-squared,</li>
+<li><strong>limits</strong>, recognizing extrapolation, influential
+points, and the difference between association and cause.</li>
+</ul>
+</div>
+<p>The examples use four files. The <code>DS</code> prefix numbers the
+book’s operational teaching datasets from the fictional Riverbend Health
+System, and the <code>PH</code> prefix numbers its public health
+datasets. This chapter uses <code>DS4</code> (inpatient stays),
+<code>PH1</code> (county public health measures), <code>DS7</code> (a
+population health registry), and <code>DS9</code> (a small wellness
+screening file).</p>
+<div class="caution">
+<p><strong>About the teaching data.</strong> Every dataset in this book
+is synthetic, as Chapter 5 explained, so none contains protected health
+information. Four points matter for this chapter:</p>
+<ul>
+<li><strong><code>DS4</code> records charges, not costs.</strong> A
+hospital’s charges are the amounts it bills, and they generally differ
+from the resources the care consumes. Researchers who need cost
+estimates convert charges with hospital cost-to-charge ratios, such as
+those the Healthcare Cost and Utilization Project publishes (Agency for
+Healthcare Research and Quality [AHRQ], 2026). This chapter therefore
+speaks of charges throughout.</li>
+<li><strong><code>PH1</code> is not a release from the Centers for
+Disease Control and Prevention (CDC).</strong> It pairs real county
+names with synthetic estimates modeled on the CDC’s Population Level
+Analysis and Community Estimates (PLACES) program (Centers for Disease
+Control and Prevention [CDC], 2025). Its values describe no actual
+county.</li>
+<li><strong><code>DS7</code> is a synthetic registry</strong> of 10,000
+adult patients as of December 31, 2025, with one row per patient.</li>
+<li><strong>Some synthetic values sit at fixed limits.</strong> The data
+generators cap certain measures, so rows of points line up at those
+limits in the scatterplots: 108 registry patients have a systolic blood
+pressure of exactly 88 millimeters of mercury, and 11 and 9 counties
+have diagnosed diabetes rates of exactly 4 and 24 percent. These limits
+are features of the teaching data, not clinical findings.</li>
+</ul>
+</div>
+<section id="look-before-you-fit-the-scatterplot" class="level3">
+<h3>Look before you fit: the scatterplot</h3>
+<div class="definition">
+<p>The <strong>response variable</strong> is the measure a regression
+line describes or predicts; it goes on the vertical axis and is written
+y. The <strong>explanatory variable</strong> is the measure used to
+describe or predict it; it goes on the horizontal axis and is written x.
+The response variable is also called the <strong>dependent
+variable</strong>, because its values are modeled as depending on the
+other measure. The explanatory variable is also called the
+<strong>independent variable</strong>.</p>
+</div>
+<p>Different fields use different names for the same two roles, so
+Figure 1 lists the pairs you are likely to meet, alongside one stay read
+from a scatterplot. This book uses response and explanatory variable,
+which describe the roles without implying that one measure causes the
+other. The name “dependent” describes how the model is set up, not a
+proven cause.</p>
+<figure id="fig:ch12-scatter-anatomy">
+<img src="figures/generated/ch_12_scatterplot_anatomy.png"
+alt="Figure 1: The anatomy of a scatterplot. Each point is one stay: stay IPD003667, highlighted, sits at x = 8 days of stay and y = $43,670 in total charges. The table names the two roles: the response variable (also called the dependent variable or outcome) on the vertical axis, written y, and the explanatory variable (also called the independent variable or predictor) on the horizontal axis, written x. Statistics texts and the documentation for Excel’s Analysis ToolPak use “dependent” and “independent” (Microsoft, n.d.-f); this book uses “response” and “explanatory.” Source: datasets/DS4_inpatient_clean.csv, a selection of stays." />
+<figcaption aria-hidden="true">Figure 1: The anatomy of a scatterplot.
+Each point is one stay: stay IPD003667, highlighted, sits at x = 8 days
+of stay and y = $43,670 in total charges. The table names the two roles:
+the response variable (also called the dependent variable or outcome) on
+the vertical axis, written y, and the explanatory variable (also called
+the independent variable or predictor) on the horizontal axis, written
+x. Statistics texts and the documentation for Excel’s Analysis ToolPak
+use “dependent” and “independent” (Microsoft, n.d.-f); this book uses
+“response” and “explanatory.” Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, a selection of
+stays.</figcaption>
+</figure>
+<p>The question decides which measure plays which role. The analyst asks
+how charges change with length of stay, so total charges are the
+response and length of stay is the explanatory variable. Reversing the
+roles would answer a different question, how length of stay changes with
+charges, and would produce a different line.</p>
+<p>Looking comes first because a fitted line and its summary numbers
+describe only the straight-line part of a relationship. In a well-known
+demonstration, the statistician Francis Anscombe constructed four small
+datasets that produce the same fitted line and the same R-squared, the
+measure of fit this chapter defines below (Anscombe, 1973). Figure 2
+plots them. Only the first is described adequately by a straight line.
+The second is a curve, the third is a tight line with one stray point,
+and in the fourth a single point sets the slope.</p>
+<figure id="fig:ch12-anscombe">
+<img src="figures/generated/ch_12_anscombe.png"
+alt="Figure 2: Anscombe’s four datasets of 11 points each. All four produce the same least-squares line, y = 3.00 + 0.50x, and the same R-squared of 0.67, yet only dataset A follows a straight-line pattern. Source: Anscombe (1973)." />
+<figcaption aria-hidden="true">Figure 2: Anscombe’s four datasets of 11
+points each. All four produce the same least-squares line, y = 3.00 +
+0.50x, and the same R-squared of 0.67, yet only dataset A follows a
+straight-line pattern. Source: Anscombe (1973).</figcaption>
+</figure>
+<p>Chapter 11 introduced the scatterplot as the chart for a relationship
+between two numerical measures. Before you fit a line, read four
+features of the plot (Diez et al., 2019), shown in Figure 3:</p>
+<ul>
+<li><strong>Direction.</strong> Do the points rise from left to right
+(positive) or fall (negative)?</li>
+<li><strong>Form.</strong> Do they follow a roughly straight path, or do
+they bend?</li>
+<li><strong>Strength.</strong> Do they cluster tightly around a path, or
+scatter loosely?</li>
+<li><strong>Unusual points.</strong> Do any points sit far from the
+rest?</li>
+</ul>
+<figure id="fig:ch12-scatter-read">
+<img src="figures/generated/ch_12_read_scatterplot.png"
+alt="Figure 3: The four features to read in a scatterplot before fitting a line: direction (positive or negative), form (roughly straight or curved), strength (tight or loose clustering), and unusual points separated from the rest. Source: concept schematic with simulated data." />
+<figcaption aria-hidden="true">Figure 3: The four features to read in a
+scatterplot before fitting a line: direction (positive or negative),
+form (roughly straight or curved), strength (tight or loose clustering),
+and unusual points separated from the rest. Source: concept schematic
+with simulated data.</figcaption>
+</figure>
+<p><strong>When the form bends.</strong> A bend means the relationship
+changes speed partway along. On a straight line, each one-unit step in
+the explanatory variable adds the same amount to the response. On a
+bend, the amount per step changes: early steps may add a large amount
+and later steps very little, or the reverse.</p>
+<p>As an illustration, not drawn from the teaching data, the first small
+dose of a pain medication may lower a pain score sharply, while each
+further increase lowers it less, until the points level off. A straight
+line can describe only one constant amount per step, so for a bend it
+overpredicts in one region and underpredicts in another, and
+<code>r</code> understates how closely the measures are related. The
+residual plot section returns to how to detect a bend and what to do
+about it.</p>
+<p>To practice reading these features, use
+<a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, a file of 100 adults
+seen at an annual wellness screening. Its columns, which include age,
+body mass index (BMI), steps per day, resting heart rate, blood
+pressure, stress, sleep, and fatigue, were designed so that different
+pairs show different kinds of relationship. Figure 4 plots nine pairs,
+from a strong positive relationship to no relationship at all. Two
+panels carry the lesson of this section: exercise and resting heart rate
+have a strong <code>r</code> of −0.72 but follow a curve that levels
+off, and sleep and fatigue have an <code>r</code> near 0 yet a clear U
+shape.</p>
+<p>The file is built for practice: its 100 rows were generated so that
+particular pairs of columns show strong, moderate, weak, and absent
+relationships, curved patterns, and one outlier and one high-leverage
+point. The first 14 columns supply the examples in this chapter’s
+figures; the last six, <code>height_cm</code> to <code>vitamin_d</code>
+(columns <code>O</code> to <code>T</code>), supply new pairs for
+Practice C and the exercises and appear in no figure. Real data seldom
+show such clear patterns.</p>
+<figure id="fig:ch12-wellness-pairs">
+<img src="figures/generated/ch_12_wellness_pairs.png"
+alt="Figure 4: Nine pairs of columns in the wellness screening file, each labeled with its kind of relationship and its correlation r: strong positive (BMI and waist, 0.93), strong negative (steps and sedentary hours, −0.83), curved negative (exercise and resting heart rate, −0.72), moderate positive (age and systolic blood pressure, 0.50), moderate negative (BMI and steps, −0.47), U shape (sleep and fatigue, −0.04), weak positive (stress and fasting glucose, 0.23), weak negative (steps and resting heart rate, −0.21), and no relationship (birth month and systolic blood pressure, 0.05). Axis labels give units where the measure has one. Birth months are spread slightly sideways so the points do not overlap. Source: datasets/DS9_wellness_screening.csv, 100 synthetic adults." />
+<figcaption aria-hidden="true">Figure 4: Nine pairs of columns in the
+wellness screening file, each labeled with its kind of relationship and
+its correlation <code>r</code>: strong positive (BMI and waist, 0.93),
+strong negative (steps and sedentary hours, −0.83), curved negative
+(exercise and resting heart rate, −0.72), moderate positive (age and
+systolic blood pressure, 0.50), moderate negative (BMI and steps,
+−0.47), U shape (sleep and fatigue, −0.04), weak positive (stress and
+fasting glucose, 0.23), weak negative (steps and resting heart rate,
+−0.21), and no relationship (birth month and systolic blood pressure,
+0.05). Axis labels give units where the measure has one. Birth months
+are spread slightly sideways so the points do not overlap. Source:
+<a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, 100 synthetic
+adults.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Draw the scatterplot before you fit or report a line. Two datasets
+can share the same equation and the same R-squared while having entirely
+different shapes, and only the plot shows the difference.</p>
+</div>
+</section>
+<section id="the-line-intercept-and-slope" class="level3">
+<h3>The line: intercept and slope</h3>
+<div class="definition">
+<p><strong>Simple linear regression</strong> describes a numerical
+response variable with a straight line in one explanatory variable. The
+line is set by two numbers. The <strong>intercept</strong> is the
+predicted value of the response when the explanatory variable equals
+zero. The <strong>slope</strong> is the change in the predicted response
+for each one-unit increase in the explanatory variable.</p>
+</div>
+<p>In words, the line reads:</p>
+<p>predicted response = intercept + slope × explanatory variable</p>
+<p>Statistics texts write the same line with symbols, as y-hat = b0 + b1
+× x. Here y-hat (written as a y with a small hat over it) stands for the
+predicted value of the response, b0 (“b-zero”) is the intercept, and b1
+(“b-one”) is the slope. This chapter uses the words and gives the
+symbols only for reference.</p>
+<p>For the 8,500 Riverbend stays, the line that the walkthrough fits
+is:</p>
+<p>predicted charges = $6,344.31 + $2,131.62 × length of stay in
+days</p>
+<p>Figure 5 draws this line. The intercept is where the line meets the
+vertical axis, at zero days. The slope is the rise of the line for a run
+of one day: moving from 6 to 7 days, predicted charges rise by
+$2,131.62. Because the line is straight, the rise is the same for every
+added day, whether the stay grows from 1 to 2 days or from 9 to 10.</p>
+<figure id="fig:ch12-anatomy">
+<img src="figures/generated/ch_12_slope_intercept.png"
+alt="Figure 5: The anatomy of the line fitted to 8,500 inpatient stays: predicted charges = $6,344.31 + $2,131.62 × days. The intercept, $6,344.31, is the predicted charge at zero days, outside the observed lengths of stay, which start at 0.6 days (shaded); the slope, $2,131.62, is the rise for each additional day. For stay IPD003667, at 8 days, the predicted value is $23,397 and the actual charge $43,670, a residual of +$20,273. A selection of other stays is shown. Source: line fitted to datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 5: The anatomy of the line fitted
+to 8,500 inpatient stays: predicted charges = $6,344.31 + $2,131.62 ×
+days. The intercept, $6,344.31, is the predicted charge at zero days,
+outside the observed lengths of stay, which start at 0.6 days (shaded);
+the slope, $2,131.62, is the rise for each additional day. For stay
+IPD003667, at 8 days, the predicted value is $23,397 and the actual
+charge $43,670, a residual of +$20,273. A selection of other stays is
+shown. Source: line fitted to
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>Table 2 collects the terms this chapter uses, with their symbols,
+their meaning in the charges example, and the Excel function that
+calculates each one.</p>
+<div class="table-wrap"><table id="tbl:ch12-vocab">
+<caption>Table 2: Terms, symbols, and Excel functions for simple linear
+regression, with their values in the charges example. Source: line
+fitted to <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays
+admitted January 2024 to December 2025.</caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Term</th>
+<th>Symbol</th>
+<th>In the charges example</th>
+<th>In Excel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Response variable</td>
+<td>y</td>
+<td>Total charges, in dollars</td>
+<td>First argument of <code>SLOPE</code>; second column selected for a
+scatterplot</td>
+</tr>
+<tr>
+<td>Explanatory variable</td>
+<td>x</td>
+<td>Length of stay, in days</td>
+<td>Second argument of <code>SLOPE</code>; first column selected for a
+scatterplot</td>
+</tr>
+<tr>
+<td>Intercept</td>
+<td>b0</td>
+<td>$6,344.31, the predicted charge at 0 days</td>
+<td><code>INTERCEPT</code></td>
+</tr>
+<tr>
+<td>Slope</td>
+<td>b1</td>
+<td>$2,131.62 more per additional day</td>
+<td><code>SLOPE</code></td>
+</tr>
+<tr>
+<td>Predicted value</td>
+<td>y-hat</td>
+<td>The line’s charge for a given length of stay</td>
+<td><code>FORECAST.LINEAR</code></td>
+</tr>
+<tr>
+<td>Residual</td>
+<td>y − y-hat</td>
+<td>Actual charges minus predicted charges</td>
+<td>A subtraction formula</td>
+</tr>
+<tr>
+<td>Correlation coefficient</td>
+<td>r</td>
+<td>0.467: a moderate positive straight-line relationship</td>
+<td><code>CORREL</code></td>
+</tr>
+<tr>
+<td>R-squared (coefficient of determination)</td>
+<td>R²</td>
+<td>0.218: the line accounts for 21.8 percent of the variation in
+charges</td>
+<td><code>RSQ</code></td>
+</tr>
+</tbody>
+</table></div>
+</section>
+<section id="residuals-and-least-squares" class="level3">
+<h3>Residuals and least squares</h3>
+<p>Many lines could be drawn through the cloud of stays. Regression
+chooses one by measuring how far each stay sits from the line.</p>
+<div class="definition">
+<p>A <strong>residual</strong> is the difference between an observed
+value of the response and the value the line predicts for it: residual =
+actual − predicted. The <strong>least-squares line</strong> is the line
+that makes the sum of the squared residuals as small as possible.</p>
+</div>
+<p>A stay above the line has a positive residual, because it was charged
+more than the line predicts. A stay below the line has a negative
+residual. Figure 6 marks three stays of exactly 8 days from the
+inpatient file. The line predicts $23,397 for any 8-day stay, so each
+stay’s residual is its charge minus $23,397:</p>
+<ul>
+<li><strong>IPD003667</strong> was charged $43,670, a residual of
++$20,273.</li>
+<li><strong>IPD000649</strong> was charged $24,252, a residual of +$855;
+the line describes this stay closely.</li>
+<li><strong>IPD003944</strong> was charged $10,296, a residual of
+−$13,102.</li>
+</ul>
+<figure id="fig:ch12-resid-points">
+<img src="figures/generated/ch_12_three_stays.png"
+alt="Figure 6: Three 8-day stays share one predicted charge, $23,397, but differ in their residuals: +$20,273, +$855, and −$13,102. Positive residuals sit above the prediction and negative residuals below it. Charges and residuals are rounded to the nearest dollar. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 6: Three 8-day stays share one
+predicted charge, $23,397, but differ in their residuals: +$20,273,
++$855, and −$13,102. Positive residuals sit above the prediction and
+negative residuals below it. Charges and residuals are rounded to the
+nearest dollar. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<p>The residuals are squared before they are added for two reasons.
+Without squaring, positive and negative residuals would cancel, and many
+poorly fitting lines would score as well as a close-fitting one.
+Squaring also gives large misses more than proportional weight, which is
+why a few very large charges can pull the line toward them, a point this
+section returns to under influential points (Diez et al., 2019; National
+Institute of Standards and Technology [NIST], 2012). One consequence of
+the least-squares method is that the residuals of the fitted line always
+average zero; the walkthrough uses that property as a check.</p>
+<p>Figure 7 shows the rule at work on four illustrative points. A
+candidate line misses the points by −1, −2, −1, and +2, so its squared
+residuals add to 10. The least-squares line misses by +1, −1, −1, and
++1, a sum of 4, and no other straight line produces a smaller sum.</p>
+<figure id="fig:ch12-least-squares">
+<img src="figures/generated/ch_12_least_squares.png"
+alt="Figure 7: Two lines fitted to the same four illustrative points. The candidate line, predicted y = x + 5, has a sum of squared residuals of 10; the least-squares line, predicted y = 2x + 2, has a sum of 4, the smallest possible. Source: concept schematic with illustrative data." />
+<figcaption aria-hidden="true">Figure 7: Two lines fitted to the same
+four illustrative points. The candidate line, predicted y = x + 5, has a
+sum of squared residuals of 10; the least-squares line, predicted y = 2x
++ 2, has a sum of 4, the smallest possible. Source: concept schematic
+with illustrative data.</figcaption>
+</figure>
+<p>Excel’s <code>SLOPE</code> (Microsoft, n.d.-e),
+<code>INTERCEPT</code> (Microsoft, n.d.-c), and <code>RSQ</code>
+(Microsoft, n.d.-d) functions, the chart trendline, and the Analysis
+ToolPak’s Regression tool (Microsoft, n.d.-f) all calculate the same
+least-squares line.</p>
+<div class="excelformula">
+<p>With the inpatient file converted to a Table named
+<code>Inpatient</code>:
+<code>=SLOPE(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code>
+returns about <code>2131.62</code>.
+<code>=INTERCEPT(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code>
+returns about <code>6344.31</code>.
+<code>=RSQ(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code>
+returns about <code>0.218</code>. Each function takes the response
+column first and the explanatory column second.</p>
+</div>
+<div class="caution">
+<p>Excel’s regression functions list the response before the explanatory
+variable, which is the reverse of the x-then-y order in which the line
+is usually described. If you swap the two ranges, <code>SLOPE</code>
+returns about <code>0.0001</code>, the slope of days on charges, without
+any error message. When a slope looks implausibly small or large, check
+the order of the arguments first.</p>
+</div>
+<p>Figure 8 sets the two orders side by side: the scatterplot takes
+length of stay first, as X, while the functions take charges first, as
+Y. The roles of the two columns are the same in both; only the order in
+which Excel asks for them differs.</p>
+<figure id="fig:ch12-excel-xy">
+<img src="figures/generated/ch_12_excel_xy.png"
+alt="Figure 8: How the two columns map to the scatterplot and to the regression functions. In the chart, length of stay (column F) is X on the horizontal axis and total charges (column W) is Y on the vertical axis; in SLOPE, INTERCEPT, and RSQ, the Y column comes first and the X column second. Source: datasets/DS4_inpatient_clean.csv and the Chapter 12 walkthrough." />
+<figcaption aria-hidden="true">Figure 8: How the two columns map to the
+scatterplot and to the regression functions. In the chart, length of
+stay (column F) is X on the horizontal axis and total charges (column W)
+is Y on the vertical axis; in <code>SLOPE</code>,
+<code>INTERCEPT</code>, and <code>RSQ</code>, the Y column comes first
+and the X column second. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> and the Chapter 12
+walkthrough.</figcaption>
+</figure>
+<div class="tryit">
+<p>Calculate two residuals by hand from the line predicted charges =
+$6,344.31 + $2,131.62 × days, using stays from Table 1.</p>
+<ol type="1">
+<li>For IPD007584, a 12-day stay charged $30,974.13, calculate the
+predicted charge and the residual.</li>
+<li>For IPD005645, a 5.7-day stay charged $124,953.57, do the same.</li>
+<li>State in one sentence which stay the line describes well, and name
+one feature of the second stay, visible in the table, that the line does
+not take into account.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+</section>
+<section id="reading-the-slope-and-the-intercept" class="level3">
+<h3>Reading the slope and the intercept</h3>
+<p>A slope is read as a sentence with units: <strong>for each additional
+unit of the explanatory variable, the predicted response is higher (or
+lower) by the slope, in the response’s units</strong>. For the charges
+line:</p>
+<ul>
+<li>For each additional day of stay, predicted charges are $2,131.62
+higher.</li>
+<li>The units are dollars per day, the response’s units divided by the
+explanatory variable’s units.</li>
+<li>A negative slope would mean the predicted response falls as the
+explanatory variable rises.</li>
+</ul>
+<p>A slope depends on the units of both measures. If length of stay were
+recorded in hours instead of days, the slope would be $2,131.62 ÷ 24,
+about $88.82 per hour, but the line, its predictions, <code>r</code>,
+and R-squared would not change. Always state the units with the
+slope.</p>
+<p>The slope describes how charges differ, on average, between stays of
+different lengths. It is an average across all 8,500 stays, not a
+statement about any one patient: the three 8-day stays in Figure 6 share
+one predicted charge but differ by more than $33,000.</p>
+<p>The intercept, $6,344.31, is the predicted charge for a stay of zero
+days. No stay lasts zero days, and the shortest stay in the file lasts
+0.6 days, so the intercept anchors the line rather than describing any
+stay in the data. Read an intercept as a meaningful value only when zero
+is a sensible value of the explanatory variable and lies within the
+range of the data (Bewick et al., 2003). Practice B shows an intercept
+that fails both tests.</p>
+</section>
+<section id="prediction-and-extrapolation" class="level3">
+<h3>Prediction and extrapolation</h3>
+<div class="definition">
+<p>A <strong>predicted value</strong> is the value of the response that
+the line gives for a chosen value of the explanatory variable.
+<strong>Extrapolation</strong> is using the line to predict for values
+of the explanatory variable outside the range of the data used to fit
+it.</p>
+</div>
+<p>To predict charges for a 3-day stay, substitute 3 into the line:
+$6,344.31 + $2,131.62 × 3 = $12,739.17. Excel’s
+<code>FORECAST.LINEAR</code> function does the same calculation from the
+data, without your typing the slope and intercept (Microsoft, n.d.-b).
+It takes the new x value first, then the response column, then the
+explanatory column.</p>
+<div class="excelformula">
+<p><code>=FORECAST.LINEAR(3, Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code>
+returns about <code>12739.18</code>, the predicted charge for a 3-day
+stay. The one-cent difference from the hand calculation comes from
+rounding the slope and intercept to two decimals.</p>
+</div>
+<p>A prediction is only as reliable as the data behind it. The Riverbend
+stays run from 0.6 to 37.9 days, and the line has been checked against
+stays only within that range. Beyond it, nothing in the data shows
+whether charges keep rising in a straight line, level off, or rise
+faster. Figure 9 extends the line to 60 days, where it predicts
+$134,241.73 for a stay longer than any in the file. The arithmetic is
+correct, but the data give no support for it (Bewick et al., 2003; Diez
+et al., 2019).</p>
+<figure id="fig:ch12-extrapolation">
+<img src="figures/generated/ch_12_prediction_range.png"
+alt="Figure 9: Predicted charges from the line within the observed lengths of stay, 0.6 to 37.9 days (shaded), and beyond them (dashed). The 3-day prediction, $12,739.18, lies within the data; the 60-day prediction, $134,241.73, is an extrapolation beyond the longest observed stay. Source: line fitted to datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 9: Predicted charges from the line
+within the observed lengths of stay, 0.6 to 37.9 days (shaded), and
+beyond them (dashed). The 3-day prediction, $12,739.18, lies within the
+data; the 60-day prediction, $134,241.73, is an extrapolation beyond the
+longest observed stay. Source: line fitted to
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>When you report a regression line, state the range of the explanatory
+variable it was fitted on, and predict only within that range.</p>
+</section>
+<section id="checking-the-fit-residual-plots" class="level3">
+<h3>Checking the fit: residual plots</h3>
+<p>A line can be the best straight line for the data and still describe
+the data poorly. The residuals show where the line departs from the
+data.</p>
+<div class="definition">
+<p>A <strong>residual plot</strong> is a scatterplot of the residuals
+against the predicted values, with a horizontal reference line at zero.
+<strong>Non-constant spread</strong> is a pattern in which the residuals
+scatter farther from zero in one part of the plot than in another.</p>
+</div>
+<p>A residual plot moves each point to new coordinates. Figure 10
+follows stay IPD003667 from the scatterplot to the residual plot: its
+horizontal position becomes its predicted charge, $23,397, and its
+vertical position becomes its residual, $43,670 − $23,397 = +$20,273.
+The line itself becomes the horizontal reference line at zero.</p>
+<figure id="fig:ch12-follow-stay">
+<img src="figures/generated/ch_12_follow_one_stay.png"
+alt="Figure 10: One stay followed from the scatterplot to the residual plot. In the scatterplot, stay IPD003667 sits at 8 days and $43,670; in the residual plot, it sits at its predicted charge, $23,397, and its residual, +$20,273. Two other stays from the inpatient file are shown for reference. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 10: One stay followed from the
+scatterplot to the residual plot. In the scatterplot, stay IPD003667
+sits at 8 days and $43,670; in the residual plot, it sits at its
+predicted charge, $23,397, and its residual, +$20,273. Two other stays
+from the inpatient file are shown for reference. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>If a straight line describes the data adequately, the residuals form
+a band of roughly even width around zero, with no pattern. Any visible
+structure means the line is missing something (NIST, 2012; Vu &amp;
+Harrington, 2020). Figure 11 shows the four patterns to recognize:</p>
+<ul>
+<li><strong>A random band</strong> of even width: the straight line is
+adequate.</li>
+<li><strong>A curve</strong>: the relationship bends, as described under
+Look before you fit. The line runs above the points in one region and
+below them in another, and its single slope describes no part of the
+data well. Describe the relationship separately within ranges where it
+is roughly straight, consider a transformation such as the logarithm in
+the Going Deeper box, or note that a curved model is needed.</li>
+<li><strong>A fan</strong> that widens to one side: non-constant spread,
+so the line’s predictions are less precise in that region.</li>
+<li><strong>One distant point</strong>: a case to investigate before
+trusting the line.</li>
+</ul>
+<figure id="fig:ch12-resid-patterns">
+<img src="figures/generated/ch_12_residual_patterns.png"
+alt="Figure 11: Four patterns in a residual plot, each with residuals plotted against predicted values and a reference line at zero: a patternless band, a curved pattern, a fan, and one unusual residual. Source: concept schematic with simulated data." />
+<figcaption aria-hidden="true">Figure 11: Four patterns in a residual
+plot, each with residuals plotted against predicted values and a
+reference line at zero: a patternless band, a curved pattern, a fan, and
+one unusual residual. Source: concept schematic with simulated
+data.</figcaption>
+</figure>
+<p>Figure 12 is the residual plot for the charges line. It is a fan.
+Split the 8,500 stays into roughly equal thirds by predicted charge, and
+the standard deviation (SD) of the residuals, a measure of how widely
+the residuals vary within each group (Chapter 9), grows from $9,614 in
+the lowest third to $11,749 in the middle third and $19,004 in the
+highest. The line’s predictions are therefore much less precise for long
+stays than for short ones. The plot also shows that the residuals are
+asymmetric: the largest residual is +$143,954, but no residual falls
+below −$38,437, because charges have a floor and a long upper tail, the
+right skew that Chapter 9 described for durations.</p>
+<figure id="fig:ch12-resid-plot">
+<img src="figures/generated/ch_12_residual_spread.png"
+alt="Figure 12: Residuals from the charges line plotted against predicted charges for all 8,500 stays, with dotted dividers marking roughly equal thirds of the predicted values. The SD of the residuals rises from $9,614 in the lowest third to $11,749 in the middle third and $19,004 in the highest, a fan pattern of non-constant spread. The SD uses STDEV.S. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 12: Residuals from the charges
+line plotted against predicted charges for all 8,500 stays, with dotted
+dividers marking roughly equal thirds of the predicted values. The SD of
+the residuals rises from $9,614 in the lowest third to $11,749 in the
+middle third and $19,004 in the highest, a fan pattern of non-constant
+spread. The SD uses <code>STDEV.S</code>. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>A fan does not invalidate the slope. The line still summarizes the
+average increase per day. It does mean that a single statement of the
+line’s typical error would overstate its precision for short stays and
+understate it for long ones. The fan matters more for statistical
+inference than for the slope itself: the standard errors, confidence
+intervals, and p-values that Chapter 13 reads from regression output
+assume residuals of even spread, so a fan calls for caution in reading
+them. The Going Deeper box describes a common remedy for a fan in skewed
+data.</p>
+</section>
+<section id="r-squared-how-much-the-line-explains" class="level3">
+<h3>R-squared: how much the line explains</h3>
+<div class="definition">
+<p><strong>R-squared</strong> (written R², and formally called the
+<strong>coefficient of determination</strong>) is the share of the
+variation in the response that the line accounts for, on a scale from 0
+(none) to 1 (all). For a simple linear regression, it equals the square
+of the correlation coefficient <code>r</code> from Chapter 10.</p>
+</div>
+<p>To see what “share of the variation” means, measure how far each
+stay’s charges sit from the average charge, square those distances, and
+add them up. That total describes how much charges vary before any line
+is drawn.</p>
+<p>Now do the same with the residuals, the distances from the line. For
+the Riverbend stays, the residuals leave 78.2 percent of the original
+total, so the line accounts for the other 21.8 percent: R² = 0.218.
+Chapter 10 reported a correlation of 0.467 between the same two
+measures; 0.467 squared is 0.218, the same value. Figure 13 draws the
+comparison.</p>
+<figure id="fig:ch12-rsq">
+<img src="figures/generated/ch_12_r_squared.png"
+alt="Figure 13: R-squared as a comparison of two predictions for the same 8,500 stays. Predicting the mean charge for every stay leaves the total squared variation (100 percent); predicting from length of stay leaves 78.2 percent as squared residuals, so the line accounts for 21.8 percent: R² = 1 − (sum of squared residuals ÷ total squared variation) = 0.218. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 13: R-squared as a comparison of
+two predictions for the same 8,500 stays. Predicting the mean charge for
+every stay leaves the total squared variation (100 percent); predicting
+from length of stay leaves 78.2 percent as squared residuals, so the
+line accounts for 21.8 percent: R² = 1 − (sum of squared residuals ÷
+total squared variation) = 0.218. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>R-squared is tied to the correlation coefficient <code>r</code> from
+Chapter 10. Two properties of <code>r</code> carry over directly, and
+one is new. Recall that <code>r</code> runs from −1 to 1, with 0 meaning
+no straight-line relationship; Figure 14 reviews the scale and shows
+that a loose cloud and a clear U shape can both have an <code>r</code>
+of 0.</p>
+<p>New in this chapter, the sign of <code>r</code> always matches the
+sign of the slope. And squaring <code>r</code> gives R-squared but
+removes the sign: an <code>r</code> of −0.8 and an <code>r</code> of 0.8
+both give an R-squared of 0.64, so read the direction from the slope,
+not from R-squared.</p>
+<figure id="fig:ch12-reading-correlation">
+<img src="figures/generated/ch_12_reading_correlation.png"
+alt="Figure 14: How to read the correlation coefficient. Five illustrative scatterplots show r of −1, −0.6, 0, +0.6, and +1; the sign gives the direction, and values farther from 0 indicate a stronger straight-line relationship. Two further panels show that a loose cloud and a U-shaped pattern can both have an r of 0. Source: concept schematic with illustrative data." />
+<figcaption aria-hidden="true">Figure 14: How to read the correlation
+coefficient. Five illustrative scatterplots show <code>r</code> of −1,
+−0.6, 0, +0.6, and +1; the sign gives the direction, and values farther
+from 0 indicate a stronger straight-line relationship. Two further
+panels show that a loose cloud and a U-shaped pattern can both have an
+<code>r</code> of 0. Source: concept schematic with illustrative
+data.</figcaption>
+</figure>
+<p>Figure 15 shows four pairs of inpatient measures, from an R-squared
+near 0 to the 0.22 of the charges line, so you can connect the number to
+the look of the cloud. Even the strongest pair is a loose cloud: in
+these data, no single explanatory variable accounts for as much as a
+quarter of the variation in the measure it is paired with.</p>
+<figure id="fig:ch12-strength">
+<img src="figures/generated/ch_12_strength.png"
+alt="Figure 15: Four pairs of inpatient measures for 8,500 stays, ordered from the weakest to the strongest straight-line relationship: comorbidity count and charges (R² = 0.00), age and length of stay (R² = 0.04), comorbidity count and risk score (R² = 0.15), and length of stay and charges (R² = 0.22). Comorbidity counts are whole numbers, spread slightly sideways so the points do not overlap. Axis values are omitted because the panels use different units. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 15: Four pairs of inpatient
+measures for 8,500 stays, ordered from the weakest to the strongest
+straight-line relationship: comorbidity count and charges (R² = 0.00),
+age and length of stay (R² = 0.04), comorbidity count and risk score (R²
+= 0.15), and length of stay and charges (R² = 0.22). Comorbidity counts
+are whole numbers, spread slightly sideways so the points do not
+overlap. Axis values are omitted because the panels use different units.
+Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>R-squared is often over-interpreted. Four points guide its
+interpretation (NIST, 2012; Schneider et al., 2010):</p>
+<ul>
+<li><strong>R-squared measures fit, not correctness.</strong> Anscombe’s
+four datasets share an R-squared of 0.67, and three of the four lines
+misdescribe their data.</li>
+<li><strong>A low R-squared can accompany a clear slope.</strong>
+Practice B fits a line with an R-squared of 0.06 to 10,000 patients.
+With that many patients, a slope of that size is very unlikely to arise
+by chance alone, and Chapter 13 shows how to test it; its positive
+direction also agrees with national survey data.</li>
+<li><strong>R-squared says nothing about cause.</strong> It measures how
+closely the points follow the line, not why.</li>
+<li><strong>R-squared describes strength; it does not rank
+models.</strong> Comparing R-squared across different pairs of measures,
+as Figure 15 does, describes which relationships follow a straight line
+more closely. It does not show that one model is more useful or reliable
+than another: an R-squared of 0.22 for charges and 0.61 for county
+diabetes rates describe different problems. Comparisons of how well
+models predict are meaningful only when they predict the same response
+from comparable data.</li>
+</ul>
+</section>
+<section id="outliers-leverage-and-influential-points" class="level3">
+<h3>Outliers, leverage, and influential points</h3>
+<p>Chapter 8 described outliers in a single column. In regression, a
+point is judged by where it sits relative to the line and to the other x
+values.</p>
+<div class="definition">
+<p>An <strong>outlier</strong> in regression is a point with a large
+residual, far above or below the line. A point has high
+<strong>leverage</strong> when its value of the explanatory variable is
+far from the others. An <strong>influential point</strong> is one whose
+removal noticeably changes the slope or the intercept.</p>
+</div>
+<p>Figure 16 separates the three ideas with illustrative points. An
+outlier at a typical x value moves the line only slightly. A point with
+high leverage that follows the pattern leaves the line almost unchanged.
+A point that has high leverage and also lies off the pattern is
+influential: removing it tilts the line substantially.</p>
+<figure id="fig:ch12-outlier-types">
+<img src="figures/generated/ch_12_outlier_leverage.png"
+alt="Figure 16: Three illustrative cases, each with the line fitted with and without the highlighted point: a large residual at a typical x value, a high-leverage point that follows the pattern, and an influential point whose removal substantially changes the slope. Source: concept schematic with illustrative data." />
+<figcaption aria-hidden="true">Figure 16: Three illustrative cases, each
+with the line fitted with and without the highlighted point: a large
+residual at a typical x value, a high-leverage point that follows the
+pattern, and an influential point whose removal substantially changes
+the slope. Source: concept schematic with illustrative
+data.</figcaption>
+</figure>
+<p>A point with high leverage has the most power to tilt the line. In
+Anscombe’s dataset D (Figure 2), ten points share one x value, so the
+eleventh point, far to the right, alone determines the slope.</p>
+<p>The Riverbend data contain a different case: a group of outliers that
+is influential together. Of the 8,500 stays, 85 have charges above
+$80,000, and all have large positive residuals. Their lengths of stay
+run from 2.8 to 33.1 days; a stay inside the observed range can still
+have high leverage if its length is far from the average, so the longest
+of these stays may also carry leverage, which would need to be checked
+stay by stay. As a group they sit at longer stays than most, with a
+median of 10.6 days against 4.7 for all stays. Their share of ICU care,
+31 percent, is about 2.7 times the 11 percent for all stays.</p>
+<p>Refit the line without those 85 stays, and the slope falls from
+$2,131.62 to $1,810.63 per day, a drop of about 15 percent; the
+intercept rises to $7,398.76, and R-squared moves from 0.218 to 0.210.
+Figure 17 draws both lines. Because these stays were selected for their
+high charges, removing them is bound to lower the slope, and their
+longer-than-typical stays add to the effect. The refit is a sensitivity
+check that shows how much the group matters, not a better line.</p>
+<figure id="fig:ch12-influence">
+<img src="figures/generated/ch_12_high_charge_refit.png"
+alt="Figure 17: The charges line fitted to all 8,500 stays (solid, slope $2,132 per day) and refitted on the 8,415 stays charged $80,000 or less (dashed, slope $1,811 per day), a slope about 15 percent lower. The 85 excluded stays are highlighted. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 17: The charges line fitted to all
+8,500 stays (solid, slope $2,132 per day) and refitted on the 8,415
+stays charged $80,000 or less (dashed, slope $1,811 per day), a slope
+about 15 percent lower. The 85 excluded stays are highlighted. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>The 85 stays are not data errors. They are valid high-charge stays in
+the file, and deleting them to obtain a closer-fitting line would
+misrepresent the hospital’s charges. Apply Chapter 8’s approach to
+outliers: investigate the points, decide on a documented basis, and when
+a small group of cases moves the slope noticeably, report the line with
+and without them so the reader can judge.</p>
+</section>
+<section id="association-not-causation" class="level3">
+<h3>Association, not causation</h3>
+<div class="keypoint">
+<p>A regression slope describes how the response differs, on average,
+between cases with different values of the explanatory variable. It does
+not show that changing the explanatory variable for a case would change
+its response by the slope.</p>
+</div>
+<p>Chapter 4 introduced the confounder, a third factor related to both
+the exposure and the outcome. In regression, the same idea is called a
+<strong>confounding variable</strong>: a factor related to both the
+explanatory variable and the response that can create or distort an
+association between them. Severity of illness is a likely confounder
+here.</p>
+<p>Sicker patients tend to stay longer, and they also tend to receive
+more intensive and more expensive services, such as ICU care and
+procedures. Part of the $2,132 per day may therefore reflect what long
+stays involve rather than the added days themselves. A simple regression
+cannot separate the two. Chapter 13 adds further explanatory variables
+to the line so that their associations can be read with the others held
+constant (Schneider et al., 2010).</p>
+</section>
+</section>
+<section id="walkthrough-build-an-inpatient-charges-model"
+class="level2">
+<h2>Walkthrough: build an inpatient charges model</h2>
+<p>The five steps from the start of Key concepts (look, fit, read,
+check, and limits) are now in place. The walkthrough applies them in
+order to the chief financial officer’s question.</p>
+<p>This build answers the opening scenario. You plot charges against
+length of stay, fit the least-squares line twice (once with a chart
+trendline and once with functions), calculate a predicted charge and a
+residual for every stay, draw the residual plot, and use the line to
+predict. Figure 18 shows the finished <code>Model</code> sheet and the
+two new Table columns.</p>
+<figure id="fig:ch12-checkpoint">
+<img src="figures/generated/ch_12_finished_model.png"
+alt="Figure 18: The finished model you build in this walkthrough. The Model sheet holds the count, slope, intercept, R-squared, correlation, average residual, and two predictions in B3:B11; the Inpatient Table gains a predicted charge in column AG and a residual in column AH, shown here for the first stay, IPD001565. Values are formatted for print; your sheet may show more decimals in the same cells. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 18: The finished model you build
+in this walkthrough. The <code>Model</code> sheet holds the count,
+slope, intercept, R-squared, correlation, average residual, and two
+predictions in <code>B3:B11</code>; the <code>Inpatient</code> Table
+gains a predicted charge in column <code>AG</code> and a residual in
+column <code>AH</code>, shown here for the first stay, IPD001565. Values
+are formatted for print; your sheet may show more decimals in the same
+cells. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500
+stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you start: open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+and immediately save a working copy as an Excel workbook so the original
+stays untouched. Work only in the copy. These teaching files hold no
+real patient information; real patient data must stay in approved,
+secure storage, and you should make a local working copy only when you
+are authorized to.</p>
+</div>
+<p><strong>Part A. Set up the data.</strong> Convert the file into a
+named Table so every formula can refer to its columns by name.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> in Excel. The
+file has 8,500 stays in rows 2 to 8501 and 32 columns, <code>A</code> to
+<code>AF</code>.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name the file
+<code>ch12_charges_model.xlsx</code>. Work in this file from here
+on.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong> is checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Inpatient</code>.</li>
+</ol>
+<p><strong>Part B. Draw the scatterplot.</strong> Excel places the first
+selected column on the horizontal axis, so select the explanatory
+variable first.</p>
+<ol start="5" type="1">
+<li>Click the column letter <code>F</code> at the top of the sheet to
+select <code>length_of_stay_days</code>. Hold <code>Ctrl</code>
+(<code>Cmd</code> on macOS) and click the column letter <code>W</code>
+to add <code>total_charges_usd</code>.</li>
+<li>Choose <strong>Insert &gt; Charts &gt; Scatter</strong>: on the
+<strong>Insert</strong> tab, click the scatter chart button (its tooltip
+reads <strong>Insert Scatter (X, Y) or Bubble Chart</strong>) and pick
+the first option, <strong>Scatter</strong>, which draws markers only. A
+chart with 8,500 points appears.
+<ul>
+<li>Confirm which column is on which axis. Right-click the chart and
+choose <strong>Select Data</strong>. On Windows, select the series and
+click <strong>Edit</strong>; on macOS, the fields appear in the dialog.
+<strong>X values</strong> should refer to the
+<code>length_of_stay_days</code> column (<code>$F$2:$F$8501</code>) and
+<strong>Y values</strong> to <code>total_charges_usd</code>
+(<code>$W$2:$W$8501</code>). If they are reversed, swap the two ranges
+and click <strong>OK</strong>.</li>
+</ul></li>
+<li>Click the chart title and type
+<code>Inpatient charges and length of stay</code>.</li>
+<li>Add axis titles. On Windows, click the <strong>Chart
+Elements</strong> button (<strong>+</strong>) beside the chart and check
+<strong>Axis Titles</strong>. On macOS, choose <strong>Chart Design &gt;
+Add Chart Element &gt; Axis Titles</strong>, then <strong>Primary
+Horizontal</strong>, and repeat for <strong>Primary
+Vertical</strong>.</li>
+<li>Click each axis title and type <code>Length of stay (days)</code>
+for the horizontal axis and <code>Total charges (USD)</code> for the
+vertical axis.</li>
+<li>Read the four features before fitting. The direction is positive,
+the form is roughly straight but widens to the right, the strength is
+moderate, and several dozen stays sit far above the rest. Your chart
+should resemble Figure 19.</li>
+</ol>
+<figure id="fig:ch12-cost">
+<img src="figures/generated/ch_12_cost_vs_los.png"
+alt="Figure 19: Inpatient charges against length of stay for all 8,500 stays, with the least-squares line: predicted charges = $6,344 + $2,132 × days, R² = 0.22. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 19: Inpatient charges against
+length of stay for all 8,500 stays, with the least-squares line:
+predicted charges = $6,344 + $2,132 × days, R² = 0.22. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part C. Add the trendline.</strong> A trendline fits the
+least-squares line without a formula (Microsoft, n.d.-a).</p>
+<ol start="11" type="1">
+<li>Click any point in the chart so that all the points are
+selected.</li>
+<li>Open the trendline options. On Windows, click the <strong>Chart
+Elements</strong> button (<strong>+</strong>), point to
+<strong>Trendline</strong>, click its arrow, and choose <strong>More
+Options</strong>. On macOS, choose <strong>Chart Design &gt; Add Chart
+Element &gt; Trendline &gt; More Trendline Options</strong>.</li>
+<li>In the <strong>Format Trendline</strong> pane, under
+<strong>Trendline Options</strong>, choose <strong>Linear</strong>.</li>
+<li>Near the bottom of the pane, check <strong>Display Equation on
+chart</strong> and <strong>Display R-squared value on chart</strong>. A
+label appears that reads about <code>y = 2131.6x + 6344.3</code> and
+<code>R² = 0.2182</code>; Excel may show a different number of decimals.
+Drag the label to a clear area of the chart.</li>
+</ol>
+<p><strong>Part D. Calculate the line with functions.</strong> The
+functions return the same line as the trendline, but as cell values that
+other formulas can use.</p>
+<ol start="15" type="1">
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs,
+double-click the new tab, type <code>Model</code>, and press Enter.</li>
+<li>In <code>A1</code> type
+<code>Inpatient Charges and Length of Stay: Simple Linear Regression</code>,
+and make it <strong>Bold</strong>, size 14.</li>
+<li>In <code>A3</code> type <code>Stays</code>; in <code>B3</code> enter
+<code>=COUNT(Inpatient[length_of_stay_days])</code>. It shows
+<code>8500</code>.</li>
+<li>In <code>A4</code> type <code>Slope</code>; in <code>B4</code>
+enter<br />
+<code>=SLOPE(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code><br />
+It shows about <code>2131.62</code>, the trendline’s
+<code>2131.6</code>. The response column comes first.</li>
+<li>In <code>A5</code> type <code>Intercept</code>; in <code>B5</code>
+enter<br />
+<code>=INTERCEPT(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code><br />
+It shows about <code>6344.31</code>.</li>
+<li>In <code>A6</code> type <code>R-squared</code>; in <code>B6</code>
+enter<br />
+<code>=RSQ(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code><br />
+It shows about <code>0.218</code>, the trendline’s
+<code>0.2182</code>.</li>
+<li>In <code>A7</code> type <code>Correlation r</code>; in
+<code>B7</code> enter<br />
+<code>=CORREL(Inpatient[length_of_stay_days], Inpatient[total_charges_usd])</code><br />
+It shows about <code>0.467</code>, the value from Chapter 10. In
+<code>C7</code> enter <code>=B7^2</code>; it shows about
+<code>0.218</code>, the same as <code>B6</code>.</li>
+</ol>
+<p><strong>Part E. Calculate predicted values and residuals.</strong>
+Two calculated columns, as in Chapter 8, give every stay its predicted
+charge and its residual.</p>
+<ol start="22" type="1">
+<li>Return to the data sheet. Click <code>AG1</code>, the first empty
+cell to the right of the headers, type <code>predicted_charges</code>,
+and press Enter. The Table expands to include column
+<code>AG</code>.</li>
+<li>In <code>AG2</code> enter
+<code>=Model!$B$5+Model!$B$4*[@length_of_stay_days]</code>. Excel fills
+the formula down all 8,500 rows. <code>AG2</code> shows about
+<code>16149.78</code>, the predicted charge for the first stay, which
+lasted 4.6 days. The dollar signs lock the references to the slope and
+intercept (Chapter 6), and <code>[@length_of_stay_days]</code> reads the
+length of stay from the same row.</li>
+<li>Click <code>AH1</code>, type <code>residual</code>, and press Enter.
+In <code>AH2</code> enter
+<code>=[@total_charges_usd]-[@predicted_charges]</code>.
+<code>AH2</code> shows about <code>-7490.20</code>: the first stay was
+charged $7,490 less than the line predicts.</li>
+<li>On the <code>Model</code> sheet, in <code>A8</code> type
+<code>Average residual</code>; in <code>B8</code> enter
+<code>=AVERAGE(Inpatient[residual])</code>. Excel shows a tiny number in
+scientific notation, such as <code>-7.658E-11</code>, which is zero
+apart from rounding.</li>
+<li>With <code>B8</code> selected, choose <strong>Home &gt; Number &gt;
+Number Format &gt; Number</strong>. It now shows <code>0.00</code>, the
+zero average that the least-squares method guarantees. (If it shows
+<code>-0.00</code>, the minus sign comes from the tiny negative value;
+the average is still zero.)</li>
+</ol>
+<p><strong>Part F. Draw the residual plot.</strong></p>
+<ol start="27" type="1">
+<li>Return to the data sheet. Click the column letter <code>AG</code>
+and drag to <code>AH</code> to select both new columns.</li>
+<li>Choose <strong>Insert &gt; Charts &gt; Scatter</strong>, as in step
+6. Title the chart <code>Residuals against predicted charges</code>, and
+add the axis titles <code>Predicted charges (USD)</code> and
+<code>Residual (USD)</code> as in steps 8 and 9. The horizontal axis
+crosses at zero and serves as the reference line.
+<ul>
+<li>Confirm with <strong>Select Data</strong>, as in step 6, that the X
+values refer to <code>predicted_charges</code> (column <code>AG</code>)
+and the Y values to <code>residual</code> (column <code>AH</code>).</li>
+<li>The horizontal axis labels sit at zero, in the middle of the points.
+To move them to the bottom, right-click the horizontal axis, choose
+<strong>Format Axis</strong>, and under <strong>Labels</strong> set
+<strong>Label Position</strong> to <strong>Low</strong>.</li>
+</ul></li>
+<li>Read the pattern. The points form a fan that widens to the right, as
+in Figure 12: the prediction errors are larger for stays with high
+predicted charges.</li>
+</ol>
+<p><strong>Part G. Predict and summarize.</strong></p>
+<ol start="30" type="1">
+<li>On the <code>Model</code> sheet, in <code>A9</code> type
+<code>Predicted, 3 days</code>; in <code>B9</code> enter<br />
+<code>=FORECAST.LINEAR(3, Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code><br />
+It shows about <code>12739.18</code>.</li>
+<li>In <code>A10</code> type <code>Predicted, 6 days</code>; in
+<code>B10</code> enter the same formula with <code>6</code> in place of
+<code>3</code>. It shows about <code>19134.05</code>.</li>
+<li>In <code>A11</code> type <code>Difference</code>; in
+<code>B11</code> enter <code>=B10-B9</code>. It shows about
+<code>6394.87</code>, which is three times the slope in <code>B4</code>,
+because the two stays differ by three days.</li>
+<li>In <code>A13</code> type the summary sentence:
+<code>Across 8,500 stays admitted January 2024 to December 2025, predicted charges rise by about $2,132 for each additional day of stay (R-squared 0.22), for stays of 0.6 to 37.9 days; this is an association, not the effect of shortening a stay.</code></li>
+<li>Save with Ctrl+S (Cmd+S on macOS). Your <code>Model</code> sheet and
+the new columns should resemble Figure 18.</li>
+</ol>
+<p>Return now to the chief financial officer’s question. Across these
+8,500 stays, charges are about $2,132 higher, on average, for each
+additional day. The line accounts for 22 percent of the variation in
+charges; the other 78 percent is not explained by length of stay alone.
+The residual plot shows that the line’s dollar predictions are least
+precise for long, expensive stays. The ICU stay in Table 1 illustrates
+the point: its charges sit far above anything the line predicts for a
+stay of its length, a gap you calculated in the Try It box.</p>
+<p>For a budget, the line is useful as an average across many stays, and
+less useful as a prediction for any single stay. The slope also
+describes stays as they occurred, not what would happen if stays were
+shortened. Both limits point to the same next step: more explanatory
+variables, such as ICU care and surgery, which Chapter 13 adds.</p>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These exercises reuse the walkthrough’s techniques on new questions.
+The first is fully guided, like the walkthrough. The second provides
+less guidance: it names the functions and gives values to check against,
+but leaves you to assemble the formulas. The third gives only the task:
+compare three relationships in the wellness screening file and explain
+each in writing.</p>
+<section id="practice-a-county-diabetes-and-obesity" class="level3">
+<h3>Practice A: county diabetes and obesity</h3>
+<p>Fit a line of the diagnosed diabetes rate on the obesity rate across
+counties, read its slope, and check its residual plot. The file holds
+one row for each of 3,143 counties and county equivalents, with rates
+stated as percentages of adults.</p>
+<div class="caution">
+<p>County rates describe counties, not people. A slope fitted to county
+rates shows how diabetes rates differ between counties with different
+obesity rates; it does not show how one person’s diabetes risk changes
+with that person’s weight. Reading a group-level association as an
+individual one is the <strong>ecological fallacy</strong>, a term that
+comes from a classic study showing that correlations between group rates
+can differ sharply from the correlations among the individuals in those
+groups (Robinson, 1950).</p>
+</div>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a>, then choose
+<strong>File &gt; Save As</strong> and save a copy named
+<code>ch12_counties.xlsx</code>.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>. On the <strong>Table Design</strong> tab, set the
+<strong>Table Name</strong> to <code>Places</code>, the name Chapter 11
+used for the same file.</li>
+<li>Click the column letter <code>G</code> (<code>obesity_pct</code>)
+and drag to <code>H</code> (<code>diagnosed_diabetes_pct</code>). Choose
+<strong>Insert &gt; Charts &gt; Scatter</strong>.</li>
+<li>Title the chart <code>County diagnosed diabetes and obesity</code>,
+and add the axis titles <code>Adults with obesity (%)</code> and
+<code>Adults with diagnosed diabetes (%)</code>.</li>
+<li>Read the four features: direction, form, strength, and unusual
+points.</li>
+<li>Add a <strong>Linear</strong> trendline with <strong>Display
+Equation on chart</strong> and <strong>Display R-squared value on
+chart</strong>, as in Part C. The label reads about
+<code>y = 0.4523x - 0.4058</code> and <code>R² = 0.6145</code>.</li>
+<li>Add a worksheet named <code>Model</code>. In <code>A3</code> type
+<code>Counties</code>; in <code>B3</code> enter
+<code>=COUNT(Places[obesity_pct])</code>. It shows
+<code>3143</code>.</li>
+<li>In <code>A4</code> type <code>Slope</code>; in <code>B4</code> enter
+<code>=SLOPE(Places[diagnosed_diabetes_pct], Places[obesity_pct])</code>.
+It shows about <code>0.4523</code>.</li>
+<li>In <code>A5</code> type <code>Intercept</code>; in <code>B5</code>
+enter
+<code>=INTERCEPT(Places[diagnosed_diabetes_pct], Places[obesity_pct])</code>.
+It shows about <code>-0.4058</code>.</li>
+<li>In <code>A6</code> type <code>R-squared</code>; in <code>B6</code>
+enter
+<code>=RSQ(Places[diagnosed_diabetes_pct], Places[obesity_pct])</code>.
+It shows about <code>0.614</code>.</li>
+<li>Return to the data sheet. Click <code>T1</code>, type
+<code>predicted_diabetes</code>, and press Enter. In <code>T2</code>
+enter <code>=Model!$B$5+Model!$B$4*[@obesity_pct]</code>.
+<code>T2</code> shows about <code>14.79</code>, the predicted rate for
+Cleburne County, Alabama, whose obesity rate is 33.6 percent.</li>
+<li>Click <code>U1</code>, type <code>residual</code>, and press Enter.
+In <code>U2</code> enter
+<code>=[@diagnosed_diabetes_pct]-[@predicted_diabetes]</code>.
+<code>U2</code> shows about <code>2.41</code>.</li>
+<li>On the <code>Model</code> sheet, in <code>A7</code> type
+<code>Average residual</code>; in <code>B7</code> enter
+<code>=AVERAGE(Places[residual])</code>, and format it as
+<strong>Number</strong>. It shows <code>0.00</code>.</li>
+<li>On the data sheet, select columns <code>T</code> and <code>U</code>,
+choose <strong>Insert &gt; Charts &gt; Scatter</strong>, and title the
+chart <code>Residuals against predicted diabetes rate</code>. Name the
+pattern it shows, using the four patterns in Figure 11.</li>
+<li>On the <code>Model</code> sheet, in <code>A8</code> type
+<code>Predicted, 30% obesity</code>; in <code>B8</code> enter
+<code>=FORECAST.LINEAR(30, Places[diagnosed_diabetes_pct], Places[obesity_pct])</code>.
+It shows about <code>13.16</code>.</li>
+<li>In <code>A9</code> type <code>Predicted, 40% obesity</code>; in
+<code>B9</code> enter the same formula with <code>40</code> in place of
+<code>30</code>. It shows about <code>17.69</code>.</li>
+<li>Write two sentences: one that interprets the slope for a 10-point
+difference in obesity rates, and one that states what the R-squared
+means. Compare your chart with Figure 20 and save.</li>
+</ol>
+<figure id="fig:ch12-county">
+<img src="figures/generated/ch_12_county.png"
+alt="Figure 20: County diagnosed diabetes rates against obesity rates for 3,143 counties, with the least-squares line: predicted diabetes % = −0.41 + 0.45 × obesity %, R² = 0.61. Source: datasets/PH1_places_county_wide.csv, synthetic county estimates modeled on CDC PLACES, release year 2025." />
+<figcaption aria-hidden="true">Figure 20: County diagnosed diabetes
+rates against obesity rates for 3,143 counties, with the least-squares
+line: predicted diabetes % = −0.41 + 0.45 × obesity %, R² = 0.61.
+Source: <a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a>, synthetic
+county estimates modeled on CDC PLACES, release year 2025.</figcaption>
+</figure>
+</section>
+<section id="practice-b-blood-pressure-and-age-in-the-registry"
+class="level3">
+<h3>Practice B: blood pressure and age in the registry</h3>
+<p>Fit a line of systolic blood pressure on age for the patients in the
+registry, with less guidance. This exercise names the functions and
+gives you values to check against, but leaves the formulas for you to
+build.</p>
+<p>Goal: a scatterplot with a fitted line, and a <code>Model</code>
+sheet that reports the count, slope, intercept, R-squared, correlation,
+and two predictions for the line of <code>bp_systolic_last</code> on
+<code>age</code>. The <code>bp_systolic_last</code> column holds each
+patient’s most recent systolic blood pressure (BP), in millimeters of
+mercury (mmHg).</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>, save a copy named
+<code>ch12_registry.xlsx</code>, and convert the data to a Table named
+<code>Registry</code>.</li>
+<li>Draw a scatterplot of systolic blood pressure against age, with a
+linear trendline that displays its equation and R-squared.
+<ul>
+<li>The two columns are not next to each other: <code>age</code> is
+column <code>G</code> and <code>bp_systolic_last</code> is column
+<code>V</code>. Select them as in step 5 of the walkthrough, with age
+first, and confirm with <strong>Select Data</strong> that the X values
+refer to <code>age</code>, as in step 6.</li>
+</ul></li>
+<li>On a <code>Model</code> sheet, calculate the count, slope,
+intercept, R-squared, and correlation with <code>COUNT</code>,
+<code>SLOPE</code>, <code>INTERCEPT</code>, <code>RSQ</code>, and
+<code>CORREL</code>.
+<ul>
+<li>Remember the argument order: the response column,
+<code>Registry[bp_systolic_last]</code>, comes first.</li>
+</ul></li>
+<li>Use <code>FORECAST.LINEAR</code> to predict systolic blood pressure
+at ages 40 and 70.</li>
+<li>Write two sentences: one that interprets the slope per decade of
+age, and one that explains what the R-squared does and does not say
+about age and blood pressure.
+<ul>
+<li><strong>Check your work:</strong> the count is <code>10,000</code>,
+the slope about <code>0.2046</code> mmHg per year (about
+<code>2.0</code> per decade), the intercept about <code>113.91</code>,
+R-squared about <code>0.060</code>, and the correlation about
+<code>0.245</code>. The predictions are about <code>122.10</code> mmHg
+at age 40 and <code>128.24</code> at age 70. Your chart should resemble
+Figure 21.</li>
+<li>The intercept is the predicted pressure at age 0, but the registry
+holds only adults aged 18 to 90, so it is an extrapolation and has no
+clinical meaning. The low R-squared means age accounts for about 6
+percent of the variation in blood pressure; the remaining 94 percent is
+not explained by this line. The positive direction of the slope agrees
+with national survey data showing that high blood pressure becomes more
+common with age, although those data do not establish the size of the
+slope (Fryar et al., 2017).</li>
+</ul></li>
+</ol>
+<figure id="fig:ch12-bp-age">
+<img src="figures/generated/ch_12_bp_age.png"
+alt="Figure 21: Most recent systolic blood pressure against age for 10,000 registry patients, with the least-squares line: predicted systolic BP = 113.9 + 0.20 × age, R² = 0.06. Ages are whole years, spread slightly sideways so the points do not overlap. Source: datasets/DS7_registry_clean.csv, registry as of December 31, 2025." />
+<figcaption aria-hidden="true">Figure 21: Most recent systolic blood
+pressure against age for 10,000 registry patients, with the
+least-squares line: predicted systolic BP = 113.9 + 0.20 × age, R² =
+0.06. Ages are whole years, spread slightly sideways so the points do
+not overlap. Source: <a class="ds-ref" href="datasets/DS7_registry_clean.csv" download title="Download DS7_registry_clean.csv"><code>datasets/DS7_registry_clean.csv</code></a>,
+registry as of December 31, 2025.</figcaption>
+</figure>
+</section>
+<section
+id="practice-c-compare-three-relationships-in-the-wellness-screening-file"
+class="level3">
+<h3>Practice C: compare three relationships in the wellness screening
+file</h3>
+<p>Open <a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, the file of
+100 adults introduced with Figure 4, and compare the following three
+pairs of columns. None of these pairs appears in that figure, so you
+discover each relationship yourself. In each pair, the first column is
+the response variable and the second is the explanatory variable.</p>
+<ul>
+<li><strong>Pair 1:</strong> body weight in kilograms
+(<code>weight_kg</code>, column <code>P</code>) and waist circumference
+in centimeters (<code>waist_cm</code>, column <code>E</code>).</li>
+<li><strong>Pair 2:</strong> high-density lipoprotein (HDL) cholesterol
+in milligrams per deciliter, mg/dL (<code>hdl_cholesterol</code>, column
+<code>R</code>), and waist circumference in centimeters
+(<code>waist_cm</code>, column <code>E</code>).</li>
+<li><strong>Pair 3:</strong> vitamin D level in nanograms per
+milliliter, ng/mL (<code>vitamin_d</code>, column <code>T</code>), and
+height in centimeters (<code>height_cm</code>, column
+<code>O</code>).</li>
+</ul>
+<p>For each pair:</p>
+<ol type="1">
+<li>Create a scatterplot with the explanatory variable on the horizontal
+axis.</li>
+<li>Add a linear trendline that displays its equation and
+R-squared.</li>
+<li>Calculate <code>r</code> with <code>CORREL</code>.</li>
+<li>Write one or two sentences that explain the relationship:
+<ul>
+<li>its direction (positive, negative, or no meaningful straight-line
+relationship),</li>
+<li>its strength, using <code>r</code>,</li>
+<li>what the slope means in the units of the data,</li>
+<li>how much of the variation the line accounts for, using
+R-squared.</li>
+</ul></li>
+</ol>
+<p>Then, for all three pairs together:</p>
+<ol start="5" type="1">
+<li>Write two sentences that compare the pairs: which relationship is
+strongest, which is negative, and which shows no meaningful
+straight-line relationship.</li>
+</ol>
+<div class="tryit">
+<p>The following model is illustrative, not drawn from the book’s
+datasets. An analyst fits a simple linear regression across 40
+outpatient clinics, with each clinic’s average patient-experience score
+(0 to 100) as the response and its average wait time in minutes as the
+explanatory variable. The clinics’ average waits range from 10 to 55
+minutes. The line is predicted score = 92.0 − 0.45 × wait minutes, with
+an R-squared of 0.38.</p>
+<ol type="1">
+<li>Interpret the slope in one sentence, with units.</li>
+<li>Calculate the predicted score for a clinic with a 20-minute wait and
+for one with a 40-minute wait, and state the difference.</li>
+<li>Say whether the intercept, 92.0, describes any of the 40 clinics,
+and why.</li>
+<li>A manager asks for the predicted score of a clinic with a 90-minute
+wait. State what you would tell the manager.</li>
+<li>Explain what an R-squared of 0.38 indicates, and identify one
+limitation of its interpretation.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+<div class="goingdeeper">
+<p><strong>Modeling the logarithm of a skewed response.</strong> When a
+response is right-skewed, as inpatient charges are, analysts often fit
+the line to the natural logarithm of the response instead of the
+response itself (Gelman et al., 2020). The natural logarithm is a scale
+on which equal steps represent equal percentage changes rather than
+equal dollar amounts, so a stay charged $20,000 and one charged $40,000
+sit the same distance apart as stays charged $40,000 and $80,000. In
+Excel, a calculated column with <code>=LN([@total_charges_usd])</code>
+holds the logarithm, and <code>SLOPE</code> and <code>INTERCEPT</code>
+fit the line as before. For the Riverbend stays, the slope on the log
+scale is <code>0.1015</code>. Converted with
+<code>=EXP(0.1015)-1</code>, it says that each additional day is
+associated with charges about 10.7 percent higher, a percentage change
+rather than a fixed dollar amount. The R-squared on the log scale,
+0.217, measures fit to the logarithm of charges, a different response,
+so it cannot be compared with the 0.218 for dollars. The residual plot
+is the better guide: the SD of the residuals is nearly the same in each
+third of the predicted values, so the fan in Figure 12 largely
+disappears. The trade-off is interpretation: results on the logarithmic
+scale must be converted back to dollars before they are reported.</p>
+<p><strong>The Analysis ToolPak’s Regression tool.</strong> The
+<strong>Data &gt; Data Analysis &gt; Regression</strong> command, from
+the add-in introduced in Chapter 3, fits the same line and writes a full
+output table (Microsoft, n.d.-f). Its <strong>Coefficients</strong>
+column repeats the intercept and slope from Part D, <strong>R
+Square</strong> repeats <code>B6</code>, and the
+<strong>Residuals</strong> option writes the residual column from Part
+E. The table also reports a standard error, a p-value, and a 95 percent
+confidence interval for each coefficient, which apply Chapter 10’s ideas
+to the slope. Those columns assume residuals of even spread, so with a
+fan like Figure 12, read them with caution. Chapter 13 reads them when
+it adds more explanatory variables.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A hospital’s finance committee reviews the charges line
+and a manager proposes a target: discharge every patient one day earlier
+and save about $2,132 per stay. The proposal treats the slope as the
+effect of an intervention. The slope compares stays of different lengths
+across many patients; it does not measure what one patient’s charges
+would be if that patient left a day sooner. Long stays tend to belong to
+sicker patients who also receive more intensive services, so part of the
+$2,132 may reflect severity rather than the added days. Charges are also
+not costs, so even an accurate reduction in charges would not translate
+dollar for dollar into savings. Discharging a patient before the patient
+is clinically ready could also carry its own risks, including a return
+to the hospital. The analyst reframes the result for the committee:
+“Across our stays, each additional day is associated with about $2,132
+more in charges. That figure does not show what shortening a stay would
+save. Chapter 13’s methods, which hold severity and ICU care constant,
+are the next step toward that question.”</p>
+</div>
+<div class="recap">
+<ul>
+<li>A scatterplot comes first: read its direction, form, strength, and
+unusual points, because a line and its summary numbers describe only the
+straight-line part of a relationship.</li>
+<li>Simple linear regression fits predicted response = intercept + slope
+× explanatory variable by least squares, the line that makes the sum of
+the squared residuals as small as possible; <code>SLOPE</code>,
+<code>INTERCEPT</code>, <code>RSQ</code>, and the chart trendline all
+return it.</li>
+<li>The slope is the change in the predicted response for each one-unit
+increase in the explanatory variable, read in the data’s units; the
+intercept is meaningful only when zero lies within the data.</li>
+<li>A residual is actual minus predicted; a residual plot should show a
+patternless band, and a curve, a fan, or a distant point signals that a
+straight line does not adequately represent the pattern.</li>
+<li>R-squared is the share of variation the line accounts for and equals
+<code>r</code> squared; it measures fit, not correctness or cause.
+Predictions beyond the data’s range are extrapolations, a few
+influential points can move the slope, and a slope describes an
+association, not the effect of changing the explanatory variable.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>For each of the six scatterplots in Figure 22, state the direction,
+form, and strength, and say whether a straight line would describe the
+points adequately. Name the plot with a point that would change the
+slope most if it were removed, and the plot whose residual plot would
+show a fan.</li>
+</ol>
+<figure id="fig:ch12-reading-practice">
+<img src="figures/generated/ch_12_reading_practice.png"
+alt="Figure 22: Six simulated scatterplots, labeled A to F, for exercise 1. Source: concept schematic with simulated data." />
+<figcaption aria-hidden="true">Figure 22: Six simulated scatterplots,
+labeled A to F, for exercise 1. Source: concept schematic with simulated
+data.</figcaption>
+</figure>
+<ol start="2" type="1">
+<li>Open <a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a> and draw four
+scatterplots: grip strength (<code>grip_strength_kg</code>, column
+<code>Q</code>) against age (<code>age</code>, column <code>B</code>);
+HDL cholesterol (<code>hdl_cholesterol</code>, column <code>R</code>)
+against weekly exercise (<code>exercise_hours_week</code>, column
+<code>H</code>); screen time (<code>screen_time_hours</code>, column
+<code>S</code>) against sleep (<code>sleep_hours</code>, column
+<code>M</code>); and weight (<code>weight_kg</code>, column
+<code>P</code>) against height (<code>height_cm</code>, column
+<code>O</code>). Add a linear trendline to each that displays its
+equation and R-squared, calculate <code>r</code> for each pair with
+<code>CORREL</code>, and describe each relationship by its direction,
+form, and strength. For which pair does a straight line misdescribe the
+points, and how can you tell from the scatterplot?</li>
+<li>Using the line for HDL cholesterol on waist circumference from
+Practice C, predicted HDL = 113.61 − 0.594 × waist in centimeters, state
+the change in predicted HDL cholesterol for a waist 10 centimeters
+larger, and explain why the intercept should not be read as the HDL
+cholesterol of a person with a waist of 0 centimeters. If waist were
+recorded in inches (1 inch = 2.54 centimeters), what would the slope be,
+and would R-squared change?</li>
+<li>An 8-day stay was charged $30,000. Using the walkthrough’s line,
+calculate the predicted charge and the residual, and state whether the
+line over-predicted or under-predicted this stay.</li>
+<li>Draw the residual plot for the county line in Practice A, and
+compare it with the residual plot for the charges line in Figure 12. For
+which of the two lines could you report a single typical prediction
+error, such as <code>=STDEV.S</code> of the residuals, without
+qualification? Explain why, using the pattern each residual plot
+shows.</li>
+<li>A report on clinic data gives a fitted line with a negative slope
+and an R-squared of 0.09, and a colleague concludes that the two
+measures are unrelated. Calculate <code>r</code>, including its sign,
+and write a two-sentence reply.</li>
+<li>A county health official reads the Practice A line and writes: “If
+our county lowers its obesity rate by 10 percentage points, its diabetes
+rate will fall by 4.5 points, and a county with 60 percent obesity
+should expect a diabetes rate of about 27 percent.” Identify three
+problems with this statement, drawing on extrapolation, association
+versus cause, and the ecological fallacy, and rewrite it as an accurate
+statement.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (residuals by hand).</strong> For IPD007584, the
+predicted charge is $6,344.31 + $2,131.62 × 12 = $31,923.75, and the
+residual is $30,974.13 − $31,923.75 = −$949.62; the stay was charged
+about $950 less than predicted. For IPD005645, the predicted charge is
+$6,344.31 + $2,131.62 × 5.7 = $18,494.54, and the residual is
+$124,953.57 − $18,494.54 = +$106,459.03. The line describes the 12-day
+stay well, missing it by about 3 percent of its charges, and misses the
+cardiology stay by more than $106,000. The table shows one feature the
+line does not take into account: the stay included ICU care. (With
+unrounded coefficients, Excel gives residuals of −$949.66 and
++$106,459.01.)</p>
+<p><strong>Try It (wait-time model).</strong> (1) For each additional
+minute of average wait, a clinic’s predicted patient-experience score is
+0.45 points lower. (2) At 20 minutes the prediction is 92.0 − 0.45 × 20
+= 83.0; at 40 minutes it is 92.0 − 0.45 × 40 = 74.0; the difference,
+−9.0 points, equals 20 minutes times the slope. (3) No: no clinic has a
+zero-minute wait, and the observed waits start at 10 minutes, so the
+intercept only anchors the line. (4) The line’s prediction, 92.0 − 0.45
+× 90 = 51.5, is an extrapolation far beyond the longest observed wait of
+55 minutes, and the data cannot show whether the straight line holds
+there; the analyst should decline to report it as a prediction. (5)
+Average wait accounts for 38 percent of the variation in clinic scores,
+and the other 62 percent is not explained by this line; the R-squared
+does not show that shorter waits would raise scores, and because the
+data describe clinics, it says nothing directly about individual
+patients.</p>
+<p><strong>Practice A interpretation.</strong> The scatterplot shows a
+positive direction, a straight form, and moderately strong clustering,
+with short horizontal rows of points at the 4 and 24 percent limits on
+the diabetes rate. The slope, about <code>0.45</code>, means that a
+county with an obesity rate 10 percentage points higher has a predicted
+diagnosed diabetes rate about 4.5 points higher. The R-squared of
+<code>0.61</code> means obesity rates account for about 61 percent of
+the variation in diabetes rates across these counties.</p>
+<p>The residual plot shows a band of roughly even width with no curve or
+fan; the SD of the residuals is about 2.2 to 2.3 points in each third of
+the predicted values. The intercept, <code>-0.41</code>, would be a
+negative diabetes rate at zero obesity, which is impossible and also
+outside the observed obesity rates of 15 to 52 percent: an
+extrapolation. These are synthetic county rates, and the association
+describes counties, not individuals.</p>
+<p><strong>Practice B interpretation.</strong> Each additional year of
+age is associated with a predicted systolic pressure about 0.20 mmHg
+higher, or about 2 mmHg per decade. Age accounts for about 6 percent of
+the variation in blood pressure. The remaining 94 percent is not
+explained by this line; it may reflect other patient characteristics,
+measurement variation, or chance. A low R-squared does not mean the
+slope is absent or unimportant.</p>
+<p><strong>Practice C interpretation.</strong> Check values: weight on
+waist, slope <code>1.649</code>, intercept <code>-76.00</code>,
+R-squared <code>0.706</code>, <code>r</code> <code>0.840</code>; HDL
+cholesterol on waist, slope <code>-0.594</code>, intercept
+<code>113.61</code>, R-squared <code>0.262</code>, <code>r</code>
+<code>-0.512</code>; vitamin D on height, slope <code>-0.032</code>,
+intercept <code>36.22</code>, R-squared <code>0.001</code>,
+<code>r</code> <code>-0.024</code>. Example sentences, which yours need
+not match word for word:</p>
+<ul>
+<li><strong>Weight and waist:</strong> “Across 100 adults, body weight
+is higher by about 1.65 kilograms for each additional centimeter of
+waist circumference; <code>r</code> is 0.84, a strong positive
+relationship, and the line accounts for about 71 percent of the
+variation in weight.”</li>
+<li><strong>HDL cholesterol and waist:</strong> “Across 100 adults, HDL
+cholesterol is lower by about 0.59 mg/dL for each additional centimeter
+of waist circumference; <code>r</code> is −0.51, a moderate negative
+relationship, and the line accounts for about 26 percent of the
+variation in HDL cholesterol.”</li>
+<li><strong>Vitamin D and height:</strong> “Across 100 adults, vitamin D
+level shows no meaningful straight-line relationship with height;
+<code>r</code> is −0.02, and the line accounts for less than 1 percent
+of the variation.”</li>
+</ul>
+<p>Comparison: weight and waist is the strongest relationship; HDL
+cholesterol and waist is the negative one, of moderate strength; and
+height has no meaningful straight-line relationship with vitamin D, so
+its slope of −0.03 ng/mL per centimeter should not be interpreted. In
+the first two scatterplots, one participant (WS035) sits far to the
+right of the others, a high-leverage point worth noting. All three are
+associations in synthetic data, not causes.</p>
+<p><strong>Exercises.</strong></p>
+<ol type="1">
+<li><strong>A:</strong> positive, straight, strong; a line is adequate.
+<strong>B:</strong> negative, roughly straight, weak; a line is adequate
+but explains little. <strong>C:</strong> a curve that rises and then
+falls, so a straight line misdescribes it even though the points follow
+a clear pattern. <strong>D:</strong> no direction and no pattern; a line
+would show a slope near zero. <strong>E:</strong> positive and roughly
+straight, but the spread widens to the right, so its residual plot would
+show a fan. <strong>F:</strong> positive, straight, and strong, except
+for one point far to the right and below the pattern; that high-leverage
+point would change the slope most if removed, as in Anscombe’s dataset
+D.</li>
+<li><strong>Grip strength and age:</strong> predicted grip = 45.10 −
+0.111 × age, R² = 0.142, <code>r</code> = −0.377. The <code>r</code>
+suggests a moderate negative relationship, but the scatterplot shows a
+curve: grip strength rises from the twenties to a peak around age 45 and
+then falls, so the straight line misdescribes the points at both ends.
+<strong>HDL cholesterol and exercise:</strong> predicted HDL = 51.88 +
+1.981 × exercise hours, R² = 0.164, <code>r</code> = 0.405: moderate and
+positive. <strong>Screen time and sleep:</strong> predicted screen time
+= 8.34 − 0.364 × sleep hours, R² = 0.063, <code>r</code> = −0.252: weak
+and negative. <strong>Weight and height:</strong> predicted weight =
+−84.57 + 0.968 × height, R² = 0.174, <code>r</code> = 0.417: moderate
+and positive; the negative intercept is an extrapolation to a height of
+0 centimeters and has no meaning. Excel may display the trendline
+coefficients with different rounding.</li>
+<li>A waist 10 centimeters larger is associated with predicted HDL
+cholesterol about 5.9 mg/dL lower (10 × −0.594). The intercept, 113.6
+mg/dL, is the prediction for a waist of 0 centimeters, far outside the
+observed waists of 79 to 133 centimeters, so it is an extrapolation with
+no meaning. In inches, the slope would be −0.594 × 2.54, about −1.51
+mg/dL per inch; R-squared would stay at 0.262, because it does not
+depend on the units.</li>
+<li>The predicted charge is $6,344.31 + $2,131.62 × 8 = $23,397.27
+(Excel: $23,397.30). The residual is $30,000 − $23,397.27 = +$6,602.73.
+The residual is positive, so the line under-predicted this stay.</li>
+<li>The county residual plot shows a band of roughly even width, with
+residual SDs of about 2.3, 2.2, and 2.3 points in the three thirds of
+predicted values, so one overall figure, about 2.25 points, describes
+its typical error fairly at every level. The charges residual plot is a
+fan, with residual SDs rising from about $9,614 to $19,004, so a single
+overall figure would overstate the line’s precision for long stays and
+understate it for short ones; it needs to be stated by range.</li>
+<li><code>r</code> is the square root of 0.09, which is 0.30, and it
+takes the sign of the slope, so <code>r</code> = −0.30. Reply: “An
+R-squared of 0.09 means the line accounts for about 9 percent of the
+variation, so 91 percent is not explained by this line. An
+<code>r</code> of −0.30 is still a weak negative relationship, so the
+measures are associated, though not strongly.”</li>
+<li>Three problems: (1) a 60 percent obesity rate lies outside the
+observed range of 15 to 52 percent, so the 27 percent prediction is an
+extrapolation; (2) the slope compares counties with different obesity
+rates and does not show what would happen if one county’s rate changed,
+which is a causal claim; and (3) because these are county rates, the
+line says nothing about individual people, the ecological fallacy. An
+accurate statement: “Across these counties, those with obesity rates 10
+percentage points higher have diagnosed diabetes rates about 4.5 points
+higher, on average, within the observed range of 15 to 52 percent. This
+association does not show how a change in one county’s obesity rate
+would change its diabetes rate.”</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Agency for Healthcare Research and Quality. (2026).
+<em>Cost-to-charge ratio files.</em> Healthcare Cost and Utilization
+Project. <a href="https://hcup-us.ahrq.gov/db/ccr/costtocharge.jsp"
+class="uri">https://hcup-us.ahrq.gov/db/ccr/costtocharge.jsp</a></li>
+<li>Anscombe, F. J. (1973). Graphs in statistical analysis. <em>The
+American Statistician, 27</em>(1), 17–21. <a
+href="https://doi.org/10.1080/00031305.1973.10478966"
+class="uri">https://doi.org/10.1080/00031305.1973.10478966</a></li>
+<li>Bewick, V., Cheek, L., &amp; Ball, J. (2003). Statistics review 7:
+Correlation and regression. <em>Critical Care, 7</em>(6), 451–459. <a
+href="https://doi.org/10.1186/cc2401"
+class="uri">https://doi.org/10.1186/cc2401</a></li>
+<li>Centers for Disease Control and Prevention. (2025). <em>PLACES:
+Methodology.</em> <a
+href="https://www.cdc.gov/places/methodology/index.html"
+class="uri">https://www.cdc.gov/places/methodology/index.html</a></li>
+<li>Diez, D. M., Çetinkaya-Rundel, M., &amp; Barr, C. D. (2019).
+<em>OpenIntro statistics</em> (4th ed.). OpenIntro. <a
+href="https://www.openintro.org/book/os/"
+class="uri">https://www.openintro.org/book/os/</a></li>
+<li>Fryar, C. D., Ostchega, Y., Hales, C. M., Zhang, G., &amp;
+Kruszon-Moran, D. (2017). <em>Hypertension prevalence and control among
+adults: United States, 2015–2016</em> (NCHS Data Brief No. 289).
+National Center for Health Statistics. <a
+href="https://www.cdc.gov/nchs/products/databriefs/db289.htm"
+class="uri">https://www.cdc.gov/nchs/products/databriefs/db289.htm</a></li>
+<li>Gelman, A., Hill, J., &amp; Vehtari, A. (2020). <em>Regression and
+other stories.</em> Cambridge University Press. <a
+href="https://doi.org/10.1017/9781139161879"
+class="uri">https://doi.org/10.1017/9781139161879</a></li>
+<li>Microsoft. (n.d.-a). <em>Add a trend or moving average line to a
+chart.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/excelexp/add-a-trend-or-moving-average-line-to-a-chart"
+class="uri">https://support.microsoft.com/en-us/office/excelexp/add-a-trend-or-moving-average-line-to-a-chart</a></li>
+<li>Microsoft. (n.d.-b). <em>FORECAST and FORECAST.LINEAR
+functions.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/forecast-and-forecast-linear-functions-50ca49c9-7b40-4892-94e4-7ad38bbeda99"
+class="uri">https://support.microsoft.com/en-us/office/forecast-and-forecast-linear-functions-50ca49c9-7b40-4892-94e4-7ad38bbeda99</a></li>
+<li>Microsoft. (n.d.-c). <em>INTERCEPT function.</em> Microsoft Support.
+<a
+href="https://support.microsoft.com/en-us/office/intercept-function-2a9b74e2-9d47-4772-b663-3bca70bf63ef"
+class="uri">https://support.microsoft.com/en-us/office/intercept-function-2a9b74e2-9d47-4772-b663-3bca70bf63ef</a></li>
+<li>Microsoft. (n.d.-d). <em>RSQ function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/rsq-function-d7161715-250d-4a01-b80d-a8364f2be08f"
+class="uri">https://support.microsoft.com/en-us/office/rsq-function-d7161715-250d-4a01-b80d-a8364f2be08f</a></li>
+<li>Microsoft. (n.d.-e). <em>SLOPE function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/slope-function-11fb8f97-3117-4813-98aa-61d7e01276b9"
+class="uri">https://support.microsoft.com/en-us/office/slope-function-11fb8f97-3117-4813-98aa-61d7e01276b9</a></li>
+<li>Microsoft. (n.d.-f). <em>Use the Analysis ToolPak to perform complex
+data analysis.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/use-the-analysis-toolpak-to-perform-complex-data-analysis-6c67ccf0-f4a9-487c-8dec-bdb5a2cefab6"
+class="uri">https://support.microsoft.com/en-us/office/use-the-analysis-toolpak-to-perform-complex-data-analysis-6c67ccf0-f4a9-487c-8dec-bdb5a2cefab6</a></li>
+<li>National Institute of Standards and Technology. (2012).
+<em>NIST/SEMATECH e-handbook of statistical methods.</em> <a
+href="https://doi.org/10.18434/M32189"
+class="uri">https://doi.org/10.18434/M32189</a></li>
+<li>Robinson, W. S. (1950). Ecological correlations and the behavior of
+individuals. <em>American Sociological Review, 15</em>(3), 351–357. <a
+href="https://doi.org/10.2307/2087176"
+class="uri">https://doi.org/10.2307/2087176</a></li>
+<li>Schneider, A., Hommel, G., &amp; Blettner, M. (2010). Linear
+regression analysis: Part 14 of a series on evaluation of scientific
+publications. <em>Deutsches Ärzteblatt International, 107</em>(44),
+776–782. <a href="https://doi.org/10.3238/arztebl.2010.0776"
+class="uri">https://doi.org/10.3238/arztebl.2010.0776</a></li>
+<li>Vu, J., &amp; Harrington, D. (2020). <em>Introductory statistics for
+the life and biomedical sciences.</em> OpenIntro. <a
+href="https://www.openintro.org/book/biostat/"
+class="uri">https://www.openintro.org/book/biostat/</a></li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Coefficient of determination</dt>
+<dd>
+The formal name for R-squared, the share of the variation in the
+response that a fitted line accounts for.
+</dd>
+<dt>Confounding variable</dt>
+<dd>
+A third factor, related to both the explanatory variable and the
+response, that can create or distort an association between them.
+</dd>
+<dt>Correlation coefficient (r)</dt>
+<dd>
+A measure of the strength and direction of the straight-line
+relationship between two numerical variables, also called Pearson’s r,
+on a scale from −1 to 1, where 0 means no straight-line relationship.
+</dd>
+<dt>Dependent variable</dt>
+<dd>
+Another name for the response variable: the measure a regression line
+describes or predicts, plotted on the vertical axis.
+</dd>
+<dt>Ecological fallacy</dt>
+<dd>
+The error of reading an association observed between groups, such as
+counties, as if it held for the individuals within them.
+</dd>
+<dt>Explanatory variable</dt>
+<dd>
+The measure used to describe or predict the response in a regression,
+plotted on the horizontal axis; also called the independent variable or
+predictor.
+</dd>
+<dt>Extrapolation</dt>
+<dd>
+The use of a fitted line to predict for values of the explanatory
+variable outside the range of the data used to fit it.
+</dd>
+<dt>Independent variable</dt>
+<dd>
+Another name for the explanatory variable: the measure used to describe
+or predict the response, plotted on the horizontal axis.
+</dd>
+<dt>Influential point</dt>
+<dd>
+A point whose removal noticeably changes the slope or the intercept of a
+fitted line.
+</dd>
+<dt>Intercept</dt>
+<dd>
+The predicted value of the response when the explanatory variable equals
+zero.
+</dd>
+<dt>Least-squares line</dt>
+<dd>
+The line that makes the sum of the squared residuals as small as
+possible.
+</dd>
+<dt>Leverage</dt>
+<dd>
+The potential of a point to tilt a fitted line, high when its value of
+the explanatory variable is far from the others.
+</dd>
+<dt>Non-constant spread</dt>
+<dd>
+A residual pattern in which the residuals scatter farther from zero in
+one part of the plot than in another.
+</dd>
+<dt>Outlier (in regression)</dt>
+<dd>
+A point with a large residual, far above or below the fitted line.
+</dd>
+<dt>Predicted value</dt>
+<dd>
+The value of the response that a fitted line gives for a chosen value of
+the explanatory variable.
+</dd>
+<dt>R-squared</dt>
+<dd>
+The share of the variation in the response that a fitted line accounts
+for, from 0 to 1; in simple linear regression, the square of the
+correlation coefficient.
+</dd>
+<dt>Residual</dt>
+<dd>
+The difference between an observed value of the response and the value
+the line predicts for it.
+</dd>
+<dt>Residual plot</dt>
+<dd>
+A scatterplot of residuals against predicted values, with a reference
+line at zero, used to judge whether a line describes the data
+adequately.
+</dd>
+<dt>Response variable</dt>
+<dd>
+The measure a regression line describes or predicts, plotted on the
+vertical axis; also called the dependent variable or outcome.
+</dd>
+<dt>Simple linear regression</dt>
+<dd>
+A model that describes a numerical response variable with a straight
+line in one explanatory variable.
+</dd>
+<dt>Slope</dt>
+<dd>
+The change in the predicted response for each one-unit increase in the
+explanatory variable.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch12,
+  author = {Sher, Hoshiar J.},
+  title = {Simple Linear Regression for Numerical Outcomes},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch12.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch12,
+  author = {Sher, Hoshiar J.},
+  title = {Simple Linear Regression for Numerical Outcomes},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch12.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch11.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="pn next" href="appendix-a-capstone-project.html"><span class="pn-dir">Next</span><span class="pn-title">Appendix A. Semester Capstone Project</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-an-inpatient-charges-model">Walkthrough: build an inpatient charges model</a><a href="#practice-on-your-own">Practice on your own</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

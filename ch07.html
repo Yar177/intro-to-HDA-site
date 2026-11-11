@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Importing Data and Building a Reusable Excel Workflow — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="Every month, the scheduling team sends you a fresh appointment export, along with two reference files that rarely change: a provider list and a clinic lookup. In Chapter 6 you built a scorecard from one clean file. Now comes the question that decides whether that scorecard survives past its first mo">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch07.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Importing Data and Building a Reusable Excel Workflow — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="Every month, the scheduling team sends you a fresh appointment export, along with two reference files that rarely change: a provider list and a clinic lookup. In Chapter 6 you built a scorecard from one clean file. Now comes the question that decides whether that scorecard survives past its first mo">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch07.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Importing Data and Building a Reusable Excel Workflow","position":7,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch07.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item active" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><span class="nav-item disabled" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant (coming soon)" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant, coming soon"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification (coming soon)" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification, coming soon"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication (coming soon)" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication, coming soon"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 7 · 45 minutes</p>
+    <p class="last-updated">Last updated November 11, 2026</p>
+    <article class="prose">
+      <section id="sec:ch07" class="level1">
+<h1>Importing Data and Building a Reusable Excel Workflow</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>Every month, the scheduling team sends you a fresh appointment
+export, along with two reference files that rarely change: a provider
+list and a clinic lookup. In Chapter 6 you built a scorecard from one
+clean file. Now comes the question that decides whether that scorecard
+survives past its first month: how does next month’s data get in?</p>
+<p>The tempting path is to open each file, copy the rows together,
+delete the columns you do not want, and start calculating. That path
+works exactly once. It breaks the moment a new export arrives, and it
+leaves no record of how the final table was built, so no one, including
+you, can reproduce the result or explain it when a number is questioned.
+This chapter builds the professional alternative. You import each file
+without altering it, record every transformation as a repeatable step,
+and turn next month’s update into a single refresh.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Import CSV and text data into Excel without altering the raw
+source.</li>
+<li>Use Power Query to build transformation steps that refresh when new
+data arrives.</li>
+<li>Append files that share a structure and merge reference tables on a
+shared key.</li>
+<li>Separate raw sources, working tables, and outputs within a
+documented workflow.</li>
+<li>Lay out imported data in spreadsheet-ready form and document it with
+a codebook.</li>
+<li>Set each column’s data type on import so identifier codes keep their
+leading zeros.</li>
+<li>Document data sources and steps so an analysis can be repeated and
+defended.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>If an analysis cannot be re-run when a new file arrives, it is not
+repeatable. It is a result produced once that cannot be defended. The
+work of this chapter is to replace a one-time cleanup task with a
+process that runs again on demand.</p>
+</div>
+<p>The chapter builds that process in three habits, each a section
+below:</p>
+<ul>
+<li><strong>Protect the source</strong> so the original data stays
+recoverable.</li>
+<li><strong>Record the steps</strong> so the transformation can be
+replayed on new data.</li>
+<li><strong>Document the result</strong> so the analysis can be
+reproduced and trusted.</li>
+</ul>
+<p>Figure 1 previews the whole workflow these habits build.</p>
+<figure id="fig:ch07-anatomy">
+<img src="figures/generated/ch_07_workflow_anatomy.png"
+alt="Figure 1: The reusable workflow at a glance: raw source files stay untouched, Power Query records the transformation, the working table feeds the output, and a single refresh re-runs the whole chain when new data arrives. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 1: The reusable workflow at a
+glance: raw source files stay untouched, Power Query records the
+transformation, the working table feeds the output, and a single refresh
+re-runs the whole chain when new data arrives. Source: concept
+schematic.</figcaption>
+</figure>
+<section id="protecting-the-source-raw-working-and-output"
+class="level3">
+<h3>Protecting the source: raw, working, and output</h3>
+<p>The first rule of import is to never treat the file you received as
+your working table. Source files arrive in whatever shape the sending
+system produced, and once you edit one directly, you can no longer tell
+what was original and what you changed.</p>
+<p>A reliable workbook separates data into three zones:</p>
+<ul>
+<li><strong>Raw data</strong> is the source, kept exactly as received
+and never edited by hand.</li>
+<li><strong>Working data</strong> is the transformed copy that your
+analysis is built on.</li>
+<li><strong>Output</strong> is the summaries, charts, and scorecards a
+reader sees.</li>
+</ul>
+<div class="definition">
+<p><strong>Raw data</strong> is source data preserved exactly as
+received, so it stays recoverable and auditable. <strong>Working
+data</strong> is the cleaned, transformed copy that analysis is actually
+built on.</p>
+</div>
+<p>Keeping the three zones apart is what makes a result traceable. When
+a number is questioned, you can walk back from the output, through the
+working table, to the untouched source, and show every step in between.
+The raw, working, and output zones in Figure 1 make that chain
+visible.</p>
+</section>
+<section id="spreadsheet-ready-layout-and-the-codebook" class="level3">
+<h3>Spreadsheet-ready layout and the codebook</h3>
+<p>Before you transform anything, decide how the imported table should
+be shaped. <strong>Spreadsheet-ready</strong> data, also called tidy
+data, follows a few plain rules (Wickham, 2014; Broman &amp; Woo,
+2018):</p>
+<ul>
+<li>one row per unit of analysis,</li>
+<li>one variable per column,</li>
+<li>one value per cell,</li>
+<li>consistent codes throughout.</li>
+</ul>
+<p>A column of dates holds dates in one format, not <code>3/1</code>,
+<code>March 1</code>, and <code>last Monday</code> mixed together. A
+yes-or-no field holds one pair of values everywhere, not <code>Y</code>,
+<code>yes</code>, and <code>1</code> in the same column. These rules may
+seem restrictive, but every later step, the filtering, grouping,
+joining, and summarizing, depends on them. Figure 2 shows the same
+records entered two ways.</p>
+<figure id="fig:ch07-tidy">
+<img src="figures/generated/ch_07_tidy_before_after.png"
+alt="Figure 2: The same appointment records entered two ways: a messy export on the left, and a spreadsheet-ready equivalent on the right with one row per appointment, one variable per column, one value per cell, and consistent codes. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 2: The same appointment records
+entered two ways: a messy export on the left, and a spreadsheet-ready
+equivalent on the right with one row per appointment, one variable per
+column, one value per cell, and consistent codes. Source: concept
+schematic.</figcaption>
+</figure>
+<p>Spreadsheet-ready layout also depends on each column holding the
+appropriate <strong>data type</strong>, and the safest habit is to
+decide the type on import rather than after. Codes that look like
+numbers are a common source of error: a county FIPS or ZIP code such as
+<code>01029</code> loses its leading zero the moment it is read as a
+number, which breaks every later join without producing an error. Import
+identifier codes as <strong>Text</strong>, even when they contain only
+digits, and type date columns as <strong>Date</strong> so that
+<code>3/1</code> is never misread. Figure 3 shows the four cases you
+meet most often.</p>
+<figure id="fig:ch07-datatypes">
+<img src="figures/generated/ch_07_data_types.png"
+alt="Figure 3: Choosing the appropriate data type on import: identifier codes are read as text so leading zeros survive, dates are read as dates, categories as text, and yes-or-no fields as a single 0 or 1. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 3: Choosing the appropriate data
+type on import: identifier codes are read as text so leading zeros
+survive, dates are read as dates, categories as text, and yes-or-no
+fields as a single 0 or 1. Source: concept schematic.</figcaption>
+</figure>
+<div class="caution">
+<p>Decide the type on import, not after. An identifier read as a number
+drops its leading zeros (<code>01029</code> becomes <code>1029</code>),
+and a date read as text cannot be filtered or sorted by time. In Power
+Query, set code columns to <strong>Text</strong> and date columns to
+<strong>Date</strong> in the <code>Changed Type</code> step, and confirm
+the type icon on each column header before you continue.</p>
+</div>
+<p>A tidy table alone is an incomplete deliverable. The
+<strong>codebook</strong> completes it: also called a data dictionary,
+it records for each column its name, meaning, type, and allowed
+values.</p>
+<div class="definition">
+<p>A <strong>codebook</strong> (or data dictionary) records, for each
+column, its name, what it means, its data type, and its allowed
+values.</p>
+</div>
+<p>Chapter 5 treated the codebook as a governance requirement; here it
+is also a personal habit. Without one, <code>sdoh_risk_score</code> is
+an undefined column and a <code>flag</code> that reads <code>2</code>
+could mean anything. With one, a colleague, or you in six months, can
+use the data without guessing. Figure 4 shows a short codebook beside
+the table it documents.</p>
+<figure id="fig:ch07-codebook">
+<img src="figures/generated/ch_07_codebook.png"
+alt="Figure 4: A data table needs a codebook: for each column it records the name, meaning, data type, and allowed values, so a reader can use the data without guessing. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 4: A data table needs a codebook:
+for each column it records the name, meaning, data type, and allowed
+values, so a reader can use the data without guessing. Source: concept
+schematic.</figcaption>
+</figure>
+</section>
+<section id="power-query-records-your-steps" class="level3">
+<h3>Power Query records your steps</h3>
+<p><strong>Power Query</strong> is Excel’s data-preparation layer
+(Escobar &amp; Puls, 2021). You connect to a file, shape it through a
+graphical editor, and Power Query records each change as a step. When
+new data arrives, those steps replay in order.</p>
+<div class="definition">
+<p>A <strong>query</strong> is a recorded sequence of transformation
+steps that reads from a source and produces a table. Each step appears
+in the <strong>Applied Steps</strong> list, which you can review,
+reorder, or edit at any time.</p>
+</div>
+<p>Import is not a one-time event; it is a pipeline you can re-run.
+Figure 5 shows the Power Query Editor, where the Applied Steps list
+keeps a sequence like <code>Source</code>, <code>Changed Type</code>,
+<code>Removed Other Columns</code>, and <code>Filtered Rows</code>
+visible rather than hidden inside manual edits (Microsoft, 2026).</p>
+<figure id="fig:ch07-steps">
+<img src="figures/generated/ch_07_applied_steps.png"
+alt="Figure 5: The Power Query Editor: the query list, the data preview, the data-type icon on each column, the Query Settings pane, and the Applied Steps list that records each transformation as a named step. Source: Microsoft Power Query screenshots, public sample data, not chapter records." />
+<figcaption aria-hidden="true">Figure 5: The Power Query Editor: the
+query list, the data preview, the data-type icon on each column, the
+Query Settings pane, and the Applied Steps list that records each
+transformation as a named step. Source: Microsoft Power Query
+screenshots, public sample data, not chapter records.</figcaption>
+</figure>
+<div class="caution">
+<p>This walkthrough is written and tested for desktop Excel on
+<strong>Windows</strong>. Current <strong>Microsoft 365</strong>
+versions of Excel for Mac (version 16.69 or later) support Power Query,
+but the entry point is <strong>Data &gt; Get Data (Power Query)</strong>
+and a few load options differ. Power Query is <strong>not</strong> in
+Excel 2016 or Excel 2019 for Mac. Excel for the web can
+<strong>refresh</strong> an existing query, and some Microsoft 365 plans
+now allow limited Power Query editing in the browser, but browser
+support varies by plan, so follow along in desktop Excel for the full
+walkthrough.</p>
+</div>
+</section>
+<section id="appending-and-merging-adding-rows-versus-adding-columns"
+class="level3">
+<h3>Appending and merging: adding rows versus adding columns</h3>
+<p>Healthcare data rarely arrives as one complete file, so you combine
+files in two different ways. The difference matters, because they answer
+different questions and have different risks.</p>
+<ul>
+<li><strong>Append</strong> stacks the rows of files that share the same
+structure, such as twelve monthly exports with identical columns. Append
+adds <strong>rows</strong>.</li>
+<li><strong>Merge</strong> joins columns from a related table using a
+shared key, such as adding a provider’s type from a provider list. Merge
+adds <strong>columns</strong>.</li>
+</ul>
+<p>Figure 6 contrasts the two. This is the point where Chapter 4’s
+lesson on keys and the unit of analysis becomes practical: a merge uses
+a key, and whether that key is unique decides what the merge does to
+your rows.</p>
+<figure id="fig:ch07-appendmerge">
+<img src="figures/generated/ch_07_append_vs_merge.png"
+alt="Figure 6: Append adds rows by stacking files that share the same columns; merge adds columns by joining a related table on a shared key. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 6: Append adds rows by stacking
+files that share the same columns; merge adds columns by joining a
+related table on a shared key. Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="verifying-that-a-merge-did-not-multiply-rows"
+class="level3">
+<h3>Verifying that a merge did not multiply rows</h3>
+<p>A merge can change the number of rows in a table without warning, and
+that is the risk to watch for.</p>
+<ul>
+<li>If the key you join on is <strong>unique</strong> in the reference
+table, each row finds at most one match, and the row count does not
+change.</li>
+<li>If the key is <strong>not unique</strong>, one row can match
+several, and expanding the merged column multiplies the rows. The
+summaries built on them are then incorrect.</li>
+</ul>
+<div class="caution">
+<p>A merge needs two checks, not one.</p>
+<ul>
+<li><strong>Cardinality:</strong> compare the row count before the merge
+and after you expand it. If the count grew, the key was not unique in
+the reference table, so expanding produced duplicates you did not
+intend.</li>
+<li><strong>Match completeness:</strong> confirm the expanded columns
+are not blank. Turn on <strong>Column quality</strong> and switch it to
+the entire data set, because it profiles only the first 1,000 rows by
+default (Microsoft, 2025). A left outer join keeps every original row
+even when the keys do not match, so an unchanged row count with empty
+<code>provider_type</code> or <code>region</code> values means the keys
+did not line up.</li>
+</ul>
+<p>Because the editor’s preview counts only the first rows, read the
+true count with <strong>Transform &gt; Count Rows</strong>, not the
+status bar.</p>
+</div>
+<p>Figure 7 shows the three outcomes a merge can produce: one match
+keeps the row count and fills the new column, no match keeps the count
+but leaves the column blank, and multiple matches inflate the count.</p>
+<figure id="fig:ch07-rowcheck">
+<img src="figures/generated/ch_07_merge_outcomes.png"
+alt="Figure 7: The three outcomes of a merge: a unique-key match preserves the row count and fills the new column, a non-match preserves the count but leaves the column blank, and a duplicated key multiplies rows. Always compare the count before and after. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 7: The three outcomes of a merge:
+a unique-key match preserves the row count and fills the new column, a
+non-match preserves the count but leaves the column blank, and a
+duplicated key multiplies rows. Always compare the count before and
+after. Source: concept schematic.</figcaption>
+</figure>
+</section>
+</section>
+<section id="walkthrough-build-a-refreshable-appointment-workflow"
+class="level2">
+<h2>Walkthrough: build a refreshable appointment workflow</h2>
+<p>This build turns three separate files into one cleaned, merged table
+that refreshes on command. You import the monthly appointment export,
+add provider and clinic attributes from two reference tables, and
+summarize the result, all without editing a single source file. Figure 8
+maps the path this build follows.</p>
+<figure id="fig:ch07-threefiles">
+<img src="figures/generated/ch_07_three_files_one_table.png"
+alt="Figure 8: How three source files become one working table: one monthly appointment export and two reference tables, joined on shared keys, become a single cleaned and merged table. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 8: How three source files become
+one working table: one monthly appointment export and two reference
+tables, joined on shared keys, become a single cleaned and merged table.
+Source: concept schematic.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you start: put the three source files in a folder named
+<code>raw</code> and do not edit them. Open a new workbook and save it
+as <code>ch07_workflow.xlsx</code>. Every transformation happens inside
+the workbook’s queries, never in the source files.</p>
+</div>
+<p><strong>Part A. Import the appointment export.</strong> Bring the
+file in through Power Query so the source stays untouched.</p>
+<ol type="1">
+<li>On the <strong>Data</strong> tab, choose <strong>Get Data &gt; From
+File &gt; From Text/CSV</strong> (on a Mac, <strong>Data &gt; Get Data
+(Power Query)</strong>, then <strong>Text/CSV</strong>).</li>
+<li>Select <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>raw/DS2_appointments_clean.csv</code></a> and click
+<strong>Import</strong>.</li>
+<li>In the preview window, confirm that <strong>Delimiter</strong> reads
+<strong>Comma</strong> and the first row is treated as headers, then
+click <strong>Transform Data</strong>, not <strong>Load</strong>. The
+Power Query Editor opens.</li>
+<li>In the <strong>Query Settings</strong> pane on the right, confirm
+the <strong>Applied Steps</strong> list shows <code>Source</code>,
+<code>Promoted Headers</code>, and <code>Changed Type</code> (From
+Text/CSV adds <code>Promoted Headers</code> automatically when the first
+row holds the column names).</li>
+<li>In the <strong>Name</strong> box, type <code>Appointments</code> and
+press Enter.</li>
+</ol>
+<p><strong>Part B. Clean the query, then load it as a
+connection.</strong> Shape the table, verify its size, and set it aside
+for merging.</p>
+<ol start="6" type="1">
+<li>On the <strong>Home</strong> tab, choose <strong>Choose Columns &gt;
+Choose Columns</strong>. Check only <code>appointment_id</code>,
+<code>patient_id</code>, <code>provider_id</code>,
+<code>facility_id</code>, <code>appointment_date</code>,
+<code>appointment_weekday</code>, <code>specialty_group</code>,
+<code>attendance_outcome</code>, and <code>no_show_flag</code>, then
+click <strong>OK</strong>.</li>
+<li>Click the small type icon to the left of the
+<code>appointment_date</code> header and choose
+<strong>Date</strong>.</li>
+<li>Set <code>no_show_flag</code> to <strong>Whole Number</strong>, and
+confirm <code>attendance_outcome</code> and <code>specialty_group</code>
+are <strong>Text</strong>.</li>
+<li>Select <code>specialty_group</code>, then choose <strong>Transform
+&gt; Format &gt; Trim</strong> to remove any stray spaces.</li>
+<li>Click the dropdown arrow on <code>attendance_outcome</code>, uncheck
+everything except <code>Completed</code> and <code>No Show</code>, and
+click <strong>OK</strong>.</li>
+<li>Read the true row count. The status bar counts only the preview, so
+choose <strong>Transform &gt; Count Rows</strong> instead: the table
+becomes a single value, <code>30571</code>. Note it as your baseline,
+then delete the <code>Counted Rows</code> step from <strong>Applied
+Steps</strong> so the table returns.</li>
+<li>On the <strong>Home</strong> tab, choose <strong>Close &amp; Load
+&gt; Close &amp; Load To</strong>, select <strong>Only Create
+Connection</strong>, and click <strong>OK</strong>. You return to Excel,
+and <code>Appointments</code> appears in the <strong>Queries &amp;
+Connections</strong> pane.</li>
+</ol>
+<figure id="fig:ch07-connection">
+<img src="figures/generated/ch_07_connection_vs_table.png"
+alt="Figure 9: Connection only or worksheet Table? A connection-only query is available for merging but is not written to a sheet; a worksheet Table is loaded so you can read and chart it. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 9: Connection only or worksheet
+Table? A connection-only query is available for merging but is not
+written to a sheet; a worksheet Table is loaded so you can read and
+chart it. Source: concept schematic.</figcaption>
+</figure>
+<p><strong>Part C. Import the two reference tables as
+connections.</strong> You do not need these on a sheet, only available
+to merge (Figure 9).</p>
+<ol start="13" type="1">
+<li>Choose <strong>Data &gt; Get Data &gt; From File &gt; From
+Text/CSV</strong>, select <a class="ds-ref" href="datasets/DS1_provider_dim.csv" download title="Download DS1_provider_dim.csv"><code>raw/DS1_provider_dim.csv</code></a>, and
+click <strong>Transform Data</strong>. Rename the query
+<code>Providers</code>, and use <strong>Choose Columns</strong> to keep
+<code>provider_id</code> and <code>provider_type</code>.</li>
+<li>On the <strong>Home</strong> tab, choose <strong>Close &amp; Load
+&gt; Close &amp; Load To</strong>, select <strong>Only Create
+Connection</strong>, and click <strong>OK</strong>.</li>
+<li>Repeat steps 13 and 14 for <a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>raw/DS1_facility_dim.csv</code></a>,
+naming the query <code>Facilities</code> and keeping
+<code>facility_id</code>, <code>facility_type</code>, and
+<code>region</code>.</li>
+</ol>
+<p><strong>Part D. Merge the provider list.</strong> Add each
+appointment’s provider type.</p>
+<ol start="16" type="1">
+<li>In the <strong>Queries &amp; Connections</strong> pane, double-click
+<code>Appointments</code> to reopen the editor.</li>
+<li>On the <strong>Home</strong> tab, choose <strong>Merge
+Queries</strong>.</li>
+<li>Click the <code>provider_id</code> column in
+<code>Appointments</code>, choose <code>Providers</code> from the lower
+dropdown, and click its <code>provider_id</code> column.</li>
+<li>Set <strong>Join Kind</strong> to <strong>Left Outer</strong> and
+click <strong>OK</strong>. A new column appears at the right.</li>
+<li>Click the expand icon (the two arrows) on the new column’s header,
+uncheck <strong>Use original column name as prefix</strong>, keep only
+<code>provider_type</code>, and click <strong>OK</strong>.</li>
+</ol>
+<p><strong>Part E. Merge the clinic list.</strong> Add each
+appointment’s facility type and region.</p>
+<ol start="21" type="1">
+<li>Choose <strong>Home &gt; Merge Queries</strong> again, match
+<code>facility_id</code> to <code>Facilities[facility_id]</code>, set
+<strong>Left Outer</strong>, and click <strong>OK</strong>.</li>
+<li>Expand the new column, keep <code>facility_type</code> and
+<code>region</code>, and click <strong>OK</strong>.</li>
+</ol>
+<p><strong>Part F. Verify the merge two ways.</strong> Confirm it added
+columns, not rows, and that every key matched.</p>
+<ol start="23" type="1">
+<li><strong>Cardinality.</strong> Choose <strong>Transform &gt; Count
+Rows</strong>; the result is <code>30571</code>, the same as your
+baseline, so expanding the merges added columns, not rows. Delete the
+<code>Counted Rows</code> step to restore the table. Had the count
+grown, a reference key would not have been unique.</li>
+<li><strong>Match completeness.</strong> On the <strong>View</strong>
+tab, check <strong>Column quality</strong>. By default it profiles only
+the first 1,000 rows, so click the message in the lower-left corner of
+the window and switch it to <strong>Column profiling based on entire
+data set</strong>. Confirm <code>provider_type</code>,
+<code>facility_type</code>, and <code>region</code> each read
+<strong>100% valid</strong> with <strong>0% empty</strong>. Empty values
+would mean the keys did not match, even though the row count did not
+change.</li>
+</ol>
+<p><strong>Part G. Load the working table.</strong> Send the cleaned,
+merged query to a sheet.</p>
+<ol start="25" type="1">
+<li>On the <strong>Home</strong> tab, choose <strong>Close &amp;
+Load</strong>. Because <code>Appointments</code> is currently
+connection-only, <strong>Close &amp; Load To</strong> may be unavailable
+from the editor, so set the destination from Excel instead: in the
+<strong>Queries &amp; Connections</strong> pane, right-click
+<code>Appointments</code>, choose <strong>Load To</strong>, select
+<strong>Table</strong> and <strong>New worksheet</strong>, and click
+<strong>OK</strong>. Double-click the sheet tab and rename it
+<code>Working</code>.</li>
+<li>Confirm the result on the sheet with a formula:
+<code>=ROWS(Appointments[appointment_id])</code> returns
+<code>30571</code>, and <code>=COUNTBLANK(Appointments[region])</code>
+returns <code>0</code>. (<code>Appointments</code> is the name Excel
+gives the loaded Table.)</li>
+</ol>
+<figure id="fig:ch07-binaryrate">
+<img src="figures/generated/ch_07_binary_average_rate.png"
+alt="Figure 10: Why the average of a 0/1 flag is a rate: averaging a no-show flag made of zeros and ones returns the share of ones, which is the no-show rate. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 10: Why the average of a 0/1 flag
+is a rate: averaging a no-show flag made of zeros and ones returns the
+share of ones, which is the no-show rate. Source: concept
+schematic.</figcaption>
+</figure>
+<figure id="fig:ch07-volrate">
+<img src="figures/generated/ch_07_volume_rate_separate.png"
+alt="Figure 11: Show volume and rate separately: appointment counts (Central 10,584, West 4,585) and the no-show rate (17.0 and 14.6 percent) need separate scales, because a shared count axis would flatten the rate. Source: DS2 appointments (completed-or-no-show)." />
+<figcaption aria-hidden="true">Figure 11: Show volume and rate
+separately: appointment counts (Central 10,584, West 4,585) and the
+no-show rate (17.0 and 14.6 percent) need separate scales, because a
+shared count axis would flatten the rate. Source: DS2 appointments
+(completed-or-no-show).</figcaption>
+</figure>
+<p><strong>Part H. Build and chart a summary.</strong> Reuse the
+PivotTable skill from Chapters 3 and 4 on the merged table; the average
+of the 0/1 no-show flag is the no-show rate (Figure 10). Because counts
+dwarf a rate near 0.16, chart the volume and the rate on separate scales
+(Figure 11).</p>
+<ol start="27" type="1">
+<li>Click any cell in the <code>Working</code> table and choose
+<strong>Insert &gt; PivotTable</strong>. Place it on a new sheet named
+<code>Output</code>.</li>
+<li>Drag <code>region</code> to <strong>Rows</strong>.</li>
+<li>Drag <code>appointment_id</code> to <strong>Values</strong>; it
+shows as <strong>Count of appointment_id</strong>.</li>
+<li>Drag <code>no_show_flag</code> to <strong>Values</strong> as well,
+click it, choose <strong>Value Field Settings &gt; Average</strong>, and
+format it as a percentage with one decimal.</li>
+<li>Read the result. The five regions read <code>Central</code> 10,584,
+<code>East</code> 6,849, <code>South</code> 5,358, <code>West</code>
+4,585, and <code>North</code> 3,195, and they sum to
+<code>30,571</code>. The no-show rate is highest in
+<code>Central</code>, about <code>17.0%</code>, and lowest in
+<code>West</code>, about <code>14.6%</code>.</li>
+<li>Chart the rate on its own. Because the counts run to the thousands
+and the rate sits near 0.16, one chart of both would make the rate
+unreadable. Add a second PivotTable on <code>Output</code> with
+<code>region</code> on <strong>Rows</strong> and only the
+<strong>Average</strong> of <code>no_show_flag</code> in
+<strong>Values</strong>, formatted as a percentage.</li>
+<li>Select the second PivotTable and choose <strong>PivotTable Analyze
+&gt; PivotChart &gt; Clustered Bar</strong>, titled
+<code>No-show rate by region</code>. On the first PivotTable, apply
+<strong>Home &gt; Conditional Formatting &gt; Data Bars</strong> to the
+count column so the volumes stay visible.</li>
+</ol>
+<figure id="fig:ch07-editquery">
+<img src="figures/generated/ch_07_edit_query.png"
+alt="Figure 12: Edit the query, not the loaded cell: a correction recorded as a query step survives a refresh, while a value typed into the loaded table is overwritten the next time the query runs. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 12: Edit the query, not the loaded
+cell: a correction recorded as a query step survives a refresh, while a
+value typed into the loaded table is overwritten the next time the query
+runs. Source: concept schematic.</figcaption>
+</figure>
+<p><strong>Part I. Refresh without overwriting the source.</strong> Keep
+every export recoverable, and make every correction in the query rather
+than in the loaded table (Figure 12).</p>
+<ol start="34" type="1">
+<li>Never overwrite a file in <code>raw</code>, and decide which kind of
+update you have. If you are replacing the current two-year extract, save
+the new one under a dated name, such as
+<code>raw/DS2_appointments_2026-01.csv</code>, and edit the
+<code>Source</code> step of the <code>Appointments</code> query to point
+at it.</li>
+<li>If instead you receive one new month at a time, do not repoint the
+<code>Source</code> step. This query reads the cumulative two-year file,
+so pointing it at a folder of only the new months would drop that
+history. Add each new month with the <strong>Append</strong> path in
+Part J instead, stacking it onto the existing data. The <strong>From
+Folder</strong> option (Windows) fits a different setup: a query built
+from the start on a <code>raw/appointments_monthly/</code> folder that
+holds the complete history as one file per month. In that setup you drop
+each new month into the folder and refresh, but you never also keep the
+cumulative two-year file in the folder, or the overlapping rows will
+duplicate.</li>
+<li>After either update, choose <strong>Data &gt; Refresh All</strong>;
+every step, the working table, and the PivotTable re-run. On a
+<code>Log</code> sheet, record the source file names, the extract date,
+the coverage window, the join keys (<code>provider_id</code> and
+<code>facility_id</code>), the baseline and post-merge row counts, and
+the filter to completed and no-show appointments. Add a short codebook
+for the columns you kept, then save.</li>
+</ol>
+<figure id="fig:ch07-updatepath">
+<img src="figures/generated/ch_07_update_path.png"
+alt="Figure 13: Which kind of update did you receive? A full replacement extract means repointing the query’s Source step; a new monthly file means adding it to the monthly folder and refreshing. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 13: Which kind of update did you
+receive? A full replacement extract means repointing the query’s Source
+step; a new monthly file means adding it to the monthly folder and
+refreshing. Source: concept schematic.</figcaption>
+</figure>
+<p><strong>Part J. Append monthly files.</strong> Stack several months
+into one table. Before you do, decide which kind of update you received
+(Figure 13): a full replacement means repointing the <code>Source</code>
+step, while a new monthly increment is appended onto the existing data,
+as you do here.</p>
+<ol start="37" type="1">
+<li>Create a folder <code>raw/appointments_monthly/</code> and place
+<code>DS2_appointments_2025-11.csv</code> and
+<code>DS2_appointments_2025-12.csv</code> (supplied with the datasets)
+inside it, with no other files.</li>
+<li>Import each file with <strong>From Text/CSV</strong> as its own
+query, named <code>Nov</code> and <code>Dec</code>, giving both the same
+columns and types.</li>
+<li>Select the <code>Nov</code> query, then choose <strong>Home &gt;
+Append Queries &gt; Append Queries as New</strong> and add
+<code>Dec</code>. A new query stacks the two, November’s rows followed
+by December’s.</li>
+<li>Read the count with <strong>Transform &gt; Count Rows</strong>:
+<code>3056</code>, the sum of <code>1437</code> November and
+<code>1619</code> December rows. These are the raw monthly exports, so
+<code>3056</code> counts all attendance outcomes, unlike the
+walkthrough’s <code>30571</code>, which was filtered to completed and
+no-show appointments. On Windows you can instead point <strong>From
+Folder</strong> at <code>raw/appointments_monthly/</code> to append
+every month at once; <strong>Append Queries</strong> is the path that
+also works on a Mac.</li>
+</ol>
+<p>Every column on the working table traces back to an untouched, dated
+source file, and nothing was edited by hand. A row count only means
+something alongside its population (Figure 14); overlapping extracts
+would double count if the cumulative and monthly folders were mixed
+(Figure 15); and the workflow log records the chain so the result can be
+reproduced and defended (Figure 16). When next month’s export arrives,
+you add it and refresh, and the whole chain re-runs the same way.</p>
+<figure id="fig:ch07-rowcountpop">
+<img src="figures/generated/ch_07_rowcount_population.png"
+alt="Figure 14: A row count only means something with its population: the walkthrough’s 30,571 counts completed-or-no-show appointments, while the raw monthly append of 3,056 counts every outcome. Source: DS2 appointments and the monthly extracts." />
+<figcaption aria-hidden="true">Figure 14: A row count only means
+something with its population: the walkthrough’s 30,571 counts
+completed-or-no-show appointments, while the raw monthly append of 3,056
+counts every outcome. Source: DS2 appointments and the monthly
+extracts.</figcaption>
+</figure>
+<figure id="fig:ch07-overlap">
+<img src="figures/generated/ch_07_overlapping_extracts.png"
+alt="Figure 15: Why overlapping extracts double count: mixing a cumulative two-year file with monthly files that repeat the same rows makes the append count those appointments twice. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 15: Why overlapping extracts
+double count: mixing a cumulative two-year file with monthly files that
+repeat the same rows makes the append count those appointments twice.
+Source: concept schematic.</figcaption>
+</figure>
+<figure id="fig:ch07-log">
+<img src="figures/generated/ch_07_workflow_log.png"
+alt="Figure 16: The workflow log makes a result traceable: it records the source files, extract date, coverage window, join keys, row counts, and filters, so the analysis can be reproduced and defended. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 16: The workflow log makes a
+result traceable: it records the source files, extract date, coverage
+window, join keys, row counts, and filters, so the analysis can be
+reproduced and defended. Source: concept schematic.</figcaption>
+</figure>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These two exercises reuse the walkthrough’s techniques on new
+questions. The first is fully guided, like the walkthrough, so you have
+a second worked example to follow. The second fades the support: it
+names the step and the files and gives you a value to check against, but
+leaves you to assemble the query yourself, which is the real skill. Try
+each block before checking the answer key.</p>
+<section id="practice-a-a-provider-attendance-workflow" class="level3">
+<h3>Practice A: a provider-attendance workflow</h3>
+<p>Build a complete workflow, from import to chart, that reports the
+no-show rate by provider type and by specialty. This exercise is fully
+guided, like the walkthrough.</p>
+<ol type="1">
+<li>Open a new workbook and save it as
+<code>ch07_providers.xlsx</code>.</li>
+<li>Choose <strong>Data &gt; Get Data &gt; From File &gt; From
+Text/CSV</strong> and select
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>raw/DS2_appointments_clean.csv</code></a>.</li>
+<li>In the preview, click <strong>Transform Data</strong> to open the
+editor.</li>
+<li>In the <strong>Name</strong> box, type
+<code>Appointments</code>.</li>
+<li>Choose <strong>Home &gt; Choose Columns</strong>, keep
+<code>appointment_id</code>, <code>provider_id</code>,
+<code>specialty_group</code>, <code>attendance_outcome</code>, and
+<code>no_show_flag</code>, and click <strong>OK</strong>.</li>
+<li>Set <code>no_show_flag</code> to <strong>Whole Number</strong> and
+confirm <code>attendance_outcome</code> is <strong>Text</strong>.</li>
+<li>Filter <code>attendance_outcome</code> to <code>Completed</code> and
+<code>No Show</code>.</li>
+<li>Confirm the total with <strong>Transform &gt; Count Rows</strong>
+(<code>30571</code>), then delete the <code>Counted Rows</code> step so
+the table returns.</li>
+<li>Choose <strong>Home &gt; Close &amp; Load &gt; Close &amp; Load To
+&gt; Only Create Connection</strong> to set <code>Appointments</code>
+aside and return to Excel.</li>
+<li>Choose <strong>Data &gt; Get Data &gt; From File &gt; From
+Text/CSV</strong>, select <a class="ds-ref" href="datasets/DS1_provider_dim.csv" download title="Download DS1_provider_dim.csv"><code>raw/DS1_provider_dim.csv</code></a>, and
+click <strong>Transform Data</strong>. Rename it
+<code>Providers</code>.</li>
+<li>In <code>Providers</code>, use <strong>Choose Columns</strong> to
+keep <code>provider_id</code> and <code>provider_type</code>, then
+choose <strong>Home &gt; Close &amp; Load &gt; Close &amp; Load To &gt;
+Only Create Connection</strong>.</li>
+<li>Reopen the <code>Appointments</code> query from the <strong>Queries
+&amp; Connections</strong> pane.</li>
+<li>Choose <strong>Home &gt; Merge Queries</strong>, match
+<code>provider_id</code> to <code>Providers[provider_id]</code>, set
+<strong>Left Outer</strong>, and click <strong>OK</strong>.</li>
+<li>Expand the new column, uncheck the prefix option, and keep
+<code>provider_type</code>.</li>
+<li>Verify: <strong>Transform &gt; Count Rows</strong> returns
+<code>30571</code>, then delete the <code>Counted Rows</code> step. On
+the <strong>View</strong> tab, turn on <strong>Column quality</strong>,
+switch it to <strong>based on entire data set</strong>, and confirm
+<code>provider_type</code> shows <strong>0% empty</strong>.</li>
+<li>Choose <strong>Home &gt; Close &amp; Load</strong>. If <strong>Close
+&amp; Load To</strong> is unavailable because the query is
+connection-only, right-click <code>Appointments</code> in the
+<strong>Queries &amp; Connections</strong> pane and choose <strong>Load
+To &gt; Table &gt; New worksheet</strong>. Rename the sheet
+<code>Working</code>.</li>
+<li>Click any cell in the <code>Working</code> table and choose
+<strong>Insert &gt; PivotTable</strong> on a new sheet named
+<code>Output</code>.</li>
+<li>Drag <code>provider_type</code> to <strong>Rows</strong>,
+<code>appointment_id</code> to <strong>Values</strong> (Count), and
+<code>no_show_flag</code> to <strong>Values</strong> as well, set to
+<strong>Average</strong> and formatted as a percentage.</li>
+<li>Right-click a value in the count column and choose <strong>Sort &gt;
+Sort Largest to Smallest</strong>.</li>
+<li>Apply <strong>Home &gt; Conditional Formatting &gt; Data
+Bars</strong> to the count column.</li>
+<li>Chart the rate on its own: add a second PivotTable with
+<code>provider_type</code> on <strong>Rows</strong> and only the
+<strong>Average</strong> of <code>no_show_flag</code> in
+<strong>Values</strong>, then select it and choose <strong>PivotTable
+Analyze &gt; PivotChart &gt; Clustered Bar</strong>, titled
+<code>No-show rate by provider type</code>.</li>
+<li>Add a third PivotTable from the <code>Working</code> table on the
+<code>Output</code> sheet.</li>
+<li>Put <code>specialty_group</code> on <strong>Rows</strong>, with a
+<strong>Count</strong> of <code>appointment_id</code> and an
+<strong>Average</strong> of <code>no_show_flag</code> formatted as a
+percentage.</li>
+<li>Apply <strong>All Borders</strong> and a light header fill to the
+PivotTables.</li>
+<li>Add a <code>Log</code> sheet recording the two source files, the
+extract date, the join key (<code>provider_id</code>), and the filter
+assumption.</li>
+<li>Save the workbook.</li>
+</ol>
+<p>Expected result: the provider-type table shows six types,
+<code>NP</code> 10,909, <code>MD</code> 10,017, <code>PA</code> 3,363,
+<code>RN</code> 3,353, <code>DO</code> 1,826, and
+<code>Behavioral health clinician</code> 1,103, summing to
+<code>30,571</code>. Among those types, the highest no-show rate is
+<code>Behavioral health clinician</code> at about <code>17.8%</code> and
+the lowest is <code>PA</code> at about <code>14.5%</code>. The specialty
+table shows eight groups, led by <code>Primary care</code> 20,257 and
+trailed by <code>OB/GYN</code> 558, also summing to <code>30,571</code>;
+its highest no-show rate is <code>Behavioral health</code> at about
+<code>18.5%</code> and its lowest is <code>Urgent care</code> at about
+<code>11.2%</code>. No row is blank, because every key matched. Check
+your workflow against Figure 17.</p>
+<figure id="fig:ch07-practicea">
+<img src="figures/generated/ch_07_practice_a_checkpoint.png"
+alt="Figure 17: Practice A checkpoint: provider-type and specialty counts and no-show rates that reconcile to 30,571 after the merge, with no blank keys. Source: DS2 appointments joined to DS1 provider_dim." />
+<figcaption aria-hidden="true">Figure 17: Practice A checkpoint:
+provider-type and specialty counts and no-show rates that reconcile to
+30,571 after the merge, with no blank keys. Source: DS2 appointments
+joined to DS1 provider_dim.</figcaption>
+</figure>
+</section>
+<section id="practice-b-an-emergency-department-workflow"
+class="level3">
+<h3>Practice B: an emergency-department workflow</h3>
+<p>Demonstrate that the same import-and-merge procedures work on a
+different dataset. Build an ED workflow that reports visit volume and
+the left-without-being-seen rate by payer group. This exercise names
+each step and gives you a value to check against, but leaves the
+specific choices to you.</p>
+<ol type="1">
+<li>Create a new workbook and save it as <code>ch07_ed.xlsx</code>. Put
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>raw/DS3_ed_throughput_clean.csv</code></a> and
+<a class="ds-ref" href="datasets/DS1_payer_dim.csv" download title="Download DS1_payer_dim.csv"><code>raw/DS1_payer_dim.csv</code></a> in your <code>raw</code> folder.</li>
+<li>Import the ED file with Power Query, opening the editor rather than
+loading straight to a sheet. <em>(Which button opens the
+editor?)</em></li>
+<li>Rename the query <code>ED</code>.</li>
+<li>Keep only the columns this question needs: the encounter id,
+<code>payer_id</code>, and <code>left_without_being_seen_flag</code>.
+<em>(Use Choose Columns.)</em></li>
+<li>Set <code>left_without_being_seen_flag</code> to <strong>Whole
+Number</strong>.</li>
+<li>Read the true count with <strong>Transform &gt; Count Rows</strong>
+and note it, then delete the <code>Counted Rows</code> step. <em>(It
+should be 18,000.)</em></li>
+<li>Set <code>ED</code> aside as a connection and return to Excel.
+<em>(Which Close &amp; Load option creates a connection only?)</em></li>
+<li>Import the payer file as a separate query, opening the editor.
+<em>(Which button opens the file in the Power Query Editor rather than
+loading it straight to a worksheet?)</em></li>
+<li>Rename it <code>Payers</code>.</li>
+<li>In <code>Payers</code>, keep only <code>payer_id</code> and
+<code>payer_group</code>, then load it as a connection only.</li>
+<li>Reopen the <code>ED</code> query to begin the merge.</li>
+<li>Start a merge from the <strong>Home</strong> tab. <em>(Which command
+combines columns from another query?)</em></li>
+<li>Choose the column the two tables share as the match. <em>(Which
+column appears in both <code>ED</code> and
+<code>Payers</code>?)</em></li>
+<li>Set the join kind so that every ED visit is kept. <em>(Which join
+kind keeps all of the left table’s rows?)</em></li>
+<li>Confirm the merge. A new column appears at the right.</li>
+<li>Expand the new column and keep <code>payer_group</code> only,
+unchecking the name-prefix option.</li>
+<li>Verify cardinality with <strong>Transform &gt; Count Rows</strong>,
+compared with step 6, then delete the <code>Counted Rows</code> step.
+<em>(Still 18,000? If it grew, the key was not unique.)</em></li>
+<li>Verify match completeness: on the <strong>View</strong> tab, turn on
+<strong>Column quality</strong>, switch it to <strong>based on entire
+data set</strong>, and confirm <code>payer_group</code> shows <strong>0%
+empty</strong>.</li>
+<li>Load the merged <code>ED</code> query to a <strong>Table</strong> on
+a <strong>New worksheet</strong>, and name the sheet
+<code>Working</code>. If <strong>Close &amp; Load To</strong> is greyed
+out because the query is connection-only, use <strong>Close &amp;
+Load</strong>, then right-click <code>ED</code> in <strong>Queries &amp;
+Connections</strong> and choose <strong>Load To &gt; Table &gt; New
+worksheet</strong>.</li>
+<li>Insert a PivotTable on a new sheet named <code>Output</code>.</li>
+<li>Put <code>payer_group</code> on <strong>Rows</strong>.</li>
+<li>Add a <strong>Count</strong> of the encounter id to
+<strong>Values</strong>.</li>
+<li>Add <code>left_without_being_seen_flag</code> to
+<strong>Values</strong> as an <strong>Average</strong>, formatted as a
+percentage. <em>(This is the left-without-being-seen rate; the flag is
+never blank, so it covers all visits.)</em></li>
+<li>Sort the table by visit count, largest to smallest, and add data
+bars to the rate column.</li>
+<li>Chart the rate on its own with a <strong>Clustered Bar</strong>
+PivotChart built from a second, rate-only PivotTable.</li>
+<li>Add a <code>Log</code> sheet recording the two source files, the
+extract date, the join key, and the columns you kept, then save.</li>
+</ol>
+<p>Check your work: the ED file holds <code>18,000</code> visits, and
+the merge keeps it at <code>18,000</code>. The six payer groups,
+<code>Commercial</code> 7,334, <code>Medicare</code> 4,527,
+<code>Medicaid</code> 2,406, <code>Exchange</code> 1,735,
+<code>Self-pay</code> 1,474, and <code>Other</code> 524, sum to
+<code>18,000</code>. The left-without-being-seen rate is
+<code>3.2%</code> overall, ranging from <code>2.8%</code>
+(<code>Self-pay</code>) to <code>3.6%</code> (<code>Exchange</code>). If
+the total grew after the merge, the <code>payer_id</code> values in
+<code>Payers</code> are not unique, so check <code>Payers</code> for
+duplicate keys. Confirm your result against Figure 18.</p>
+<figure id="fig:ch07-practiceb">
+<img src="figures/generated/ch_07_practice_b_checkpoint.png"
+alt="Figure 18: Practice B checkpoint: the ED workflow keeps 18,000 visits after the payer merge, with a left-without-being-seen rate of 3.2 percent overall. Source: DS3 ED throughput joined to DS1 payer_dim." />
+<figcaption aria-hidden="true">Figure 18: Practice B checkpoint: the ED
+workflow keeps 18,000 visits after the payer merge, with a
+left-without-being-seen rate of 3.2 percent overall. Source: DS3 ED
+throughput joined to DS1 payer_dim.</figcaption>
+</figure>
+</section>
+</section>
+<section id="going-deeper" class="level2">
+<h2>Going deeper</h2>
+<div class="goingdeeper">
+<p>A merge multiplies rows only when the reference key is not unique, so
+the safeguard is to know the grain of the table being joined. A provider
+list has one row per provider and a clinic list one row per clinic, so
+joining appointments to either adds columns without adding rows
+(Figure 19). A claim-line file, by contrast, has many rows per claim, so
+joining a claim header to it will multiply. When the same query must be
+written repeatedly, or reference tables outgrow a worksheet, that
+indicates the data should move into a database and a tool designed for
+joins should perform the work. Power Query is an entry point to that
+approach, not its final form.</p>
+</div>
+<figure id="fig:ch07-grain">
+<img src="figures/generated/ch_07_merge_grain.png"
+alt="Figure 19: The grain of a table predicts what a merge will do: joining to a one-row-per-provider or one-row-per-clinic table adds columns, while joining to a many-rows-per-claim table multiplies rows. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 19: The grain of a table predicts
+what a merge will do: joining to a one-row-per-provider or
+one-row-per-clinic table adds columns, while joining to a
+many-rows-per-claim table multiplies rows. Source: concept
+schematic.</figcaption>
+</figure>
+</section>
+<section id="real-world-spotlight" class="level2">
+<h2>Real-world spotlight</h2>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. An analyst was asked to reproduce last quarter’s
+utilization number and could not. The original had been built by hand:
+files pasted together, columns deleted, totals typed in. Nothing was
+written down, and the source files had since been overwritten. The team
+rebuilt the analysis as a refreshable Power Query workflow, and the next
+time the question came back, the answer took minutes instead of days.
+The improvement came not from greater skill but from a version that
+could be re-run and explained.</p>
+</div>
+<div class="recap">
+<ul>
+<li>Keep raw source files exactly as received; do the work downstream in
+a query so the source stays recoverable.</li>
+<li>Lay data out spreadsheet-ready, one row per unit and one variable
+per column, and record a codebook for each column.</li>
+<li>Set each column’s data type on import, reading identifier codes as
+text so leading zeros survive.</li>
+<li>Power Query turns import into a pipeline of visible, refreshable
+steps rather than a one-time edit.</li>
+<li>Append adds rows from files with the same structure; merge adds
+columns from a related table using a shared key.</li>
+<li>Check a merge two ways: did the row count grow (a duplicated key),
+and are any expanded columns blank (keys that did not match)?</li>
+<li>Document sources, extraction dates, coverage, and assumptions,
+because a healthcare analysis is a chain of evidence, not a single
+number.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Explain the difference between an append and a merge, using the
+appointment, provider, and facility files as your example.</li>
+<li>A new month’s appointment export arrives. List the steps that add it
+to your analysis without rebuilding the workbook.</li>
+<li>Name four items a workflow log should record, and explain why each
+matters if the result is later challenged.</li>
+<li>After a merge, your row count rose from <code>30,571</code> to
+roughly <code>61,000</code>. State the most likely cause and one way to
+confirm it.</li>
+<li>Explain why you should edit the query, not the loaded table, when a
+transformation needs to change.</li>
+<li>You receive a provider list with two rows for one provider. Explain
+what will happen if you merge it to the appointments, and how you would
+catch it.</li>
+<li>A ZIP code column imports as a number, turning <code>02139</code>
+into <code>2139</code>. Explain what went wrong and how you would
+prevent it when importing.</li>
+</ol>
+</div>
+<div class="answerkey">
+<ol type="1">
+<li><p>An <strong>append</strong> stacks rows from files with the same
+columns, such as twelve monthly appointment exports; a
+<strong>merge</strong> adds columns from a related table through a
+shared key, such as attaching <code>provider_type</code> and
+<code>region</code> to each appointment. Append grows the table
+downward; merge grows it sideways.</p></li>
+<li><p>If the new file is a single month, add it with the
+<strong>Append</strong> path (Part J): stack the new month’s query onto
+the existing data and choose <strong>Data &gt; Refresh All</strong>, so
+the recorded steps re-run without rebuilding the workbook. Do not
+repoint the <code>Source</code> step for an increment, because this
+query reads the cumulative two-year file and repointing it would drop
+that history; repoint only for a full replacement extract, such as a
+corrected two-year export. (A query built from a monthly folder is the
+exception: there you drop the new file into the folder and refresh.)
+Either way, every earlier source stays recoverable.</p></li>
+<li><p>A workflow log should record the source file names, the extract
+date, the coverage window, and the join keys and assumptions. Each
+matters because, if the result is challenged, you can show exactly which
+files produced it, for what period, and how they were combined, so the
+analysis can be reproduced and defended.</p></li>
+<li><p>The join key was not unique in the reference table, so each
+appointment matched several reference rows, and expanding the merged
+column multiplied the table. Confirm it by reading <strong>Transform
+&gt; Count Rows</strong> before and after, or by checking the reference
+table for duplicate keys. A different fault, an unchanged count with
+blank expanded columns, points instead to keys that did not match at
+all.</p></li>
+<li><p>The loaded table is an output; the query is the recorded recipe.
+Editing the query keeps the step list accurate and refreshable, while
+editing the output by hand breaks reproducibility, because the change is
+lost the next time the query refreshes.</p></li>
+<li><p>The appointments that use that provider will each match both
+rows, so those appointments double in the result and every count built
+on them is inflated. You would catch it by comparing the row count
+before and after the merge; a count that grew signals a duplicated
+key.</p></li>
+<li><p>The column was read as a <strong>number</strong>, which drops
+leading zeros, so <code>02139</code> became <code>2139</code>. A ZIP
+code is a label, not a quantity, so import identifier codes as
+<strong>Text</strong> by setting the type in the
+<code>Changed Type</code> step, and confirm the type icon before you
+build on the column.</p></li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Broman, K. W., &amp; Woo, K. H. (2018). Data organization in
+spreadsheets. <em>The American Statistician, 72</em>(1), 2-10.
+https://doi.org/10.1080/00031305.2017.1375989</li>
+<li>Escobar, M., &amp; Puls, K. (2021). <em>Master your data with Power
+Query in Excel and Power BI: Leveraging Power Query to get and transform
+your task flow.</em> Holy Macro! Books.</li>
+<li>Microsoft. (2025). <em>Using the data profiling tools.</em>
+Microsoft Learn.
+https://learn.microsoft.com/power-query/data-profiling-tools</li>
+<li>Microsoft. (2026). <em>About Power Query in Excel.</em> Microsoft
+Support.
+https://support.microsoft.com/en-us/office/about-power-query-in-excel-7104fbee-9e62-4cb9-a02e-5bfb1a6c536a</li>
+<li>Wickham, H. (2014). Tidy data. <em>Journal of Statistical Software,
+59</em>(10), 1-23. https://doi.org/10.18637/jss.v059.i10</li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Raw data</dt>
+<dd>
+Source data kept exactly as received, so it stays recoverable and
+auditable.
+</dd>
+<dt>Working data</dt>
+<dd>
+The transformed copy of the data that analysis is built on.
+</dd>
+<dt>Output</dt>
+<dd>
+The summaries, charts, and scorecards a reader sees, built from the
+working data.
+</dd>
+<dt>Spreadsheet-ready data</dt>
+<dd>
+Data laid out tidily, with one row per unit, one variable per column,
+one value per cell, and consistent codes.
+</dd>
+<dt>Codebook</dt>
+<dd>
+A record of each column’s name, meaning, type, and allowed values; also
+called a data dictionary.
+</dd>
+<dt>Power Query</dt>
+<dd>
+Excel’s data-preparation layer, which records refreshable transformation
+steps.
+</dd>
+<dt>Query</dt>
+<dd>
+A recorded sequence of steps that reads from a source and produces a
+table.
+</dd>
+<dt>Applied Steps</dt>
+<dd>
+The list in the Power Query Editor that shows each recorded
+transformation in order.
+</dd>
+<dt>Append</dt>
+<dd>
+Combining files with the same structure by stacking their rows.
+</dd>
+<dt>Merge</dt>
+<dd>
+Joining columns from a related table to a main table using a shared key.
+</dd>
+<dt>Join key</dt>
+<dd>
+The column shared by two tables that a merge matches on, such as
+<code>provider_id</code>.
+</dd>
+<dt>Left outer join</dt>
+<dd>
+A merge that keeps every row of the main table and attaches matching
+columns from the reference table.
+</dd>
+<dt>Refresh</dt>
+<dd>
+Re-running a query’s recorded steps so the output reflects updated
+source data.
+</dd>
+<dt>Connection-only query</dt>
+<dd>
+A query that is loaded for use in merges but not written to a worksheet.
+</dd>
+<dt>Workflow log</dt>
+<dd>
+A short record of source files, dates, keys, and assumptions that makes
+an analysis reproducible.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch07,
+  author = {Sher, Hoshiar J.},
+  title = {Importing Data and Building a Reusable Excel Workflow},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch07.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch07,
+  author = {Sher, Hoshiar J.},
+  title = {Importing Data and Building a Reusable Excel Workflow},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch07.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch06.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="pn next" href="ch08.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 8: Cleaning, Transforming, and Validating Data</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-a-refreshable-appointment-workflow">Walkthrough: build a refreshable appointment workflow</a><a href="#practice-on-your-own">Practice on your own</a><a href="#going-deeper">Going deeper</a><a href="#real-world-spotlight">Real-world spotlight</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

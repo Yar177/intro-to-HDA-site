@@ -1,0 +1,1567 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Distributions, Variation, and Statistical Inference — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="A clinic operations manager is preparing the quarterly review for the Riverbend outpatient clinics, and two clinic directors asked her, before the data were pulled, to compare their clinics with another clinic in the network. Riverbend Behavioral Health (SP03) has a no-show rate 2.8 percentage point">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch10.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Distributions, Variation, and Statistical Inference — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="A clinic operations manager is preparing the quarterly review for the Riverbend outpatient clinics, and two clinic directors asked her, before the data were pulled, to compare their clinics with another clinic in the network. Riverbend Behavioral Health (SP03) has a no-show rate 2.8 percentage point">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch10.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Distributions, Variation, and Statistical Inference","position":10,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch10.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item active" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><span class="nav-item disabled" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant (coming soon)" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant, coming soon"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification (coming soon)" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification, coming soon"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication (coming soon)" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication, coming soon"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 10 · 50 minutes</p>
+    <p class="last-updated">Last updated November 11, 2026</p>
+    <article class="prose">
+      <section id="sec:ch10" class="level1">
+<h1>Distributions, Variation, and Statistical Inference</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>A clinic operations manager is preparing the quarterly review for the
+Riverbend outpatient clinics, and two clinic directors asked her, before
+the data were pulled, to compare their clinics with another clinic in
+the network. Riverbend Behavioral Health (SP03) has a no-show rate 2.8
+percentage points higher than Riverbend South Family Medicine (PC02).
+Riverbend Women’s Health (SP04) runs 3.2 points higher than Riverbend
+Pulmonary and Sleep Medicine (SP06). The second gap is larger, so it
+looks like the more urgent problem, and she plans to ask both clinics
+for an improvement plan. Before she asks either clinic for a plan, she
+needs to answer one question about each gap: is it a true difference
+between the clinics, or could it have happened by chance? The answer
+depends partly on how many appointments each rate is based on.</p>
+<p>Chapter 9 gave you the tools to describe a column: its count, center,
+spread, and shape. This chapter takes the next step, from describing the
+data in front of you to judging what they can tell you about the process
+that produced it. For these two pairs of clinics, the answer runs
+opposite to what the gap sizes suggest. Table 1 shows the numbers, and
+the walkthrough shows why.</p>
+<div class="table-wrap"><table id="tbl:ch10-clinics">
+<caption>Table 1: No-show rates for four clinics, January 2024 to
+December 2025. The rate is no-shows divided by kept-or-missed
+appointments (completed visits plus no-shows); cancellations and
+reschedules are excluded, as in Chapter 1. Clinic names come from the
+facility crosswalk in <a class="ds-ref" href="datasets/DS1_facility_dim.csv" download title="Download DS1_facility_dim.csv"><code>datasets/DS1_facility_dim.csv</code></a>.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<thead>
+<tr>
+<th>Clinic</th>
+<th>Name</th>
+<th>Kept or missed</th>
+<th>No-shows</th>
+<th>No-show rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PC02</td>
+<td>Riverbend South Family Medicine</td>
+<td>5,358</td>
+<td>839</td>
+<td>15.7%</td>
+</tr>
+<tr>
+<td>SP03</td>
+<td>Riverbend Behavioral Health</td>
+<td>2,266</td>
+<td>419</td>
+<td>18.5%</td>
+</tr>
+<tr>
+<td>SP06</td>
+<td>Riverbend Pulmonary and Sleep Medicine</td>
+<td>665</td>
+<td>98</td>
+<td>14.7%</td>
+</tr>
+<tr>
+<td>SP04</td>
+<td>Riverbend Women’s Health</td>
+<td>558</td>
+<td>100</td>
+<td>17.9%</td>
+</tr>
+</tbody>
+</table></div>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Describe the normal distribution and use the 68-95 rule and z-scores
+to judge how unusual a value is.</li>
+<li>Check whether a healthcare measure is close enough to normal for the
+rule to apply.</li>
+<li>Explain why an estimate varies from sample to sample and how sample
+size controls that variation.</li>
+<li>Calculate a standard error and a 95 percent confidence interval for
+a rate and a mean in Excel.</li>
+<li>Distinguish common-cause variation from a signal worth
+investigating.</li>
+<li>Interpret a p-value correctly, alongside the size of the difference
+and the width of the interval.</li>
+<li>Calculate and interpret a correlation coefficient without reading it
+as cause.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>Every number you report is one result from a process that could have
+produced a slightly different value. Statistical inference is the
+practice of judging, from the data in front of you, how much a result
+could have moved by chance before you act on it. This section builds
+that judgment in four parts:</p>
+<ul>
+<li><strong>shape</strong>, whether a measure follows the bell-shaped
+normal pattern, and how far from typical a value sits,</li>
+<li><strong>uncertainty</strong>, how much an estimate from a sample
+would vary, stated as a standard error and a confidence interval,</li>
+<li><strong>variation over time</strong>, telling ordinary movement from
+a signal,</li>
+<li><strong>evidence and relationships</strong>, what a p-value and a
+correlation do and do not show.</li>
+</ul>
+</div>
+<section id="the-normal-distribution-and-the-68-95-rule" class="level3">
+<h3>The normal distribution and the 68-95 rule</h3>
+<div class="definition">
+<p>The <strong>normal distribution</strong> is a symmetric, bell-shaped
+distribution in which values cluster around the mean and thin out evenly
+on both sides. The <strong>68-95 rule</strong> states that, in a normal
+distribution, about 68 percent of values fall within one standard
+deviation (SD) of the mean and about 95 percent fall within two.</p>
+</div>
+<p>Chapter 9 introduced the SD as the typical distance of values from
+the mean, and it is hard to read on its own. An SD of 90 minutes in
+emergency department (ED) length of stay is difficult to judge without a
+reference. The normal distribution gives the SD a meaning. When a
+measure is roughly normal, the SD works as a yardstick, and the 68-95
+rule says how much of the data each step of the yardstick covers (Diez
+et al., 2019).</p>
+<p>Figure 1 shows a measure that fits the pattern closely. The inpatient
+file carries a synthetic <code>risk_score</code> for each of its 8,500
+stays. Its mean (39.85) and median (39.80) are nearly identical, and its
+SD is 10.68. One SD either side of the mean runs from 29.2 to 50.5, and
+68.5 percent of stays fall in that band. Two SDs either side run from
+18.5 to 61.2 and hold 95.4 percent. The rule predicts 68 and 95.</p>
+<figure id="fig:ch10-normal">
+<img src="figures/concept/ch_10_normal_rule.png"
+alt="Figure 1: The inpatient risk score for 8,500 stays, with a normal curve of the same mean (39.85) and SD (10.68). The solid lines mark one SD either side of the mean, a band that holds 68.5 percent of stays; the dashed lines mark two SDs, a band that holds 95.4 percent, close to the 68 and 95 percent the rule predicts. The SD uses STDEV.S. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 1: The inpatient risk score for
+8,500 stays, with a normal curve of the same mean (39.85) and SD
+(10.68). The solid lines mark one SD either side of the mean, a band
+that holds 68.5 percent of stays; the dashed lines mark two SDs, a band
+that holds 95.4 percent, close to the 68 and 95 percent the rule
+predicts. The SD uses <code>STDEV.S</code>. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays admitted January
+2024 to December 2025.</figcaption>
+</figure>
+<p>Three working rules follow from the figure:</p>
+<ul>
+<li>A value within one SD of the mean is <strong>ordinary</strong>;
+about two values in three are that close.</li>
+<li>A value more than two SDs from the mean is <strong>unusual</strong>;
+about one value in twenty is that far out, split between the two
+tails.</li>
+<li>The rule describes a <strong>symmetric bell</strong>. The next two
+subsections show how to place a value on the yardstick and how to check
+whether a measure has the bell shape at all.</li>
+</ul>
+</section>
+<section id="how-far-is-far-the-z-score" class="level3">
+<h3>How far is far: the z-score</h3>
+<div class="definition">
+<p>A <strong>z-score</strong> is the number of standard deviations a
+value sits from the mean: the value minus the mean, divided by the SD. A
+positive z-score lies above the mean and a negative one below it.</p>
+</div>
+<p>Chapter 8 used the z-score briefly as an outlier test and noted that
+it depends on the normal distribution. The z-score converts any value to
+the SD yardstick, so values measured in different units can be read on
+one scale. Figure 2 places two patients on the risk-score scale. A score
+of 62 sits 22.15 points above the mean; divided by the SD of 10.68, that
+is a z-score of 2.07. A score of 30 sits 9.85 points below the mean, a
+z-score of -0.92.</p>
+<figure id="fig:ch10-zscore">
+<img src="figures/concept/ch_10_zscore.png"
+alt="Figure 2: Two inpatient risk scores converted to z-scores. A score of 62 is 2.07 SDs above the mean of 39.85, and a score of 30 is 0.92 SDs below it. Each tick on the risk-score scale is one SD (10.68 points) from the next. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays." />
+<figcaption aria-hidden="true">Figure 2: Two inpatient risk scores
+converted to z-scores. A score of 62 is 2.07 SDs above the mean of
+39.85, and a score of 30 is 0.92 SDs below it. Each tick on the
+risk-score scale is one SD (10.68 points) from the next. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays.</figcaption>
+</figure>
+<p>Read each z-score against the 68-95 rule. A z-score of -0.92 lies
+inside one SD, so a score of 30 is ordinary. A z-score of 2.07 lies just
+past two SDs, so a score of 62 is unusual: only about 2 percent of stays
+score that high. Excel calculates both the z-score and the share of a
+normal distribution that falls below any value.</p>
+<div class="excelformula">
+<p>With the mean in <code>B2</code> and the SD in <code>B3</code>:
+<code>=STANDARDIZE(62, B2, B3)</code> returns <code>2.07</code>, the
+z-score of a score of 62. <code>=NORM.DIST(62, B2, B3, TRUE)</code>
+returns <code>0.981</code>, the share of a normal distribution below 62,
+so about 1.9 percent lies above it. In the inpatient file, 2.2 percent
+of stays actually score above 62, close to the normal prediction because
+the risk score is close to normal.</p>
+</div>
+<div class="keypoint">
+<p>A z-score answers “how far is far” in a unit that works for any
+measure. Within about one SD is ordinary and beyond about two is
+unusual, but only when the measure is close to normal.</p>
+</div>
+</section>
+<section id="check-the-shape-before-you-apply-the-rule" class="level3">
+<h3>Check the shape before you apply the rule</h3>
+<p>The 68-95 rule is a property of the normal curve, not of data in
+general. Many healthcare measures are skewed, and Chapter 9 showed that
+ED length of stay is one of them: a long right tail of slow visits pulls
+the mean (210 minutes) above the median (190). Before you use the rule
+on a measure, check it. Calculate the share of values within one and two
+SDs of the mean and compare those shares with 68 and 95 percent. Table 2
+runs the check on both measures.</p>
+<div class="table-wrap"><table id="tbl:ch10-rule-check" style="width:100%;">
+<caption>Table 2: Checking the 68-95 rule on two measures. The risk
+score matches the rule closely. ED length of stay holds far more than 68
+percent of visits within one SD, and every visit beyond two SDs lies in
+the upper tail. SDs use <code>STDEV.S</code>. Sources:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> (8,500 stays) and
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a> (17,416 visits with a
+recorded stay, January 2024 to December 2025).</caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Measure</th>
+<th>Mean</th>
+<th>SD</th>
+<th>Within 1 SD</th>
+<th>Within 2 SD</th>
+<th>Beyond 2 SD (low / high)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Normal distribution (the rule)</td>
+<td>any</td>
+<td>any</td>
+<td>68%</td>
+<td>95%</td>
+<td>2.5% / 2.5%</td>
+</tr>
+<tr>
+<td>Inpatient risk score</td>
+<td>39.85</td>
+<td>10.68</td>
+<td>68.5%</td>
+<td>95.4%</td>
+<td>2.0% / 2.6%</td>
+</tr>
+<tr>
+<td>ED length of stay (minutes)</td>
+<td>209.8</td>
+<td>90.3</td>
+<td>92.3%</td>
+<td>97.5%</td>
+<td>0.0% / 2.5%</td>
+</tr>
+</tbody>
+</table></div>
+<p>By this check, the risk score is reasonably consistent with the
+normal pattern; the check is a useful screen, not a formal test of
+normality. Length of stay departs from the pattern in three specific
+ways, all visible in Figure 3:</p>
+<ul>
+<li><strong>Too much in the middle.</strong> 92.3 percent of visits fall
+within one SD, not 68 percent, because the long tail inflates the SD
+while most visits sit tightly packed near the center.</li>
+<li><strong>A one-sided tail.</strong> All 434 visits beyond two SDs lie
+above the mean. None lies below, because a stay cannot be shorter than
+zero, and the shortest is 74 minutes.</li>
+<li><strong>Wrong predictions in both tails.</strong> A normal curve
+with this mean and SD places 1.0 percent of visits below zero minutes.
+It also predicts about 307 stays longer than 400 minutes; the file holds
+426.</li>
+</ul>
+<figure id="fig:ch10-shape">
+<img src="figures/concept/ch_10_distribution_shape.png"
+alt="Figure 3: ED length of stay for the 17,416 visits with a recorded stay, with a normal curve of the same mean (209.8 minutes) and SD (90.3 minutes) and the bounds one SD (solid lines) and two SDs (dashed lines) from the mean. The shares inside each band differ sharply from the 68-95 rule, and the normal curve places 1.0 percent of visits below zero minutes. The 584 left-without-being-seen visits have no length of stay and are excluded; 148 stays above 700 minutes are counted but not drawn. Source: datasets/DS3_ed_throughput_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 3: ED length of stay for the
+17,416 visits with a recorded stay, with a normal curve of the same mean
+(209.8 minutes) and SD (90.3 minutes) and the bounds one SD (solid
+lines) and two SDs (dashed lines) from the mean. The shares inside each
+band differ sharply from the 68-95 rule, and the normal curve places 1.0
+percent of visits below zero minutes. The 584 left-without-being-seen
+visits have no length of stay and are excluded; 148 stays above 700
+minutes are counted but not drawn. Source:
+<a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<div class="caution">
+<p>Do not apply the 68-95 rule, z-score cutoffs, or normal-curve
+percentages to a skewed measure. On length of stay, cost, or wait time,
+a z-score of 2 does not mean “rarer than about 1 in 40,” and the normal
+curve can even predict negative minutes. For skewed measures, describe
+spread with the median and percentiles from Chapter 9 and flag outliers
+with the interquartile range (IQR) fence from Chapter 8.</p>
+</div>
+<p>The rest of this chapter still relies on the normal curve, but in a
+way that survives skewed data. The next subsection shows why.</p>
+</section>
+<section id="a-sample-is-an-estimate-the-standard-error" class="level3">
+<h3>A sample is an estimate: the standard error</h3>
+<div class="definition">
+<p><strong>Sampling variability</strong> is the way an estimate changes
+from one sample to the next. The <strong>sampling distribution</strong>
+is the pattern of estimates that many samples of the same size would
+produce. The <strong>standard error (SE)</strong> is the SD of that
+sampling distribution: the typical distance between a sample’s estimate
+and the value for the whole population.</p>
+</div>
+<p>Recall from Chapter 4 that a sample stands in for a larger population
+and that a random sample avoids systematic bias. A random sample does
+not avoid chance. Two random samples from the same population give two
+slightly different answers, and both are valid estimates.</p>
+<p>Figure 4 makes this visible with
+<a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a>. The file is a
+synthetic teaching extract modeled on the Behavioral Risk Factor
+Surveillance System (BRFSS), a national telephone survey of adults; the
+<code>PH</code> prefix marks the book’s public health files, as the
+<code>DS</code> prefix marks its operational ones. Treat its 15,000
+respondents as a population, in which 22.5 percent report diabetes, and
+draw 1,000 random samples of 250 respondents each. The 1,000 sample
+rates scatter from about 15 to 32 percent, and their SD, the standard
+error, is about 2.7 points. Repeat with samples of 2,500, and the rates
+cluster far more tightly, with a standard error of about 0.8 points.</p>
+<figure id="fig:ch10-sampling">
+<img src="figures/concept/ch_10_sampling.png"
+alt="Figure 4: Diabetes rates in 1,000 random samples of 250 respondents (left) and 1,000 samples of 2,500 respondents (right), drawn with replacement from the 15,000 respondents in the teaching extract, whose rate is 22.5 percent (marked line). Each bar counts samples. The spread of the sample rates is the standard error: about 2.7 points at 250 respondents and 0.8 points at 2,500, close to the formula’s 2.6 and 0.8. Simulated with a fixed random seed. Source: datasets/PH2_brfss2022_teaching_extract.csv." />
+<figcaption aria-hidden="true">Figure 4: Diabetes rates in 1,000 random
+samples of 250 respondents (left) and 1,000 samples of 2,500 respondents
+(right), drawn with replacement from the 15,000 respondents in the
+teaching extract, whose rate is 22.5 percent (marked line). Each bar
+counts samples. The spread of the sample rates is the standard error:
+about 2.7 points at 250 respondents and 0.8 points at 2,500, close to
+the formula’s 2.6 and 0.8. Simulated with a fixed random seed. Source:
+<a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a>.</figcaption>
+</figure>
+<p>Two features of the figure carry the rest of the chapter:</p>
+<ul>
+<li><strong>Larger samples give steadier estimates, slowly.</strong> Ten
+times as many respondents cut the standard error to about a third. The
+standard error shrinks with the square root of the sample size, so
+quadrupling a sample only halves it.</li>
+<li><strong>The estimates form a bell-shaped pattern.</strong> Each
+respondent’s answer is a 0 or a 1, yet the sample rates form a roughly
+normal pattern around the population value. Sample means behave the same
+way, given a large enough sample, even when the individual values are
+skewed like length of stay (Vu &amp; Harrington, 2020). That is why the
+normal curve still serves for intervals on rates and means.</li>
+</ul>
+<p>In practice you have one sample, not a thousand, so the standard
+error comes from a formula. Be clear about what the interval describes.
+The 24 months of clinic records give the exact rate for those
+appointments; an interval treats them as one sample from the ongoing
+appointment process, the rate you would expect from comparable future
+appointments. Figure 4 treats the 15,000 respondents as a known
+population in order to draw samples from it; the intervals that follow
+treat the same 15,000 as a sample from a larger hypothetical
+population.</p>
+<div class="excelformula">
+<p>The standard error of a rate is <code>=SQRT(p*(1-p)/n)</code>. On a
+new worksheet, for the 3,370 respondents with diabetes among 15,000,
+enter <code>=3370/15000</code> in <code>B1</code> (it shows
+<code>0.2247</code>) and <code>15000</code> in <code>B2</code>. Then
+<code>=SQRT(B1*(1-B1)/B2)</code> returns <code>0.0034</code>, a standard
+error of 0.34 percentage points. The standard error of a mean is the SD
+divided by the square root of n:
+<code>=STDEV.S(range)/SQRT(COUNT(range))</code>. Both formulas assume
+independent observations. Repeat appointments by the same patient are
+not fully independent; in real data they make the true uncertainty
+somewhat larger than the formula shows, and methods that account for
+this clustering belong to a later course. The rate formula, and the
+intervals and tests built on it, also need enough events of each kind: n
+times p and n times (1 - p) should each be at least about 10 (Diez et
+al., 2019). Every example in this chapter meets that threshold; the one
+with the fewest no-shows, SP06, has 98 no-shows and 567 kept
+appointments. For rare events or very small groups, the formula
+understates the uncertainty.</p>
+</div>
+<div class="keypoint">
+<p>An estimate from a sample is one draw from a spread of possible
+results, and the standard error measures how wide that spread is. More
+data narrows it, but each further gain costs more data than the
+last.</p>
+</div>
+</section>
+<section id="the-confidence-interval" class="level3">
+<h3>The confidence interval</h3>
+<div class="definition">
+<p>A <strong>confidence interval</strong> reports an estimate as a
+range: the estimate plus and minus a <strong>margin of error</strong>.
+The margin is a multiplier times the standard error, chosen so that
+intervals built this way capture the population value in about 95 of
+every 100 samples. For the large-sample rate intervals in this chapter,
+the 95 percent multiplier is 1.96. For a mean, when the population SD is
+unknown, Excel uses a slightly larger multiplier from the t
+distribution.</p>
+</div>
+<p>The multiplier is 1.96 because the sampling distribution is roughly
+normal, and in a normal distribution 95 percent of values lie within
+1.96 SDs of the mean; the 68-95 rule rounds this to 2. Excel returns the
+exact multiplier with <code>=NORM.S.INV(0.975)</code>. Figure 5 labels
+the parts of the interval for the diabetes rate: the estimate of 22.5
+percent, a standard error of 0.34 points, a margin of 0.67 points, and
+an interval from 21.8 to 23.1 percent.</p>
+<figure id="fig:ch10-ci-anatomy">
+<img src="figures/concept/ch_10_ci_anatomy.png"
+alt="Figure 5: The parts of a 95 percent confidence interval for the diabetes rate in the teaching extract (3,370 of 15,000 respondents). The margin of error is 1.96 standard errors, and the limits are the estimate minus and plus the margin. Unweighted sample rate. Source: datasets/PH2_brfss2022_teaching_extract.csv." />
+<figcaption aria-hidden="true">Figure 5: The parts of a 95 percent
+confidence interval for the diabetes rate in the teaching extract (3,370
+of 15,000 respondents). The margin of error is 1.96 standard errors, and
+the limits are the estimate minus and plus the margin. Unweighted sample
+rate. Source:
+<a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a>.</figcaption>
+</figure>
+<p>Read the interval as a plain statement: the sample puts the rate at
+22.5 percent, and population rates from about 21.8 to 23.1 percent are
+consistent with it. The 95 percent describes the method, not this one
+interval. The procedure captures the population value in 95 percent of
+samples; any single interval either contains it or does not, and you
+cannot tell which. In practice, the interval indicates how much weight
+the estimate will bear.</p>
+<p>Sample size drives the width. Figure 6 holds the 22.5 percent rate
+fixed and shows the interval it would carry at smaller, hypothetical
+sample sizes. At 250 respondents, the margin is 5.2 points and the
+interval runs from 17.3 to 27.6 percent, too wide to separate most
+groups worth comparing. At 15,000, the margin is 0.7 points.</p>
+<figure id="fig:ch10-ci">
+<img src="figures/concept/ch_10_confidence_interval.png"
+alt="Figure 6: The 95 percent confidence interval for a 22.5 percent rate at sample sizes of 250, 1,000, and 5,000 (hypothetical: the same rate with fewer respondents) and the actual 15,000. The margin shrinks with the square root of the sample size. Source: datasets/PH2_brfss2022_teaching_extract.csv." />
+<figcaption aria-hidden="true">Figure 6: The 95 percent confidence
+interval for a 22.5 percent rate at sample sizes of 250, 1,000, and
+5,000 (hypothetical: the same rate with fewer respondents) and the
+actual 15,000. The margin shrinks with the square root of the sample
+size. Source:
+<a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a>.</figcaption>
+</figure>
+<div class="excelformula">
+<p>With the rate in <code>B1</code>, the sample size in <code>B2</code>,
+and the standard error in <code>B3</code>
+(<code>=SQRT(B1*(1-B1)/B2)</code>): the margin of error is
+<code>=NORM.S.INV(0.975)*B3</code>, which returns <code>0.0067</code>;
+the lower limit is <code>=B1-NORM.S.INV(0.975)*B3</code>, which returns
+<code>0.218</code>; the upper limit is
+<code>=B1+NORM.S.INV(0.975)*B3</code>, which returns <code>0.231</code>.
+For a mean, <code>=CONFIDENCE.T(0.05, sd, n)</code> returns the margin
+directly.</p>
+</div>
+<p>The same steps give an interval for a mean, with one change: the
+standard error is the SD divided by the square root of n, and
+<code>CONFIDENCE.T</code> multiplies it for you. For the inpatient risk
+score, on another new worksheet, with the Table named
+<code>Inpatient</code>:</p>
+<div class="excelformula">
+<p><code>B1</code>: <code>=AVERAGE(Inpatient[risk_score])</code> returns
+<code>39.85</code>, the mean. <code>B2</code>:
+<code>=STDEV.S(Inpatient[risk_score])</code> returns <code>10.68</code>,
+the SD. <code>B3</code>: <code>=COUNT(Inpatient[risk_score])</code>
+returns <code>8500</code>, the n. <code>B4</code>:
+<code>=CONFIDENCE.T(0.05, B2, B3)</code> returns <code>0.227</code>, the
+margin of error; the <code>0.05</code> asks for a 95 percent interval.
+The interval is <code>=B1-B4</code> to <code>=B1+B4</code>, about 39.63
+to 40.08.</p>
+</div>
+<p>The width formula can also be inverted. To find the sample size a
+target margin needs, square the multiplier, multiply by p times (1 - p),
+and divide by the margin squared. For a 1-point margin on the 22.5
+percent diabetes rate, with the rate in <code>B1</code>,
+<code>=NORM.S.INV(0.975)^2*B1*(1-B1)/0.01^2</code> returns about
+<code>6691.5</code>, so round up to 6,692 respondents.</p>
+<p>Intervals also support a first read of a comparison. When the 95
+percent intervals for two groups do not overlap, the gap between the
+groups would be unusual if chance alone were at work. When they overlap,
+the evidence is weaker.</p>
+<div class="caution">
+<p>Overlapping intervals are not proof of no difference. Two intervals
+can overlap slightly while a formal test still finds the gap unlikely
+under chance alone, because the uncertainty of a difference is smaller
+than the two margins added together. Read non-overlap as strong evidence
+and overlap as “not established by this check.” Going Deeper at the end
+of the chapter shows the formal test.</p>
+</div>
+</section>
+<section id="survey-data-and-weights" class="level3">
+<h3>Survey data and weights</h3>
+<p>The intervals above treat the teaching extract as a simple random
+sample, and survey data rarely are one. Like the real BRFSS, PH2 carries
+a <strong>survey weight</strong> for each respondent in
+<code>final_weight</code>, the number of adults that respondent stands
+for, plus <code>stratum</code> and <code>psu</code> (primary sampling
+unit) fields that record how the sample was drawn, the stratified and
+cluster designs of Chapter 4. Weighting changes the answer. The
+unweighted diabetes rate is 22.5 percent; the weighted estimate is 24.9
+percent, because respondents with larger weights report diabetes more
+often (28.1 percent in the top quarter of weights against 17.5 percent
+in the bottom quarter).</p>
+<p>The design fields change the standard error too, and real BRFSS
+analyses compute design-based intervals with survey software (Centers
+for Disease Control and Prevention [CDC], n.d.).</p>
+<p>Two habits follow:</p>
+<ul>
+<li><strong>Name what an unweighted rate describes.</strong> The 22.5
+percent in this chapter is a rate in a synthetic teaching sample,
+deliberately set well above the diabetes prevalence CDC publishes for
+U.S. adults (CDC, 2026), and it does not estimate prevalence in any real
+population.</li>
+<li><strong>Read the documentation first.</strong> Before you summarize
+any survey file, find out whether it is meant to be weighted and which
+design fields it carries.</li>
+</ul>
+</section>
+<section id="common-cause-and-special-cause-variation" class="level3">
+<h3>Common-cause and special-cause variation</h3>
+<div class="definition">
+<p><strong>Common-cause variation</strong> is the ordinary, expected
+movement of a stable process from one period to the next.
+<strong>Special-cause variation</strong> is a change large enough, or
+sustained enough, that chance alone is an unlikely explanation and
+something in the process has likely changed.</p>
+</div>
+<p>The standard error also explains why performance measures move when
+nothing has changed. A monthly no-show rate is an estimate built from
+that month’s appointments, so it carries sampling variability just as a
+survey rate does. Figure 7 shows the clinics’ combined monthly no-show
+rate over 24 months. The rate averages 16.1 percent and moves between
+13.7 percent (May 2024) and 18.4 percent (September 2024).</p>
+<p>How much of that movement would chance produce on its own? With an
+average of 1,274 kept-or-missed appointments a month, the standard error
+of a monthly rate is about 1.0 percentage point. Quality-improvement
+charts conventionally set limits three standard errors either side of
+the average (Provost &amp; Murray, 2022), here about 13.0 to 19.2
+percent, and all 24 months fall inside them.</p>
+<p>This is an approximate teaching band built from the average volume.
+Strictly, a control chart for a rate, called a <strong>p-chart</strong>,
+gives each month its own limits from its own count; here months range
+from 1,143 to 1,387 appointments, and every month also falls inside its
+own limits. No monthly rate exceeds these illustrative limits, but that
+check alone does not establish a stable process: a sustained shift or
+trend can stay inside them. Read this way, nothing in the series points
+to a special cause. The lowest month is not evidence of an improvement
+in May 2024, and the highest is not evidence of a deterioration in
+September.</p>
+<figure id="fig:ch10-monthly">
+<img src="figures/generated/ch_10_monthly_variation.png"
+alt="Figure 7: Monthly no-show rate (no-shows divided by completed plus no-show appointments), January 2024 to December 2025, with the 24-month rate of 16.1 percent (dashed line) and a band three standard errors either side of it (13.0 to 19.2 percent), calculated from the average of 1,274 kept-or-missed appointments a month. Every month falls inside the band. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments." />
+<figcaption aria-hidden="true">Figure 7: Monthly no-show rate (no-shows
+divided by completed plus no-show appointments), January 2024 to
+December 2025, with the 24-month rate of 16.1 percent (dashed line) and
+a band three standard errors either side of it (13.0 to 19.2 percent),
+calculated from the average of 1,274 kept-or-missed appointments a
+month. Every month falls inside the band. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments.</figcaption>
+</figure>
+<p>Telling the two kinds of variation apart is a core skill in reading
+performance data (Benneyan et al., 2003), and there are two ways to
+misread it:</p>
+<ul>
+<li><strong>Treating common-cause movement as a signal</strong> wastes
+effort. A team investigates, explains, or rewards a change that chance
+produced, and the next month reverses it.</li>
+<li><strong>Missing a special cause</strong> allows a real problem to
+continue, because a genuine shift was dismissed as noise.</li>
+</ul>
+<p>Chapter 11 returns to this series. It adds run rules for spotting a
+shift that stays inside the band, such as a long run of months on one
+side of the center line, and separates a run chart, which uses the
+median and no limits, from a control chart, which adds limits like
+these.</p>
+<div class="keypoint">
+<p>Before you react to a month, ask whether it falls outside the range
+chance produces at that volume. A single month inside the band is not,
+by itself, evidence that anything changed.</p>
+</div>
+</section>
+<section id="interpreting-a-p-value" class="level3">
+<h3>Interpreting a p-value</h3>
+<div class="definition">
+<p>A <strong>null hypothesis</strong> is the assumption that there is no
+real difference, for example that two clinics share one no-show rate. A
+<strong>p-value</strong> is the probability of seeing a difference at
+least as large as the one observed if the null hypothesis were true. A
+result is called <strong>statistically significant</strong> when its
+p-value falls below a threshold chosen in advance, by convention
+0.05.</p>
+</div>
+<p>Return to the opening scenario. Suppose PC02 and SP03 truly shared
+one no-show rate. Chance would still produce some gap between their
+observed rates, and the size of a typical chance gap depends on how many
+appointments each clinic has. Figure 8 draws the gaps chance would
+produce for each pair and marks the gap actually observed.</p>
+<ul>
+<li><strong>PC02 and SP03.</strong> With 5,358 and 2,266 appointments,
+chance gaps are small. A gap of 2.8 points or more, in either direction,
+would occur about 2 times in 1,000 (p = 0.002). A gap this large would
+be unusual under the no-difference model.</li>
+<li><strong>SP06 and SP04.</strong> With only 665 and 558 appointments,
+chance gaps are wide. A gap of 3.2 points or more, in either direction,
+would occur about 13 times in 100 (p = 0.13). A gap this large is not
+unusual under the no-difference model.</li>
+</ul>
+<figure id="fig:ch10-pvalue">
+<img src="figures/concept/ch_10_pvalue.png"
+alt="Figure 8: The gaps in no-show rate that chance alone would produce if each pair of clinics shared one rate, with the observed gap marked. The shaded tails, gaps at least as large as the observed one in either direction, are the p-value: 0.002 for PC02 and SP03, whose tails are enlarged at right because they are too thin to see at full scale, and 0.13 for SP06 and SP04. Normal approximation to the two-proportion test. Source: datasets/DS2_appointments_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 8: The gaps in no-show rate that
+chance alone would produce if each pair of clinics shared one rate, with
+the observed gap marked. The shaded tails, gaps at least as large as the
+observed one in either direction, are the p-value: 0.002 for PC02 and
+SP03, whose tails are enlarged at right because they are too thin to see
+at full scale, and 0.13 for SP06 and SP04. Normal approximation to the
+two-proportion test. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<p>The p-value answers one narrow question, and its scope is often
+overstated (Wasserstein &amp; Lazar, 2016):</p>
+<ul>
+<li>It is <strong>not</strong> the probability that the clinics differ
+or that the null hypothesis is true. A p-value of 0.002 does not mean a
+99.8 percent chance of a real difference.</li>
+<li>It does <strong>not</strong> measure how large or important a
+difference is. The size of the difference itself, here 2.8 or 3.2
+percentage points, is the <strong>effect size</strong>, and it is what a
+manager needs to judge whether a gap matters.</li>
+<li>A p-value above 0.05 does <strong>not</strong> show that two groups
+are the same. It shows that the data do not provide enough evidence to
+distinguish the groups at the chosen threshold.</li>
+</ul>
+<div class="caution">
+<p>A small p-value means a difference this large would be unusual if
+there were no real difference, not that it is large or important. A
+large sample can make a trivial gap statistically significant, and a
+small sample can leave a real gap undetected. Report a p-value next to
+the effect size and the confidence interval, never alone (Greenland et
+al., 2016).</p>
+</div>
+<div class="caution">
+<p>The manager in the opening tests two comparisons named before the
+data were pulled. Comparisons chosen after looking at the data, or run
+across many pairs, produce some small p-values by chance alone. The 14
+clinics form 91 possible pairs, and at a 0.05 threshold about 4 or 5 of
+them would cross it even if every clinic shared one rate. Treat a small
+p-value found by searching as a lead to confirm with new data, not a
+finding.</p>
+</div>
+<p>This book keeps the p-value at the level of interpretation. Going
+Deeper at the end of the chapter shows where these two values come
+from.</p>
+</section>
+<section id="correlation-how-tightly-two-numbers-move-together"
+class="level3">
+<h3>Correlation: how tightly two numbers move together</h3>
+<p>The sections so far asked how much one estimate could move by chance.
+Correlation turns to a different question that later chapters build on:
+how two measures move together. It introduces regression in Chapter
+12.</p>
+<div class="definition">
+<p>The <strong>correlation coefficient</strong>, written <code>r</code>,
+measures the strength and direction of the straight-line relationship
+between two numerical variables on a scale from -1 to 1. A value near 1
+means the two rise together, a value near -1 means one falls as the
+other rises, and a value near 0 means no straight-line relationship.</p>
+</div>
+<p>Figure 9 shows what different values of <code>r</code> look like. Two
+points help when you read one:</p>
+<ul>
+<li><strong>Strength is about tightness, not slope.</strong> An
+<code>r</code> of 0.8 means the points lie close to a line; it says
+nothing about how steep the line is.</li>
+<li><strong>A weak correlation is not the same as no
+relationship.</strong> <code>r</code> measures straight-line association
+only, so a strong curved pattern can produce an <code>r</code> near 0.
+Plot the data before you rely on <code>r</code>.</li>
+<li><strong>Use one scale for strength.</strong> This book calls an
+<code>r</code> below 0.3 in absolute value weak, 0.3 to 0.7 moderate,
+and above 0.7 strong. These cutoffs are a convention for describing
+results, not a test.</li>
+</ul>
+<figure id="fig:ch10-corr-gallery">
+<img src="figures/generated/ch_10_corr_gallery.png"
+alt="Figure 9: Five illustrative scatter plots of 200 points each, built so that the correlation is exactly -0.8, -0.4, 0, 0.4, and 0.8, labeled with the strength scale used in this book. Source: concept schematic with simulated data." />
+<figcaption aria-hidden="true">Figure 9: Five illustrative scatter plots
+of 200 points each, built so that the correlation is exactly -0.8, -0.4,
+0, 0.4, and 0.8, labeled with the strength scale used in this book.
+Source: concept schematic with simulated data.</figcaption>
+</figure>
+<p>Figure 10 shows a real pair: inpatient length of stay against total
+charges for 8,500 stays. The correlation is 0.47, a moderate positive
+relationship with wide scatter around the line. Squaring <code>r</code>
+gives about 0.22, the share of the variation in charges that a straight
+line on length of stay accounts for. Chapter 12 reports the same 0.22 as
+R-squared when it fits that line.</p>
+<figure id="fig:ch10-corr">
+<img src="figures/generated/ch_10_correlation.png"
+alt="Figure 10: Inpatient length of stay against total charges for 8,500 stays, with a correlation of r = 0.47 (r squared = 0.22). All stays are drawn, including the 85 with charges above $80,000. Source: datasets/DS4_inpatient_clean.csv, stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 10: Inpatient length of stay
+against total charges for 8,500 stays, with a correlation of r = 0.47 (r
+squared = 0.22). All stays are drawn, including the 85 with charges
+above $80,000. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<div class="excelformula">
+<p>With the inpatient file converted to a Table named
+<code>Inpatient</code>:
+<code>=CORREL(Inpatient[length_of_stay_days], Inpatient[total_charges_usd])</code>
+returns <code>0.467</code>.
+<code>=RSQ(Inpatient[total_charges_usd], Inpatient[length_of_stay_days])</code>
+returns <code>0.218</code>, the r squared that Chapter 12 calls
+R-squared.</p>
+</div>
+<div class="keypoint">
+<p>Correlation measures how tightly two measures move together, not why.
+Longer stays and higher charges go together, but a correlation alone
+cannot show which drives which, or whether a third factor, such as how
+sick the patient is, drives both.</p>
+</div>
+<div class="tryit">
+<p>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, convert it to a
+Table named <code>Inpatient</code>, and calculate the correlation
+between <code>age_at_admit</code> and <code>length_of_stay_days</code>
+with <code>CORREL</code>. Describe its strength and direction in one
+sentence, square it to state how much of the variation in length of stay
+a straight line on age accounts for, and name one thing the correlation
+does not show. The answer key is at the end of the chapter.</p>
+</div>
+</section>
+</section>
+<section
+id="walkthrough-build-a-clinic-comparison-with-confidence-intervals"
+class="level2">
+<h2>Walkthrough: build a clinic comparison with confidence
+intervals</h2>
+<p>This build answers the opening scenario. You calculate the no-show
+rate for the four clinics in Table 1, attach a standard error and a 95
+percent confidence interval to each, check whether each pair of
+intervals overlaps, and chart the rates with error bars. Every number on
+the sheet is computed by a formula that reads from the
+<code>Appointments</code> Table, so adding a clinic starts with adding a
+row; you then extend the formulas, the chart ranges, and the comparisons
+to cover it. Figure 11 shows the finished result.</p>
+<figure id="fig:ch10-checkpoint">
+<img src="figures/concept/ch_10_checkpoint.png"
+alt="Figure 11: The finished Intervals worksheet you build in this walkthrough, and the chart it feeds. Rows 3 to 7 hold the counts, rates, standard errors, margins, and 95 percent limits for four clinics; row 9 holds the multiplier from NORM.S.INV(0.975); rows 11 to 13 compare the two pairs; the chart draws each rate with its interval as an error bar. The highlights show which cells drive the chart: the rates in D4:D7 set the bar lengths, and the margins in F4:F7 supply both the positive and negative error values in the Specify Value dialog of Part F. Excel lists the first clinic at the bottom of a bar chart. The figure is styled for print: the multiplier is shown rounded to 1.96, and the data labels and highlights are added. Your worksheet should carry the same values in the same cells. Source: datasets/DS2_appointments_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 11: The finished
+<code>Intervals</code> worksheet you build in this walkthrough, and the
+chart it feeds. Rows 3 to 7 hold the counts, rates, standard errors,
+margins, and 95 percent limits for four clinics; row 9 holds the
+multiplier from <code>NORM.S.INV(0.975)</code>; rows 11 to 13 compare
+the two pairs; the chart draws each rate with its interval as an error
+bar. The highlights show which cells drive the chart: the rates in
+<code>D4:D7</code> set the bar lengths, and the margins in
+<code>F4:F7</code> supply both the positive and negative error values in
+the <strong>Specify Value</strong> dialog of Part F. Excel lists the
+first clinic at the bottom of a bar chart. The figure is styled for
+print: the multiplier is shown rounded to 1.96, and the data labels and
+highlights are added. Your worksheet should carry the same values in the
+same cells. Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>,
+January 2024 to December 2025.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you start: open
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, and immediately save a
+working copy as an Excel workbook so the original stays untouched. Work
+only in the copy. These teaching files hold no real patient information;
+real patient data must stay in approved, secure storage, and you should
+make a local working copy only when you are authorized to.</p>
+</div>
+<p><strong>Part A. Set up the data.</strong> Convert the raw file into a
+named Table so every formula can refer to its columns by name.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> in Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name it <code>ch10_intervals.xlsx</code>.
+Work in this file from here on.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong> is checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Appointments</code>.</li>
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs,
+double-click the new tab, type <code>Intervals</code>, and press
+Enter.</li>
+<li>In <code>A1</code> type
+<code>Clinic No-Show Rates with 95% Confidence Intervals</code>. Select
+<code>A1:H1</code>, choose <strong>Home &gt; Alignment &gt; Merge &amp;
+Center</strong>, then make it <strong>Bold</strong>, size 14, with a
+dark blue <strong>Fill Color</strong> and white <strong>Font
+Color</strong>.</li>
+</ol>
+<p><strong>Part B. Count the appointments.</strong> The rate uses the
+kept-or-missed denominator from Chapter 1: completed visits plus
+no-shows, with cancellations and reschedules excluded.</p>
+<ol start="7" type="1">
+<li>In <code>A3:H3</code> type the headers <code>Clinic</code>,
+<code>No-shows</code>, <code>Kept or missed</code>, <code>Rate</code>,
+<code>Std error</code>, <code>Margin</code>, <code>Lower</code>, and
+<code>Upper</code>, one per cell. Select <code>A3:H3</code> and click
+<strong>Bold</strong>.</li>
+<li>In <code>A4:A7</code> type the clinic codes <code>PC02</code>,
+<code>SP03</code>, <code>SP06</code>, and <code>SP04</code>, one per
+row.</li>
+<li>In <code>B4</code> enter<br />
+<code>=COUNTIFS(Appointments[facility_id], A4, Appointments[attendance_outcome], "No Show")</code><br />
+It shows <code>839</code>.</li>
+<li>In <code>C4</code> enter<br />
+<code>=COUNTIFS(Appointments[facility_id], A4, Appointments[attendance_outcome], "Completed") + B4</code><br />
+It shows <code>5358</code>, the kept-or-missed appointments at
+PC02.</li>
+<li>Select <code>B4:C4</code> and drag the <strong>fill handle</strong>
+down to row 7. Because <code>A4</code> is relative (no dollar signs),
+each row counts its own clinic. Row 7, SP04, shows <code>100</code> and
+<code>558</code>.</li>
+</ol>
+<p><strong>Part C. Calculate the rate and its standard
+error.</strong></p>
+<ol start="12" type="1">
+<li>In <code>D4</code> enter <code>=B4/C4</code>. It shows about
+<code>0.1566</code>.</li>
+<li>In <code>E4</code> enter <code>=SQRT(D4*(1-D4)/C4)</code>. It shows
+about <code>0.0050</code>, a standard error of half a percentage
+point.</li>
+<li>Select <code>D4:E4</code> and drag the fill handle down to row 7.
+SP04 shows a rate of about <code>0.1792</code> and a standard error of
+about <code>0.0162</code>, about three times PC02’s, because SP04 has
+about a tenth as many appointments.</li>
+</ol>
+<p><strong>Part D. Build the 95 percent interval.</strong> Store the
+multiplier once and lock it, so every row uses the same value.</p>
+<ol start="15" type="1">
+<li>In <code>A9</code> type <code>95% multiplier</code>; in
+<code>B9</code> enter <code>=NORM.S.INV(0.975)</code>. It shows
+<code>1.959964</code>, the 1.96 from the definition.</li>
+<li>In <code>F4</code> enter <code>=$B$9*E4</code>. It shows about
+<code>0.0097</code>. The absolute reference <code>$B$9</code> keeps
+every row pointed at the multiplier when you copy the formula (Chapter
+6).</li>
+<li>In <code>G4</code> enter <code>=D4-F4</code>. It shows about
+<code>0.1469</code>, the lower limit.</li>
+<li>In <code>H4</code> enter <code>=D4+F4</code>. It shows about
+<code>0.1663</code>, the upper limit.</li>
+<li>Select <code>F4:H4</code> and drag the fill handle down to row
+7.</li>
+<li>Select <code>D4:D7</code>, hold <code>Ctrl</code> (<code>Cmd</code>
+on macOS), also select <code>G4:H7</code>, click <strong>Home &gt;
+Number &gt; Percent Style</strong>, and click <strong>Increase
+Decimal</strong> once. PC02 now reads <code>15.7%</code>,
+<code>14.7%</code>, and <code>16.6%</code>.</li>
+<li>Select <code>E4:F7</code>, click <strong>Percent Style</strong>, and
+click <strong>Increase Decimal</strong> twice. PC02’s standard error and
+margin read <code>0.50%</code> and <code>0.97%</code>.</li>
+</ol>
+<p><strong>Part E. Read the comparisons.</strong> Each check asks
+whether the higher clinic’s lower limit sits above the other clinic’s
+upper limit; in both pairs, the second clinic has the higher rate.</p>
+<ol start="22" type="1">
+<li>In <code>A11:C11</code> type <code>Comparison</code>,
+<code>Gap</code>, and <code>Intervals</code>, and make them
+<strong>Bold</strong>.</li>
+<li>In <code>A12</code> type <code>PC02 vs SP03</code>; in
+<code>B12</code> enter <code>=D5-D4</code> and format it as a percentage
+with one decimal. It shows <code>2.8%</code>, a gap of 2.8 percentage
+points.</li>
+<li>In <code>C12</code> enter
+<code>=IF(G5&gt;H4, "No overlap", "Overlap")</code>. It shows
+<code>No overlap</code>: SP03’s lower limit (16.9 percent) sits above
+PC02’s upper limit (16.6 percent).</li>
+<li>In <code>A13</code> type <code>SP06 vs SP04</code>; in
+<code>B13</code> enter <code>=D7-D6</code> and format it the same way.
+It shows <code>3.2%</code>.</li>
+<li>In <code>C13</code> enter
+<code>=IF(G7&gt;H6, "No overlap", "Overlap")</code>. It shows
+<code>Overlap</code>: SP04’s lower limit (14.7 percent) sits below
+SP06’s upper limit (17.4 percent).</li>
+</ol>
+<p><strong>Part F. Chart the rates with error bars.</strong> An error
+bar draws each interval on the chart, so a reader sees the uncertainty
+and the rate together. Custom error bar values need desktop Excel for
+Windows or macOS; Excel for the web cannot set them.</p>
+<ol start="27" type="1">
+<li>Select <code>A3:A7</code>, hold <code>Ctrl</code> (<code>Cmd</code>
+on macOS), also select <code>D3:D7</code>, and choose <strong>Insert
+&gt; Charts &gt; Clustered Bar</strong>. Title the chart
+<code>No-show rate with 95% confidence interval</code>.</li>
+<li>With the chart selected, open the error bar options. On Windows,
+click the <strong>Chart Elements</strong> button (<strong>+</strong>)
+beside the chart, point to <strong>Error Bars</strong>, click its arrow,
+and choose <strong>More Options</strong>. On macOS, choose <strong>Chart
+Design &gt; Add Chart Element &gt; Error Bars &gt; More Error Bars
+Options</strong>.</li>
+<li>In the <strong>Format Error Bars</strong> pane, confirm
+<strong>Direction: Both</strong> and <strong>End Style: Cap</strong>.
+Under <strong>Error Amount</strong>, choose <strong>Custom</strong> and
+click <strong>Specify Value</strong>.</li>
+<li>In the dialog, clear the <strong>Positive Error Value</strong> box
+and select <code>F4:F7</code>; clear the <strong>Negative Error
+Value</strong> box and select <code>F4:F7</code> again; click
+<strong>OK</strong>. Each bar now carries its interval. SP03’s whisker
+starts just to the right of where PC02’s ends, and the SP06 and SP04
+whiskers overlap.</li>
+</ol>
+<p><strong>Part G. Format and finish.</strong></p>
+<ol start="31" type="1">
+<li>Select <code>A3:H7</code>, hold <code>Ctrl</code> (<code>Cmd</code>
+on macOS), also select <code>A11:C13</code>, and apply <strong>Home &gt;
+Font &gt; Borders &gt; All Borders</strong>.</li>
+<li>Click the <strong>Select All button</strong> and choose <strong>Home
+&gt; Format &gt; AutoFit Column Width</strong>.</li>
+<li>Save with Ctrl+S (Cmd+S on macOS). Your sheet should resemble
+Figure 11.</li>
+</ol>
+<p>Now return to the manager’s question. The smaller gap, 2.8 points
+between PC02 and SP03, is the one the data support: the intervals do not
+overlap, and a gap this large would be unusual if the clinics shared one
+rate. The larger gap, 3.2 points between SP06 and SP04, is not unusual
+under the no-difference model with 665 and 558 appointments; SP04’s
+interval alone spans more than 6 points.</p>
+<p>That does not prove the two clinics are the same. With these sample
+sizes, the analysis does not establish a difference between them, and a
+nonsignificant result does not rule out a meaningful one. Acting on the
+gap would risk acting on noise.</p>
+<p>Neither comparison explains why a gap exists. A behavioral health
+clinic and a family medicine practice serve different patients for
+different reasons, and a comparison of rates finds an association, not a
+cause.</p>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These exercises reuse the walkthrough’s techniques on new questions.
+The first is fully guided, like the walkthrough. The second provides
+less guidance: it names the functions and gives values to check against,
+but leaves you to assemble the formulas.</p>
+<section id="practice-a-how-unusual-is-a-long-ed-stay" class="level3">
+<h3>Practice A: how unusual is a long ED stay?</h3>
+<p>Test the 68-95 rule on ED length of stay, convert a stay to a
+z-score, and then put a confidence interval on the mean stay for two
+dispositions. The second part answers a question Chapter 9 left open:
+how much less stable is a summary based on 186 transfers than one based
+on 13,769 discharges home?</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a>, then choose
+<strong>File &gt; Save As</strong> and save a copy named
+<code>ch10_ed_shape.xlsx</code>.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>. On the <strong>Table Design</strong> tab, set the
+<strong>Table Name</strong> to <code>ED</code>.</li>
+<li>Add a worksheet named <code>Shape</code>. In <code>A1</code> type
+<code>ED Length of Stay: Shape and Uncertainty</code>, then merge
+<code>A1:G1</code>, and format it bold, size 14, with a dark fill and
+white font.</li>
+<li>In <code>A3</code> type <code>Measure</code> and in <code>B3</code>
+type <code>Value</code>; make <code>A3:B3</code>
+<strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Visits with a stay</code>; in
+<code>B4</code> enter <code>=COUNT(ED[length_of_stay_minutes])</code>.
+It shows <code>17416</code>.</li>
+<li>In <code>A5</code> type <code>Mean stay (min)</code>; in
+<code>B5</code> enter <code>=AVERAGE(ED[length_of_stay_minutes])</code>.
+It shows about <code>209.8</code>.</li>
+<li>In <code>A6</code> type <code>SD (min)</code>; in <code>B6</code>
+enter <code>=STDEV.S(ED[length_of_stay_minutes])</code>. It shows about
+<code>90.3</code>.</li>
+<li>In <code>A7</code> type <code>z-score of 400 min</code>; in
+<code>B7</code> enter <code>=STANDARDIZE(400, B5, B6)</code>. It shows
+about <code>2.11</code>.</li>
+<li>In <code>A8</code> type <code>Share within 1 SD</code>; in
+<code>B8</code> enter<br />
+<code>=COUNTIFS(ED[length_of_stay_minutes], "&gt;="&amp;(B5-B6), ED[length_of_stay_minutes], "&lt;="&amp;(B5+B6))/B4</code><br />
+Format it as a percentage with one decimal. It shows <code>92.3%</code>;
+the rule predicts 68 percent.</li>
+<li>In <code>A9</code> type <code>Share within 2 SD</code>; in
+<code>B9</code> enter the same formula with <code>2*B6</code> in place
+of <code>B6</code> in both places. It shows <code>97.5%</code>.</li>
+<li>In <code>A10</code> type <code>Stays above +2 SD</code>; in
+<code>B10</code> enter
+<code>=COUNTIF(ED[length_of_stay_minutes], "&gt;"&amp;(B5+2*B6))</code>.
+It shows <code>434</code>. In <code>A11</code> type
+<code>Stays below -2 SD</code>; in <code>B11</code> enter
+<code>=COUNTIF(ED[length_of_stay_minutes], "&lt;"&amp;(B5-2*B6))</code>.
+It shows <code>0</code>.</li>
+<li>In <code>A12</code> type <code>Normal predicts above 400</code>; in
+<code>B12</code> enter <code>=1-NORM.DIST(400, B5, B6, TRUE)</code> and
+format it as a percentage. It shows <code>1.8%</code>. In
+<code>A13</code> type <code>Actual above 400</code>; in <code>B13</code>
+enter <code>=COUNTIF(ED[length_of_stay_minutes], "&gt;400")/B4</code>.
+It shows <code>2.4%</code>. The file holds about 40 percent more long
+stays than the normal curve predicts.</li>
+<li>In <code>A15:G15</code> type <code>Disposition</code>,
+<code>Stays</code>, <code>Mean stay</code>, <code>SD</code>,
+<code>Margin</code>, <code>Lower</code>, and <code>Upper</code>, and
+make the row <strong>Bold</strong>. In <code>A16</code> type
+<code>Home</code> and in <code>A17</code> type
+<code>Transfer</code>.</li>
+<li>In <code>B16</code> enter
+<code>=COUNTIFS(ED[disposition], A16)</code>. It shows
+<code>13769</code>.</li>
+<li>In <code>C16</code> enter
+<code>=AVERAGEIFS(ED[length_of_stay_minutes], ED[disposition], A16)</code>.
+It shows about <code>183.6</code>.</li>
+<li>In <code>D16</code> enter
+<code>=STDEV.S(FILTER(ED[length_of_stay_minutes], ED[disposition]=A16))</code>.
+It shows about <code>32.2</code>. (<code>FILTER</code> needs Excel 2021
+or Microsoft 365. On Excel 2019, enter
+<code>=STDEV.S(IF(ED[disposition]=A16, ED[length_of_stay_minutes]))</code>
+and confirm it with Ctrl+Shift+Enter, the same keys on macOS.)</li>
+<li>In <code>E16</code> enter
+<code>=CONFIDENCE.T(0.05, D16, B16)</code>. It shows about
+<code>0.54</code>, the margin of error in minutes.</li>
+<li>In <code>F16</code> enter <code>=C16-E16</code> and in
+<code>G16</code> enter <code>=C16+E16</code>. They show about
+<code>183.0</code> and <code>184.1</code>.</li>
+<li>Select <code>B16:G16</code> and drag the fill handle down to row 17.
+Transfer shows <code>186</code> stays, a mean of about
+<code>299.2</code>, an SD of about <code>42.2</code>, a margin of about
+<code>6.11</code>, and limits of about <code>293.1</code> and
+<code>305.3</code>.</li>
+<li>Apply <strong>All Borders</strong>, click the <strong>Select All
+button</strong>, choose <strong>AutoFit Column Width</strong>, and
+save.</li>
+</ol>
+<p>The transfer margin, about 6.1 minutes, is more than ten times the
+home margin of 0.5 minutes, because the transfer group is 74 times
+smaller and its stays vary more. Both intervals are still narrow next to
+the gap of nearly two hours between the groups, so the estimated mean
+stays are widely separated, although the intervals still depend on the
+assumptions of the analysis; the transfer figure is less precise. With
+samples this large, the sampling distribution of the mean is
+approximately normal, so the t interval generally holds up despite the
+skew of the individual stays. With small samples from a skewed measure,
+it is less reliable.</p>
+</section>
+<section id="practice-b-diabetes-rates-by-group" class="level3">
+<h3>Practice B: diabetes rates by group</h3>
+<p>Build a table of diabetes rates with 95 percent intervals for two
+ways of grouping the teaching extract’s respondents, with less guidance.
+This exercise names the functions and gives you values to check against,
+but leaves the formulas for you to build.</p>
+<p>Goal: a table of rates with intervals for insured and uninsured
+respondents and for six age groups, and a bar chart of the age groups
+with error bars.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/PH2_brfss2022_teaching_extract.csv" download title="Download PH2_brfss2022_teaching_extract.csv"><code>datasets/PH2_brfss2022_teaching_extract.csv</code></a>, save
+a copy named <code>ch10_brfss.xlsx</code>, and convert the data to a
+Table named <code>BRFSS</code>.</li>
+<li>Add a worksheet named <code>Groups</code>. In <code>A3:H3</code>
+type the headers <code>Group</code>, <code>With diabetes</code>,
+<code>Respondents</code>, <code>Rate</code>, <code>Std error</code>,
+<code>Margin</code>, <code>Lower</code>, and <code>Upper</code>, the
+same layout as the walkthrough.</li>
+<li>In <code>A4</code> type <code>Insured</code> and in <code>A5</code>
+type <code>Uninsured</code>. In <code>A7:A12</code> type the six age
+groups exactly as the file records them: <code>18-24</code>,
+<code>25-34</code>, <code>35-44</code>, <code>45-54</code>,
+<code>55-64</code>, and <code>65+</code>.
+<ul>
+<li>If Excel turns an entry into a date, type an apostrophe first
+(<code>'18-24</code>).</li>
+</ul></li>
+<li>In column <code>C</code>, count the respondents in each group with
+<code>=COUNTIFS(...)</code>.
+<ul>
+<li>For the insurance rows, the condition is
+<code>BRFSS[insured_flag]</code> equal to <code>1</code> or
+<code>0</code>.</li>
+<li>For the age rows, the condition is <code>BRFSS[age_group]</code>
+equal to the value in column <code>A</code>, kept relative so it copies
+down.</li>
+</ul></li>
+<li>In column <code>B</code>, count the respondents with diabetes by
+adding a second condition pair, <code>BRFSS[diabetes_flag]</code> equal
+to <code>1</code>. For the insured row, <code>B4</code> is
+<code>=COUNTIFS(BRFSS[insured_flag], 1, BRFSS[diabetes_flag], 1)</code>;
+build the other rows the same way.</li>
+<li>Calculate the rate, standard error, margin, and limits as in Parts C
+and D of the walkthrough. Store <code>=NORM.S.INV(0.975)</code> in
+<code>B14</code> and lock it with <code>$B$14</code>.</li>
+<li>Chart the six age groups as a <strong>Clustered Bar</strong> with
+custom error bars from the margin column, as in Part F.</li>
+<li>Apply <strong>All Borders</strong>, <strong>AutoFit Column
+Width</strong>, and save.
+<ul>
+<li><strong>Check your work:</strong> insured respondents number
+<code>13,133</code>, with <code>2,951</code> reporting diabetes, a rate
+of <code>22.5%</code> (<code>21.8%</code> to <code>23.2%</code>).
+Uninsured respondents number <code>1,867</code>, with <code>419</code>
+reporting diabetes, a rate of <code>22.4%</code> (<code>20.5%</code> to
+<code>24.3%</code>). The age-group rates rise from <code>10.1%</code> at
+<code>18-24</code> (<code>8.7%</code> to <code>11.5%</code>) to
+<code>36.5%</code> at <code>65+</code> (<code>34.8%</code> to
+<code>38.2%</code>). If the margins after the first row show
+<code>0.0%</code> and the limits equal the rate, the multiplier cell was
+not locked with <code>$B$14</code>.</li>
+<li>The two insurance groups have nearly the same rate, but the
+uninsured interval is almost three times as wide because the group is a
+seventh the size. These are unweighted rates in a synthetic teaching
+extract, and an association with age is not proof that age alone
+explains the difference.</li>
+</ul></li>
+</ol>
+<div class="tryit">
+<p>A clinic surveys 200 patients and finds that 60 percent are
+satisfied. Its health system’s benchmark is 55 percent. Calculate the
+standard error and the 95 percent confidence interval for the clinic’s
+rate. Then decide whether the clinic can claim to exceed the benchmark,
+and explain why in one sentence. Finally, estimate how many patients the
+clinic would need to survey, at the same 60 percent rate, for the
+interval to clear 55 percent. The answer key is at the end of the
+chapter.</p>
+</div>
+</section>
+</section>
+<section id="going-deeper" class="level2">
+<h2>Going deeper</h2>
+<div class="goingdeeper">
+<p>The overlap check in the walkthrough is a screen, not a test. The
+formal version compares the gap between two rates with the standard
+error of the gap itself. Pool the two clinics to estimate one shared
+rate, calculate the standard error of a difference from that shared rate
+and both sample sizes, and divide the observed gap by it. The result is
+a z-score for the gap: 3.04 for PC02 and SP03, and 1.51 for SP06 and
+SP04. Read against the normal curve, those z-scores give the p-values in
+Figure 8; in Excel, <code>=2*(1-NORM.S.DIST(3.04, TRUE))</code> returns
+<code>0.002</code>. A confidence interval for the gap itself is the gap
+plus and minus 1.96 times
+<code>SQRT(p1*(1-p1)/n1 + p2*(1-p2)/n2)</code>. For PC02 and SP03 the
+gap is 2.8 points (1.0 to 4.7); for SP06 and SP04 it is 3.2 points (-1.0
+to 7.4), an interval that includes zero, which restates the opening
+lesson in one line. The same logic underlies the t-tests and chi-square
+tests that a statistics course covers next (Diez et al., 2019). Two
+cautions apply to any test. Statistical significance is not practical
+importance: UC02’s no-show rate of 10.7 percent sits 4.9 points below
+PC02’s, with a p-value below 0.001, but whether that gap reflects the
+clinic, its patients, or the kind of visit an urgent care center handles
+is a question no test answers. And the formula assumes a simple random
+sample, so survey files with weights, strata, and clusters, such as PH2,
+need design-based standard errors.</p>
+</div>
+</section>
+<section id="real-world-spotlight" class="level2">
+<h2>Real-world spotlight</h2>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A quality team celebrated a “record-low” infection rate
+one month and sent the result to leadership as evidence that a new
+protocol was working. The next month the rate rose back to its usual
+level, and the month after that it fell again. Plotted over two years,
+the record month was an ordinary low point in a process that had always
+moved within the same band. Nothing had changed except which month was
+read on its own. The protocol may still have helped, but a single low
+number, read without its history and its spread, was common-cause
+variation presented as a result. Figure 7 shows the same pattern in the
+teaching data: the lowest month, May 2024 at 13.7 percent, was followed
+by 15.8 percent in June, and both sit inside the band chance produces.
+The habit that would have caught it is the one this chapter teaches:
+before you act on a number, ask how much it would have moved by
+chance.</p>
+</div>
+<div class="recap">
+<ul>
+<li>The normal distribution is a symmetric bell in which about 68
+percent of values fall within one SD of the mean and about 95 percent
+within two; a z-score states how many SDs a value sits from the
+mean.</li>
+<li>The 68-95 rule holds only for roughly normal measures. Check the
+shares within one and two SDs before using it, and describe skewed
+measures such as length of stay with medians and percentiles.</li>
+<li>A sample estimate carries a standard error that shrinks with the
+square root of the sample size, and a 95 percent confidence interval
+reports the estimate plus and minus a multiplier times the standard
+error, 1.96 for large-sample rates.</li>
+<li>Common-cause variation is the ordinary movement of a stable process;
+a month inside the band chance produces is not, by itself, a
+signal.</li>
+<li>A p-value is the probability of a gap at least this large if there
+were no real difference, not the probability that a difference exists,
+and comparisons picked after searching the data produce small p-values
+by chance; a correlation measures how tightly two measures move
+together, not why.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>The inpatient risk score has a mean of 39.85 and an SD of 10.68.
+State the range that holds about 95 percent of stays, calculate the
+z-score of a stay scoring 65, and say whether that score is
+unusual.</li>
+<li>Using Table 2, explain in two sentences why the 68-95 rule fails for
+ED length of stay, and name the summaries you would report instead.</li>
+<li>In <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, calculate the
+no-show rate and its 95 percent confidence interval for UC01 (Riverbend
+East Urgent Care), using the kept-or-missed denominator. Then say
+whether its interval overlaps PC02’s in Figure 11.</li>
+<li>A rate of 20 percent comes from a sample of 100, and the same 20
+percent from a sample of 2,000. Calculate the margin of error for each,
+and explain which estimate is more reliable.</li>
+<li>A weekly no-show rate moves between 14 and 18 percent for a year
+with no trend. Classify that movement, and describe two patterns that
+would count as a signal.</li>
+<li>A report states: “The new reminder system cut no-shows, p = 0.03, so
+there is a 97 percent chance it works.” Rewrite the sentence so it is
+accurate, and name two numbers the report should add.</li>
+<li>In <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, calculate the
+correlation between <code>comorbidity_count</code> and
+<code>length_of_stay_days</code>. State what the value says about the
+relationship and two things it does not show.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (correlation).</strong>
+<code>=CORREL(Inpatient[age_at_admit], Inpatient[length_of_stay_days])</code>
+returns about <code>0.197</code>, a weak positive relationship: older
+patients tend to stay slightly longer, with wide scatter. Squared, it is
+about <code>0.04</code>, so a straight line on age accounts for about 4
+percent of the variation in length of stay. The correlation does not
+show that age causes longer stays, because older patients may differ in
+other ways, such as their diagnoses; it also cannot rule out a curved
+relationship that a straight line misses.</p>
+<p><strong>Try It (satisfaction benchmark).</strong> The standard error
+is <code>=SQRT(0.6*0.4/200)</code>, about <code>0.0346</code>, or 3.5
+points. The margin is 1.96 times that, about 6.8 points, so the interval
+runs from about 53.2 to 66.8 percent. The clinic cannot claim to exceed
+the 55 percent benchmark, because the interval reaches below 55 percent,
+so the apparent edge could be chance. For the lower limit to clear 55
+percent at a 60 percent rate, the margin must be under 5 points, which
+takes <code>=NORM.S.INV(0.975)^2*0.6*0.4/0.05^2</code>, about 368.8, so
+at least 369 patients.</p>
+<p><strong>Practice A (ED shape and intervals).</strong> The file holds
+<code>17416</code> visits with a recorded stay, with a mean of about
+<code>209.8</code> minutes and an SD of about <code>90.3</code>. A
+400-minute stay has a z-score of about <code>2.11</code>. The shares
+within one and two SDs are <code>92.3%</code> and <code>97.5%</code>,
+against the rule’s 68 and 95 percent, and all <code>434</code> stays
+beyond two SDs lie above the mean, with <code>0</code> below. The normal
+curve predicts <code>1.8%</code> of stays above 400 minutes; the file
+holds <code>2.4%</code>. Home discharges number <code>13769</code>, with
+a mean of <code>183.6</code> minutes and a 95 percent interval of
+<code>183.0</code> to <code>184.1</code>; transfers number
+<code>186</code>, with a mean of <code>299.2</code> and an interval of
+<code>293.1</code> to <code>305.3</code>.</p>
+<p><strong>Practice B (diabetes by group).</strong> Insured:
+<code>13,133</code> respondents, <code>2,951</code> with diabetes,
+<code>22.5%</code> (<code>21.8%</code> to <code>23.2%</code>).
+Uninsured: <code>1,867</code>, <code>419</code>, <code>22.4%</code>
+(<code>20.5%</code> to <code>24.3%</code>). By age: <code>18-24</code>
+<code>10.1%</code> (<code>8.7%</code> to <code>11.5%</code>),
+<code>25-34</code> <code>14.5%</code> (<code>13.1%</code> to
+<code>15.9%</code>), <code>35-44</code> <code>16.2%</code>
+(<code>14.7%</code> to <code>17.7%</code>), <code>45-54</code>
+<code>21.2%</code> (<code>19.6%</code> to <code>22.7%</code>),
+<code>55-64</code> <code>29.5%</code> (<code>27.8%</code> to
+<code>31.2%</code>), and <code>65+</code> <code>36.5%</code>
+(<code>34.8%</code> to <code>38.2%</code>). The rate rises with every
+age group. Only the <code>25-34</code> and <code>35-44</code> intervals
+overlap; the youngest and oldest groups are far apart.</p>
+<p><strong>End-of-chapter exercises.</strong></p>
+<ol type="1">
+<li>About 95 percent of stays fall between 18.5 and 61.2, two SDs either
+side of the mean. The z-score of 65 is (65 - 39.85) / 10.68, about
+<code>2.35</code>. That is beyond two SDs, so the score is unusual;
+about 1 percent of stays score that high.</li>
+<li>Length of stay is right-skewed: its long upper tail inflates the SD,
+so 92.3 percent of visits fall within one SD instead of 68 percent, and
+every visit beyond two SDs is in the upper tail. Report the median (190
+minutes) with percentiles or the IQR, as in Chapter 9.</li>
+<li>UC01 has <code>188</code> no-shows among <code>1,622</code>
+kept-or-missed appointments, a rate of <code>11.6%</code>. The standard
+error is about 0.79 points and the margin about 1.56, so the interval
+runs from about <code>10.0%</code> to <code>13.1%</code>. It does not
+overlap PC02’s interval of <code>14.7%</code> to
+<code>16.6%</code>.</li>
+<li>At 100, the standard error is <code>=SQRT(0.2*0.8/100)</code>, 4.0
+points, and the margin is about 7.8 points. At 2,000, the standard error
+is about 0.89 points and the margin about 1.75. The estimate from 2,000
+is more reliable: twenty times the sample gives a margin about four and
+a half times smaller.</li>
+<li>Movement within a steady band with no trend is common-cause
+variation. Two signals would be a week outside control limits set about
+three standard errors from the average, as on a p-chart, and a sustained
+shift, such as a long run of weeks on one side of the center line, which
+Chapter 11 builds run rules for.</li>
+<li>“If the reminder system had no effect, a change at least this large,
+in either direction, would occur by chance about 3 times in 100.” The
+report should add the size of the drop in percentage points and its
+confidence interval; the sample sizes behind each rate also belong in
+the report.</li>
+<li><code>=CORREL(Inpatient[comorbidity_count], Inpatient[length_of_stay_days])</code>
+returns about <code>0.087</code>, a weak positive straight-line
+relationship, near the bottom of the weak range; a straight line on
+comorbidity count accounts for under 1 percent of the variation in
+length of stay. It does not show that comorbidities have no bearing on
+length of stay, because a curved or group-specific pattern could still
+produce a low <code>r</code>, and it does not show cause in either
+direction.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Benneyan, J. C., Lloyd, R. C., &amp; Plsek, P. E. (2003).
+Statistical process control as a tool for research and healthcare
+improvement. <em>Quality and Safety in Health Care, 12</em>(6), 458–464.
+<a href="https://doi.org/10.1136/qhc.12.6.458"
+class="uri">https://doi.org/10.1136/qhc.12.6.458</a></li>
+<li>Centers for Disease Control and Prevention. (n.d.). <em>2022 BRFSS
+survey data and documentation.</em> <a
+href="https://www.cdc.gov/brfss/annual_data/annual_2022.html"
+class="uri">https://www.cdc.gov/brfss/annual_data/annual_2022.html</a></li>
+<li>Centers for Disease Control and Prevention. (2026, September 16).
+<em>National diabetes statistics report.</em> <a
+href="https://www.cdc.gov/diabetes/php/data-research/index.html"
+class="uri">https://www.cdc.gov/diabetes/php/data-research/index.html</a></li>
+<li>Diez, D. M., Çetinkaya-Rundel, M., &amp; Barr, C. D. (2019).
+<em>OpenIntro statistics</em> (4th ed.). OpenIntro. <a
+href="https://www.openintro.org/book/os/"
+class="uri">https://www.openintro.org/book/os/</a></li>
+<li>Greenland, S., Senn, S. J., Rothman, K. J., Carlin, J. B., Poole,
+C., Goodman, S. N., &amp; Altman, D. G. (2016). Statistical tests, P
+values, confidence intervals, and power: A guide to misinterpretations.
+<em>European Journal of Epidemiology, 31</em>(4), 337–350. <a
+href="https://doi.org/10.1007/s10654-016-0149-3"
+class="uri">https://doi.org/10.1007/s10654-016-0149-3</a></li>
+<li>Provost, L. P., &amp; Murray, S. K. (2022). <em>The health care data
+guide: Learning from data for improvement</em> (2nd ed.).
+Jossey-Bass.</li>
+<li>Vu, J., &amp; Harrington, D. (2020). <em>Introductory statistics for
+the life and biomedical sciences.</em> OpenIntro. <a
+href="https://www.openintro.org/book/biostat/"
+class="uri">https://www.openintro.org/book/biostat/</a></li>
+<li>Wasserstein, R. L., &amp; Lazar, N. A. (2016). The ASA statement on
+p-values: Context, process, and purpose. <em>The American Statistician,
+70</em>(2), 129–133. <a
+href="https://doi.org/10.1080/00031305.2016.1154108"
+class="uri">https://doi.org/10.1080/00031305.2016.1154108</a></li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Normal distribution</dt>
+<dd>
+A symmetric, bell-shaped distribution in which values cluster around the
+mean and thin out evenly on both sides.
+</dd>
+<dt>68-95 rule</dt>
+<dd>
+In a normal distribution, about 68 percent of values fall within one
+standard deviation of the mean and about 95 percent within two.
+</dd>
+<dt>Z-score</dt>
+<dd>
+The number of standard deviations a value sits from the mean.
+</dd>
+<dt>Sampling variability</dt>
+<dd>
+The way an estimate changes from one sample to the next.
+</dd>
+<dt>Sampling distribution</dt>
+<dd>
+The pattern of estimates that many samples of the same size would
+produce.
+</dd>
+<dt>Standard error</dt>
+<dd>
+The standard deviation of a sampling distribution; the typical distance
+between a sample’s estimate and the population value.
+</dd>
+<dt>Confidence interval</dt>
+<dd>
+An estimate reported as a range, the estimate plus and minus a margin of
+error, built so that a stated share of such intervals capture the
+population value.
+</dd>
+<dt>Margin of error</dt>
+<dd>
+The distance from an estimate to either limit of its confidence
+interval; for a 95 percent interval on a large-sample rate, 1.96
+standard errors.
+</dd>
+<dt>Survey weight</dt>
+<dd>
+The number of people in the population that a survey respondent
+represents, used to make survey estimates reflect the population.
+</dd>
+<dt>Common-cause variation</dt>
+<dd>
+The ordinary, expected movement of a stable process from one period to
+the next.
+</dd>
+<dt>Special-cause variation</dt>
+<dd>
+A change large or sustained enough that chance alone is an unlikely
+explanation.
+</dd>
+<dt>P-chart</dt>
+<dd>
+A control chart for a rate, which plots each period’s rate against
+limits about three standard errors either side of the long-run average.
+</dd>
+<dt>Null hypothesis</dt>
+<dd>
+The assumption, tested with data, that there is no real difference or
+relationship.
+</dd>
+<dt>P-value</dt>
+<dd>
+The probability of a result at least as extreme as the one observed if
+the null hypothesis were true.
+</dd>
+<dt>Statistically significant</dt>
+<dd>
+Describes a result whose p-value falls below a threshold chosen in
+advance, by convention 0.05.
+</dd>
+<dt>Effect size</dt>
+<dd>
+The size of a difference or relationship, such as the gap in percentage
+points between two rates.
+</dd>
+<dt>Correlation coefficient</dt>
+<dd>
+A number from -1 to 1, written r, that measures the strength and
+direction of the straight-line relationship between two numerical
+variables.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch10,
+  author = {Sher, Hoshiar J.},
+  title = {Distributions, Variation, and Statistical Inference},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch10.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch10,
+  author = {Sher, Hoshiar J.},
+  title = {Distributions, Variation, and Statistical Inference},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch10.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch09.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 9: Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="pn next" href="ch11.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-a-clinic-comparison-with-confidence-intervals">Walkthrough: build a clinic comparison with confidence intervals</a><a href="#practice-on-your-own">Practice on your own</a><a href="#going-deeper">Going deeper</a><a href="#real-world-spotlight">Real-world spotlight</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,2062 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Data Visualization, Dashboards, Benchmarking, and Performance Monitoring — Introduction to Healthcare Data Analytics Using Excel</title>
+<meta name="description" content="In January 2026, the Riverbend clinics’ leadership team reviews two years of appointment data and asks for a monthly dashboard. The request has a history. In October 2024, a monthly report showed the network no-show rate climbing from 15.6 percent in July to 17.8 percent in August and 18.4 percent i">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch11.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:title" content="Data Visualization, Dashboards, Benchmarking, and Performance Monitoring — Introduction to Healthcare Data Analytics Using Excel">
+<meta property="og:description" content="In January 2026, the Riverbend clinics’ leadership team reviews two years of appointment data and asks for a monthly dashboard. The request has a history. In October 2024, a monthly report showed the network no-show rate climbing from 15.6 percent in July to 17.8 percent in August and 18.4 percent i">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch11.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Data Visualization, Dashboards, Benchmarking, and Performance Monitoring","position":11,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics Using Excel","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch11.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics Using Excel</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item active" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><span class="nav-item disabled" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant (coming soon)" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant, coming soon"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification (coming soon)" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification, coming soon"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication (coming soon)" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication, coming soon"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 11 · 50 minutes</p>
+    <p class="last-updated">Last updated November 11, 2026</p>
+    <article class="prose">
+      <section id="sec:ch11" class="level1">
+<h1>Data Visualization, Dashboards, Benchmarking, and Performance
+Monitoring</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>In January 2026, the Riverbend clinics’ leadership team reviews two
+years of appointment data and asks for a monthly dashboard. The request
+has a history. In October 2024, a monthly report showed the network
+no-show rate climbing from 15.6 percent in July to 17.8 percent in
+August and 18.4 percent in September. The covering email was titled
+“No-show crisis,” and an emergency plan was drafted within a week.</p>
+<p>At the same review, the urgent care manager reports that her clinics
+are “doing great”: their two-year no-show rate of 11.2 percent is well
+below the network’s 14 percent target.</p>
+<p>Both statements rest on numbers read without context. The first
+treats a two-month climb as a trend. The second treats a rate below
+target as proof that nothing needs attention.</p>
+<p>Evaluating either claim requires two years of history on one chart, a
+rule for deciding when movement exceeds what chance would produce, and a
+comparable reference point. This chapter develops each of these tools.
+The data come from the book’s teaching files: the <code>DS</code> prefix
+numbers the operational datasets (<code>DS2</code> holds the clinic
+appointments and <code>DS3</code> the emergency department visits), and
+the <code>PH</code> prefix numbers the public health datasets. Table 1
+shows the three months behind the 2024 email; the walkthrough tests both
+claims.</p>
+<div class="table-wrap"><table id="tbl:ch11-crisis">
+<caption>Table 1: The three months behind the “No-show crisis” email.
+The rate is no-shows divided by kept-or-missed appointments (completed
+visits plus no-shows); cancellations and reschedules are excluded, as in
+Chapter 1. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<thead>
+<tr>
+<th>Month</th>
+<th>Kept or missed</th>
+<th>No-shows</th>
+<th>No-show rate</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>July 2024</td>
+<td>1,306</td>
+<td>204</td>
+<td>15.6%</td>
+</tr>
+<tr>
+<td>August 2024</td>
+<td>1,303</td>
+<td>232</td>
+<td>17.8%</td>
+</tr>
+<tr>
+<td>September 2024</td>
+<td>1,276</td>
+<td>235</td>
+<td>18.4%</td>
+</tr>
+</tbody>
+</table></div>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Choose a chart that matches the question and the type of data,
+extending the Chapter 6 chart chooser to composition, relationship, and
+hierarchy.</li>
+<li>Apply design choices that make a chart accurate and quick to
+interpret: a zero baseline for bars, sorted order, direct labels,
+purposeful color, and a title that states the finding.</li>
+<li>Build a run chart with a median center line and apply the shift,
+trend, and runs rules to separate a signal from ordinary variation.</li>
+<li>Distinguish a run chart from a control chart and say when each one
+is the appropriate tool.</li>
+<li>Choose a comparable benchmark, such as past performance, a target,
+or a matched peer group, and judge where a value sits against it.</li>
+<li>Design and build an interactive Excel dashboard with a key
+performance indicator (KPI) card, a run chart, a sparkline, a breakdown
+chart, and a slicer.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>A chart presents evidence through position, length, and color rather
+than words. It is effective when it answers one question accurately and
+efficiently. This section builds that skill in five parts:</p>
+<ul>
+<li><strong>choosing</strong> the chart from the question and the type
+of data,</li>
+<li><strong>designing</strong> the chart so it represents the data
+accurately and can be read quickly,</li>
+<li><strong>monitoring</strong> a measure over time with a run chart and
+its rules,</li>
+<li><strong>benchmarking</strong> a value against a comparable
+reference,</li>
+<li><strong>assembling</strong> a few views into a dashboard that
+supports a decision.</li>
+</ul>
+</div>
+<section id="choose-the-chart-from-the-question-and-the-data"
+class="level3">
+<h3>Choose the chart from the question and the data</h3>
+<p>Chapter 6 introduced one principle for charts: the chart type follows
+the question. It paired three questions with three charts. A column or
+bar chart compares a value across categories, a line chart tracks a
+value over time, and a histogram shows how one measure is distributed.
+Chapter 6 also previewed other chart families and noted that this
+chapter develops them.</p>
+<p><strong>Data visualization</strong> is the practice of encoding data
+as visual marks, such as bar lengths, point positions, and colors, so a
+reader can identify patterns that may be less apparent in a table of
+numbers. Choosing an appropriate encoding takes two questions, asked in
+order:</p>
+<ol type="1">
+<li><strong>What question does the reader need answered?</strong>
+Comparison, change over time, distribution, composition, relationship,
+or hierarchy.</li>
+<li><strong>What type of data answers it?</strong> Recall from Chapter 4
+that a qualitative variable holds categories and a quantitative variable
+holds numbers. Time order is a third ingredient: monthly rates are
+numbers arranged in sequence.</li>
+</ol>
+<p>Each chart family in this section appears as a reference card. A card
+states when to choose the chart, which data to select, how to read the
+result, and one design check. The cards use illustrative values rather
+than the teaching data, so their numbers differ from the rates
+calculated elsewhere in this chapter.</p>
+<p><strong>The three core charts, revisited.</strong> Figure 1 is the
+chooser from Chapter 6. It matches three questions to three charts, and
+the next three cards take each one further.</p>
+<figure id="fig:ch11-ch6-chooser">
+<img src="figures/generated/ch_06_chart_chooser.png"
+alt="Figure 1: Choosing a chart by the question it answers, reproduced from Chapter 6: compare categories with a column or bar chart, track change over time with a line chart, and show a distribution with a histogram. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 1: Choosing a chart by the
+question it answers, reproduced from Chapter 6: compare categories with
+a column or bar chart, track change over time with a line chart, and
+show a distribution with a histogram. Source: concept
+schematic.</figcaption>
+</figure>
+<ul>
+<li><strong>Bar and column charts</strong> compare one measure across
+categories (Figure 2). Every bar starts from a common zero, so length
+carries the value. Sort the bars by value, and turn them horizontal when
+the category labels are long.</li>
+<li><strong>Line charts</strong> track a measure over time (Figure 3).
+Keep the spacing between periods accurate and show gaps where data are
+missing. A line shows a pattern, not its cause; the run chart later in
+this chapter adds a rule for deciding when a pattern is more than
+chance.</li>
+<li><strong>Histograms</strong> show how one numeric measure is spread
+(Figure 4), as Chapter 9 built for length of stay. Each bar counts the
+values in one interval, or bin. Try a second bin width to confirm that
+the main pattern does not depend on the one you chose.</li>
+</ul>
+<figure id="fig:ch11-card-bar">
+<img src="figures/concept/ch_11_bar_column.png"
+alt="Figure 2: Bar and column charts compare one measure across categories. The card shows a no-show rate for four specialties, read from a common zero. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 2: Bar and column charts compare
+one measure across categories. The card shows a no-show rate for four
+specialties, read from a common zero. Source: illustrative teaching
+data, not drawn from the book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-line">
+<img src="figures/concept/ch_11_line.png"
+alt="Figure 3: A line chart shows how a measure changes over time. The card shows six months of a no-show rate that peaks in March. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 3: A line chart shows how a
+measure changes over time. The card shows six months of a no-show rate
+that peaks in March. Source: illustrative teaching data, not drawn from
+the book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-hist">
+<img src="figures/concept/ch_11_histogram.png"
+alt="Figure 4: A histogram shows how one numeric variable is distributed. The card groups 386 patient ages into 15-year bins; each bin includes its lower edge and excludes its upper edge. Excel’s histogram chart uses the opposite convention, including each bin’s upper edge, as the Chapter 9 bin labels show. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 4: A histogram shows how one
+numeric variable is distributed. The card groups 386 patient ages into
+15-year bins; each bin includes its lower edge and excludes its upper
+edge. Excel’s histogram chart uses the opposite convention, including
+each bin’s upper edge, as the Chapter 9 bin labels show. Source:
+illustrative teaching data, not drawn from the book’s
+datasets.</figcaption>
+</figure>
+<p><strong>Composition and distribution by group.</strong> Chapter 6
+previewed two more families in Figure 5: charts that show how a whole
+divides into parts, and the box plot.</p>
+<figure id="fig:ch11-ch6-composition">
+<img src="figures/generated/ch_06_charts_composition.png"
+alt="Figure 5: Chart families for composition and distribution, reproduced from Chapter 6: a pie or stacked bar chart shows how a whole divides into parts, while a box plot summarizes how a single variable is spread. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 5: Chart families for composition
+and distribution, reproduced from Chapter 6: a pie or stacked bar chart
+shows how a whole divides into parts, while a box plot summarizes how a
+single variable is spread. Source: concept schematic.</figcaption>
+</figure>
+<ul>
+<li><strong>Pie and donut charts</strong> divide one whole into a few
+parts (Figure 6). A <strong>donut chart</strong> is a pie with its
+center removed, often to display the total. Both encode shares as
+angles, so they work only when the parts are few and substantially
+different, for reasons explained after the chooser table.</li>
+<li><strong>Stacked bar charts</strong> show group totals and the parts
+inside each total (Figure 7). In a <strong>100% stacked bar
+chart</strong>, every bar is scaled to 100 percent, so the segments
+compare shares rather than counts. The card’s point depends on that
+distinction: behavioral health has fewer missed visits than primary care
+(60 against 80) but a higher missed share (30 percent against 18
+percent).</li>
+<li><strong>Box plots</strong>, which Chapters 8 and 9 introduced,
+compare the center and spread of one measure across groups (Figure 8).
+Read the medians first, then the box widths, then the whiskers and any
+points beyond them.</li>
+</ul>
+<figure id="fig:ch11-card-pie">
+<img src="figures/concept/ch_11_pie_donut.png"
+alt="Figure 6: Pie and donut charts show how one whole divides among a few categories. The card’s four shares sum to 100 percent. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 6: Pie and donut charts show how
+one whole divides among a few categories. The card’s four shares sum to
+100 percent. Source: illustrative teaching data, not drawn from the
+book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-stacked">
+<img src="figures/concept/ch_11_stacked_bar.png"
+alt="Figure 7: A stacked bar chart shows group totals and their component parts. The card stacks completed, no-show, and cancelled appointments for four specialties. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 7: A stacked bar chart shows group
+totals and their component parts. The card stacks completed, no-show,
+and cancelled appointments for four specialties. Source: illustrative
+teaching data, not drawn from the book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-box">
+<img src="figures/concept/ch_11_box_plot.png"
+alt="Figure 8: A box plot compares the distribution of one measure across groups. The card shows lengths of stay for five illustrative triage groups; the whiskers reach the farthest values within 1.5 interquartile ranges of each box, and points beyond them are flagged. The values are illustrative: the emergency department file used in this chapter records stays in minutes. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 8: A box plot compares the
+distribution of one measure across groups. The card shows lengths of
+stay for five illustrative triage groups; the whiskers reach the
+farthest values within 1.5 interquartile ranges of each box, and points
+beyond them are flagged. The values are illustrative: the emergency
+department file used in this chapter records stays in minutes. Source:
+illustrative teaching data, not drawn from the book’s
+datasets.</figcaption>
+</figure>
+<p><strong>Relationships and hierarchies.</strong> The last two
+families, previewed in Figure 9, show how two numbers move together and
+how categories nest inside one another.</p>
+<figure id="fig:ch11-ch6-relationships">
+<img src="figures/generated/ch_06_charts_relationships.png"
+alt="Figure 9: Chart families for relationships and hierarchies, reproduced from Chapter 6: a scatterplot shows how two variables relate, while a treemap or sunburst shows how categories nest inside one another. Source: concept schematic." />
+<figcaption aria-hidden="true">Figure 9: Chart families for
+relationships and hierarchies, reproduced from Chapter 6: a scatterplot
+shows how two variables relate, while a treemap or sunburst shows how
+categories nest inside one another. Source: concept
+schematic.</figcaption>
+</figure>
+<ul>
+<li><strong>Scatterplots</strong> place one point per case on two
+numeric axes (Figure 10). Chapter 10 summarized such a cloud with a
+correlation coefficient, and Chapter 12 builds on this chart when it
+fits a line through the cloud. Look for direction, form, clusters, and
+points far from the pattern, and remember that an association alone does
+not establish a cause.</li>
+<li><strong>Treemaps</strong> draw each category as a rectangle whose
+area is proportional to its count, nested inside its parent category
+(Figure 11). They show the overall structure at a glance, but readers
+judge areas poorly, so use a sorted bar chart when an exact comparison
+matters.</li>
+<li><strong>Sunburst charts</strong> show the same kind of hierarchy as
+rings (Figure 12). A <strong>sunburst chart</strong> places the top
+level in the inner ring and splits each segment outward into its parts.
+Keep the rings few, and use a table when readers need exact values.</li>
+</ul>
+<figure id="fig:ch11-card-scatter">
+<img src="figures/concept/ch_11_scatter.png"
+alt="Figure 10: A scatterplot shows how two numeric variables relate. The card plots patient age against length of stay for a set of encounters, with a fitted trend line and one stay of 277 minutes well above the trend. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 10: A scatterplot shows how two
+numeric variables relate. The card plots patient age against length of
+stay for a set of encounters, with a fitted trend line and one stay of
+277 minutes well above the trend. Source: illustrative teaching data,
+not drawn from the book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-treemap">
+<img src="figures/concept/ch_11_treemap.png"
+alt="Figure 11: A treemap shows which parts contribute most within a hierarchy. The card nests six specialties and care settings within three service lines, 1,180 encounters in all; each service line’s total is the sum of its tiles. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 11: A treemap shows which parts
+contribute most within a hierarchy. The card nests six specialties and
+care settings within three service lines, 1,180 encounters in all; each
+service line’s total is the sum of its tiles. Source: illustrative
+teaching data, not drawn from the book’s datasets.</figcaption>
+</figure>
+<figure id="fig:ch11-card-sunburst">
+<img src="figures/concept/ch_11_sunburst.png"
+alt="Figure 12: A sunburst chart shows how each category splits at the next level. The inner ring holds three payer categories and the outer ring their plan types, 1,160 members in all. PPO is a preferred provider organization and HMO a health maintenance organization. Source: illustrative teaching data, not drawn from the book’s datasets." />
+<figcaption aria-hidden="true">Figure 12: A sunburst chart shows how
+each category splits at the next level. The inner ring holds three payer
+categories and the outer ring their plan types, 1,160 members in all.
+PPO is a preferred provider organization and HMO a health maintenance
+organization. Source: illustrative teaching data, not drawn from the
+book’s datasets.</figcaption>
+</figure>
+<p>Table 2 gathers the families into one chooser that extends Chapter
+6’s from three questions to six. The first three rows restate Chapter 6;
+the last three are new.</p>
+<div class="table-wrap"><table id="tbl:ch11-chooser">
+<caption>Table 2: A chart chooser that extends the one in Chapter 6.
+Read across a row: name the question, confirm the data type, then use
+the default chart. Excel menu names follow Microsoft 365 for Windows;
+macOS places the same charts under <strong>Insert</strong> with slightly
+different icons.</caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>Question</th>
+<th>Data you have</th>
+<th>Default chart</th>
+<th>Excel command</th>
+<th>Avoid</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Compare categories</td>
+<td>One number per category</td>
+<td>Sorted bar or column</td>
+<td><strong>Insert &gt; Bar</strong></td>
+<td>Pie with many slices; 3-D bars</td>
+</tr>
+<tr>
+<td>Change over time</td>
+<td>Numbers in time order</td>
+<td>Line; run chart for monitoring</td>
+<td><strong>Insert &gt; Line</strong></td>
+<td>Unsorted dates; a bar for each of many periods</td>
+</tr>
+<tr>
+<td>Distribution</td>
+<td>Many values of one measure</td>
+<td>Histogram; box plot for groups</td>
+<td><strong>Insert &gt; Insert Statistic Chart</strong></td>
+<td>A single average standing in for the spread</td>
+</tr>
+<tr>
+<td>Composition</td>
+<td>Parts that sum to a whole</td>
+<td>100% stacked bar; pie or donut for a few parts</td>
+<td><strong>Insert &gt; Bar &gt; 100% Stacked Bar</strong></td>
+<td>Pie with more than about five parts</td>
+</tr>
+<tr>
+<td>Relationship</td>
+<td>Pairs of numbers</td>
+<td>Scatterplot</td>
+<td><strong>Insert &gt; Scatter</strong></td>
+<td>A line that joins unordered points</td>
+</tr>
+<tr>
+<td>Hierarchy</td>
+<td>Categories nested in categories</td>
+<td>Treemap or sunburst</td>
+<td><strong>Insert &gt; Insert Hierarchy Chart</strong></td>
+<td>Treemap when exact comparison matters</td>
+</tr>
+</tbody>
+</table></div>
+<p>Graphical perception research has measured how accurately people read
+different visual encodings, and it explains why the chooser prefers bars
+to pies. Readers judge position along a common scale most accurately;
+length, direction, and angle come next; area is less accurate; and
+volume and color saturation are least accurate (Cleveland &amp; McGill,
+1984). In their experiments, readers compared values less accurately as
+angles in a pie than as positions in a bar chart. A bar chart encodes
+values as positions and lengths; a pie chart encodes them as angles and
+areas.</p>
+<p>Figure 13 tests the claim on eight specialty shares. In the pie,
+Cardiology (5.1 percent) and Orthopedics (4.1 percent) are difficult to
+rank. In the sorted bar chart, the order and the differences can be read
+immediately. A pie chart remains suitable when it has only a few parts
+and the message is a simple part-to-whole split, such as “two-thirds of
+appointments are primary care” (Wilke, 2019).</p>
+<figure id="fig:ch11-perception">
+<img src="figures/generated/ch_11_pie_vs_bar.png"
+alt="Figure 13: The share of the 36,000 scheduled appointments in each specialty, drawn as a pie (left) and as a sorted bar chart (right). The same eight values are easier to rank and compare as bars. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 13: The share of the 36,000
+scheduled appointments in each specialty, drawn as a pie (left) and as a
+sorted bar chart (right). The same eight values are easier to rank and
+compare as bars. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<div class="caution">
+<p>Two common design choices can mislead readers. <strong>3-D
+effects</strong> tilt bars and pies so that the nearer parts look larger
+than they are. <strong>Dual-axis charts</strong> plot two measures
+against two different vertical scales, and the analyst’s choice of
+scales decides whether the lines appear to move together. Use flat
+charts, and put two measures on two aligned charts rather than on one
+chart with two axes.</p>
+</div>
+</section>
+<section id="design-the-chart-for-accuracy-and-clarity" class="level3">
+<h3>Design the chart for accuracy and clarity</h3>
+<p>Selecting an appropriate chart type is the first requirement. The
+second is design: the choices that determine whether, and how quickly, a
+reader identifies the finding. The principles below come from
+long-standing visualization practice (Knaflic, 2015; Tufte, 2001; Wilke,
+2019).</p>
+<ul>
+<li><strong>Start bars at zero.</strong> A bar encodes its value as
+length, so a bar axis that starts above zero misstates the ratio between
+bars. A line chart encodes values as positions, so its axis may start
+above zero to show movement, provided the reader can see where it
+starts.</li>
+<li><strong>Sort by value.</strong> Order categories from largest to
+smallest unless they have a natural order, such as months or age groups.
+Alphabetical order obscures the ranking.</li>
+<li><strong>Remove what does not carry data.</strong> Tufte (2001)
+called the ink that encodes data <strong>data-ink</strong> and the
+decoration around it <strong>chartjunk</strong>. Heavy gridlines,
+borders, shadows, and legends that repeat the axis labels compete with
+the data.</li>
+<li><strong>Label directly.</strong> Put values and series names next to
+the marks they describe, so the reader does not have to look back and
+forth between a legend and the chart.</li>
+<li><strong>Write a title that states the finding.</strong> “No-show
+rate by specialty” names the topic; “Behavioral health has the highest
+no-show rate” states the finding for the reader (Knaflic, 2015).</li>
+<li><strong>Use color with a purpose.</strong> Use one neutral color for
+most marks and one highlight color for the point that matters. Choose a
+palette that readers with color vision deficiency can distinguish (Okabe
+&amp; Ito, 2008), and never let color be the only carrier of meaning.
+The Web Content Accessibility Guidelines (WCAG) treat color-only meaning
+as an accessibility failure (World Wide Web Consortium [W3C],
+2023).</li>
+<li><strong>Say what is measured.</strong> The caption or a note states
+the measure’s numerator and denominator, the period, and the number of
+cases, the same standard every figure in this book follows.</li>
+</ul>
+<p>Figure 14 shows why the first rule matters. Primary care’s no-show
+rate is 16.4 percent and behavioral health’s is 18.5 percent, so the
+second bar should be about 1.13 times as long as the first. On an axis
+that starts at 15 percent, it looks about 2.5 times as long.</p>
+<figure id="fig:ch11-axis">
+<img src="figures/generated/ch_11_axis_honesty.png"
+alt="Figure 14: No-show rates for primary care (16.4 percent) and behavioral health (18.5 percent), drawn with a bar axis that starts at 15 percent (left) and at zero (right). Only the zero-based chart shows the true ratio of about 1.13. Rate: no-shows divided by kept-or-missed appointments, January 2024 to December 2025. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 14: No-show rates for primary care
+(16.4 percent) and behavioral health (18.5 percent), drawn with a bar
+axis that starts at 15 percent (left) and at zero (right). Only the
+zero-based chart shows the true ratio of about 1.13. Rate: no-shows
+divided by kept-or-missed appointments, January 2024 to December 2025.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>Figure 15 applies all seven principles at once. The left panel is a
+chart produced with common spreadsheet defaults and a few decorative
+choices. The right panel presents the same eight numbers.</p>
+<figure id="fig:ch11-redesign">
+<img src="figures/generated/ch_11_redesign.png"
+alt="Figure 15: The no-show rate by specialty, before and after redesign. The redesign sorts the bars, starts the axis at zero, uses one color with one highlight, labels values directly, adds the 16.1 percent network rate as a reference line, and states the finding in the title. Rate: no-shows divided by kept-or-missed appointments, January 2024 to December 2025, 30,571 appointments. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 15: The no-show rate by specialty,
+before and after redesign. The redesign sorts the bars, starts the axis
+at zero, uses one color with one highlight, labels values directly, adds
+the 16.1 percent network rate as a reference line, and states the
+finding in the title. Rate: no-shows divided by kept-or-missed
+appointments, January 2024 to December 2025, 30,571 appointments.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<div class="keypoint">
+<p>Before you share a chart, ask two questions: does the chart type
+answer the reader’s question, and would a reader with limited time
+identify the finding within a few seconds? If either answer is no,
+revise the chart before refining other details.</p>
+</div>
+</section>
+<section id="run-charts-reading-a-measure-over-time" class="level3">
+<h3>Run charts: reading a measure over time</h3>
+<p>Chapter 10 separated two kinds of variation. Common-cause variation
+is the ordinary movement of a stable process; special-cause variation
+signals that something in the process has likely changed. Chapter 10’s
+monthly no-show chart drew a band three standard errors either side of
+the 24-month rate and found every month inside it. It also noted that a
+band alone can miss a sustained shift that stays inside the limits. A
+run chart addresses that limitation.</p>
+<div class="definition">
+<p>A <strong>run chart</strong> plots a measure in time order with the
+<strong>median</strong> of the plotted values as its center line and no
+calculated limits. A <strong>run</strong> is a sequence of one or more
+consecutive points on the same side of the median. Points that fall
+exactly on the median are not <strong>useful observations</strong>: they
+neither add to a run nor break it.</p>
+</div>
+<p>The median is a deliberate choice. It divides the ordered
+observations into two halves, and observations equal to the median are
+left out when counting runs, so when only random variation is at work
+the points should cross it often and in no particular pattern. A pattern
+that chance would rarely produce is a <strong>signal</strong>: a
+nonrandom pattern worth investigating. The language of common-cause and
+special-cause variation, and of a stable process, belongs to the control
+chart; a run chart reports random variation or a nonrandom signal (Perla
+et al., 2011). Four rules for reading a run chart are standard in
+healthcare improvement (Perla et al., 2011), and Figure 16 illustrates
+each one.</p>
+<ol type="1">
+<li><strong>Shift.</strong> Six or more consecutive points all above or
+all below the median. Skip points that fall on the median; they neither
+add to the shift nor break it.</li>
+<li><strong>Trend.</strong> Five or more consecutive points all going up
+or all going down. When two or more consecutive points have the same
+value, count only the first; like values neither make nor break a
+trend.</li>
+<li><strong>Too few or too many runs.</strong> Count the runs and
+compare the count with a table of limits. For 24 useful observations,
+fewer than 8 runs or more than 18 is a signal. Too few runs means the
+process stays on one side for long stretches; too many means it
+alternates more regularly than chance would.</li>
+<li><strong>Astronomical point.</strong> A point so different from the
+rest that any reader of the chart would agree it is unusual. Every chart
+has a highest and a lowest point; an astronomical point lies far outside
+the range of the other points.</li>
+</ol>
+<figure id="fig:ch11-runrules">
+<img src="figures/generated/ch_11_run_rules.png"
+alt="Figure 16: The four run-chart rules on illustrative data, 14 points each. Shift: six consecutive points above the median. Trend: six consecutive points rising. Too few runs: two runs, below the lower limit of 4 for 14 points (this series also contains a shift, as series with too few runs often do). Astronomical point: one value far outside the rest. Amber points mark the pattern behind each rule. Source: illustrative values; rules from Perla et al. (2011)." />
+<figcaption aria-hidden="true">Figure 16: The four run-chart rules on
+illustrative data, 14 points each. Shift: six consecutive points above
+the median. Trend: six consecutive points rising. Too few runs: two
+runs, below the lower limit of 4 for 14 points (this series also
+contains a shift, as series with too few runs often do). Astronomical
+point: one value far outside the rest. Amber points mark the pattern
+behind each rule. Source: illustrative values; rules from Perla et
+al. (2011).</figcaption>
+</figure>
+<p>Table 3 gives the limits for 10 to 24 useful observations, which
+covers every series in this chapter. The full table in Perla et
+al. (2011) continues to 60 points; with fewer than 10 useful
+observations, the runs rule should not be applied.</p>
+<div class="table-wrap"><table id="tbl:ch11-runs-limits">
+<caption>Table 3: Limits for the number of runs on a run chart, for a
+risk of about 5 percent of a false signal. Useful observations are
+points that do not fall on the median. Source: adapted from Perla et
+al. (2011), Table 1.</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Useful observations</th>
+<th>Too few runs if fewer than</th>
+<th>Too many runs if more than</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>3</td>
+<td>9</td>
+</tr>
+<tr>
+<td>11</td>
+<td>3</td>
+<td>10</td>
+</tr>
+<tr>
+<td>12</td>
+<td>3</td>
+<td>11</td>
+</tr>
+<tr>
+<td>13</td>
+<td>4</td>
+<td>11</td>
+</tr>
+<tr>
+<td>14</td>
+<td>4</td>
+<td>12</td>
+</tr>
+<tr>
+<td>15</td>
+<td>5</td>
+<td>12</td>
+</tr>
+<tr>
+<td>16</td>
+<td>5</td>
+<td>13</td>
+</tr>
+<tr>
+<td>17</td>
+<td>5</td>
+<td>13</td>
+</tr>
+<tr>
+<td>18</td>
+<td>6</td>
+<td>14</td>
+</tr>
+<tr>
+<td>19</td>
+<td>6</td>
+<td>15</td>
+</tr>
+<tr>
+<td>20</td>
+<td>6</td>
+<td>16</td>
+</tr>
+<tr>
+<td>21</td>
+<td>7</td>
+<td>16</td>
+</tr>
+<tr>
+<td>22</td>
+<td>7</td>
+<td>17</td>
+</tr>
+<tr>
+<td>23</td>
+<td>7</td>
+<td>17</td>
+</tr>
+<tr>
+<td>24</td>
+<td>8</td>
+<td>18</td>
+</tr>
+</tbody>
+</table></div>
+<p>Apply the rules to the network series from the opening scenario.
+Figure 17 plots the 24 monthly no-show rates with their median of 16.0
+percent.</p>
+<ul>
+<li><strong>Shift:</strong> the longest run is 5 months, March to July
+2024, all below the median. A shift needs 6.</li>
+<li><strong>Trend:</strong> the longest sequence moving in one direction
+is 4 points. A trend needs 5.</li>
+<li><strong>Runs:</strong> the series makes 11 runs, within the limits
+of 8 to 18.</li>
+<li><strong>Astronomical point:</strong> none. September 2024, the
+highest month at 18.4 percent, is the series maximum, which by itself
+does not indicate an unusual pattern.</li>
+</ul>
+<p>No rule fires. None of the selected run-chart rules identifies a
+nonrandom pattern, and the August and September climb that prompted the
+email, two consecutive points above the median, does not on its own
+establish a sustained change. Continued monitoring is appropriate. A run
+chart cannot by itself show that a process is stable; that judgment
+needs a control chart, which the next subsection introduces.</p>
+<figure id="fig:ch11-run">
+<img src="figures/generated/ch_11_no_show_runchart.png"
+alt="Figure 17: Monthly no-show rate for all specialties, January 2024 to December 2025, with the median of 16.0 percent (dashed line). The shaded months, March to July 2024, form the longest run: five points below the median, one short of a shift. No run rule fires. Rate: no-shows divided by kept-or-missed appointments; 30,571 appointments, 1,143 to 1,387 a month. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 17: Monthly no-show rate for all
+specialties, January 2024 to December 2025, with the median of 16.0
+percent (dashed line). The shaded months, March to July 2024, form the
+longest run: five points below the median, one short of a shift. No run
+rule fires. Rate: no-shows divided by kept-or-missed appointments;
+30,571 appointments, 1,143 to 1,387 a month. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<div class="caution">
+<p><strong>Every rule you add, and every subgroup you check, adds
+chances of a false alarm.</strong> Anhøj and Olesen (2014) showed by
+simulation that run-chart rule sets differ in how often they flag a
+stable process. The same arithmetic applies across subgroups: when the
+walkthrough splits the network into its eight specialties, five of the
+eight series trigger at least one rule. Some of those signals are real
+changes and some are chance. Their simulations also found the trend rule
+“virtually useless” for detecting gradual drift, while the shift and
+crossings rules kept false signals near 5 percent (Anhøj &amp; Olesen,
+2014), and some practitioners therefore omit the trend rule. Treat a
+trend that only just meets the rule with caution: two of the five
+specialty signals, cardiology and primary care, rest only on a
+five-point trend. Agree on one rule set before you look at the data, and
+treat a signal as a reason to investigate, not as proof of a cause.</p>
+</div>
+</section>
+<section id="run-chart-or-control-chart" class="level3">
+<h3>Run chart or control chart?</h3>
+<p>A <strong>control chart</strong> adds calculated limits to a
+time-ordered chart, usually three standard errors either side of the
+center line, to mark the range that common-cause variation produces.
+Chapter 10 defined the p-chart, the control chart for a rate, in which
+each month gets its own limits from its own count (Mohammed et al.,
+2008). Both charts look for special causes; they differ in what they
+assume and what they can detect. Table 4 compares them.</p>
+<div class="table-wrap"><table id="tbl:ch11-runcontrol">
+<caption>Table 4: Run chart and control chart compared. A run chart
+detects sustained patterns with minimal arithmetic; a control chart adds
+limits that judge individual points. Compiled from published guidance
+(Benneyan et al., 2003; Perla et al., 2011; Provost &amp; Murray,
+2022).</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Run chart</th>
+<th>Control chart (p-chart for a rate)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Center line</td>
+<td>Median of the plotted points</td>
+<td>Mean, such as the overall rate</td>
+</tr>
+<tr>
+<td>Limits</td>
+<td>None</td>
+<td>Calculated, usually 3 standard errors from the center</td>
+</tr>
+<tr>
+<td>Signals</td>
+<td>Shift, trend, runs, astronomical point</td>
+<td>A point outside the limits, plus run-type rules</td>
+</tr>
+<tr>
+<td>Assumptions</td>
+<td>Minimal: time order and a median</td>
+<td>A model of the data, such as a model for counts of yes-or-no
+outcomes</td>
+</tr>
+<tr>
+<td>Best use</td>
+<td>Learning whether a change is happening, early in an improvement
+effort</td>
+<td>Monitoring a stable process and judging single unusual points</td>
+</tr>
+</tbody>
+</table></div>
+<p>In practice, many teams begin with a run chart, which needs only a
+median and a count, and move to a control chart once the process is
+stable and the data are plentiful (Provost &amp; Murray, 2022). The
+dashboard in this chapter uses a run chart; Chapter 10’s monthly chart
+showed what the limits of a control chart add.</p>
+</section>
+<section id="benchmarking-select-an-appropriate-comparison"
+class="level3">
+<h3>Benchmarking: select an appropriate comparison</h3>
+<p>A no-show rate of 16.6 percent has limited meaning in isolation. A
+<strong>benchmark</strong> is a reference point that gives a value
+meaning by answering “compared with what?” Table 5 names the three
+kinds.</p>
+<div class="table-wrap"><table id="tbl:ch11-benchmarks">
+<caption>Table 5: Three kinds of benchmark. Each answers a different
+question, so a dashboard often shows more than one.</caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Benchmark</th>
+<th>Question it answers</th>
+<th>Healthcare example</th>
+<th>Common pitfall</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Baseline</strong> (your own past)</td>
+<td>Are we changing?</td>
+<td>This month’s rate against the 24-month median</td>
+<td>A baseline that already contains the change</td>
+</tr>
+<tr>
+<td><strong>Target</strong> (a goal set in advance)</td>
+<td>Are we where we intend to be?</td>
+<td>The network’s 14 percent no-show target</td>
+<td>A target set after seeing the data</td>
+</tr>
+<tr>
+<td><strong>Peer group</strong> (similar units)</td>
+<td>How do we compare with others like us?</td>
+<td>One county’s rate against counties in its region</td>
+<td>Peers that differ in definition, population, or case mix</td>
+</tr>
+</tbody>
+</table></div>
+<p>Chapter 2 gave five checks that decide whether an external benchmark
+is comparable: the same <strong>definition</strong>,
+<strong>population</strong>, <strong>time period</strong>,
+<strong>geography</strong>, and <strong>unit</strong>. Chapter 10 added
+a sixth consideration: a rate is an estimate with uncertainty, so a
+small gap between two rates may be chance. Benchmarking adds one more
+consideration: the choice of peer group. That choice can change the
+conclusion.</p>
+<p>The county file illustrates this.
+<a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a> is a synthetic teaching
+file modeled on the PLACES (Population Level Analysis and Community
+Estimates) program of the Centers for Disease Control and Prevention
+(CDC), which publishes model-based estimates of health measures for
+every U.S. county. Real PLACES estimates come from survey data combined
+with census population data through a statistical model, and each
+estimate carries a 95 percent confidence interval (CDC, 2025). The
+teaching file keeps real county names but not real values, so its
+numbers illustrate the method, not the counties.</p>
+<p>In the file, Chicot County, Arkansas, has a diagnosed diabetes rate
+of 17.2 percent. Figure 18 places that value against two peer groups.
+Against the 3,143 counties in the teaching file it is higher than 82
+percent of them, in the top fifth. Against the 1,423 counties the file
+assigns to the South region, where the median is 15.2 percent rather
+than 13.7 percent, it is higher than 72 percent: still above the middle,
+but less extreme. Both comparisons are valid. The national comparison
+answers “how does this county rank in the country?” The regional
+comparison answers “how does it rank among counties that share its
+regional pattern?”</p>
+<figure id="fig:ch11-benchmark">
+<img src="figures/generated/ch_11_diabetes_benchmark.png"
+alt="Figure 18: Diagnosed diabetes among adults for Chicot County, Arkansas (17.2 percent, amber line), against the 3,143 counties in the teaching file (left; median 13.7 percent) and against the 1,423 South-region counties (right; median 15.2 percent). The county is higher than 82 percent of all counties but 72 percent of its regional peers. Source: datasets/PH1_places_county_wide.csv, a synthetic teaching file modeled on CDC PLACES; values are illustrative, not real county estimates." />
+<figcaption aria-hidden="true">Figure 18: Diagnosed diabetes among
+adults for Chicot County, Arkansas (17.2 percent, amber line), against
+the 3,143 counties in the teaching file (left; median 13.7 percent) and
+against the 1,423 South-region counties (right; median 15.2 percent).
+The county is higher than 82 percent of all counties but 72 percent of
+its regional peers. Source:
+<a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a>, a synthetic teaching
+file modeled on CDC PLACES; values are illustrative, not real county
+estimates.</figcaption>
+</figure>
+<p>The share of peers below a value is the value’s <strong>percentile
+rank</strong>. You can calculate it in Excel with <code>COUNTIF</code>
+and <code>COUNTIFS</code>, the counting functions from Chapters 6 and
+8.</p>
+<div class="excelformula">
+<p>With the county file in a Table named <code>Places</code>, the share
+of all counties below 17.2 percent is<br />
+<code>=COUNTIF(Places[diagnosed_diabetes_pct], "&lt;"&amp;17.2) / COUNT(Places[diagnosed_diabetes_pct])</code><br />
+which returns <code>0.823</code> (2,588 of 3,143 counties). The share of
+South-region counties below it adds a condition for the region in the
+numerator and the denominator:<br />
+<code>=COUNTIFS(Places[region], "South", Places[diagnosed_diabetes_pct], "&lt;"&amp;17.2) / COUNTIFS(Places[region], "South")</code><br />
+which returns <code>0.720</code> (1,024 of 1,423). The
+<code>"&lt;"&amp;17.2</code> pattern joins the operator to the number,
+as the outlier counts in Chapter 8 did.</p>
+</div>
+<div class="caution">
+<p>A peer group that differs in <strong>case mix</strong>, the kinds of
+patients and visits a unit serves, produces a misleading comparison. In
+the appointment data, the two urgent care clinics have no-show rates
+near 11 percent, well below the network’s 16.1 percent. Urgent care also
+books differently: its median lead time is 1 day, against 15 to 22 days
+in the other specialties, and 31 percent of its appointments are
+same-day. Patients booked for the next day have less time to forget an
+appointment or change plans, which is one plausible reason for the gap.
+A comparison between a primary care clinic and an urgent care clinic
+therefore reflects differences between the services more than
+differences in how well either clinic is managed.</p>
+</div>
+</section>
+<section id="dashboards-decision-focused-monitoring" class="level3">
+<h3>Dashboards: decision-focused monitoring</h3>
+<p>Chapter 6 built a scorecard: a one-page summary of a few numbers,
+each beside a target or a comparison. A <strong>dashboard</strong>
+extends the scorecard over time and adds interaction. Few (2013)
+describes a dashboard as a single screen that shows the few measures a
+reader needs to monitor progress toward a goal, arranged so their status
+can be read at a glance. Its purpose is to support a decision, not to
+display everything that can be counted.</p>
+<p>Figure 19 labels the parts of the dashboard you build in the
+walkthrough.</p>
+<ul>
+<li>A <strong>key performance indicator (KPI)</strong> is a measure
+chosen because it tracks progress toward a goal. On a dashboard each KPI
+appears on a <strong>KPI card</strong>: the current value, its
+benchmark, and a status.</li>
+<li>A <strong>trend view</strong>, here a run chart, shows whether the
+KPI is changing.</li>
+<li>A <strong>sparkline</strong> is a small line chart that fits inside
+one worksheet cell and shows a trend beside a number (Microsoft,
+n.d.-d).</li>
+<li>A <strong>breakdown</strong> splits the KPI by one dimension, such
+as weekday, to show where to look next.</li>
+<li>A slicer is a set of filter buttons, introduced in Chapter 9, that
+filters one or more PivotTables at once (Microsoft, n.d.-c).</li>
+<li><strong>Definitions and an as-of date</strong> state exactly what is
+counted and when the data were drawn.</li>
+</ul>
+<figure id="fig:ch11-anatomy">
+<img src="figures/generated/ch_11_dashboard_anatomy.png"
+alt="Figure 19: Anatomy of the no-show monitoring dashboard: (1) title and as-of period, (2) KPI card with the latest rate, median, target, and status, (3) sparkline, (4) run-rule check, (5) run chart with median, (6) weekday breakdown, (7) specialty slicer, and (8) the measure definition. Source: concept schematic of the walkthrough dashboard." />
+<figcaption aria-hidden="true">Figure 19: Anatomy of the no-show
+monitoring dashboard: (1) title and as-of period, (2) KPI card with the
+latest rate, median, target, and status, (3) sparkline, (4) run-rule
+check, (5) run chart with median, (6) weekday breakdown, (7) specialty
+slicer, and (8) the measure definition. Source: concept schematic of the
+walkthrough dashboard.</figcaption>
+</figure>
+<p>A dashboard is judged by the decisions it supports. Four design rules
+follow from that purpose:</p>
+<ul>
+<li><strong>Each KPI has a definition, a benchmark, an owner, and an
+action.</strong> If no one would act when a number changes, the number
+should not appear on the dashboard.</li>
+<li><strong>Fit one screen.</strong> Put the most important KPI at the
+upper left, where readers look first, and keep related charts on
+matching scales.</li>
+<li><strong>Flag signals, not every change.</strong> A color that turns
+red whenever a number rises leads readers to disregard it, because most
+rises reflect random variation. Tie each alert to a rule, such as a
+run-chart signal or a target, and say which rule it uses.</li>
+<li><strong>Show definitions and the period.</strong> A reader who opens
+the dashboard alone must know what is counted.</li>
+</ul>
+<p>Five Excel techniques appear in the walkthrough for the first time.
+Each is short, and each reads from cells you build in the
+walkthrough.</p>
+<ul>
+<li><strong>Referencing a PivotTable cell.</strong> When you click a
+PivotTable cell while typing a formula, Excel writes a
+<code>GETPIVOTDATA</code> formula instead of a plain reference. Type the
+address instead (for example <code>=B4</code>), so the reference fills
+down like any other.</li>
+<li><strong>Run-rule helper columns.</strong> Six short formulas apply
+the rules exactly as stated, including the two special cases: a point on
+the median neither adds to a run nor breaks it, and a repeated value
+neither makes nor breaks a trend.<br />
+<code>=IF(E4&gt;F4, "Above", IF(E4&lt;F4, "Below", "On"))</code> labels
+each month’s side of the median.<br />
+<code>=IF(G5="On", H4, G5)</code> carries the last useful side forward,
+so a point on the median is skipped.<br />
+<code>=IF(G5="On", I4, IF(H5=H4, I4+1, 1))</code> adds one to the run
+while the side stays the same, restarts at 1 when it changes, and holds
+its count on a median point.<br />
+<code>=IF(E5&gt;E4, "Up", IF(E5&lt;E4, "Down", J4))</code> records the
+direction of each move and repeats the previous direction when two
+values are equal.<br />
+<code>=IF(E5=E4, K4, IF(J5=J4, K4+1, 1))</code> counts consecutive moves
+in one direction and holds its count on a tie.<br />
+<code>=IF(N4=0, 0, SUMPRODUCT((H5:H27&lt;&gt;H4:H26)*(H4:H26&lt;&gt;""))+1)</code>
+counts the runs by counting the changes of useful side and adding 1;
+multiplying by <code>(H4:H26&lt;&gt;"")</code> ignores any months before
+the first useful side, and the <code>IF</code> returns 0 runs when no
+point is useful. Chapter 8 used <code>SUMPRODUCT</code> to count matches
+the same way.</li>
+<li><strong>Run limits that follow the data.</strong> The run limits
+depend on the number of useful observations, so a small copy of Table 3
+on the sheet and an <code>XLOOKUP</code>, the lookup function from
+Chapter 5, return the matching pair of limits for whatever count the
+filter produces.</li>
+<li><strong>A conditional format driven by a formula.</strong>
+<strong>Home &gt; Conditional Formatting &gt; New Rule &gt; Use a
+formula to determine which cells to format</strong> applies a format
+when a formula you write is TRUE, such as <code>=$B$4&gt;$B$6</code>,
+“the latest rate is above target” (Microsoft, n.d.-b).</li>
+<li><strong>Sparklines and connected slicers.</strong> <strong>Insert
+&gt; Sparklines &gt; Line</strong> draws a sparkline from a range into a
+cell. A slicer’s <strong>Report Connections</strong> command links it to
+every PivotTable built from the same source, so one click filters them
+all (Microsoft, n.d.-c).</li>
+</ul>
+</section>
+</section>
+<section id="walkthrough-build-a-no-show-monitoring-dashboard"
+class="level2">
+<h2>Walkthrough: build a no-show monitoring dashboard</h2>
+<p>This build answers both claims from the opening scenario. You turn
+the 36,000 appointments into a monthly no-show rate with a PivotTable,
+add a median and run-rule columns, chart the result as a run chart, and
+assemble a one-screen dashboard with a KPI card, a sparkline, a weekday
+breakdown, and a specialty slicer. Every number on the dashboard except
+the target, which you type, reads from a formula, so a click on the
+slicer recomputes the page for the fixed 24-month period. Figure 20
+shows the finished result.</p>
+<div class="keypoint">
+<p>Before you start: open
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> and immediately save a
+working copy as an Excel workbook, so the original stays untouched. Work
+only in the copy. These teaching files hold no real patient information;
+real patient data must stay in approved, secure storage. The steps use
+desktop Excel for Microsoft 365. Excel for the web may not offer every
+command used here; if one is missing, open the workbook in the desktop
+app.</p>
+</div>
+<p><strong>Part A. Set up the data.</strong></p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a> in Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name it <code>ch11_dashboard.xlsx</code>.
+Work in this file from here on.</li>
+<li>Click any cell inside the data. Choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong> is
+checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Appointments</code>.</li>
+<li>Click cell <code>AO1</code>, the first empty column header to the
+right of the Table, type <code>month_label</code>, and press Enter. The
+Table grows to include the new column.</li>
+<li>Click <code>AO2</code> and enter
+<code>=TEXT([@appointment_date], "yyyy-mm")</code>. Excel fills the
+formula down the column, and <code>AO2</code> shows
+<code>2024-01</code>. (If <code>appointment_date</code> opened as text
+rather than a date, use <code>=LEFT([@appointment_date], 7)</code>
+instead.) A text label keeps the PivotTable from grouping the months by
+year, which Excel can do when a month column opens as a date.</li>
+</ol>
+<p><strong>Part B. Build the monthly rate with a PivotTable.</strong>
+The rate uses the kept-or-missed denominator: completed visits plus
+no-shows, with cancellations and reschedules excluded.</p>
+<ol start="7" type="1">
+<li>With a cell in the Table selected, choose <strong>Insert &gt;
+PivotTable</strong>, select <strong>New Worksheet</strong>, and click
+<strong>OK</strong>. Double-click the new sheet’s tab, type
+<code>Calc</code>, and press Enter.</li>
+<li>In the <strong>PivotTable Fields</strong> pane, drag
+<code>month_label</code> to <strong>Rows</strong>.</li>
+<li>Drag <code>attendance_outcome</code> to <strong>Filters</strong>. In
+cell <code>B1</code>, open the filter, check <strong>Select Multiple
+Items</strong>, leave only <code>Completed</code> and
+<code>No Show</code> checked, and click <strong>OK</strong>.</li>
+<li>Drag <code>no_show_flag</code> to <strong>Values</strong>. Click it,
+choose <strong>Value Field Settings</strong>, select
+<strong>Average</strong>, click <strong>Number Format</strong>, choose
+<strong>Percentage</strong> with <strong>1</strong> decimal place, and
+click <strong>OK</strong> twice.</li>
+<li>Check the result. Cells <code>A4:A27</code> list the 24 months from
+<code>2024-01</code> to <code>2025-12</code>, cells <code>B4:B27</code>
+hold their rates, and the <strong>Grand Total</strong> in
+<code>B28</code> shows <code>16.1%</code>. September 2024, in
+<code>B12</code>, shows <code>18.4%</code>.</li>
+</ol>
+<p><strong>Part C. Add the median and the run-rule columns.</strong></p>
+<ol start="12" type="1">
+<li>In <code>D3:K3</code> type the headers <code>Month</code>,
+<code>Rate</code>, <code>Median</code>, <code>Side</code>,
+<code>Last side</code>, <code>Run</code>, <code>Direction</code>, and
+<code>Trend</code>, one per cell. Select <code>D3:K3</code> and click
+<strong>Bold</strong>.</li>
+<li>Click <code>D4</code> and type <code>=A4</code>; click
+<code>E4</code> and type <code>=B4</code>. Type the addresses rather
+than clicking the PivotTable cells, so Excel does not insert
+<code>GETPIVOTDATA</code>.</li>
+<li>In <code>F4</code> enter <code>=MEDIAN($E$4:$E$27)</code>. In
+<code>G4</code> enter
+<code>=IF(E4&gt;F4, "Above", IF(E4&lt;F4, "Below", "On"))</code>.</li>
+<li>Select <code>D4:G4</code> and drag the fill handle down to row 27.
+Format <code>E4:F27</code> as <strong>Percentage</strong> with 1 decimal
+place. <code>F4</code> shows <code>16.0%</code>, and <code>G4</code>
+shows <code>Above</code>.</li>
+<li>In <code>H4</code> enter <code>=IF(G4="On", "", G4)</code>. In
+<code>H5</code> enter <code>=IF(G5="On", H4, G5)</code> and fill it down
+to <code>H27</code>. Column <code>H</code> repeats column <code>G</code>
+except where a month falls on the median, where it keeps the last side
+above or below; it stays blank only if the series starts on the
+median.</li>
+<li>In <code>I4</code> enter <code>=IF(G4="On", 0, 1)</code>. In
+<code>I5</code> enter <code>=IF(G5="On", I4, IF(H5=H4, I4+1, 1))</code>
+and fill it down to <code>I27</code>. Cell <code>I10</code>, July 2024,
+shows <code>5</code>: the fifth consecutive month below the median.</li>
+<li>In <code>J5</code> enter
+<code>=IF(E5&gt;E4, "Up", IF(E5&lt;E4, "Down", J4))</code>.</li>
+<li>In <code>K5</code> enter
+<code>=IF(E5=E4, K4, IF(J5=J4, K4+1, 1))</code>. Select
+<code>J5:K5</code> and fill down to row 27. Column <code>K</code> counts
+consecutive moves in one direction; a trend of five points is four
+moves.</li>
+</ol>
+<p><strong>Part D. Apply the run rules.</strong></p>
+<ol start="20" type="1">
+<li>In <code>P3:R3</code> type <code>Useful points</code>,
+<code>Lower limit</code>, and <code>Upper limit</code>. In
+<code>P4:R18</code> type the 15 rows of Table 3, from
+<code>10, 3, 9</code> in row 4 to <code>24, 8, 18</code> in row 18, one
+value per cell (Perla et al., 2011).</li>
+<li>In <code>M3</code> type <code>Run-rule checks</code> and make it
+<strong>Bold</strong>. In <code>M4:M10</code> type
+<code>Useful points</code>, <code>Runs</code>, <code>Lower limit</code>,
+<code>Upper limit</code>, <code>Longest run</code>,
+<code>Longest trend (points)</code>, and <code>Run-rule result</code>,
+one per cell.</li>
+<li>In <code>N4</code> enter
+<code>=COUNTIF(G4:G27, "&lt;&gt;On")</code>. It shows
+<code>24</code>.</li>
+<li>In <code>N5</code> enter
+<code>=IF(N4=0, 0, SUMPRODUCT((H5:H27&lt;&gt;H4:H26)*(H4:H26&lt;&gt;""))+1)</code>.
+It shows <code>11</code>.</li>
+<li>In <code>N6</code> enter
+<code>=XLOOKUP(N4, $P$4:$P$18, $Q$4:$Q$18, "n/a")</code> and in
+<code>N7</code> enter
+<code>=XLOOKUP(N4, $P$4:$P$18, $R$4:$R$18, "n/a")</code>. They show
+<code>8</code> and <code>18</code>, the limits for 24 useful points; the
+last argument returns <code>n/a</code> instead of an error when the
+count is outside the table.</li>
+<li>In <code>N8</code> enter <code>=MAX(I4:I27)</code>. It shows
+<code>5</code>. In <code>N9</code> enter <code>=MAX(K5:K27)+1</code>. It
+shows <code>4</code>.</li>
+<li>In <code>N10</code> enter<br />
+<code>=IF(N4&lt;10, "Too few useful points", IF(OR(N8&gt;=6, N9&gt;=5, N5&lt;N6, N5&gt;N7), "Signal: investigate", "No signal: keep monitoring"))</code><br />
+It shows <code>No signal: keep monitoring</code>. The first test stops
+the rules from running on a series with fewer than 10 useful points,
+including one in which every point falls on the median.</li>
+<li>In <code>M11</code> type
+<code>Astronomical point: check the chart by eye</code>. The fourth rule
+needs judgment rather than a formula, so the check belongs to the reader
+of the chart.</li>
+</ol>
+<p><strong>Part E. Draw the run chart.</strong></p>
+<ol start="28" type="1">
+<li>Select <code>D3:F27</code>. Choose <strong>Insert &gt; Line &gt;
+Line with Markers</strong>. Excel draws two series: the monthly rate and
+a flat median line.</li>
+<li>Click the chart title and type
+<code>Monthly no-show rate with median</code>.</li>
+<li>Right-click the median line, choose <strong>Format Data
+Series</strong>, set <strong>Marker</strong> to <strong>None</strong>,
+and set the line <strong>Dash type</strong> to a dashed style.</li>
+<li>Check the vertical axis. A line chart may start above zero because
+it encodes values as positions, but note the starting value whenever you
+share the chart.</li>
+</ol>
+<p><strong>Part F. Build the dashboard sheet.</strong></p>
+<ol start="32" type="1">
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs
+and name it <code>Dashboard</code>. In <code>A1</code> type
+<code>No-Show Monitoring Dashboard</code>, select <code>A1:L1</code>,
+choose <strong>Home &gt; Alignment &gt; Merge &amp; Center</strong>, and
+make it <strong>Bold</strong>, size 14, with a dark blue <strong>Fill
+Color</strong> and white <strong>Font Color</strong>.</li>
+<li>In <code>A3:A9</code> type these seven labels, one per cell:
+<code>Latest month</code>; <code>Latest rate</code>;
+<code>Median (24 months)</code>; <code>Target</code>;
+<code>Against target</code>; <code>Run rules</code>;
+<code>24-month trend</code>. Make them <strong>Bold</strong>.</li>
+<li>In <code>B3</code> enter <code>=Calc!D27</code>; in <code>B4</code>
+enter <code>=Calc!E27</code>; in <code>B5</code> enter
+<code>=Calc!F4</code>. In <code>B6</code> type <code>14%</code>. Format
+<code>B4:B6</code> as <strong>Percentage</strong> with 1 decimal place.
+<code>B3</code> shows <code>2025-12</code>, <code>B4</code> shows
+<code>16.6%</code>, and <code>B5</code> shows <code>16.0%</code>.</li>
+<li>In <code>B7</code> enter
+<code>=IF(B4&gt;B6, "Above target", "At or below target")</code>. It
+shows <code>Above target</code>. In <code>B8</code> enter
+<code>=Calc!N10</code>.</li>
+<li>Select <code>B4</code>. Choose <strong>Home &gt; Conditional
+Formatting &gt; New Rule &gt; Use a formula to determine which cells to
+format</strong> (on macOS, set <strong>Style</strong> to
+<strong>Classic</strong> first). Enter <code>=$B$4&gt;$B$6</code>, click
+<strong>Format</strong>, choose a light amber fill, and click
+<strong>OK</strong> twice. <code>B4</code> turns amber because 16.6
+percent is above the 14 percent target.</li>
+<li>Select <code>B8</code>. Choose <strong>Home &gt; Conditional
+Formatting &gt; Highlight Cells Rules &gt; Text that Contains</strong>,
+type <code>investigate</code>, choose <strong>Light Red Fill</strong>,
+and click <strong>OK</strong>. The cell stays unfilled for now.</li>
+<li>Select <code>B9</code>. Choose <strong>Insert &gt; Sparklines &gt;
+Line</strong>, enter <code>Calc!E4:E27</code> as the <strong>Data
+Range</strong>, and click <strong>OK</strong>. On the
+<strong>Sparkline</strong> tab, check <strong>High Point</strong> and
+<strong>Low Point</strong>. Widen column <code>B</code> and raise row 9
+so the sparkline is readable.</li>
+<li>In <code>A11</code> type
+<code>Measure: no-shows / (completed + no-shows); cancellations and reschedules excluded. Data: January 2024 to December 2025.</code></li>
+<li>Go to <code>Calc</code>, click the run chart, press Ctrl+X (Cmd+X on
+macOS), go to <code>Dashboard</code>, click <code>D3</code>, and press
+Ctrl+V (Cmd+V).</li>
+</ol>
+<p><strong>Part G. Add the breakdown and the slicer.</strong></p>
+<ol start="41" type="1">
+<li>Go to the <code>Appointments</code> sheet, click a cell in the
+Table, and choose <strong>Insert &gt; PivotTable &gt; New
+Worksheet</strong>. Name the new sheet <code>Breakdown</code>.</li>
+<li>Drag <code>appointment_weekday</code> to <strong>Rows</strong>,
+<code>attendance_outcome</code> to <strong>Filters</strong> (keep only
+<code>Completed</code> and <code>No Show</code>, as in step 9), and
+<code>no_show_flag</code> to <strong>Values</strong> as an
+<strong>Average</strong> formatted as a percentage with 1 decimal place.
+Monday shows <code>16.8%</code> and Saturday <code>8.3%</code>.</li>
+<li>Click the PivotTable and choose <strong>PivotTable Analyze &gt;
+PivotChart &gt; Bar &gt; Clustered Bar</strong> (Microsoft, n.d.-a).
+Title it <code>No-show rate by weekday</code>. Cut the chart and paste
+it on <code>Dashboard</code> below the KPI card.</li>
+<li>Go to <code>Calc</code>, click a cell in its PivotTable, choose
+<strong>PivotTable Analyze &gt; Insert Slicer</strong>, check
+<code>specialty_group</code>, and click <strong>OK</strong>.</li>
+<li>With the slicer selected, choose <strong>Slicer &gt; Report
+Connections</strong>, check both PivotTables, and click
+<strong>OK</strong>. One slicer now filters both.</li>
+<li>Cut the slicer and paste it on <code>Dashboard</code> to the right
+of the run chart. Save with Ctrl+S (Cmd+S on macOS). Your sheet should
+resemble Figure 20.</li>
+</ol>
+<figure id="fig:ch11-checkpoint">
+<img src="figures/generated/ch_11_checkpoint.png"
+alt="Figure 20: The finished Dashboard sheet you build in this walkthrough, with no slicer selection. The KPI card shows the latest month (December 2025) at 16.6 percent, the 24-month median of 16.0 percent, and the 14 percent target; the latest rate is amber because it is above target, and the run-rule check reads “No signal: keep monitoring.” The run chart, the weekday breakdown, and the specialty slicer sit beside it. The figure is styled for print: your sheet will show Excel’s gridlines, row numbers, and default chart styles, and a clustered bar chart lists the first PivotTable row, Sunday, at the bottom. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 20: The finished
+<code>Dashboard</code> sheet you build in this walkthrough, with no
+slicer selection. The KPI card shows the latest month (December 2025) at
+16.6 percent, the 24-month median of 16.0 percent, and the 14 percent
+target; the latest rate is amber because it is above target, and the
+run-rule check reads “No signal: keep monitoring.” The run chart, the
+weekday breakdown, and the specialty slicer sit beside it. The figure is
+styled for print: your sheet will show Excel’s gridlines, row numbers,
+and default chart styles, and a clustered bar chart lists the first
+PivotTable row, Sunday, at the bottom. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p><strong>Read the result.</strong> With no specialty selected, the
+dashboard answers the first claim from the opening. The observed no-show
+rate exceeds the 14 percent target, a gap that justifies a sustained
+improvement effort. No run rule fires, so the August and September climb
+gives no evidence of a sustained change, and an emergency plan for two
+months is not supported.</p>
+<p>The two cells answer different questions. <code>Against target</code>
+compares the level of the measure with a goal; <code>Run rules</code>
+asks whether the measure is changing. A rate can be above target with no
+signal, as the network is, or below target with a signal, as the next
+example shows. Neither cell, by itself, is a reason to act.</p>
+<p>Now click <strong>Urgent care</strong> on the slicer. Every number
+recomputes. The latest rate is 12.8 percent against a median of 10.5
+percent, <code>Against target</code> reads
+<code>At or below target</code>, and <code>Run rules</code> turns red
+with <code>Signal: investigate</code>. In <code>Calc</code>, the longest
+run is now 6: January to June 2024 all sit below the median, a shift.
+Figure 21 shows the pattern.</p>
+<figure id="fig:ch11-uc">
+<img src="figures/generated/ch_11_urgent_care_runchart.png"
+alt="Figure 21: Monthly no-show rate for urgent care only, January 2024 to December 2025, with the median of 10.5 percent. The first six months of 2024 sit below the median (shaded), a shift; April 2024, at 10.53 percent, is just below the median of 10.55 percent. Rate: no-shows divided by kept-or-missed appointments; 3,161 urgent care appointments, 114 to 152 a month. Source: datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 21: Monthly no-show rate for
+urgent care only, January 2024 to December 2025, with the median of 10.5
+percent. The first six months of 2024 sit below the median (shaded), a
+shift; April 2024, at 10.53 percent, is just below the median of 10.55
+percent. Rate: no-shows divided by kept-or-missed appointments; 3,161
+urgent care appointments, 114 to 152 a month. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<p>This answers the second claim, and the result differs from the
+manager’s interpretation. Urgent care is below target, but the rate in
+the first half of 2024 was lower than it has been since. Being below
+target does not mean nothing has changed. Two cautions apply to this
+interpretation:</p>
+<ul>
+<li>The signal is a prompt to ask what changed after June 2024, not
+proof of a cause. Staffing, scheduling rules, or the patient mix could
+each contribute, and the data alone cannot determine which.</li>
+<li>The shift is marginal. April 2024 sits only 0.02 percentage points
+below the median, and urgent care’s monthly counts are small, about 130
+appointments, so its rate varies considerably from month to month.
+Monthly runs at this volume warrant further review before any action is
+taken. The lowest month, April 2025 at 4.2 percent (5 no-shows in 119
+appointments), is also notably low, but it lies inside the range of
+about 2 to 19 percent that three standard errors around the median allow
+at that volume, so it is not an astronomical point.</li>
+</ul>
+<p>Click the <strong>Clear Filter</strong> button on the slicer before
+you move on.</p>
+<div class="caution">
+<p><strong>This dashboard is a historical demonstration.</strong> Its
+formulas read fixed ranges, rows 4 to 27 for 24 months, and its
+run-limit table covers 10 to 24 useful points. To keep a dashboard like
+it current, each month you would add the new rows to the Table, choose
+<strong>PivotTable Analyze &gt; Refresh</strong> (<strong>Data &gt;
+Refresh All</strong> refreshes every PivotTable at once), fill the
+helper formulas down one more row, extend the chart, sparkline, and
+<code>MEDIAN</code> ranges to the new last row, add the matching row of
+Table 3 from Perla et al. (2011), and point the KPI card at the new
+latest month. Many teams also freeze the median at a baseline period,
+such as the first 12 or 24 months, so that new data are judged against a
+fixed reference rather than a moving one (Provost &amp; Murray,
+2022).</p>
+</div>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These two builds repeat the walkthrough’s moves on new data, one
+action at a time. Each step that produces a number states the value you
+should see. The Answer Key gives the interpretation.</p>
+<section
+id="practice-a-is-emergency-department-door-to-provider-time-changing"
+class="level3">
+<h3>Practice A: is emergency department door-to-provider time
+changing?</h3>
+<p>The emergency department (ED) file records, for each visit, the
+minutes from arrival to the first contact with a provider in
+<code>door_to_provider_minutes</code> (column <code>AI</code>). The
+measure is the <strong>average door-to-provider time per month</strong>:
+the sum of the recorded times divided by the number of visits with a
+recorded time, January 2024 to December 2025. The 584 visits with no
+recorded time are excluded, which Excel’s average does automatically.
+You build a run chart of that monthly average and apply the run
+rules.</p>
+<p><strong>Set up the data.</strong></p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS3_ed_throughput_clean.csv" download title="Download DS3_ed_throughput_clean.csv"><code>datasets/DS3_ed_throughput_clean.csv</code></a> in
+Excel.</li>
+<li>Choose <strong>File &gt; Save As</strong>, pick <strong>Excel
+Workbook (.xlsx)</strong>, and name it <code>ch11_ed.xlsx</code>.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>ED</code>.</li>
+<li>Click cell <code>AM1</code>, the first empty column header to the
+right of the Table, type <code>arrival_month</code>, and press Enter.
+The Table grows to include the new column.</li>
+<li>Click <code>AM2</code> and enter
+<code>=TEXT([@arrival_date], "yyyy-mm")</code>. Excel fills the formula
+down the whole column, as calculated columns did in Chapter 8.
+<code>AM2</code> shows <code>2025-07</code>. (If
+<code>arrival_date</code> opened as text rather than a date, use
+<code>=LEFT([@arrival_date], 7)</code> instead.)</li>
+</ol>
+<p><strong>Build the monthly average with a PivotTable.</strong></p>
+<ol start="7" type="1">
+<li>With a cell in the Table selected, choose <strong>Insert &gt;
+PivotTable</strong>, select <strong>New Worksheet</strong>, and click
+<strong>OK</strong>. Rename the new sheet <code>Calc</code>.</li>
+<li>Drag <code>arrival_month</code> to <strong>Rows</strong>.</li>
+<li>Drag <code>door_to_provider_minutes</code> to
+<strong>Values</strong>. Click it, choose <strong>Value Field
+Settings</strong>, select <strong>Average</strong>, click <strong>Number
+Format</strong>, choose <strong>Number</strong> with <strong>1</strong>
+decimal place, and click <strong>OK</strong> twice.</li>
+<li>Check the result. Cells <code>A4:A27</code> list the 24 months from
+<code>2024-01</code> to <code>2025-12</code>, and the <strong>Grand
+Total</strong> in <code>B28</code> shows <code>43.4</code>. July 2024,
+in <code>B10</code>, shows <code>45.8</code>, the highest month.</li>
+</ol>
+<p><strong>Check the counts behind each average.</strong></p>
+<ol start="11" type="1">
+<li>Drag <code>door_to_provider_minutes</code> to
+<strong>Values</strong> a second time. Click it, choose <strong>Value
+Field Settings</strong>, and select <strong>Count</strong>. Column
+<code>C</code> shows how many visits in each month have a recorded time:
+from <code>615</code> (August 2025) to <code>863</code> (January 2025).
+Every month rests on several hundred times, so the monthly averages are
+comparable; the 584 visits with no recorded time are left out of both
+columns.</li>
+</ol>
+<p><strong>Add the median and the run-rule columns.</strong></p>
+<ol start="12" type="1">
+<li>In <code>D3:K3</code> type the headers <code>Month</code>,
+<code>Minutes</code>, <code>Median</code>, <code>Side</code>,
+<code>Last side</code>, <code>Run</code>, <code>Direction</code>, and
+<code>Trend</code>, one per cell, and make them
+<strong>Bold</strong>.</li>
+<li>Click <code>D4</code> and type <code>=A4</code>; click
+<code>E4</code> and type <code>=B4</code>. Type the addresses rather
+than clicking the PivotTable cells.</li>
+<li>In <code>F4</code> enter <code>=MEDIAN($E$4:$E$27)</code>. In
+<code>G4</code> enter
+<code>=IF(E4&gt;F4, "Above", IF(E4&lt;F4, "Below", "On"))</code>.</li>
+<li>Select <code>D4:G4</code> and drag the fill handle down to row 27.
+Format <code>E4:F27</code> as <strong>Number</strong> with 1 decimal
+place. <code>F4</code> shows <code>43.3</code>, and <code>G4</code>
+shows <code>Below</code>, because January 2024 (42.8 minutes) is under
+the median.</li>
+<li>In <code>H4</code> enter <code>=IF(G4="On", "", G4)</code>. In
+<code>H5</code> enter <code>=IF(G5="On", H4, G5)</code> and fill it down
+to <code>H27</code>.</li>
+<li>In <code>I4</code> enter <code>=IF(G4="On", 0, 1)</code>. In
+<code>I5</code> enter <code>=IF(G5="On", I4, IF(H5=H4, I4+1, 1))</code>
+and fill it down to <code>I27</code>.</li>
+<li>In <code>J5</code> enter
+<code>=IF(E5&gt;E4, "Up", IF(E5&lt;E4, "Down", J4))</code>.</li>
+<li>In <code>K5</code> enter
+<code>=IF(E5=E4, K4, IF(J5=J4, K4+1, 1))</code>. Select
+<code>J5:K5</code> and fill down to row 27. Cell <code>K10</code> shows
+<code>6</code>: six consecutive rises from January to July 2024.</li>
+</ol>
+<p><strong>Apply the run rules.</strong></p>
+<ol start="20" type="1">
+<li>In <code>P3:R18</code> type the same run-limit table as walkthrough
+step 20.</li>
+<li>In <code>M3</code> type <code>Run-rule checks</code> and make it
+<strong>Bold</strong>. In <code>M4:M10</code> type the same seven labels
+as walkthrough step 21.</li>
+<li>In <code>N4</code> enter
+<code>=COUNTIF(G4:G27, "&lt;&gt;On")</code>. It shows
+<code>24</code>.</li>
+<li>In <code>N5</code> enter
+<code>=IF(N4=0, 0, SUMPRODUCT((H5:H27&lt;&gt;H4:H26)*(H4:H26&lt;&gt;""))+1)</code>.
+It shows <code>9</code>, within the limits.</li>
+<li>In <code>N6</code> and <code>N7</code> enter the two
+<code>XLOOKUP</code> formulas from walkthrough step 24. They show
+<code>8</code> and <code>18</code>.</li>
+<li>In <code>N8</code> enter <code>=MAX(I4:I27)</code>. It shows
+<code>4</code>, short of a shift. In <code>N9</code> enter
+<code>=MAX(K5:K27)+1</code>. It shows <code>7</code>, at least 5, so the
+trend rule fires.</li>
+<li>In <code>N10</code> enter the same <code>IF(OR(...))</code> formula
+as walkthrough step 26. It shows <code>Signal: investigate</code>.</li>
+</ol>
+<p><strong>Chart and read the result.</strong></p>
+<ol start="27" type="1">
+<li>Select <code>D3:F27</code> and choose <strong>Insert &gt; Line &gt;
+Line with Markers</strong>. Title the chart
+<code>Monthly door-to-provider time with median</code>.</li>
+<li>Format the median series with no markers and a dashed line, as in
+walkthrough step 30. Look for an astronomical point; none of the 24
+months stands far apart from the rest.</li>
+<li>In <code>M13</code> type <code>Change, Jan to Jul 2024 (min)</code>
+and in <code>N13</code> enter <code>=E10-E4</code>. It shows
+<code>2.9</code> once formatted with 1 decimal place.</li>
+<li>In <code>M14</code> type <code>Change as share of median</code> and
+in <code>N14</code> enter <code>=N13/F4</code>, formatted as a
+percentage with 1 decimal place. It shows <code>6.7%</code>.</li>
+<li>Write two sentences for the ED manager: one naming the rule that
+fired and the months involved, and one judging whether a change of about
+3 minutes, or 7 percent, is large enough to act on. Save the
+workbook.</li>
+</ol>
+</section>
+<section id="practice-b-benchmark-a-county-against-two-peer-groups"
+class="level3">
+<h3>Practice B: benchmark a county against two peer groups</h3>
+<p>Analysts for Somerset County, Maine, want to know how the county’s
+adult obesity rate compares with that of other counties. The measure is
+<code>obesity_pct</code> (column <code>G</code>), the estimated
+percentage of adults with obesity in the synthetic county file. The
+column stores percentage points, such as <code>32.3</code>, not Excel
+proportions such as <code>0.323</code>, so type and compare values in
+the same form. You apply the Chicot County method from Key concepts to a
+new measure and a new region, then choose a chart for each audience.</p>
+<p><strong>Set up the data and find the county.</strong></p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a>, choose
+<strong>File &gt; Save As</strong>, pick <strong>Excel Workbook
+(.xlsx)</strong>, and name it <code>ch11_benchmark.xlsx</code>.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>. Set the <strong>Table Name</strong> to
+<code>Places</code>.</li>
+<li>Open the filter arrow on <code>county_name</code> (column
+<code>B</code>), type <code>Somerset</code> in the search box, and click
+<strong>OK</strong>. Four counties named Somerset remain.</li>
+<li>Open the filter arrow on <code>state_abbr</code> (column
+<code>C</code>), leave only <code>ME</code> checked, and click
+<strong>OK</strong>. One row remains, and its <code>obesity_pct</code>
+shows <code>32.3</code>.</li>
+<li>Choose <strong>Data &gt; Clear</strong> to remove both filters, so
+the histogram you build later includes every county.</li>
+</ol>
+<p><strong>Calculate the two comparisons.</strong></p>
+<ol start="6" type="1">
+<li>Add a worksheet named <code>Benchmark</code>. In <code>A1</code>
+type <code>Somerset County, ME: Adult Obesity Benchmark</code> and make
+it <strong>Bold</strong>, size 14.</li>
+<li>In <code>A3</code> type <code>Measure</code> and in <code>B3</code>
+type <code>Value</code>, and make them <strong>Bold</strong>.</li>
+<li>In <code>A4</code> type <code>Somerset County, ME (%)</code> and in
+<code>B4</code> type <code>32.3</code>.</li>
+<li>In <code>A5</code> type <code>All counties</code> and in
+<code>B5</code> enter <code>=COUNT(Places[obesity_pct])</code>. It shows
+<code>3143</code>.</li>
+<li>In <code>A6</code> type <code>National median (%)</code> and in
+<code>B6</code> enter <code>=MEDIAN(Places[obesity_pct])</code>. It
+shows <code>31.3</code>.</li>
+<li>In <code>A7</code> type <code>Share of all counties below</code> and
+in <code>B7</code> enter
+<code>=COUNTIF(Places[obesity_pct], "&lt;"&amp;B4) / B5</code>. Format
+it as a percentage with 1 decimal place. It shows
+<code>55.7%</code>.</li>
+<li>In <code>A8</code> type <code>Northeast counties</code> and in
+<code>B8</code> enter
+<code>=COUNTIFS(Places[region], "Northeast")</code>. It shows
+<code>217</code>.</li>
+<li>In <code>A9</code> type <code>Northeast median (%)</code> and in
+<code>B9</code> enter
+<code>=MEDIAN(FILTER(Places[obesity_pct], Places[region]="Northeast"))</code>.
+It shows <code>28.3</code>, so both comparisons now use the same
+statistic, the median. (<code>FILTER</code> needs Microsoft 365 or Excel
+2021 or later, the versions this book supports.)</li>
+<li>In <code>A10</code> type
+<code>Share of Northeast counties below</code> and in <code>B10</code>
+enter
+<code>=COUNTIFS(Places[region], "Northeast", Places[obesity_pct], "&lt;"&amp;B4) / B8</code>.
+Format it as a percentage with 1 decimal place. It shows
+<code>76.5%</code>.</li>
+</ol>
+<p><strong>Choose and build the chart.</strong></p>
+<ol start="15" type="1">
+<li>Use Table 2 to name the question. You are showing where one value
+sits in the distribution of many values, so the default chart is a
+histogram.</li>
+<li>Go to the <code>Places</code> sheet and select the
+<code>obesity_pct</code> values, <code>G2:G3144</code>.</li>
+<li>Choose <strong>Insert &gt; Insert Statistic Chart &gt;
+Histogram</strong> (on macOS, <strong>Insert</strong>, then the
+<strong>Statistical chart</strong> icon, then
+<strong>Histogram</strong>), as in Chapter 9.</li>
+<li>Right-click the horizontal axis, choose <strong>Format
+Axis</strong>, and set <strong>Bin width</strong> to
+<code>1</code>.</li>
+<li>Replace the chart title with a sentence that states the finding,
+such as
+<code>Somerset County, ME, at 32.3%, sits just above the national median</code>.
+Move the chart to the <code>Benchmark</code> sheet.</li>
+<li>Write two sentences: one for a national audience and one for a
+Northeast audience. Name the peer group behind each sentence and why it
+suits that audience. Save the workbook.</li>
+</ol>
+<div class="tryit">
+<p>Use the dashboard you built in the walkthrough to see how a target
+and a filter change the reading.</p>
+<ol type="1">
+<li>On <code>Dashboard</code>, click <code>B6</code>, type
+<code>17%</code>, and press Enter. <code>B7</code> changes to
+<code>At or below target</code>, and the amber fill on <code>B4</code>
+disappears, because 16.6 percent is now below the target.</li>
+<li>Type <code>14%</code> in <code>B6</code> again and press Enter.
+<code>B7</code> returns to <code>Above target</code>, and
+<code>B4</code> turns amber again.</li>
+<li>Click <strong>Pulmonology</strong> on the slicer. <code>B4</code>
+shows <code>8.6%</code>, <code>B5</code> shows <code>15.6%</code>,
+<code>B7</code> shows <code>At or below target</code>, and
+<code>B8</code> turns red with <code>Signal: investigate</code>.</li>
+<li>Go to <code>Calc</code> and record the number of runs in
+<code>N5</code>, the limits in <code>N6</code> and <code>N7</code>, the
+longest run in <code>N8</code>, and the longest trend in
+<code>N9</code>.</li>
+<li>Using Table 3, name the rule that fires, and explain in one sentence
+what the pattern means.</li>
+<li>Suggest one process explanation the clinic could check, and one
+statistical reason to be cautious.</li>
+<li>Click <strong>Clear Filter</strong> on the slicer before you close
+the workbook.</li>
+</ol>
+<p>Changing the target changed the status but not the run-rule result. A
+target judges where a measure is; the run rules judge whether it is
+changing. The answers are in the Answer Key at the end of the
+chapter.</p>
+</div>
+<div class="goingdeeper">
+<p><strong>Funnel plots for comparing providers of different
+sizes.</strong> A ranked table of clinic rates, sometimes called a
+league table, invites the conclusion that the top and bottom clinics
+differ in quality. Small clinics, however, have more variable rates, so
+by chance they appear at the top and bottom of the ranking more often
+than large clinics do. A <strong>funnel plot</strong> plots each unit’s
+rate against its volume, with control limits that narrow as volume grows
+(Spiegelhalter, 2005). Figure 22 draws one for the 14 clinics.</p>
+<p>Most clinics fall inside the 95 percent limits. Riverbend Behavioral
+Health (SP03), at 18.5 percent, sits just above the upper 99.8 percent
+limit, which by Spiegelhalter’s convention is a signal that warrants
+investigation. It is the network’s only behavioral health clinic, so
+part of that gap may reflect case mix, the same caution that applies to
+urgent care.</p>
+<p>The two urgent care clinics (UC01 and UC02) fall far below the lower
+limit, which may reflect differences in case mix and scheduling
+practices rather than better management. Compared only with one another,
+around their own rate of 16.4 percent, the six primary care clinics all
+fall inside their 95 percent limits: their spread from 15.7 to 17.6
+percent is what chance produces at their volumes. A funnel plot answers
+“is this unit’s rate consistent with the network rate at its volume?” It
+cannot answer whether the units are comparable peers.</p>
+<figure id="fig:ch11-funnel">
+<img src="figures/generated/ch_11_funnel.png"
+alt="Figure 22: Funnel plot of the no-show rate for 14 clinics against their kept-or-missed appointment volume, January 2024 to December 2025. The center line is the network rate of 16.1 percent; the dashed and solid curves are the 95 and 99.8 percent limits (1.96 and 3.09 standard errors), which narrow as volume grows. SP03 sits just above the upper 99.8 percent limit; UC01 and UC02 fall below the lower limit, which may reflect differences in case mix and scheduling practices. Source: datasets/DS2_appointments_clean.csv, 30,571 appointments." />
+<figcaption aria-hidden="true">Figure 22: Funnel plot of the no-show
+rate for 14 clinics against their kept-or-missed appointment volume,
+January 2024 to December 2025. The center line is the network rate of
+16.1 percent; the dashed and solid curves are the 95 and 99.8 percent
+limits (1.96 and 3.09 standard errors), which narrow as volume grows.
+SP03 sits just above the upper 99.8 percent limit; UC01 and UC02 fall
+below the lower limit, which may reflect differences in case mix and
+scheduling practices. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571
+appointments.</figcaption>
+</figure>
+<p>Control charts in practice also apply run-type rules alongside the
+limits, so a sustained shift inside the limits is still detected
+(Provost &amp; Murray, 2022). Mohammed et al. (2008) give a practical
+tutorial on building p-charts for healthcare data.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario, not a specific
+organization. A hospital’s quality dashboard colors each weekly measure
+red whenever it is worse than the week before. Because weekly numbers
+move up about half the time by chance, about half of the cells are red
+each Monday. Managers learn to disregard the red cells. When a genuine
+problem occurs, a sustained rise in patient falls on one unit, its red
+cells look no different from those of any other week, and it goes
+unnoticed for two months.</p>
+<p>The remedy is not a more prominent color. The team replaces
+week-over-week coloring with run charts and one agreed rule set, and
+colors a cell only when a rule fires. Red now appears a few times a
+quarter, each time with a chart that shows why. Because the alerts are
+rare and explained, managers attend to them again. The design choice
+that restored confidence in the alerts was the same one this chapter
+teaches: flag signals, not every change.</p>
+</div>
+<div class="recap">
+<ul>
+<li>Choose a chart from the question and the type of data: bars to
+compare, lines for time, histograms and box plots for distributions,
+100% stacked bars for composition, scatterplots for relationships, and
+treemaps for hierarchies.</li>
+<li>Readers judge position and length more accurately than angle and
+area, so start bars at zero, sort by value, label directly, use color
+with a purpose, and write a title that states the finding.</li>
+<li>A run chart plots a measure in time order around its median; a
+shift, trend, unusual number of runs, or astronomical point is a signal
+worth investigating, not proof of a cause.</li>
+<li>A benchmark gives a number meaning, and the choice of peer group can
+change the conclusion, so state which comparison you use and why.</li>
+<li>A dashboard is a few decision-linked views on one screen, each KPI
+with a definition, a benchmark, and a rule for when to act.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Name the default chart for each question, and give the type of data
+it needs: (a) how ED arrivals are distributed by hour of the day; (b)
+what share of each specialty’s appointments end in each outcome; (c)
+whether clinics with longer appointment lead times have higher no-show
+rates; (d) how appointment volume splits across specialties and, within
+each, across visit types.</li>
+<li>A colleague’s slide shows the eight specialty shares from Figure 13
+as a 3-D pie with a legend and the title “Specialties.” List three
+changes that would make the chart more accurate and quicker to
+interpret, and explain each in one sentence.</li>
+<li>A monthly measure takes these 14 values: 21, 23, 22, 20, 24, 25, 26,
+27, 28, 26, 27, 25, 22, 21. Calculate the median, count the runs, and
+find the longest run and the longest trend. Using Table 3, state which
+rules fire.</li>
+<li>Explain in two or three sentences how a run chart and a control
+chart differ, and describe a situation in which you would choose
+each.</li>
+<li>A peer clinic reports a 9 percent no-show rate against your clinic’s
+16 percent. Before concluding that the peer performs better, name four
+checks you would make, drawing on Chapter 2 and this chapter.</li>
+<li>In <code>ch11_dashboard.xlsx</code>, select <strong>OB/GYN</strong>
+(obstetrics and gynecology) on the slicer. Record the latest rate, the
+median, the target status, and the run-rule result, and write two
+sentences a clinic manager could act on.</li>
+<li>A manager asks you to add a fifth chart to the dashboard. Write the
+question you would ask before agreeing, and describe one case in which
+you would decline the request.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (target and Pulmonology).</strong> Raising the target
+to 17 percent changes <code>B7</code> to <code>At or below target</code>
+and removes the amber fill, but leaves <code>B8</code> unchanged: a
+target judges level, and the run rules judge change. With Pulmonology
+selected, <code>N5</code> shows <code>19</code> runs against limits of
+<code>8</code> and <code>18</code>, <code>N8</code> a longest run of
+<code>3</code>, and <code>N9</code> a longest trend of <code>4</code>
+points. More than 18 runs is a signal, so the <strong>too many
+runs</strong> rule fires: the rate alternates above and below its median
+of 15.6 percent more regularly than chance would produce. One process
+explanation to check is a scheduling pattern that alternates month to
+month, such as a provider who works only in alternate months. The
+statistical caution is that pulmonology is small, 665 kept-or-missed
+appointments over 24 months, so its monthly rates vary considerably, and
+with eight specialties checked, one signal can be chance. The latest
+month, December 2025, shows <code>8.6%</code>, below the 14 percent
+target: a unit can be under target and still show a signal.</p>
+<p><strong>Practice A interpretation.</strong> The monthly averages run
+from <code>42.1</code> minutes (August 2025) to <code>45.8</code>
+minutes (July 2024), around a median of <code>43.3</code>. The run count
+(<code>9</code>) and the longest run (<code>4</code>) are within their
+limits, but January to July 2024 rise for seven consecutive points, so
+the trend rule fires. The rise totals <code>2.9</code> minutes, about
+<code>6.7%</code> of the median, and the series falls back to
+<code>43.0</code> in August 2024. An effective summary states both
+facts: “Door-to-provider time rose every month from January to July
+2024, a trend signal, but the rise was under 3 minutes and reversed in
+August. It warrants a question to the ED team about what changed in
+early 2024 but does not call for an urgent response.”</p>
+<p><strong>Practice B interpretation.</strong> Nationally, Somerset
+County’s <code>32.3</code> is just above the median of <code>31.3</code>
+and higher than <code>55.7%</code> of counties (1,750 of 3,143), so it
+sits near the middle. Among the <code>217</code> Northeast counties,
+whose median is <code>28.3</code>, it is higher than <code>76.5%</code>
+(166 of 217), in the upper quarter. A histogram is the appropriate chart
+because the question is where one value falls in a distribution. For a
+national audience: “Somerset County’s adult obesity rate is close to the
+national median.” For a Northeast audience: “Among Northeast counties,
+Somerset County has one of the higher adult obesity rates, above about
+three in four.” The regional comparison fits a Northeast health agency
+comparing similar counties; the national one fits a national ranking.
+Because the file is synthetic, these values illustrate the method, not
+the real county.</p>
+<p><strong>Exercises.</strong></p>
+<ol type="1">
+<li>Part a calls for a histogram (or a column chart of the 24 hours),
+from one numeric measure binned by hour. Part b: a 100% stacked bar,
+from category shares that sum to 100 percent within each specialty. Part
+c: a scatterplot, from pairs of numbers, one point per clinic. Part d: a
+treemap or sunburst, from nested categories with counts.</li>
+<li>Any three of these: remove the 3-D effect, which distorts the near
+slices; replace the pie with a sorted bar chart, because eight shares
+are difficult to rank by angle; label the values directly instead of
+using a legend; and write a title that states the finding, such as
+“Two-thirds of appointments are primary care.”</li>
+<li>The median is <code>24.5</code>. The sides are below for the first
+five points, above for the next seven, and below for the last two, so
+there are <code>3</code> runs, fewer than the limit of 4 for 14 useful
+points. The longest run is <code>7</code> points above the median, a
+shift. The longest trend is <code>6</code> points rising (20, 24, 25,
+26, 27, 28). Three of the four rules fire (shift, trend, and too few
+runs); there is no astronomical point.</li>
+<li>A run chart uses the median and the run rules and needs no model of
+the data, so it suits early improvement work and small datasets. A
+control chart adds calculated limits around the mean from a model of the
+data, such as the p-chart for a rate in Chapter 10, so it can judge
+whether a single point is unusual; it suits monitoring a stable process
+with steady volumes.</li>
+<li>Check that the definitions match (the denominator and which outcomes
+count), that the populations and case mix are comparable (an urgent care
+clinic is not a primary care peer), that the time periods match, and
+that the gap is larger than chance, using intervals as in Chapter 10.
+Checking geography and units, from Chapter 2, completes the list.</li>
+<li>With OB/GYN selected, the latest rate is <code>26.7%</code> against
+a median of <code>17.5%</code>; the status is <code>Above target</code>;
+and the run-rule result is <code>Signal: investigate</code>, because the
+longest run is 6 and the longest trend is 5 points. An effective summary
+states the signal and the caution: OB/GYN’s rate shows a sustained
+pattern that warrants review with the clinic, but it rests on about 23
+appointments a month, so a single month such as December 2025 can vary
+considerably.</li>
+<li>Ask what decision the new chart would support and who would act on
+it. Decline when the chart repeats a view already on the screen, or when
+no one could name an action it would trigger.</li>
+</ol>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Anhøj, J., &amp; Olesen, A. V. (2014). Run charts revisited: A
+simulation study of run chart rules for detection of non-random
+variation in health care processes. <em>PLOS ONE, 9</em>(11), e113825.
+<a href="https://doi.org/10.1371/journal.pone.0113825"
+class="uri">https://doi.org/10.1371/journal.pone.0113825</a></li>
+<li>Benneyan, J. C., Lloyd, R. C., &amp; Plsek, P. E. (2003).
+Statistical process control as a tool for research and healthcare
+improvement. <em>Quality and Safety in Health Care, 12</em>(6), 458–464.
+<a href="https://doi.org/10.1136/qhc.12.6.458"
+class="uri">https://doi.org/10.1136/qhc.12.6.458</a></li>
+<li>Centers for Disease Control and Prevention. (2025). <em>PLACES:
+Methodology.</em> <a
+href="https://www.cdc.gov/places/methodology/index.html"
+class="uri">https://www.cdc.gov/places/methodology/index.html</a></li>
+<li>Cleveland, W. S., &amp; McGill, R. (1984). Graphical perception:
+Theory, experimentation, and application to the development of graphical
+methods. <em>Journal of the American Statistical Association,
+79</em>(387), 531–554. <a
+href="https://doi.org/10.1080/01621459.1984.10478080"
+class="uri">https://doi.org/10.1080/01621459.1984.10478080</a></li>
+<li>Few, S. (2013). <em>Information dashboard design: Displaying data
+for at-a-glance monitoring</em> (2nd ed.). Analytics Press.</li>
+<li>Knaflic, C. N. (2015). <em>Storytelling with data: A data
+visualization guide for business professionals.</em> Wiley.</li>
+<li>Microsoft. (n.d.-a). <em>Create a PivotChart.</em> Microsoft
+Support. <a
+href="https://support.microsoft.com/en-us/office/create-a-pivotchart-c1b1e057-6990-4c38-b52b-8255538e7b1c"
+class="uri">https://support.microsoft.com/en-us/office/create-a-pivotchart-c1b1e057-6990-4c38-b52b-8255538e7b1c</a></li>
+<li>Microsoft. (n.d.-b). <em>Use conditional formatting to highlight
+information in Excel.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f"
+class="uri">https://support.microsoft.com/en-us/office/use-conditional-formatting-to-highlight-information-in-excel-fed60dfa-1d3f-4e13-9ecb-f1951ff89d7f</a></li>
+<li>Microsoft. (n.d.-c). <em>Use slicers to filter data.</em> Microsoft
+Support. <a
+href="https://support.microsoft.com/en-us/office/use-slicers-to-filter-data-249f966b-a9d5-4b0f-b31a-12651785d29d"
+class="uri">https://support.microsoft.com/en-us/office/use-slicers-to-filter-data-249f966b-a9d5-4b0f-b31a-12651785d29d</a></li>
+<li>Microsoft. (n.d.-d). <em>Use sparklines to show data trends.</em>
+Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/get-started/use-sparklines-to-show-data-trends"
+class="uri">https://support.microsoft.com/en-us/excel/get-started/use-sparklines-to-show-data-trends</a></li>
+<li>Mohammed, M. A., Worthington, P., &amp; Woodall, W. H. (2008).
+Plotting basic control charts: Tutorial notes for healthcare
+practitioners. <em>Quality and Safety in Health Care, 17</em>(2),
+137–145. <a href="https://doi.org/10.1136/qshc.2004.012047"
+class="uri">https://doi.org/10.1136/qshc.2004.012047</a></li>
+<li>Okabe, M., &amp; Ito, K. (2008). <em>Color universal design (CUD):
+How to make figures and presentations that are friendly to colorblind
+people.</em> <a href="https://jfly.uni-koeln.de/color/"
+class="uri">https://jfly.uni-koeln.de/color/</a></li>
+<li>Perla, R. J., Provost, L. P., &amp; Murray, S. K. (2011). The run
+chart: A simple analytical tool for learning from variation in
+healthcare processes. <em>BMJ Quality &amp; Safety, 20</em>(1), 46–51.
+<a href="https://doi.org/10.1136/bmjqs.2009.037895"
+class="uri">https://doi.org/10.1136/bmjqs.2009.037895</a></li>
+<li>Provost, L. P., &amp; Murray, S. K. (2022). <em>The health care data
+guide: Learning from data for improvement</em> (2nd ed.).
+Jossey-Bass.</li>
+<li>Spiegelhalter, D. J. (2005). Funnel plots for comparing
+institutional performance. <em>Statistics in Medicine, 24</em>(8),
+1185–1202. <a href="https://doi.org/10.1002/sim.1970"
+class="uri">https://doi.org/10.1002/sim.1970</a></li>
+<li>Tufte, E. R. (2001). <em>The visual display of quantitative
+information</em> (2nd ed.). Graphics Press.</li>
+<li>Wilke, C. O. (2019). <em>Fundamentals of data visualization.</em>
+O’Reilly Media. <a href="https://clauswilke.com/dataviz/"
+class="uri">https://clauswilke.com/dataviz/</a></li>
+<li>World Wide Web Consortium. (2023). <em>Web content accessibility
+guidelines (WCAG) 2.2.</em> <a href="https://www.w3.org/TR/WCAG22/"
+class="uri">https://www.w3.org/TR/WCAG22/</a></li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>100% stacked bar chart</dt>
+<dd>
+A bar chart in which each bar is divided into segments that sum to 100
+percent, showing how a whole splits into parts across groups.
+</dd>
+<dt>Astronomical point</dt>
+<dd>
+A run-chart point so different from the rest that any reader of the
+chart would agree it is unusual.
+</dd>
+<dt>Benchmark</dt>
+<dd>
+A reference point, such as a baseline, a target, or a peer group, used
+to judge whether a value meets expectations or is changing.
+</dd>
+<dt>Case mix</dt>
+<dd>
+The kinds of patients and visits a unit serves, which shape its rates
+and limit comparisons with units that serve different patients.
+</dd>
+<dt>Chartjunk</dt>
+<dd>
+Decoration in a chart, such as heavy gridlines, shadows, and 3-D
+effects, that does not encode data and competes with it.
+</dd>
+<dt>Control chart</dt>
+<dd>
+A time-ordered chart with a center line and calculated limits, usually
+three standard errors from the center, that mark the range of
+common-cause variation.
+</dd>
+<dt>Dashboard</dt>
+<dd>
+A single-screen visual display of the few measures needed to monitor
+progress toward one or more objectives.
+</dd>
+<dt>Data visualization</dt>
+<dd>
+The practice of encoding data as visual marks, such as lengths,
+positions, and colors, so a reader can identify patterns that may be
+less apparent in a table.
+</dd>
+<dt>Data-ink</dt>
+<dd>
+The ink in a chart that encodes data, as distinct from decoration.
+</dd>
+<dt>Donut chart</dt>
+<dd>
+A pie chart with its center removed, often to display the total; like a
+pie, it encodes shares as angles.
+</dd>
+<dt>Funnel plot</dt>
+<dd>
+A chart of each unit’s rate against its volume, with control limits that
+narrow as volume grows, used to compare units of different sizes.
+</dd>
+<dt>Key performance indicator (KPI)</dt>
+<dd>
+A measure chosen because it tracks progress toward a goal.
+</dd>
+<dt>KPI card</dt>
+<dd>
+A dashboard element that shows a KPI’s current value beside its
+benchmark and status.
+</dd>
+<dt>Percentile rank</dt>
+<dd>
+The share of a comparison group whose values fall below a given value.
+</dd>
+<dt>Run</dt>
+<dd>
+A sequence of one or more consecutive points on the same side of the
+median on a run chart.
+</dd>
+<dt>Run chart</dt>
+<dd>
+A chart of a measure in time order with the median as its center line
+and no calculated limits.
+</dd>
+<dt>Shift</dt>
+<dd>
+A run-chart signal of six or more consecutive points all above or all
+below the median.
+</dd>
+<dt>Signal</dt>
+<dd>
+A pattern in a measure over time that chance would rarely produce: on a
+run chart, a nonrandom pattern worth investigating; on a control chart,
+evidence of special-cause variation.
+</dd>
+<dt>Sparkline</dt>
+<dd>
+A small line chart drawn inside one worksheet cell to show a trend
+beside a number.
+</dd>
+<dt>Sunburst chart</dt>
+<dd>
+A chart of nested categories drawn as rings, with the top level in the
+inner ring and each segment split outward into its parts.
+</dd>
+<dt>Trend</dt>
+<dd>
+A run-chart signal of five or more consecutive points all going up or
+all going down.
+</dd>
+<dt>Treemap</dt>
+<dd>
+A chart that draws each category as a rectangle with area proportional
+to its value, often nested to show hierarchy.
+</dd>
+<dt>Useful observation</dt>
+<dd>
+A run-chart point that does not fall exactly on the median and therefore
+counts toward runs.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch11,
+  author = {Sher, Hoshiar J.},
+  title = {Data Visualization, Dashboards, Benchmarking, and Performance Monitoring},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch11.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch11,
+  author = {Sher, Hoshiar J.},
+  title = {Data Visualization, Dashboards, Benchmarking, and Performance Monitoring},
+  booktitle = {Introduction to Healthcare Data Analytics Using Excel},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch11.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch10.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 10: Distributions, Variation, and Statistical Inference</span></a><a class="pn next" href="ch12.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 12: Simple Linear Regression for Numerical Outcomes</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-build-a-no-show-monitoring-dashboard">Walkthrough: build a no-show monitoring dashboard</a><a href="#practice-on-your-own">Practice on your own</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics Using Excel</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>
