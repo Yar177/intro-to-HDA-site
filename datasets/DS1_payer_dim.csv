@@ -1,0 +1,9 @@
+payer_id,payer_group,plan_name,product_type,prior_auth_intensity,avg_payment_days_band,network_rules_group,market_share_band,pharmacy_benefit_flag,active_flag
+PAY01,Commercial,Blue Valley PPO,PPO,Medium,21-35 days,Standard,High,1,1
+PAY02,Commercial,Apex Choice HMO,HMO,High,21-35 days,Managed narrow network,Medium,1,1
+PAY03,Medicare,Traditional Medicare,FFS,Low,14-28 days,Standard federal,High,1,1
+PAY04,Medicare,Medicare Advantage Plus,Medicare Advantage,Medium,21-35 days,Managed network,Medium,1,1
+PAY05,Medicaid,StateCare Managed Medicaid,Medicaid MCO,High,36-60 days,Managed network,High,1,1
+PAY06,Exchange,Marketplace Silver,Exchange,Medium,21-45 days,Standard exchange,Low,1,1
+PAY07,Self-pay,Self-pay / Charity,Self-pay,Low,Open,Self-pay collections,Low,0,1
+PAY08,Other,Workers Comp and Other,Other,Medium,36-60 days,Case managed,Low,0,1

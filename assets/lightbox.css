@@ -1,0 +1,123 @@
+/* Figure lightbox for intro-to-HDA-site.
+   Progressive enhancement: works on any page; figures need no markup changes. */
+
+.hda-fig { position: relative; }
+
+.hda-expand {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.92);
+  color: #1a1a1a;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+  z-index: 2;
+}
+
+figure:hover .hda-expand,
+.hda-expand:focus-visible {
+  opacity: 1;
+}
+
+/* Touch devices: no hover, keep the button visible */
+@media (hover: none) {
+  .hda-expand { opacity: 0.9; }
+}
+
+.hda-expand svg { width: 1.1rem; height: 1.1rem; }
+
+/* Lightbox overlay */
+.hda-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(10, 12, 16, 0.94);
+  padding: 3.5rem 4.5rem 2.5rem;
+  box-sizing: border-box;
+}
+
+.hda-lightbox[hidden] { display: none; }
+
+.hda-lightbox img {
+  max-width: 100%;
+  max-height: calc(100vh - 11rem);
+  object-fit: contain;
+  border-radius: 0.25rem;
+  background: #fff;
+}
+
+.hda-caption {
+  margin-top: 1rem;
+  max-width: 60rem;
+  color: #e8eaed;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.hda-counter {
+  position: absolute;
+  top: 1rem;
+  left: 1.25rem;
+  color: #9aa0a6;
+  font-size: 0.9rem;
+}
+
+.hda-close,
+.hda-prev,
+.hda-next {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.hda-close:hover, .hda-prev:hover, .hda-next:hover,
+.hda-close:focus-visible, .hda-prev:focus-visible, .hda-next:focus-visible {
+  background: rgba(255, 255, 255, 0.28);
+}
+
+.hda-close {
+  top: 0.75rem;
+  right: 1rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.hda-prev, .hda-next {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.hda-prev { left: 0.75rem; }
+.hda-next { right: 0.75rem; }
+
+@media (max-width: 640px) {
+  .hda-lightbox { padding: 3rem 0.5rem 2rem; }
+  .hda-prev { left: 0.25rem; }
+  .hda-next { right: 0.25rem; }
+}

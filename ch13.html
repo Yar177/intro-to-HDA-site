@@ -1,0 +1,1686 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Multiple Linear Regression and Holding Factors Constant — Introduction to Healthcare Data Analytics</title>
+<meta name="description" content="The financial analyst at Riverbend Health System presents Chapter 12’s result to the chief financial officer (CFO): across 8,500 inpatient stays, each additional day is associated with about $2,132 more in charges. The CFO asks a follow-up question. Long stays more often include time in the intensiv">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch13.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics">
+<meta property="og:title" content="Multiple Linear Regression and Holding Factors Constant — Introduction to Healthcare Data Analytics">
+<meta property="og:description" content="The financial analyst at Riverbend Health System presents Chapter 12’s result to the chief financial officer (CFO): across 8,500 inpatient stays, each additional day is associated with about $2,132 more in charges. The CFO asks a follow-up question. Long stays more often include time in the intensiv">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch13.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Multiple Linear Regression and Holding Factors Constant","position":13,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch13.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><a class="nav-item active" href="ch13.html" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span></a><span class="nav-item disabled" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification (coming soon)" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification, coming soon"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span><span class="soon">Soon</span></span><span class="nav-item disabled" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication (coming soon)" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication, coming soon"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span><span class="soon">Soon</span></span></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 13 · 45 minutes</p>
+    <p class="last-updated">Last updated November 18, 2026</p>
+    <article class="prose">
+      <section id="sec:ch13" class="level1">
+<h1>Multiple Linear Regression and Holding Factors Constant</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>The financial analyst at Riverbend Health System presents Chapter
+12’s result to the chief financial officer (CFO): across 8,500 inpatient
+stays, each additional day is associated with about $2,132 more in
+charges. The CFO asks a follow-up question. Long stays more often
+include time in the intensive care unit (ICU) or a surgical procedure,
+and both of those carry high charges of their own. How does the per-day
+figure change once ICU care and surgery are taken into account?</p>
+<p>Table 1 shows why the question matters. The analyst groups the stays
+by whether they included ICU care and whether they included surgery.
+Stays with neither average 5.27 days and $16,415 in charges. Stays with
+both average 7.45 days and $29,344. Length of stay, ICU care, and
+surgery rise together, so a line fitted to length of stay alone cannot
+separate them.</p>
+<div class="table-wrap"><table id="tbl:ch13-groups">
+<caption>Table 1: Inpatient stays grouped by ICU care and surgery, with
+each group’s average length of stay and average charges. Charges are the
+hospital’s billed charges in U.S. dollars, not the cost of providing the
+care. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays
+admitted January 2024 to December 2025.</caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr>
+<th>ICU care</th>
+<th>Surgery</th>
+<th>Stays</th>
+<th>Average length of stay (days)</th>
+<th>Average charges</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No</td>
+<td>No</td>
+<td>6,333</td>
+<td>5.27</td>
+<td>$16,414.81</td>
+</tr>
+<tr>
+<td>No</td>
+<td>Yes</td>
+<td>1,194</td>
+<td>6.19</td>
+<td>$21,960.70</td>
+</tr>
+<tr>
+<td>Yes</td>
+<td>No</td>
+<td>760</td>
+<td>6.56</td>
+<td>$24,180.53</td>
+</tr>
+<tr>
+<td>Yes</td>
+<td>Yes</td>
+<td>213</td>
+<td>7.45</td>
+<td>$29,344.12</td>
+</tr>
+</tbody>
+</table></div>
+<p>This chapter extends Chapter 12’s line to several explanatory
+variables at once. The result, a multiple linear regression, reports the
+association of each variable with charges while the others are held
+constant. The walkthrough answers the CFO’s question, and the Real World
+box returns to what the answer can and cannot show.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Write a multiple linear regression equation and use it to calculate
+a predicted value.</li>
+<li>Fit a multiple regression in Excel with the <code>LINEST</code>
+function and interpret each coefficient with the other explanatory
+variables held constant.</li>
+<li>Represent yes-or-no and multi-level categories with indicator
+variables measured against a reference category.</li>
+<li>Explain why a coefficient changes when another explanatory variable
+enters the model, and why adjustment does not establish cause.</li>
+<li>Judge whether an added explanatory variable improves a model, using
+standard errors, 95 percent confidence intervals, and adjusted
+R-squared.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<div class="keypoint">
+<p>A multiple regression asks a narrower question than a simple one:
+among stays that are alike on the other explanatory variables in the
+model, how does the response differ with this one? Every coefficient is
+read with that condition attached.</p>
+</div>
+<p>The subsections below build what the walkthrough needs in order: the
+equation, how to read a coefficient, indicator variables for two and for
+more levels, why coefficients change, and the precision of each
+coefficient. The last two, on judging added variables and on Excel’s
+<code>LINEST</code> function, prepare you to evaluate the model and to
+fit it.</p>
+<p>The examples use three of the book’s synthetic teaching files. As in
+Chapter 12, the <code>DS</code> prefix numbers the operational datasets
+from the fictional Riverbend Health System, and the <code>PH</code>
+prefix numbers its public health datasets. This chapter uses
+<code>DS4</code> (inpatient stays), <code>PH1</code> (county public
+health measures), and <code>DS9</code> (a small wellness screening
+file).</p>
+<div class="caution">
+<p><strong>About the teaching data.</strong> Every dataset in this book
+is synthetic, as Chapter 5 explained, so none contains protected health
+information. Two points from Chapter 12 still apply:</p>
+<ul>
+<li><strong><code>DS4</code> records charges, not costs.</strong>
+Charges are the amounts a hospital bills, and they generally differ from
+the resources the care consumes. Researchers who need cost estimates
+convert charges with hospital cost-to-charge ratios, such as those the
+Healthcare Cost and Utilization Project publishes (Agency for Healthcare
+Research and Quality [AHRQ], 2026).</li>
+<li><strong><code>PH1</code> is not a federal data release.</strong> It
+pairs real county names with synthetic estimates modeled on a national
+program of county health estimates, so its values describe no actual
+county.</li>
+</ul>
+</div>
+<section id="from-one-explanatory-variable-to-several" class="level3">
+<h3>From one explanatory variable to several</h3>
+<p>Recall from Chapter 12 that a simple linear regression predicts a
+<strong>response variable</strong>, the measure being explained, from
+one <strong>explanatory variable</strong>, also called a
+<strong>predictor</strong>:</p>
+<p>predicted charges = $6,344 + $2,132 × days</p>
+<p>A <strong>multiple linear regression</strong> predicts the response
+from two or more explanatory variables at once. Its equation adds one
+term for each variable:</p>
+<p>predicted response = intercept + coefficient<sub>1</sub> ×
+variable<sub>1</sub> + coefficient<sub>2</sub> × variable<sub>2</sub> +
+… + coefficient<sub>k</sub> × variable<sub>k</sub></p>
+<p>Each number that multiplies a variable is a
+<strong>coefficient</strong>. In simple regression the single
+coefficient was called the slope; with several variables, each has its
+own coefficient. The letter k stands for the number of explanatory
+variables. The intercept is still the predicted response when every
+explanatory variable equals 0, which, as Chapter 12 noted, may lie
+outside the data: no stay lasts 0 days. As in Chapter 12, Excel finds
+the coefficients by least squares: the combination that makes the sum of
+the squared residuals as small as possible (Diez et al., 2019; Schneider
+et al., 2010).</p>
+<p>For the Riverbend stays, the walkthrough fits the model with four
+explanatory variables:</p>
+<ul>
+<li><code>length_of_stay_days</code>, the length of the stay in
+days;</li>
+<li><code>icu_flag</code>, which is 1 when the patient spent time in the
+ICU and 0 otherwise;</li>
+<li><code>surgery_flag</code>, which is 1 when a surgical procedure was
+performed during the stay and 0 otherwise;</li>
+<li><code>comorbidity_count</code>, the number of
+<strong>comorbidities</strong> coded for the stay. A comorbidity is a
+health condition a patient has in addition to the main reason for the
+admission, such as diabetes in a patient admitted for pneumonia.</li>
+</ul>
+<p>The fitted equation, with coefficients rounded to whole dollars,
+is:</p>
+<p>predicted charges = $5,804 + $2,035 × days + $5,067 × ICU + $3,637 ×
+surgery − $29 × comorbidities</p>
+<p>Figure 1 labels each part. To predict a stay’s charges, multiply each
+coefficient by the stay’s value for that variable and add the results to
+the intercept. A 5-day stay without ICU care or surgery, with 3
+comorbidities, has predicted charges of $5,804 + $2,035 × 5 + $5,067 × 0
++ $3,637 × 0 − $29 × 3 = $15,892. (With the unrounded coefficients Excel
+calculates, the prediction is $15,893.77.)</p>
+<figure id="fig:ch13-equation">
+<img src="figures/generated/ch_13_equation_anatomy.png"
+alt="Figure 1: The parts of a multiple regression equation, using the Riverbend inpatient charges model: an intercept, a coefficient for each explanatory variable, and indicator variables coded 1 for yes and 0 for no. A prediction multiplies each coefficient by the stay’s value and adds the terms. Coefficients are rounded to whole dollars. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 1: The parts of a multiple
+regression equation, using the Riverbend inpatient charges model: an
+intercept, a coefficient for each explanatory variable, and indicator
+variables coded 1 for yes and 0 for no. A prediction multiplies each
+coefficient by the stay’s value and adds the terms. Coefficients are
+rounded to whole dollars. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<div class="definition">
+<p><strong>Multiple linear regression</strong> fits predicted response =
+intercept + coefficient<sub>1</sub> × variable<sub>1</sub> + … +
+coefficient<sub>k</sub> × variable<sub>k</sub> by least squares. Each
+<strong>coefficient</strong> is the change in the predicted response for
+a one-unit increase in its variable, with the other explanatory
+variables in the model held constant.</p>
+</div>
+</section>
+<section id="reading-a-coefficient-holding-the-other-variables-constant"
+class="level3">
+<h3>Reading a coefficient: holding the other variables constant</h3>
+<p>The phrase <strong>holding the other variables constant</strong>
+carries the meaning of every coefficient. Consider two stays that are
+identical in length, surgery, and comorbidities, but differ in one
+respect: one included ICU care and the other did not. The model predicts
+charges $5,067 higher for the ICU stay. That is the ICU coefficient: the
+difference in predicted charges between stays that differ in ICU care
+and are alike on every other variable in the model (Gelman et al.,
+2020).</p>
+<p>Each coefficient follows the same pattern:</p>
+<ul>
+<li><strong>Length of stay, $2,035:</strong> among stays alike in ICU
+care, surgery, and comorbidities, each additional day is associated with
+about $2,035 more in predicted charges.</li>
+<li><strong>ICU care, $5,067:</strong> among stays alike in length,
+surgery, and comorbidities, a stay with ICU care is associated with
+about $5,067 more in predicted charges.</li>
+<li><strong>Surgery, $3,637:</strong> among stays alike in length, ICU
+care, and comorbidities, a surgical stay is associated with about $3,637
+more in predicted charges.</li>
+<li><strong>Comorbidities, −$29:</strong> among stays alike in length,
+ICU care, and surgery, each additional coded comorbidity is associated
+with about $29 less in predicted charges, an amount the chapter shows
+below to be indistinguishable from zero.</li>
+</ul>
+<p>Figure 2 draws what holding constant means for ICU care. With surgery
+and comorbidities fixed, the model draws one line for stays without ICU
+care and another for stays with it. Both lines rise by the same $2,035
+per day, and the ICU line sits $5,067 higher at every length of
+stay.</p>
+<figure id="fig:ch13-parallel">
+<img src="figures/generated/ch_13_parallel_lines.png"
+alt="Figure 2: Predicted charges by length of stay for stays with and without ICU care, from the four-variable model, with surgery fixed at no and comorbidities fixed at 3. Both lines rise $2,035.29 per day; at 5 days the predictions are $15,893.77 without ICU care and $20,961.22 with it, and the ICU line is $5,067.45 higher at every length of stay, as the 5-day and 10-day markers show. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 2: Predicted charges by length of
+stay for stays with and without ICU care, from the four-variable model,
+with surgery fixed at no and comorbidities fixed at 3. Both lines rise
+$2,035.29 per day; at 5 days the predictions are $15,893.77 without ICU
+care and $20,961.22 with it, and the ICU line is $5,067.45 higher at
+every length of stay, as the 5-day and 10-day markers show. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<div class="caution">
+<p>“Holding constant” describes a comparison the model makes on paper,
+not something anyone did to patients. No stay was made one day longer
+while everything else stayed fixed. The coefficient compares stays that
+already differed, and it holds constant only the variables in the model.
+Severity of illness, the physician’s practice pattern, and every other
+factor not in the model are not held constant.</p>
+</div>
+<div class="tryit">
+<p>Calculate predicted charges by hand from the rounded equation above,
+predicted charges = $5,804 + $2,035 × days + $5,067 × ICU + $3,637 ×
+surgery − $29 × comorbidities.</p>
+<ol type="1">
+<li>Calculate the predicted charges for a 3-day surgical stay without
+ICU care, with 2 comorbidities.</li>
+<li>Calculate the predicted charges for the same stay with ICU
+care.</li>
+<li>Subtract the first prediction from the second, and explain in one
+sentence why the difference does not depend on the length of the
+stay.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+</section>
+<section id="indicator-variables-for-yes-or-no-factors" class="level3">
+<h3>Indicator variables for yes-or-no factors</h3>
+<p>A regression multiplies each variable by a number, so every
+explanatory variable must be numeric. A yes-or-no factor such as ICU
+care becomes numeric through an <strong>indicator variable</strong>,
+also called a <strong>dummy variable</strong>: a column that holds 1
+when the condition is present and 0 when it is absent. Recall from
+Chapter 4 that a 0/1 flag records a category with numbers. The
+<code>icu_flag</code> and <code>surgery_flag</code> columns are already
+indicator variables, so the model can use them as they are.</p>
+<p>An indicator’s coefficient has a direct reading. Because the variable
+can change only from 0 to 1, its coefficient is the difference in the
+predicted response between the two groups, with the other variables held
+constant (James et al., 2021). The group coded 0, here stays without ICU
+care, is the comparison group.</p>
+</section>
+<section id="categories-with-more-than-two-levels" class="level3">
+<h3>Categories with more than two levels</h3>
+<p>Many healthcare categories have more than two levels. Admission type
+in the Riverbend file has three: <strong>Elective</strong> (planned in
+advance), <strong>Urgent</strong> (unplanned, for a condition that needs
+prompt care), and <strong>Emergent</strong> (unplanned, for a condition
+that needs immediate care). Typing the values 1, 2, and 3 into one
+column would tell the model that urgent sits exactly halfway between
+elective and emergent, which the categories do not imply. Instead, the
+analyst chooses one level as the <strong>reference category</strong> and
+creates one indicator for each of the other levels.</p>
+<p>For admission type, with Elective as the reference category:</p>
+<ul>
+<li><code>emergent</code> is 1 for an emergent admission and 0
+otherwise;</li>
+<li><code>urgent</code> is 1 for an urgent admission and 0
+otherwise;</li>
+<li>an elective admission has 0 in both columns, so it needs no column
+of its own.</li>
+</ul>
+<p>Figure 3 shows the coding for three stays. A category with m levels
+needs m − 1 indicators; the letter m is used here so that k can keep its
+meaning as the number of explanatory variables. Adding a third column
+for Elective would repeat information the other two already hold,
+because any stay with 0 in both is elective. A least-squares model
+cannot separate columns that repeat each other exactly;
+<code>LINEST</code> detects the redundant column and reports 0 for its
+coefficient and standard error (Microsoft, n.d.-c). This error is known
+as the <strong>indicator-variable trap</strong>, often called the
+dummy-variable trap.</p>
+<figure id="fig:ch13-indicators">
+<img src="figures/generated/ch_13_indicator_coding.png"
+alt="Figure 3: Admission type coded as two indicator variables, with Elective as the reference category, so an elective stay has 0 in both columns. At right, each indicator’s coefficient in the six-variable model of the walkthrough’s Part E: emergent $451.96 and urgent $392.00 compared with elective stays. Neither coefficient’s 95 percent confidence interval excludes zero (Figure 13). Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 3: Admission type coded as two
+indicator variables, with Elective as the reference category, so an
+elective stay has 0 in both columns. At right, each indicator’s
+coefficient in the six-variable model of the walkthrough’s Part E:
+emergent $451.96 and urgent $392.00 compared with elective stays.
+Neither coefficient’s 95 percent confidence interval excludes zero
+(Figure 13). Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+8,500 stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<p>Each indicator’s coefficient compares its level with the reference
+category, holding the other variables constant. The choice of reference
+category changes how the coefficients read but not the model’s
+predictions. A common choice is the largest group or the group that
+forms the natural comparison, such as elective admissions for a question
+about unplanned stays.</p>
+<div class="excelformula">
+<p>An <code>IF</code> formula, from Chapter 6, creates an indicator in a
+calculated column of a Table:
+<code>=IF([@admission_type]="Emergent", 1, 0)</code> returns
+<code>1</code> for an emergent admission and <code>0</code> otherwise.
+The text in quotation marks must match the category’s spelling and
+spacing in the data. This comparison ignores capitalization, so
+<code>"emergent"</code> and <code>"Emergent"</code> give the same
+result.</p>
+</div>
+</section>
+<section id="why-coefficients-change-confounding-and-adjustment"
+class="level3">
+<h3>Why coefficients change: confounding and adjustment</h3>
+<p>When length of stay was the only explanatory variable, its
+coefficient was $2,132. With ICU care, surgery, and comorbidities added,
+it is $2,035. The data did not change; the question did.</p>
+<p>Recall from Chapter 4 that a <strong>confounder</strong> is a factor
+related to both the explanatory variable and the response that is not on
+the causal pathway between them, so that it can create or distort an
+association. Chapter 12 used the regression term <strong>confounding
+variable</strong> for the same idea. Table 1 shows that ICU care and
+surgery are related to both length of stay and charges, so they are
+candidate confounders of the per-day association.</p>
+<p>Including a variable in the model is called
+<strong>adjustment</strong>: the coefficients of the other variables are
+then read with that variable held constant (Schneider et al., 2010).
+Figure 4 shows the idea. In the simple model, part of the higher charges
+associated with ICU care and surgery is credited to length of stay,
+because long stays more often include them. In the multiple model, ICU
+care and surgery receive their own coefficients, and the per-day
+coefficient describes the association of length of stay with charges
+among stays alike on the included variables.</p>
+<figure id="fig:ch13-confounding">
+<img src="figures/generated/ch_13_confounding.png"
+alt="Figure 4: Why the per-day coefficient changes. With length of stay as the only explanatory variable, its coefficient, $2,132, also absorbs part of the higher charges of ICU and surgical stays, which tend to be longer. With ICU care, surgery, and comorbidities in the model, the per-day coefficient is $2,035, and ICU care and surgery have coefficients of $5,067 and $3,637. ICU stays average 6.76 days, compared with 5.41 days for other stays. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 4: Why the per-day coefficient
+changes. With length of stay as the only explanatory variable, its
+coefficient, $2,132, also absorbs part of the higher charges of ICU and
+surgical stays, which tend to be longer. With ICU care, surgery, and
+comorbidities in the model, the per-day coefficient is $2,035, and ICU
+care and surgery have coefficients of $5,067 and $3,637. ICU stays
+average 6.76 days, compared with 5.41 days for other stays. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>Figure 5 compares each variable’s coefficient fitted alone with its
+coefficient in the four-variable model. The per-day coefficient changes
+little, from $2,132 to $2,035. The ICU coefficient falls from $8,016 to
+$5,067, because ICU stays are longer and more often surgical, and part
+of their higher charges is associated with those features. The surgery
+coefficient falls from $5,832 to $3,637 for the same reason. The
+comorbidity coefficient moves from $284 to −$29: once length, ICU care,
+and surgery are known, the count of coded comorbidities adds almost
+nothing to the prediction.</p>
+<figure id="fig:ch13-adjusted">
+<img src="figures/generated/ch_13_adjusted.png"
+alt="Figure 5: Each explanatory variable’s coefficient fitted alone, in a simple regression, and with the other three in the multiple regression: length of stay $2,131.62 and $2,035.29, ICU care $8,016.34 and $5,067.45, surgery $5,831.56 and $3,636.81, and comorbidities $283.93 and −$29.06. Arrows run from the simple to the adjusted coefficient. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 5: Each explanatory variable’s
+coefficient fitted alone, in a simple regression, and with the other
+three in the multiple regression: length of stay $2,131.62 and
+$2,035.29, ICU care $8,016.34 and $5,067.45, surgery $5,831.56 and
+$3,636.81, and comorbidities $283.93 and −$29.06. Arrows run from the
+simple to the adjusted coefficient. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<div class="keypoint">
+<p>A coefficient that changes when another variable enters the model is
+not an error. The two coefficients answer different questions: the
+simple one compares all stays, and the adjusted one compares stays alike
+on the other variables.</p>
+</div>
+<p>Adjustment has limits that matter as much as its results.</p>
+<ul>
+<li><strong>It holds constant only what is measured and
+included.</strong> Chapter 12 anticipated holding severity of illness
+constant. The inpatient file’s closest measure is
+<code>risk_score</code>, a clinical risk score in which higher values
+indicate higher risk. Adding it to the model moves the per-day
+coefficient only from $2,035 to $2,038, and its own coefficient, about
+−$28 per point (standard error $16), cannot be distinguished from zero.
+One summary score captures severity only partly, so part of the per-day
+coefficient may still reflect severity that no column records (Hernán,
+2018).</li>
+<li><strong>It does not turn an association into a cause.</strong> An
+adjusted coefficient from observational data, recorded as care happened
+rather than in an experiment, still compares stays that differed.</li>
+<li><strong>Each coefficient answers its own question.</strong> The ICU
+coefficient is adjusted for length of stay, but length of stay may
+itself be partly a consequence of ICU care. Reading every coefficient in
+a table as a cause of the same kind is a recognized error, sometimes
+called the Table 2 fallacy after the table in which such results are
+usually reported (Westreich &amp; Greenland, 2013).</li>
+</ul>
+</section>
+<section id="how-precise-is-each-coefficient" class="level3">
+<h3>How precise is each coefficient?</h3>
+<p>The next two subsections address how much to trust the coefficients
+and when to add a variable. Recall from Chapter 10 that an estimate from
+data is one result among many that similar data could have produced, and
+that its <strong>standard error</strong> measures how much it would
+vary. Each regression coefficient has its own standard error. A
+<strong>95 percent confidence interval</strong> for a coefficient is
+built the same way as in Chapter 10:</p>
+<p>coefficient ± 1.96 × standard error</p>
+<p>With many observations, as here, this is a close approximation to the
+interval that statistical software reports. Table 2 gives the intervals
+for the four-variable model. The per-day coefficient, $2,035, has a
+standard error of $44, so its interval runs from $1,949 to $2,121. The
+comorbidity coefficient, −$29, has a standard error of $75, so its
+interval runs from −$175 to $117 and includes zero. The data are
+consistent with a small negative association, no association, or a small
+positive one, so the sign of −$29 should not be interpreted (Bzovsky et
+al., 2022).</p>
+<div class="table-wrap"><table id="tbl:ch13-precision">
+<caption>Table 2: Coefficients of the four-variable inpatient charges
+model, with standard errors and 95 percent confidence intervals
+(coefficient ± 1.96 × standard error). The intercept is $5,804.47
+(standard error $381.89). Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr>
+<th>Explanatory variable</th>
+<th>Coefficient</th>
+<th>Standard error</th>
+<th>95 percent confidence interval</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length of stay (per day)</td>
+<td>$2,035.29</td>
+<td>$43.97</td>
+<td>$1,949.11 to $2,121.48</td>
+</tr>
+<tr>
+<td>ICU care (1 = yes)</td>
+<td>$5,067.45</td>
+<td>$475.21</td>
+<td>$4,136.03 to $5,998.86</td>
+</tr>
+<tr>
+<td>Surgery (1 = yes)</td>
+<td>$3,636.81</td>
+<td>$406.17</td>
+<td>$2,840.70 to $4,432.91</td>
+</tr>
+<tr>
+<td>Comorbidities (per condition)</td>
+<td>−$29.06</td>
+<td>$74.63</td>
+<td>−$175.33 to $117.21</td>
+</tr>
+</tbody>
+</table></div>
+<p>Figure 6 draws the same intervals. The three intervals that lie
+entirely above zero describe associations that remain clearly above zero
+even with the alternative intervals described in the caution below. The
+interval for comorbidities, in amber, crosses zero.</p>
+<figure id="fig:ch13-coefficients">
+<img src="figures/generated/ch_13_coefficients.png"
+alt="Figure 6: Coefficients of the inpatient charges model, each with its 95 percent confidence interval, holding the other three constant. The intervals for length of stay, ICU care, and surgery lie above zero; the length of stay interval is too narrow to see at this scale. The panel at right enlarges the comorbidity interval, −$175 to $117, which includes zero. The intervals use the conventional standard errors from LINEST. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 6: Coefficients of the inpatient
+charges model, each with its 95 percent confidence interval, holding the
+other three constant. The intervals for length of stay, ICU care, and
+surgery lie above zero; the length of stay interval is too narrow to see
+at this scale. The panel at right enlarges the comorbidity interval,
+−$175 to $117, which includes zero. The intervals use the conventional
+standard errors from <code>LINEST</code>. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<div class="caution">
+<p>The standard errors that <code>LINEST</code> reports assume that the
+residuals have a similar spread at every level of the prediction (Diez
+et al., 2019). Chapter 12’s residual plot for charges showed a fan, with
+spread growing as predicted charges rise, and the multiple model shares
+that pattern. A large sample does not correct this. The coefficients
+remain valid summaries, but the conventional standard errors, intervals,
+and p-values can be unreliable; depending on the data, they may
+overstate or understate the uncertainty.</p>
+<ul>
+<li><strong>Spread-adjusted standard errors</strong> (also called
+heteroskedasticity-consistent standard errors, often labeled HC1 in
+statistical software) allow the spread to vary. They give wider
+intervals here for the three large coefficients: about $1,906 to $2,164
+for length of stay, $3,857 to $6,278 for ICU care, and $2,729 to $4,545
+for surgery. The comorbidity interval is nearly unchanged, about −$173
+to $115.</li>
+<li>The conclusions in this chapter do not change: the same three
+intervals exclude zero, and the comorbidity interval includes it.</li>
+<li><strong>Repeated patients.</strong> The 8,500 stays come from 5,688
+patients, and 2,013 of them have more than one stay. Stays of the same
+patient may resemble each other, which conventional standard errors also
+ignore. <strong>Patient-clustered standard errors</strong>, which allow
+for that, give nearly the same intervals here as the spread-adjusted
+ones; the chapter does not teach their calculation.</li>
+<li>Treat the intervals in this chapter as a teaching illustration of
+the calculation for these data, not as final estimates. The Going Deeper
+box at the end of Chapter 12 described another remedy, modeling the
+logarithm of charges.</li>
+</ul>
+</div>
+</section>
+<section id="does-adding-a-variable-help" class="level3">
+<h3>Does adding a variable help?</h3>
+<p>Adding an explanatory variable never lowers R-squared, the share of
+variation the model accounts for, which Chapter 12 introduced. Even a
+variable unrelated to the response picks up a little chance variation in
+the sample at hand. R-squared therefore cannot show on its own whether
+an added variable belongs in the model.</p>
+<p><strong>Adjusted R-squared</strong> applies a penalty for each
+explanatory variable. It rises only when an added variable reduces the
+unexplained variation by enough to offset that penalty, and falls
+otherwise (Diez et al., 2019). A rise is a useful signal, not a proof:
+it does not show that a model will predict new data better.</p>
+<p>adjusted R-squared = 1 − (1 − R-squared) × (n − 1) ÷ (n − k − 1)</p>
+<p>Here n is the number of observations, such as stays, and k is the
+number of explanatory variables. With 8,500 stays and 4 variables, the
+adjustment is tiny: R-squared is 0.2364 and adjusted R-squared is
+0.2360. With few observations and many variables, it can be large.</p>
+<p>Figure 7 shows the difference in the wellness screening file, which
+holds 100 adults. The response is systolic blood pressure, the upper
+number of a blood pressure reading. Age alone gives an R-squared of
+0.248. Adding body mass index (BMI), a measure of weight relative to
+height, raises it to 0.282. Each further variable raises R-squared a
+little, to 0.287 with seven variables, while adjusted R-squared peaks at
+0.267 with age and BMI and then falls to 0.233.</p>
+<p>Birth month is included deliberately as a variable with no expected
+relationship to blood pressure. Entering it as a number from 1 to 12
+treats the months as evenly spaced points on a line, which suits this
+demonstration but would not suit a real analysis of seasonal
+patterns.</p>
+<figure id="fig:ch13-adjusted-r2">
+<img src="figures/generated/ch_13_adjusted_r2.png"
+alt="Figure 7: R-squared and adjusted R-squared for models of systolic blood pressure as explanatory variables are added one at a time, left to right: age, BMI, waist circumference, birth month, height, weekly exercise hours, and high-density lipoprotein (HDL) cholesterol. R-squared rises from 0.282 to 0.287 between the age and BMI model and the seven-variable model, while adjusted R-squared falls from 0.267, its highest value, to 0.233. The vertical axis begins at 0.22 to show the changes. Source: datasets/DS9_wellness_screening.csv, 100 adults." />
+<figcaption aria-hidden="true">Figure 7: R-squared and adjusted
+R-squared for models of systolic blood pressure as explanatory variables
+are added one at a time, left to right: age, BMI, waist circumference,
+birth month, height, weekly exercise hours, and high-density lipoprotein
+(HDL) cholesterol. R-squared rises from 0.282 to 0.287 between the age
+and BMI model and the seven-variable model, while adjusted R-squared
+falls from 0.267, its highest value, to 0.233. The vertical axis begins
+at 0.22 to show the changes. Source:
+<a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, 100
+adults.</figcaption>
+</figure>
+<p>Here, adjusted R-squared falls after age and BMI, so the later
+variables do not add enough fit to offset the penalty. That pattern
+raises the concern of <strong>overfitting</strong>: a model that fits
+the chance features of one sample so closely that it predicts new data
+less well than a simpler model would (Babyak, 2004). Confirming
+overfitting requires testing the model’s predictions on observations not
+used to fit it.</p>
+<p>Overfitting is most likely when the data hold few observations for
+each coefficient estimated. Methodologists recommend calculating the
+sample size a model requires before fitting it, rather than relying on
+simple rules of thumb (Riley et al., 2020). The 100 wellness records
+support only a few explanatory variables; the 8,500 stays support
+more.</p>
+<p>A second problem arises when two explanatory variables carry nearly
+the same information. In the wellness file, BMI and waist circumference
+have a correlation of <code>r = 0.93</code>. Adding waist to a model
+that already holds age and BMI raises R-squared only from 0.2816 to
+0.2825, and the standard error of the BMI coefficient grows from 0.24 to
+0.65. When explanatory variables are strongly correlated with one
+another, a condition called <strong>multicollinearity</strong>, the
+model cannot divide their shared association reliably between them, and
+their individual coefficients become imprecise and unstable (Kim, 2019).
+Waist’s coefficient in that model is even negative, −0.14, though the
+two measures each rise with blood pressure.</p>
+<p>Figure 8 shows the overlap and its effect on the BMI coefficient.</p>
+<figure id="fig:ch13-multicollinearity">
+<img src="figures/generated/ch_13_multicollinearity.png"
+alt="Figure 8: BMI and waist circumference for 100 adults, with a correlation of r = 0.928. One adult, WS035, sits far from the others, with a BMI of 51.5 and a waist of 133 centimeters; without that person, r is 0.907. Adding waist to a model of systolic blood pressure with age and BMI raises R-squared only from 0.2816 to 0.2825, while the standard error of the BMI coefficient grows from 0.241 to 0.652, about 2.7 times its original size. Source: datasets/DS9_wellness_screening.csv, 100 adults." />
+<figcaption aria-hidden="true">Figure 8: BMI and waist circumference for
+100 adults, with a correlation of <code>r = 0.928</code>. One adult,
+WS035, sits far from the others, with a BMI of 51.5 and a waist of 133
+centimeters; without that person, <code>r</code> is 0.907. Adding waist
+to a model of systolic blood pressure with age and BMI raises R-squared
+only from 0.2816 to 0.2825, while the standard error of the BMI
+coefficient grows from 0.241 to 0.652, about 2.7 times its original
+size. Source: <a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, 100
+adults.</figcaption>
+</figure>
+<p>Figure 9 collects these considerations into four questions to ask
+before adding a variable.</p>
+<figure id="fig:ch13-choosing">
+<img src="figures/generated/ch_13_choosing_variables.png"
+alt="Figure 9: Four questions to ask before adding an explanatory variable: whether the question requires it, whether it repeats a variable already in the model, whether adjusted R-squared rises, and whether the data hold enough observations for another coefficient. Examples come from the inpatient file and the wellness screening file. Sources: datasets/DS4_inpatient_clean.csv (8,500 stays) and datasets/DS9_wellness_screening.csv (100 adults)." />
+<figcaption aria-hidden="true">Figure 9: Four questions to ask before
+adding an explanatory variable: whether the question requires it,
+whether it repeats a variable already in the model, whether adjusted
+R-squared rises, and whether the data hold enough observations for
+another coefficient. Examples come from the inpatient file and the
+wellness screening file. Sources:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> (8,500 stays) and
+<a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a> (100
+adults).</figcaption>
+</figure>
+<div class="keypoint">
+<p>Add an explanatory variable because the question requires it, such as
+a likely confounder, not to raise R-squared. A variable that repeats
+another, or a model with few observations per coefficient, makes the
+coefficients less trustworthy.</p>
+</div>
+</section>
+<section id="fitting-the-model-in-excel-linest" class="level3">
+<h3>Fitting the model in Excel: LINEST</h3>
+<p>Chapter 12’s <code>SLOPE</code> and <code>INTERCEPT</code> functions
+accept only one explanatory variable. Excel’s
+<strong><code>LINEST</code></strong> function fits a least-squares model
+with one or several (Microsoft, n.d.-c). Its form is:</p>
+<p><code>=LINEST(known_y's, known_x's, const, stats)</code></p>
+<ul>
+<li><strong>known_y’s</strong> is the response column.</li>
+<li><strong>known_x’s</strong> is the block of explanatory columns. The
+columns must sit side by side, with no other columns between them.</li>
+<li><strong>const</strong> is <code>TRUE</code> to calculate the
+intercept normally.</li>
+<li><strong>stats</strong> is <code>TRUE</code> to return the standard
+errors and other statistics as well as the coefficients.</li>
+</ul>
+<p><code>LINEST</code> returns a block of results rather than one value.
+In Excel for Microsoft 365, Excel 2021, and Excel 2024, you enter it in
+one cell and the results <strong>spill</strong> into the neighboring
+cells, the dynamic array behavior Chapter 3 introduced (Microsoft,
+n.d.-a). With <code>stats</code> set to <code>TRUE</code>, the block has
+five rows and one column for each explanatory variable plus one for the
+intercept. Figure 10 labels the cells.</p>
+<figure id="fig:ch13-linest">
+<img src="figures/generated/ch_13_linest_map.png"
+alt="Figure 10: What each cell of the LINEST result holds for the four-variable inpatient model. Row 1 holds the coefficients in reverse order of the explanatory columns, with the intercept last; row 2 holds their standard errors; row 3 begins with R-squared and the standard error of the estimate, a summary of the residuals’ spread in dollars, not the standard error of any one coefficient. Rows 4 and 5 hold statistics this chapter does not use, and #N/A fills the cells that LINEST leaves empty. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 10: What each cell of the
+<code>LINEST</code> result holds for the four-variable inpatient model.
+Row 1 holds the coefficients in reverse order of the explanatory
+columns, with the intercept last; row 2 holds their standard errors; row
+3 begins with R-squared and the standard error of the estimate, a
+summary of the residuals’ spread in dollars, not the standard error of
+any one coefficient. Rows 4 and 5 hold statistics this chapter does not
+use, and <code>#N/A</code> fills the cells that <code>LINEST</code>
+leaves empty. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+8,500 stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<div class="excelformula">
+<p>With the inpatient file as a Table named <code>Inpatient</code>, and
+four adjacent columns named <code>los</code>, <code>icu</code>,
+<code>surgery</code>, and <code>comorbidities</code>:
+<code>=LINEST(Inpatient[total_charges_usd], Inpatient[[los]:[comorbidities]], TRUE, TRUE)</code>
+spills five rows by five columns. The first row reads
+<code>-29.06</code>, <code>3636.81</code>, <code>5067.45</code>,
+<code>2035.29</code>, <code>5804.47</code>: comorbidities, surgery, ICU,
+length of stay, and the intercept.
+<code>Inpatient[[los]:[comorbidities]]</code> refers to every column
+from <code>los</code> through <code>comorbidities</code>. To return a
+single value instead of the block, wrap <code>LINEST</code> in
+<code>INDEX</code>, which returns the value at a given row and column of
+a block (Microsoft, n.d.-b):
+<code>=INDEX(LINEST(Inpatient[total_charges_usd], Inpatient[[los]:[comorbidities]]), 1, 4)</code>
+returns about <code>2035.29</code>, the value in row 1, column 4.</p>
+</div>
+<div class="caution">
+<p><code>LINEST</code> lists the coefficients in the
+<strong>reverse</strong> order of the explanatory columns: the last
+column’s coefficient comes first, and the intercept comes last. Reading
+the block left to right as if it matched the columns attaches each
+coefficient to the wrong variable, without any error message. Type a
+label above each column of the result, as the walkthrough does, before
+you read it.</p>
+</div>
+<p>The Analysis ToolPak’s Regression tool, which Chapter 3 introduced,
+also fits multiple regressions, but it is available only in the desktop
+versions of Excel; it is not available in Excel for the web (Microsoft,
+n.d.-d). <code>LINEST</code> gives the same coefficients and standard
+errors, so this chapter uses it throughout. The Going Deeper box
+describes the ToolPak’s additional output.</p>
+<div class="caution">
+<p><strong>Excel versions.</strong> Microsoft’s regression article,
+written for the older array-entry method that <code>LINEST</code> once
+required, says Excel for the web cannot run <code>LINEST</code>
+meaningfully (Microsoft, n.d.-d). Current Excel for the web calculates
+<code>LINEST</code> as a dynamic array that spills, and the formulas in
+this chapter were tested there in November 2026. If your version shows a
+single value where a block is expected, use the <code>INDEX</code> form
+above, which returns one value at a time in any version, or complete the
+steps in desktop Excel.</p>
+</div>
+</section>
+</section>
+<section
+id="walkthrough-separate-the-factors-associated-with-inpatient-charges"
+class="level2">
+<h2>Walkthrough: separate the factors associated with inpatient
+charges</h2>
+<p>This build answers the CFO’s question. You place four explanatory
+columns side by side, fit the model with <code>LINEST</code>, label the
+results, calculate confidence intervals and adjusted R-squared, use the
+equation to predict charges for two stays, and then add admission type
+as a category with three levels.</p>
+<div class="keypoint">
+<p>Before you start: open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+and immediately save a working copy as an Excel workbook so the original
+stays untouched. These teaching files hold no real patient information;
+real patient data must stay in approved, secure systems. The steps
+require Excel for Microsoft 365 (desktop or web), Excel 2021, or Excel
+2024.</p>
+<ul>
+<li><strong>Desktop Excel:</strong> choose <strong>File &gt; Save
+As</strong>, pick <strong>Excel Workbook (.xlsx)</strong>, and enter the
+file name.</li>
+<li><strong>Excel for the web:</strong> upload the CSV file to OneDrive
+and open it; Excel converts it to a workbook. Click the file name at the
+top of the window to rename it. Your changes save automatically.</li>
+</ul>
+</div>
+<p><strong>Part A. Set up the data.</strong> <code>LINEST</code> needs
+the explanatory columns side by side. In the file, they sit in columns
+<code>F</code>, <code>M</code>, <code>P</code>, and <code>Q</code>, so
+you copy them into four adjacent calculated columns at the right edge of
+the Table, without moving the original data. Each new column needs a
+header that differs from every existing header, because Excel renames a
+duplicate header in a Table.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> in Excel. The
+file has 8,500 stays in rows 2 to 8501 and 32 columns, <code>A</code> to
+<code>AF</code>.</li>
+<li>Save a working copy named <code>ch13_charges_model</code>. Work in
+this file from here on.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong> is checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Inpatient</code>.</li>
+<li>Click <code>AG1</code>, type <code>los</code>, and press Enter. The
+Table expands to include column <code>AG</code>.</li>
+<li>In <code>AG2</code> enter <code>=[@length_of_stay_days]</code>. The
+formula fills the whole column, and <code>AG2</code> shows
+<code>4.6</code>.</li>
+<li>Click <code>AH1</code>, type <code>icu</code>, and press Enter.</li>
+<li>In <code>AH2</code> enter <code>=[@icu_flag]</code>.
+<code>AH2</code> shows <code>0</code>.</li>
+<li>Click <code>AI1</code>, type <code>surgery</code>, and press
+Enter.</li>
+<li>In <code>AI2</code> enter <code>=[@surgery_flag]</code>.
+<code>AI2</code> shows <code>0</code>.</li>
+<li>Click <code>AJ1</code>, type <code>comorbidities</code>, and press
+Enter.</li>
+<li>In <code>AJ2</code> enter <code>=[@comorbidity_count]</code>.
+<code>AJ2</code> shows <code>6</code>.</li>
+</ol>
+<p><strong>Part B. Fit the model.</strong></p>
+<ol start="13" type="1">
+<li>Add a new worksheet: click the <strong>+</strong> beside the sheet
+tabs, then double-click the new tab and rename it
+<code>Model</code>.</li>
+<li>In <code>A1</code> type
+<code>Inpatient charges: multiple regression</code>.</li>
+<li>In <code>A3</code> type <code>Stays</code>; in <code>B3</code> enter
+<code>=COUNT(Inpatient[total_charges_usd])</code>. It shows
+<code>8500</code>.</li>
+<li>In <code>A4</code> type <code>Explanatory variables</code>; in
+<code>B4</code> type <code>4</code>.</li>
+<li>Label the result before you create it, in reverse column order: type
+<code>comorbidities</code> in <code>D2</code>, <code>surgery</code> in
+<code>E2</code>, <code>icu</code> in <code>F2</code>, <code>los</code>
+in <code>G2</code>, and <code>intercept</code> in <code>H2</code>.</li>
+<li>Click <code>D3</code> and enter
+<code>=LINEST(Inpatient[total_charges_usd], Inpatient[[los]:[comorbidities]], TRUE, TRUE)</code>.
+The result spills into <code>D3:H7</code>. <code>D3</code> shows about
+<code>-29.06</code>, <code>G3</code> about <code>2035.29</code>, and
+<code>H3</code> about <code>5804.47</code>. The <code>#N/A</code> values
+in <code>F5:H7</code> are expected. If you see <code>#SPILL!</code>
+instead, a cell in <code>D3:H7</code> is not empty; clear it and the
+block appears. Compare your block with Figure 10.</li>
+</ol>
+<p><strong>Part C. Label the coefficients and calculate their
+intervals.</strong> Each row of the coefficient table points at one
+column of the <code>LINEST</code> block: the coefficient in row 3 and
+its standard error in row 4.</p>
+<ol start="19" type="1">
+<li>Type the headers <code>Variable</code> in <code>A9</code>,
+<code>Coefficient</code> in <code>B9</code>, <code>Standard error</code>
+in <code>C9</code>, <code>Lower 95%</code> in <code>D9</code>, and
+<code>Upper 95%</code> in <code>E9</code>.</li>
+<li>Type the variable names <code>Intercept</code> in <code>A10</code>,
+<code>Length of stay (days)</code> in <code>A11</code>,
+<code>ICU stay</code> in <code>A12</code>, <code>Surgery</code> in
+<code>A13</code>, and <code>Comorbidities</code> in
+<code>A14</code>.</li>
+<li>Intercept row: enter <code>=H3</code> in <code>B10</code> and
+<code>=H4</code> in <code>C10</code>. They show about
+<code>5804.47</code> and <code>381.89</code>.</li>
+<li>Length of stay row: enter <code>=G3</code> in <code>B11</code> and
+<code>=G4</code> in <code>C11</code>. They show about
+<code>2035.29</code> and <code>43.97</code>.</li>
+<li>ICU row: enter <code>=F3</code> in <code>B12</code> and
+<code>=F4</code> in <code>C12</code>. They show about
+<code>5067.45</code> and <code>475.21</code>.</li>
+<li>Surgery row: enter <code>=E3</code> in <code>B13</code> and
+<code>=E4</code> in <code>C13</code>. They show about
+<code>3636.81</code> and <code>406.17</code>.</li>
+<li>Comorbidities row: enter <code>=D3</code> in <code>B14</code> and
+<code>=D4</code> in <code>C14</code>. They show about
+<code>-29.06</code> and <code>74.63</code>.</li>
+<li>In <code>D10</code> enter <code>=B10-1.96*C10</code>.</li>
+<li>In <code>E10</code> enter <code>=B10+1.96*C10</code>.</li>
+<li>Select <code>D10:E10</code> and drag the fill handle down to row 14.
+<code>D14</code> shows about <code>-175.33</code> and <code>E14</code>
+about <code>117.21</code>, the comorbidity interval that includes
+zero.</li>
+<li>In <code>A16</code> type <code>R-squared</code>; in <code>B16</code>
+enter <code>=D5</code>. It shows about <code>0.2364</code>.</li>
+<li>In <code>A17</code> type <code>Adjusted R-squared</code>; in
+<code>B17</code> enter <code>=1-(1-B16)*(B3-1)/(B3-B4-1)</code>. It
+shows about <code>0.2360</code>.</li>
+</ol>
+<p><strong>Part D. Predict two stays.</strong> The predictions use the
+equation directly, so you can see each term.</p>
+<ol start="31" type="1">
+<li>In <code>A19</code> type <code>Predicted: 5 days, no ICU</code>; in
+<code>B19</code> enter <code>=B10+B11*5+B12*0+B13*0+B14*3</code>. It
+shows about <code>15893.77</code>, the prediction for a 5-day stay
+without ICU care or surgery, with 3 comorbidities.</li>
+<li>In <code>A20</code> type <code>Predicted: 5 days, ICU</code>; in
+<code>B20</code> enter <code>=B10+B11*5+B12*1+B13*0+B14*3</code>. It
+shows about <code>20961.22</code>.</li>
+<li>In <code>A21</code> type <code>Difference</code>; in
+<code>B21</code> enter <code>=B20-B19</code>. It shows about
+<code>5067.45</code>, the same as the ICU coefficient in
+<code>B12</code>: the two stays differ only in ICU care, so they differ
+by exactly that coefficient.</li>
+</ol>
+<p><strong>Part E. Add admission type, a category with three
+levels.</strong> Elective admissions serve as the reference
+category.</p>
+<ol start="34" type="1">
+<li>Return to the data sheet. Click <code>AK1</code>, type
+<code>emergent</code>, and press Enter.</li>
+<li>In <code>AK2</code> enter
+<code>=IF([@admission_type]="Emergent", 1, 0)</code>. <code>AK2</code>
+shows <code>0</code>, because the first stay is an urgent
+admission.</li>
+<li>Click <code>AL1</code>, type <code>urgent</code>, and press
+Enter.</li>
+<li>In <code>AL2</code> enter
+<code>=IF([@admission_type]="Urgent", 1, 0)</code>. <code>AL2</code>
+shows <code>1</code>.</li>
+<li>On the <code>Model</code> sheet, in <code>A23</code> type
+<code>Average charges by admission type</code>. Then type
+<code>Elective</code> in <code>A24</code>, <code>Emergent</code> in
+<code>A25</code>, and <code>Urgent</code> in <code>A26</code>.</li>
+<li>In <code>B24</code> enter
+<code>=AVERAGEIFS(Inpatient[total_charges_usd], Inpatient[admission_type], A24)</code>.
+It shows about <code>18160.79</code>.</li>
+<li>Drag the fill handle from <code>B24</code> down to <code>B26</code>.
+Emergent shows about <code>17993.37</code> and Urgent about
+<code>18555.84</code>.</li>
+<li>Type the labels <code>urgent</code> in <code>D28</code>,
+<code>emergent</code> in <code>E28</code>, <code>comorbidities</code> in
+<code>F28</code>, <code>surgery</code> in <code>G28</code>,
+<code>icu</code> in <code>H28</code>, <code>los</code> in
+<code>I28</code>, and <code>intercept</code> in <code>J28</code>.</li>
+<li>Click <code>D29</code> and enter
+<code>=LINEST(Inpatient[total_charges_usd], Inpatient[[los]:[urgent]], TRUE, TRUE)</code>.
+The result spills into <code>D29:J33</code>. <code>D29</code> shows
+about <code>392.00</code> (urgent) and <code>E29</code> about
+<code>451.96</code> (emergent); <code>D30</code> and <code>E30</code>
+show their standard errors, about <code>406.38</code> and
+<code>384.03</code>; and <code>D31</code> shows the R-squared, about
+<code>0.2365</code>.</li>
+</ol>
+<p><strong>Part F. Check the residuals.</strong> As in Chapter 12, a
+residual plot checks whether the model’s errors have a similar spread at
+every level of the prediction.</p>
+<ol start="43" type="1">
+<li>Return to the data sheet. Click <code>AM1</code>, type
+<code>predicted_charges</code>, and press Enter.</li>
+<li>In <code>AM2</code> enter
+<code>=Model!$B$10+Model!$B$11*[@los]+Model!$B$12*[@icu]+Model!$B$13*[@surgery]+Model!$B$14*[@comorbidities]</code>.
+<code>AM2</code> shows about <code>14992.47</code>, the predicted charge
+for the first stay.</li>
+<li>Click <code>AN1</code>, type <code>residual</code>, and press Enter.
+In <code>AN2</code> enter
+<code>=[@total_charges_usd]-[@predicted_charges]</code>.
+<code>AN2</code> shows about <code>-6332.89</code>.</li>
+<li>Click the column letter <code>AM</code> and drag to <code>AN</code>.
+Choose <strong>Insert &gt; Charts &gt; Scatter</strong>, and title the
+chart <code>Residuals against predicted charges</code>.</li>
+<li>Read the pattern. The points form a fan that widens to the right, as
+in Chapter 12: in the author’s calculation, the standard deviation (SD)
+of the residuals is about $8,896 for the third of stays with the lowest
+predicted charges, $11,537 for the middle third, and $19,013 for the
+highest third. This is the uneven spread that the caution on standard
+errors describes. Compare your plot with Figure 11.</li>
+</ol>
+<figure id="fig:ch13-residual-check">
+<img src="figures/generated/ch_13_residual_check.png"
+alt="Figure 11: Residuals against predicted charges for the four-variable model, with stays grouped into thirds by predicted charge. The residual standard deviation is $8,896 for predicted charges up to $14,062, $11,537 for predicted charges above $14,062 through $19,356, and $19,013 above $19,356. The plot shows 8,382 stays; 118 lie beyond its limits, and the standard deviations use all 8,500. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 11: Residuals against predicted
+charges for the four-variable model, with stays grouped into thirds by
+predicted charge. The residual standard deviation is $8,896 for
+predicted charges up to $14,062, $11,537 for predicted charges above
+$14,062 through $19,356, and $19,013 above $19,356. The plot shows 8,382
+stays; 118 lie beyond its limits, and the standard deviations use all
+8,500. Source: <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500
+stays admitted January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part G. Check and interpret.</strong></p>
+<ol start="48" type="1">
+<li>Compare your <code>Model</code> sheet with Figure 12. If
+<code>B21</code> equals the ICU coefficient in <code>B12</code>, the
+model and the predictions are connected correctly. Save the
+workbook.</li>
+</ol>
+<figure id="fig:ch13-checkpoint">
+<img src="figures/generated/ch_13_finished_model.png"
+alt="Figure 12: The finished Model sheet from this walkthrough: the LINEST block in D3:H7 with labels in row 2, the labeled coefficients with standard errors and 95 percent limits in A9:E14, R-squared and adjusted R-squared in B16:B17, the two predictions and their difference in B19:B21, the average charges by admission type in A23:B26, and the six-variable LINEST block in D29:J33. Values are formatted for print; your sheet may show more decimals in the same cells. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 12: The finished
+<code>Model</code> sheet from this walkthrough: the <code>LINEST</code>
+block in <code>D3:H7</code> with labels in row 2, the labeled
+coefficients with standard errors and 95 percent limits in
+<code>A9:E14</code>, R-squared and adjusted R-squared in
+<code>B16:B17</code>, the two predictions and their difference in
+<code>B19:B21</code>, the average charges by admission type in
+<code>A23:B26</code>, and the six-variable <code>LINEST</code> block in
+<code>D29:J33</code>. Values are formatted for print; your sheet may
+show more decimals in the same cells. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>The workbook now answers the CFO’s question. Among stays alike in ICU
+care, surgery, and coded comorbidities, each additional day is
+associated with about $2,035 more in charges, with a 95 percent
+confidence interval of $1,949 to $2,121. That is about $96 less than the
+$2,132 from length of stay alone, so adjustment for the included
+variables changes the per-day figure only modestly. The comparison does
+not divide charges into causes. ICU care and surgery have large
+associations of their own, about $5,067 and $3,637 per stay.</p>
+<p>Admission type shows how adjustment can change a comparison. Without
+adjustment, emergent admissions average about $167 less than elective
+ones ($17,993.37 compared with $18,160.79). With the other variables
+held constant, the emergent coefficient is about $452 more. The change
+in direction is consistent with the different mix of surgery: 23.4
+percent of elective stays included surgery, compared with 10.8 percent
+of emergent stays.</p>
+<p>Neither difference is precise, however. The unadjusted difference,
+−$167.41, has a standard error of $435.40, so its interval runs from
+about −$1,021 to $686. The adjusted coefficient, $451.96, has a standard
+error of $384.03, so its interval runs from about −$301 to $1,205. Both
+include zero, as does the urgent interval. Adjusted R-squared stays at
+0.2360 with the two indicators added, so admission type adds little once
+length, ICU care, and surgery are known.</p>
+<p>Figure 13 compares the two estimates and the surgery mix behind the
+change.</p>
+<figure id="fig:ch13-direction">
+<img src="figures/generated/ch_13_direction_change.png"
+alt="Figure 13: The difference in predicted charges between emergent and elective admissions, before and after adjustment. Unadjusted, the difference is −$167.41 (95 percent confidence interval −$1,021 to $686); adjusted for length of stay, ICU care, surgery, and comorbidities, it is $451.96 (−$301 to $1,205). Both intervals include zero. At right, 23.4 percent of elective stays and 10.8 percent of emergent stays included surgery. Source: datasets/DS4_inpatient_clean.csv, 8,500 stays admitted January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 13: The difference in predicted
+charges between emergent and elective admissions, before and after
+adjustment. Unadjusted, the difference is −$167.41 (95 percent
+confidence interval −$1,021 to $686); adjusted for length of stay, ICU
+care, surgery, and comorbidities, it is $451.96 (−$301 to $1,205). Both
+intervals include zero. At right, 23.4 percent of elective stays and
+10.8 percent of emergent stays included surgery. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, 8,500 stays admitted
+January 2024 to December 2025.</figcaption>
+</figure>
+<p>For a budget, the model refines Chapter 12’s figure; it does not yet
+show what shortening stays would save. The model accounts for about 24
+percent of the variation in charges, its conventional standard errors
+are unreliable because of the fan in the residuals, and it describes
+charges, not costs.</p>
+<div class="tryit">
+<p>Use the walkthrough workbook to watch the per-day coefficient change
+as variables enter the model one group at a time.</p>
+<ol type="1">
+<li>On the <code>Model</code> sheet, in <code>A35</code> type
+<code>Days coefficient, days and ICU only</code>.</li>
+<li>In <code>B35</code> enter
+<code>=INDEX(LINEST(Inpatient[total_charges_usd], Inpatient[[los]:[icu]]), 1, 2)</code>.
+Record the value.</li>
+<li>In <code>A36</code> type
+<code>ICU coefficient, days and ICU only</code>; in <code>B36</code>
+enter the same formula with <code>1, 1</code> in place of
+<code>1, 2</code>. Record the value.</li>
+<li>Explain why the length of stay coefficient sits in column 2 of this
+result and the ICU coefficient in column 1.</li>
+<li>Write two sentences that trace the per-day coefficient from $2,132
+(alone) to the value in <code>B35</code> to $2,035 (all four variables),
+and the ICU coefficient from $8,016 (alone) to the value in
+<code>B36</code> to $5,067.</li>
+</ol>
+<p>The answer key is at the end of the chapter.</p>
+</div>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<p>These exercises repeat the walkthrough’s techniques on new questions.
+Practice A follows the walkthrough’s steps closely with county data.
+Practice B names the models to fit and gives values to check against,
+but leaves you to assemble the formulas.</p>
+<section
+id="practice-a-county-diabetes-physical-inactivity-and-urban-or-rural-setting"
+class="level3">
+<h3>Practice A: county diabetes, physical inactivity, and urban or rural
+setting</h3>
+<p>In Chapter 12’s Practice A, a line of the diagnosed diabetes rate on
+the obesity rate across counties had a slope of about
+<code>0.4523</code>. Here you add physical inactivity and the county’s
+urban or rural setting, a category with four levels: <strong>Urban
+core</strong>, <strong>Suburban</strong>, <strong>Small town</strong>,
+and <strong>Rural</strong>. Urban core serves as the reference
+category.</p>
+<div class="caution">
+<p>County rates describe counties, not people. As Chapter 12 explained,
+reading a county-level association as a statement about individuals is
+the ecological fallacy. A coefficient here compares counties, holding
+the county’s other rates and setting constant. The urban or rural labels
+and the sizes of these coefficients are synthetic as well; they do not
+describe the real counties, and some labels differ from the counties’
+actual settings.</p>
+</div>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/PH1_places_county_wide.csv" download title="Download PH1_places_county_wide.csv"><code>datasets/PH1_places_county_wide.csv</code></a> and save a
+working copy named <code>ch13_counties</code>, as in the
+walkthrough.</li>
+<li>Click any cell inside the data, choose <strong>Insert &gt;
+Table</strong>, confirm <strong>My table has headers</strong>, and click
+<strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab, set the <strong>Table
+Name</strong> to <code>Places</code>. The file has 3,143 counties in
+columns <code>A</code> to <code>S</code>.</li>
+<li>Click <code>T1</code>, type <code>obesity</code>, and press
+Enter.</li>
+<li>In <code>T2</code> enter <code>=[@obesity_pct]</code>.
+<code>T2</code> shows <code>33.6</code>, the rate for Cleburne County,
+Alabama.</li>
+<li>Click <code>U1</code>, type <code>inactivity</code>, and press
+Enter.</li>
+<li>In <code>U2</code> enter <code>=[@physical_inactivity_pct]</code>.
+<code>U2</code> shows <code>26.8</code>.</li>
+<li>Click <code>V1</code>, type <code>rural</code>, and press
+Enter.</li>
+<li>In <code>V2</code> enter
+<code>=IF([@urban_rural_group]="Rural", 1, 0)</code>.</li>
+<li>Click <code>W1</code>, type <code>small_town</code>, and press
+Enter.</li>
+<li>In <code>W2</code> enter
+<code>=IF([@urban_rural_group]="Small town", 1, 0)</code>.</li>
+<li>Click <code>X1</code>, type <code>suburban</code>, and press
+Enter.</li>
+<li>In <code>X2</code> enter
+<code>=IF([@urban_rural_group]="Suburban", 1, 0)</code>. Cleburne County
+is an urban core county, so <code>V2</code>, <code>W2</code>, and
+<code>X2</code> all show <code>0</code>.</li>
+<li>Add a worksheet named <code>Model</code>. In <code>A3</code> type
+<code>Counties</code>; in <code>B3</code> enter
+<code>=COUNT(Places[diagnosed_diabetes_pct])</code>. It shows
+<code>3143</code>.</li>
+<li>Type the labels <code>inactivity</code> in <code>D2</code>,
+<code>obesity</code> in <code>E2</code>, and <code>intercept</code> in
+<code>F2</code>.</li>
+<li>In <code>D3</code> enter
+<code>=LINEST(Places[diagnosed_diabetes_pct], Places[[obesity]:[inactivity]], TRUE, TRUE)</code>.
+The obesity coefficient in <code>E3</code> is about <code>0.3557</code>,
+the inactivity coefficient in <code>D3</code> about <code>0.1928</code>,
+and the R-squared in <code>D5</code> about <code>0.6394</code>.</li>
+<li>Type the labels <code>suburban</code> in <code>D10</code>,
+<code>small_town</code> in <code>E10</code>, <code>rural</code> in
+<code>F10</code>, <code>inactivity</code> in <code>G10</code>,
+<code>obesity</code> in <code>H10</code>, and <code>intercept</code> in
+<code>I10</code>.</li>
+<li>In <code>D11</code> enter
+<code>=LINEST(Places[diagnosed_diabetes_pct], Places[[obesity]:[suburban]], TRUE, TRUE)</code>.
+Check: suburban about <code>-0.8461</code>, small town about
+<code>-1.4716</code>, rural about <code>-2.5631</code>, inactivity about
+<code>0.2642</code>, obesity about <code>0.3699</code>, intercept about
+<code>-2.9245</code>, and R-squared in <code>D13</code> about
+<code>0.6959</code>.</li>
+<li>In <code>A15</code> type <code>Explanatory variables</code>; in
+<code>B15</code> type <code>5</code>.</li>
+<li>In <code>A16</code> type <code>Adjusted R-squared</code>; in
+<code>B16</code> enter <code>=1-(1-D13)*(B3-1)/(B3-B15-1)</code>. It
+shows about <code>0.6954</code>.</li>
+<li>In <code>A18</code> type <code>Rural lower 95%</code>; in
+<code>B18</code> enter <code>=F11-1.96*F12</code>. It shows about
+<code>-2.78</code>.</li>
+<li>In <code>A19</code> type <code>Rural upper 95%</code>; in
+<code>B19</code> enter <code>=F11+1.96*F12</code>. It shows about
+<code>-2.35</code>.</li>
+<li>Write three sentences: one that interprets the obesity coefficient
+in the final model, one that interprets the rural coefficient, and one
+that explains why the obesity coefficient changed from
+<code>0.4523</code> in Chapter 12 to <code>0.3557</code> when inactivity
+was added.</li>
+</ol>
+</section>
+<section id="practice-b-when-an-added-variable-does-not-help"
+class="level3">
+<h3>Practice B: when an added variable does not help</h3>
+<p>Open <a class="ds-ref" href="datasets/DS9_wellness_screening.csv" download title="Download DS9_wellness_screening.csv"><code>datasets/DS9_wellness_screening.csv</code></a>, the file of
+100 adults that Chapter 12 introduced, save a working copy named
+<code>ch13_wellness</code>, and convert the data to a Table named
+<code>Wellness</code>. The response is systolic blood pressure
+(<code>systolic_bp</code>, column <code>J</code>), in millimeters of
+mercury (mmHg).</p>
+<p>Add four calculated columns at the right edge of the Table, in this
+order. Their headers begin with <code>x_</code> so that they differ from
+the existing headers:</p>
+<ul>
+<li><code>x_age</code> in <code>U</code>, with
+<code>=[@age]</code>;</li>
+<li><code>x_bmi</code> in <code>V</code>, with
+<code>=[@bmi]</code>;</li>
+<li><code>x_waist</code> in <code>W</code>, with
+<code>=[@waist_cm]</code>;</li>
+<li><code>x_birth_month</code> in <code>X</code>, with
+<code>=[@birth_month]</code>.</li>
+</ul>
+<p>Then, on a <code>Model</code> sheet, fit three models with
+<code>LINEST</code>, with <code>stats</code> set to <code>TRUE</code>,
+and calculate adjusted R-squared for each. Each block fills five rows,
+so leave at least six rows between blocks to avoid a
+<code>#SPILL!</code> error:</p>
+<ul>
+<li><strong>Model 1</strong>, age and BMI
+(<code>Wellness[[x_age]:[x_bmi]]</code>): R-squared about
+<code>0.2816</code>, adjusted R-squared about <code>0.2668</code>; BMI
+coefficient about <code>0.512</code> with a standard error of about
+<code>0.241</code>.</li>
+<li><strong>Model 2</strong>, age, BMI, and waist
+(<code>Wellness[[x_age]:[x_waist]]</code>): R-squared about
+<code>0.2825</code>, adjusted R-squared about <code>0.2601</code>; BMI
+coefficient about <code>0.725</code> with a standard error of about
+<code>0.652</code>, and waist coefficient about
+<code>-0.138</code>.</li>
+<li><strong>Model 3</strong>, age, BMI, waist, and birth month
+(<code>Wellness[[x_age]:[x_birth_month]]</code>): R-squared about
+<code>0.2826</code>, adjusted R-squared about <code>0.2524</code>.</li>
+</ul>
+<p>Then calculate the correlation between BMI and waist with
+<code>=CORREL(Wellness[x_bmi], Wellness[x_waist])</code>, which returns
+about <code>0.928</code>. Write a short paragraph that names the model
+you would report and explains your choice, using adjusted R-squared, the
+change in the BMI standard error, and the correlation.</p>
+<div class="goingdeeper">
+<p><strong>p-values and the Analysis ToolPak.</strong> On desktop Excel,
+<strong>Data &gt; Data Analysis &gt; Regression</strong> fits the same
+model when the <strong>Input X Range</strong> covers the adjacent
+explanatory columns (Microsoft, n.d.-e). Its output repeats the
+coefficients and standard errors from <code>LINEST</code>, reports
+adjusted R-squared directly, and adds a 95 percent confidence interval
+and a p-value for each coefficient. Each p-value applies Chapter 10’s
+reasoning to one coefficient. The test divides the coefficient by its
+standard error, and the p-value is the probability of a result at least
+that many standard errors from zero if the true coefficient were zero
+and the model’s assumptions held. Because those assumptions include even
+residual spread, the inpatient p-values share the limitation described
+for the intervals. For the four-variable inpatient model, the p-values
+for length of stay, ICU care, and surgery are below 0.001, and the
+p-value for comorbidities is 0.70, consistent with its interval
+including zero. A small p-value shows that an association is
+distinguishable from zero, not that it is large or causal.</p>
+<p><strong>Measuring multicollinearity.</strong> The <strong>variance
+inflation factor (VIF)</strong> measures how much a coefficient’s
+variance, the square of its standard error, is enlarged by the
+variable’s correlation with the other explanatory variables (Kim, 2019).
+It equals 1 ÷ (1 − R-squared), where this R-squared comes from
+regressing that explanatory variable on the others. In the wellness
+model with age, BMI, and waist, regressing BMI on age and waist gives an
+R-squared of 0.864, so BMI’s VIF is about 7.3. With age alone beside it,
+BMI’s VIF is about 1.0. Values above about 5 to 10 are commonly treated
+as a sign of serious multicollinearity.</p>
+<p><strong>Interactions.</strong> The model in Figure 2 assumes that ICU
+care adds the same amount at every length of stay, which is why its two
+lines are parallel. An <strong>interaction</strong> term, a calculated
+column that multiplies two explanatory variables, such as
+<code>=[@los]*[@icu]</code>, lets the gap change with length of stay
+(Gelman et al., 2020). Added to the four-variable model, its coefficient
+is about −$278 per day (conventional standard error $120), which would
+suggest the ICU gap narrows for longer stays.</p>
+<p>With spread-adjusted standard errors, however, the interval runs from
+about −$666 to $111 and includes zero, so the data do not establish that
+the gap changes. The ICU coefficient itself becomes about $6,885 in that
+model, now the gap at a stay of 0 days, which shows why coefficients in
+a model with interactions are harder to read on their own. Interactions
+are best added when the question calls for them.</p>
+</div>
+<div class="realworld">
+<p>The following is an illustrative scenario that uses the Riverbend
+teaching data; it does not describe a specific organization. A quality
+committee receives a report showing that stays on the surgical service
+average about $5,884 more in charges than stays on the medicine service,
+and a member proposes reviewing the surgical service’s billing
+practices. The analyst fits a multiple regression with length of stay,
+ICU care, and the service lines as indicator variables, with Medicine as
+the reference category. Holding length of stay and ICU care constant,
+the surgical service’s coefficient is about $3,724, so about $2,160 of
+the difference is associated with longer stays and more ICU care. The
+analyst reports both figures and adds a limit: “The remaining difference
+compares stays alike in length and ICU care, but it is not evidence
+about billing practices. Differences in the procedures performed may
+contribute, but this model does not measure them.” The committee refers
+the question to the service’s clinical and financial leaders, with the
+procedures that account for the largest charges as the starting
+point.</p>
+<p>The CFO’s question has a numerical answer, charges. Many healthcare
+questions have a yes-or-no answer instead, such as whether a patient is
+readmitted; Chapter 14 introduces the regression model for outcomes of
+that kind.</p>
+</div>
+<div class="recap">
+<ul>
+<li>A multiple linear regression predicts a response from several
+explanatory variables at once: predicted response = intercept + one
+coefficient × variable term for each variable, fitted by least
+squares.</li>
+<li>Each coefficient is the change in the predicted response for a
+one-unit increase in its variable, holding the other explanatory
+variables in the model constant; it compares observations that already
+differed, not the effect of changing one variable.</li>
+<li>Indicator variables code a yes-or-no factor as 1 or 0; a category
+with m levels needs m − 1 indicators, and each coefficient compares its
+level with the reference category.</li>
+<li>A coefficient changes when a related variable enters the model
+because adjustment separates overlapping associations; adjustment holds
+constant only what is measured and does not establish cause.</li>
+<li>Each coefficient has a standard error and a 95 percent confidence
+interval, coefficient ± 1.96 × standard error. R-squared never falls as
+variables are added, so adjusted R-squared, the number of observations
+per coefficient, and correlations among the explanatory variables guide
+whether a variable belongs.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Using the rounded walkthrough equation, predicted charges = $5,804 +
+$2,035 × days + $5,067 × ICU + $3,637 × surgery − $29 × comorbidities,
+calculate the predicted charges for a 7-day stay that included ICU care
+and surgery, with 4 comorbidities. Then name each part of the equation
+you used: the intercept, the coefficients, and the indicator
+variables.</li>
+<li>Interpret the surgery coefficient, $3,637, in one sentence that
+includes the phrase “holding the other variables constant.” Then explain
+why the sentence does not say that performing surgery on a patient adds
+$3,637 to that patient’s charges.</li>
+<li>The inpatient file’s <code>service_line</code> column has five
+levels: Medicine, Surgery, Cardiology, Behavioral Health, and Obstetrics
+(OB). (a) With Medicine as the reference category, how many indicator
+columns does a model need, and what values would a medicine stay hold in
+them? (b) A model of charges on length of stay, ICU care, and the four
+service-line indicators gives a Cardiology coefficient of about −$51
+with a standard error of about $468. Interpret the coefficient, and
+state what its 95 percent confidence interval shows.</li>
+<li>Fitted alone, ICU care has a coefficient of $8,016; in the
+four-variable model, $5,067. Using Table 1, explain why the coefficient
+fell, and discuss whether surgery and length of stay each fit the
+definition of a confounding variable for this comparison. Then name one
+factor that the four-variable model does not hold constant and that
+could still affect the ICU coefficient.</li>
+<li>A manager reads the comorbidity coefficient, −$29, and concludes
+that patients with more comorbidities are slightly less expensive to
+treat. Using the coefficient’s 95 percent confidence interval from
+Table 2 and what the data record, write a two-sentence reply.</li>
+<li>A colleague fits the wellness file’s systolic blood pressure on
+seven explanatory variables and reports that R-squared rose from 0.282
+with age and BMI to 0.287 with all seven. Using Figure 7, explain why
+the rise in R-squared alone does not show that the larger model is
+preferable, compare the two models’ adjusted R-squared, and state which
+model you would report.</li>
+<li>In the walkthrough’s Part E, emergent admissions average about $167
+less than elective ones without adjustment, but have a coefficient of
+about $452 more with adjustment. Explain the change using the share of
+each admission type that included surgery, and explain why neither
+figure supports a firm conclusion about emergent admissions.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (predictions by hand).</strong> (1) $5,804 + $2,035 ×
+3 + $5,067 × 0 + $3,637 × 1 − $29 × 2 = $5,804 + $6,105 + $0 + $3,637 −
+$58 = $15,488. (2) With ICU care, $15,488 + $5,067 = $20,555. (3) The
+difference is $5,067, the ICU coefficient. The two stays have the same
+values for every other variable, so every other term is identical in
+both predictions and cancels when one is subtracted from the other; the
+length of stay therefore does not affect the difference.</p>
+<p><strong>Try It (the per-day coefficient in stages).</strong> (1–3)
+<code>B35</code> shows about <code>2072.41</code> and <code>B36</code>
+about <code>5237.09</code>. (4) <code>LINEST</code> lists coefficients
+in reverse order of the explanatory columns; with <code>los</code> first
+and <code>icu</code> second, the ICU coefficient comes first and the
+length of stay coefficient second. (5) The per-day coefficient falls
+from $2,132 alone, to $2,072 with ICU care held constant, to $2,035 with
+ICU care, surgery, and comorbidities held constant, so each added
+variable takes over a small part of the association previously credited
+to length of stay. The ICU coefficient falls from $8,016 alone, to
+$5,237 with length of stay held constant, to $5,067 with all four
+variables, because ICU stays are longer and more often surgical.</p>
+<p><strong>Practice A interpretation.</strong> In the final model, a
+county with an obesity rate 1 percentage point higher has a predicted
+diagnosed diabetes rate about 0.37 points higher, holding physical
+inactivity and urban or rural setting constant. Rural counties have
+predicted diabetes rates about 2.56 points lower than urban core
+counties with the same obesity and inactivity rates; the 95 percent
+confidence interval, −2.78 to −2.35, excludes zero.</p>
+<p>The obesity coefficient fell from 0.4523 to 0.3557 when inactivity
+was added because counties with high obesity rates also tend to have
+high inactivity rates, and part of the association that the simple line
+credited to obesity is now credited to inactivity. Adding the setting
+indicators raised R-squared from 0.6394 to 0.6959, and adjusted
+R-squared rose as well, from 0.6392 to 0.6954, so the improvement
+exceeds the rise that any added variable produces. As the chapter notes,
+this does not show that the larger model would predict other counties
+better. These are synthetic county rates, and the associations describe
+counties, not individuals.</p>
+<p><strong>Practice B interpretation.</strong> Report Model 1, age and
+BMI. Adding waist raised R-squared by less than 0.001, lowered adjusted
+R-squared from 0.2668 to 0.2601, and nearly tripled the standard error
+of the BMI coefficient, from 0.241 to 0.652, while giving waist a
+negative coefficient. BMI and waist have a correlation of 0.928, so they
+carry nearly the same information, and the model cannot divide their
+shared association between them: multicollinearity. Adding birth month
+lowered adjusted R-squared again, to 0.2524, consistent with a variable
+that has no relationship with blood pressure. An added variable does not
+always reduce precision; its effect depends on how much variation it
+explains and how strongly it overlaps with the variables already in the
+model.</p>
+<p><strong>Exercises.</strong> Answers to the end-of-chapter exercises
+are provided to instructors in the instructor answer guide.</p>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Agency for Healthcare Research and Quality. (2026).
+<em>Cost-to-charge ratio files.</em> Healthcare Cost and Utilization
+Project. <a href="https://hcup-us.ahrq.gov/db/ccr/costtocharge.jsp"
+class="uri">https://hcup-us.ahrq.gov/db/ccr/costtocharge.jsp</a></li>
+<li>Babyak, M. A. (2004). What you see may not be what you get: A brief,
+nontechnical introduction to overfitting in regression-type models.
+<em>Psychosomatic Medicine, 66</em>(3), 411–421. <a
+href="https://doi.org/10.1097/01.psy.0000127692.23278.a9"
+class="uri">https://doi.org/10.1097/01.psy.0000127692.23278.a9</a></li>
+<li>Bzovsky, S., Phillips, M. R., Guymer, R. H., Wykoff, C. C., Thabane,
+L., Bhandari, M., Chaudhary, V., &amp; R.E.T.I.N.A. Study Group. (2022).
+The clinician’s guide to interpreting a regression analysis. <em>Eye,
+36</em>(9), 1715–1717. <a
+href="https://doi.org/10.1038/s41433-022-01949-z"
+class="uri">https://doi.org/10.1038/s41433-022-01949-z</a></li>
+<li>Diez, D. M., Çetinkaya-Rundel, M., &amp; Barr, C. D. (2019).
+<em>OpenIntro statistics</em> (4th ed.). OpenIntro. <a
+href="https://www.openintro.org/book/os/"
+class="uri">https://www.openintro.org/book/os/</a></li>
+<li>Gelman, A., Hill, J., &amp; Vehtari, A. (2020). <em>Regression and
+other stories.</em> Cambridge University Press. <a
+href="https://doi.org/10.1017/9781139161879"
+class="uri">https://doi.org/10.1017/9781139161879</a></li>
+<li>Hernán, M. A. (2018). The C-word: Scientific euphemisms do not
+improve causal inference from observational data. <em>American Journal
+of Public Health, 108</em>(5), 616–619. <a
+href="https://doi.org/10.2105/AJPH.2018.304337"
+class="uri">https://doi.org/10.2105/AJPH.2018.304337</a></li>
+<li>James, G., Witten, D., Hastie, T., &amp; Tibshirani, R. (2021).
+<em>An introduction to statistical learning: With applications in R</em>
+(2nd ed.). Springer. <a href="https://doi.org/10.1007/978-1-0716-1418-1"
+class="uri">https://doi.org/10.1007/978-1-0716-1418-1</a></li>
+<li>Kim, J. H. (2019). Multicollinearity and misleading statistical
+results. <em>Korean Journal of Anesthesiology, 72</em>(6), 558–569. <a
+href="https://doi.org/10.4097/kja.19087"
+class="uri">https://doi.org/10.4097/kja.19087</a></li>
+<li>Microsoft. (n.d.-a). <em>Dynamic array formulas and spilled array
+behavior.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/dynamic-array-formulas-and-spilled-array-behavior"
+class="uri">https://support.microsoft.com/en-us/excel/dynamic-array-formulas-and-spilled-array-behavior</a></li>
+<li>Microsoft. (n.d.-b). <em>INDEX function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/index-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/index-function</a></li>
+<li>Microsoft. (n.d.-c). <em>LINEST function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/linest-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/linest-function</a></li>
+<li>Microsoft. (n.d.-d). <em>Perform a regression analysis.</em>
+Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/perform-a-regression-analysis"
+class="uri">https://support.microsoft.com/en-us/excel/perform-a-regression-analysis</a></li>
+<li>Microsoft. (n.d.-e). <em>Use the Analysis ToolPak to perform complex
+data analysis.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/use-the-analysis-toolpak-to-perform-complex-data-analysis"
+class="uri">https://support.microsoft.com/en-us/excel/use-the-analysis-toolpak-to-perform-complex-data-analysis</a></li>
+<li>Riley, R. D., Ensor, J., Snell, K. I. E., Harrell, F. E., Jr.,
+Martin, G. P., Reitsma, J. B., Moons, K. G. M., Collins, G., &amp; van
+Smeden, M. (2020). Calculating the sample size required for developing a
+clinical prediction model. <em>BMJ, 368</em>, Article m441. <a
+href="https://doi.org/10.1136/bmj.m441"
+class="uri">https://doi.org/10.1136/bmj.m441</a></li>
+<li>Schneider, A., Hommel, G., &amp; Blettner, M. (2010). Linear
+regression analysis: Part 14 of a series on evaluation of scientific
+publications. <em>Deutsches Ärzteblatt International, 107</em>(44),
+776–782. <a href="https://doi.org/10.3238/arztebl.2010.0776"
+class="uri">https://doi.org/10.3238/arztebl.2010.0776</a></li>
+<li>Westreich, D., &amp; Greenland, S. (2013). The Table 2 fallacy:
+Presenting and interpreting confounder and modifier coefficients.
+<em>American Journal of Epidemiology, 177</em>(4), 292–298. <a
+href="https://doi.org/10.1093/aje/kws412"
+class="uri">https://doi.org/10.1093/aje/kws412</a></li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Adjusted R-squared</dt>
+<dd>
+A version of R-squared that applies a penalty for each explanatory
+variable, so that it rises only when an added variable reduces the
+unexplained variation enough to offset the penalty.
+</dd>
+<dt>Adjustment</dt>
+<dd>
+Including a variable in a regression so that the other coefficients are
+read with that variable held constant.
+</dd>
+<dt>Coefficient</dt>
+<dd>
+In a regression, the number that multiplies an explanatory variable: the
+change in the predicted response for a one-unit increase in that
+variable, with the other explanatory variables held constant.
+</dd>
+<dt>Comorbidity</dt>
+<dd>
+A health condition a patient has in addition to the main reason for an
+admission or visit.
+</dd>
+<dt>Holding the other variables constant</dt>
+<dd>
+The condition attached to every coefficient in a multiple regression:
+the comparison is among observations alike on the other explanatory
+variables in the model.
+</dd>
+<dt>Indicator variable</dt>
+<dd>
+A column coded 1 when a condition or category is present and 0 when it
+is absent, so that a regression can use it; also called a dummy
+variable.
+</dd>
+<dt>Indicator-variable trap</dt>
+<dd>
+The error of including an indicator for every level of a category, which
+repeats information the other indicators hold; least squares cannot
+estimate a separate coefficient for every level, and Excel’s
+<code>LINEST</code> drops one column, reporting 0 for its coefficient
+and standard error.
+</dd>
+<dt>Interaction</dt>
+<dd>
+A term, usually the product of two explanatory variables, that lets the
+association of one variable with the response change with the value of
+the other.
+</dd>
+<dt>LINEST</dt>
+<dd>
+An Excel function that fits a least-squares regression with one or more
+explanatory variables and returns the coefficients, in reverse order of
+the explanatory columns, with optional standard errors and R-squared.
+</dd>
+<dt>Multicollinearity</dt>
+<dd>
+Strong correlation among explanatory variables, which makes their
+individual coefficients imprecise and unstable.
+</dd>
+<dt>Multiple linear regression</dt>
+<dd>
+A regression that predicts a numerical response from two or more
+explanatory variables at once, with one coefficient for each.
+</dd>
+<dt>Overfitting</dt>
+<dd>
+Fitting a model so closely to the chance features of one sample that it
+predicts new data less well than a simpler model would.
+</dd>
+<dt>Patient-clustered standard errors</dt>
+<dd>
+Standard errors that allow for similarity among repeated observations of
+the same patient, such as several stays by one person.
+</dd>
+<dt>Predictor</dt>
+<dd>
+Another name for an explanatory variable, the variable used to predict
+or explain the response.
+</dd>
+<dt>Reference category</dt>
+<dd>
+The level of a category that has no indicator column of its own; each
+indicator’s coefficient compares its level with this one.
+</dd>
+<dt>Spread-adjusted standard errors</dt>
+<dd>
+Standard errors calculated in a way that allows the residual spread to
+differ across observations; also called heteroskedasticity-consistent
+standard errors.
+</dd>
+<dt>Variance inflation factor (VIF)</dt>
+<dd>
+A measure of how much a coefficient’s variance is enlarged by that
+variable’s correlation with the other explanatory variables, calculated
+as 1 ÷ (1 − R-squared) from regressing the variable on the others.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch13,
+  author = {Sher, Hoshiar J.},
+  title = {Multiple Linear Regression and Holding Factors Constant},
+  booktitle = {Introduction to Healthcare Data Analytics},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch13.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch13,
+  author = {Sher, Hoshiar J.},
+  title = {Multiple Linear Regression and Holding Factors Constant},
+  booktitle = {Introduction to Healthcare Data Analytics},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch13.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch12.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 12: Simple Linear Regression for Numerical Outcomes</span></a><a class="pn next" href="appendix-a-capstone-project.html"><span class="pn-dir">Next</span><span class="pn-title">Appendix A. Semester Capstone Project</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-separate-the-factors-associated-with-inpatient-charges">Walkthrough: separate the factors associated with inpatient charges</a><a href="#practice-on-your-own">Practice on your own</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>
