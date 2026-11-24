@@ -1,0 +1,1640 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Logistic Regression for Binary Outcomes and Risk Stratification — Introduction to Healthcare Data Analytics</title>
+<meta name="description" content="The outpatient director at Riverbend Health System has staff time for reminder calls to about one patient in ten each week. Calling patients at random spreads that time across many people who would have attended anyway. The director asks the analyst a prediction question: which scheduled appointment">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/ch14.html">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics">
+<meta property="og:title" content="Logistic Regression for Binary Outcomes and Risk Stratification — Introduction to Healthcare Data Analytics">
+<meta property="og:description" content="The outpatient director at Riverbend Health System has staff time for reminder calls to about one patient in ten each week. Calling patients at random spreads that time across many people who would have attended anyway. The director asks the analyst a prediction question: which scheduled appointment">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/ch14.html">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Chapter","headline":"Logistic Regression for Binary Outcomes and Risk Stratification","position":14,"author":{"@type":"Person","name":"Hoshiar J Sher, EdD","orcid":"https://orcid.org/0009-0002-4530-3577"},"isPartOf":{"@type":"Book","name":"Introduction to Healthcare Data Analytics","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"},"doi":"10.5281/zenodo.23327956","license":"https://creativecommons.org/licenses/by/4.0/"},"inLanguage":"en-US","url":"https://yar177.github.io/intro-to-HDA-site/ch14.html","educationalLevel":"beginner","learningResourceType":"chapter"}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body>
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics</a>
+  <nav class="header-nav"><a class="hlink" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<div class="layout with-toc">
+  <nav class="sidebar" id="siteSidebar" aria-label="Contents"><div class="sidebar-head"><span class="sidebar-head-text">Contents</span><button class="rail-toggle sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse contents panel" aria-expanded="true" aria-controls="siteSidebar" title="Collapse contents panel"><span aria-hidden="true">&#8249;</span></button></div><div class="nav-list"><a class="nav-item" href="preface.html" title="Preface" aria-label="Preface"><span class="nav-num">P</span><span class="nav-title">Preface</span></a><a class="nav-item" href="ch01.html" title="Chapter 1: What Healthcare Data Analytics Is and Why It Matters" aria-label="Chapter 1: What Healthcare Data Analytics Is and Why It Matters"><span class="nav-num">1</span><span class="nav-title">What Healthcare Data Analytics Is and Why It Matters</span></a><a class="nav-item" href="ch02.html" title="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources" aria-label="Chapter 2: Understanding Healthcare Systems, Stakeholders, and Data Sources"><span class="nav-num">2</span><span class="nav-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span></a><a class="nav-item" href="ch03.html" title="Chapter 3: Excel as the Analyst&#39;s Workbench" aria-label="Chapter 3: Excel as the Analyst&#39;s Workbench"><span class="nav-num">3</span><span class="nav-title">Excel as the Analyst&#39;s Workbench</span></a><a class="nav-item" href="ch04.html" title="Chapter 4: Working with Data: Structure, Measures, and Study Design" aria-label="Chapter 4: Working with Data: Structure, Measures, and Study Design"><span class="nav-num">4</span><span class="nav-title">Working with Data: Structure, Measures, and Study Design</span></a><a class="nav-item" href="ch05.html" title="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics" aria-label="Chapter 5: Healthcare Coding, Terminology, Governance, Privacy, and Ethics"><span class="nav-num">5</span><span class="nav-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span></a><a class="nav-item" href="ch06.html" title="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts" aria-label="Chapter 6: Excel Foundations: Formulas, Functions, References, and Charts"><span class="nav-num">6</span><span class="nav-title">Excel Foundations: Formulas, Functions, References, and Charts</span></a><a class="nav-item" href="ch07.html" title="Chapter 7: Importing Data and Building a Reusable Excel Workflow" aria-label="Chapter 7: Importing Data and Building a Reusable Excel Workflow"><span class="nav-num">7</span><span class="nav-title">Importing Data and Building a Reusable Excel Workflow</span></a><a class="nav-item" href="ch08.html" title="Chapter 8: Cleaning, Transforming, and Validating Data" aria-label="Chapter 8: Cleaning, Transforming, and Validating Data"><span class="nav-num">8</span><span class="nav-title">Cleaning, Transforming, and Validating Data</span></a><a class="nav-item" href="ch09.html" title="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping" aria-label="Chapter 9: Summarizing Data: Descriptive Statistics and Grouping"><span class="nav-num">9</span><span class="nav-title">Summarizing Data: Descriptive Statistics and Grouping</span></a><a class="nav-item" href="ch10.html" title="Chapter 10: Distributions, Variation, and Statistical Inference" aria-label="Chapter 10: Distributions, Variation, and Statistical Inference"><span class="nav-num">10</span><span class="nav-title">Distributions, Variation, and Statistical Inference</span></a><a class="nav-item" href="ch11.html" title="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring" aria-label="Chapter 11: Data Visualization, Dashboards, Benchmarking, and Performance Monitoring"><span class="nav-num">11</span><span class="nav-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span></a><a class="nav-item" href="ch12.html" title="Chapter 12: Simple Linear Regression for Numerical Outcomes" aria-label="Chapter 12: Simple Linear Regression for Numerical Outcomes"><span class="nav-num">12</span><span class="nav-title">Simple Linear Regression for Numerical Outcomes</span></a><a class="nav-item" href="ch13.html" title="Chapter 13: Multiple Linear Regression and Holding Factors Constant" aria-label="Chapter 13: Multiple Linear Regression and Holding Factors Constant"><span class="nav-num">13</span><span class="nav-title">Multiple Linear Regression and Holding Factors Constant</span></a><a class="nav-item active" href="ch14.html" title="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification" aria-label="Chapter 14: Logistic Regression for Binary Outcomes and Risk Stratification"><span class="nav-num">14</span><span class="nav-title">Logistic Regression for Binary Outcomes and Risk Stratification</span></a><a class="nav-item" href="ch15.html" title="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication" aria-label="Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication"><span class="nav-num">15</span><span class="nav-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Appendices</span></div><div class="nav-list"><a class="nav-item" href="appendix-a-capstone-project.html" title="Appendix A. Semester Capstone Project" aria-label="Appendix A. Semester Capstone Project"><span class="nav-num">§</span><span class="nav-title">Appendix A. Semester Capstone Project</span></a></div><div class="sidebar-head"><span class="sidebar-head-text">Resources</span></div><div class="nav-list"><a class="nav-item" href="datasets.html" title="Datasets" aria-label="Datasets"><span class="nav-num">◆</span><span class="nav-title">Datasets</span></a></div></nav>
+  <main class="content">
+    <p class="chapter-kicker">Chapter 14 · 45 minutes</p>
+    <p class="last-updated">Last updated November 24, 2026</p>
+    <article class="prose">
+      <section id="sec:ch14" class="level1">
+<h1>Logistic Regression for Binary Outcomes and Risk Stratification</h1>
+<section id="opening-scenario" class="level2">
+<h2>Opening scenario</h2>
+<p>The outpatient director at Riverbend Health System has staff time for
+reminder calls to about one patient in ten each week. Calling patients
+at random spreads that time across many people who would have attended
+anyway. The director asks the analyst a prediction question: which
+scheduled appointments are most likely to be missed? If the appointments
+can be ranked by risk, the calls can go first to the patients with the
+highest risk.</p>
+<p>The outcome in this question is not a number such as charges. Each
+appointment is either kept or missed. Chapters 12 and 13 fitted lines to
+numerical outcomes; this chapter introduces the regression model for a
+yes-or-no outcome, fits it in Excel, and uses it to sort appointments
+into risk tiers. Chapter 15 then turns the ranking into a calling
+plan.</p>
+<div class="objectives">
+<p>By the end of this chapter, you will be able to:</p>
+<ul>
+<li>Explain why a yes-or-no outcome calls for logistic regression rather
+than linear regression.</li>
+<li>Calculate odds and an odds ratio from a two-by-two table, and
+interpret a model’s odds ratios with the other variables held
+constant.</li>
+<li>Fit a logistic regression in Excel with Solver, and convert its
+coefficients into odds ratios and predicted probabilities.</li>
+<li>Interpret the area under the receiver operating characteristic curve
+(AUROC) as a measure of how well a model ranks risk.</li>
+<li>Group cases into risk tiers with predicted probabilities, and
+distinguish a supportive use of a risk score from a harmful one.</li>
+</ul>
+</div>
+</section>
+<section id="key-concepts" class="level2">
+<h2>Key concepts</h2>
+<p>Recall from Chapter 12 that a model turns inputs into an output
+through a rule whose parameters are fitted to data. In logistic
+regression the output is a probability. <em>Using</em> a model applies
+its fitted parameters, here called coefficients, to one case;
+<em>fitting</em> it estimates those parameters from many cases.</p>
+<p>The chapter uses the no-show measure from Chapter 4: no-shows divided
+by kept-or-missed appointments (completed plus no-show), with
+cancellations and rescheduled appointments excluded. In
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, the second teaching
+dataset (DS2), 4,913 of 30,571 kept-or-missed appointments from January
+2024 to December 2025 were missed, a rate of 16.1 percent. The
+subsections below build, in order, the ideas the walkthrough uses, and
+Figure 1 shows the path. The chapter first calculates a prediction from
+coefficients it supplies, then shows how Solver fits those coefficients
+from many appointments.</p>
+<figure id="fig:ch14-roadmap">
+<img src="figures/generated/ch_14_roadmap.png"
+alt="Figure 1: A learning roadmap for the chapter: define the binary outcome, calculate a probability from supplied coefficients, fit the model with Solver, interpret the odds ratios, and evaluate the model’s usefulness. Using a model applies fixed coefficients to one appointment; fitting a model estimates the coefficients from many appointments whose outcomes are known. Source: conceptual roadmap of the chapter." />
+<figcaption aria-hidden="true">Figure 1: A learning roadmap for the
+chapter: define the binary outcome, calculate a probability from
+supplied coefficients, fit the model with Solver, interpret the odds
+ratios, and evaluate the model’s usefulness. Using a model applies fixed
+coefficients to one appointment; fitting a model estimates the
+coefficients from many appointments whose outcomes are known. Source:
+conceptual roadmap of the chapter.</figcaption>
+</figure>
+<section id="yes-or-no-outcomes-and-probability" class="level3">
+<h3>Yes-or-no outcomes and probability</h3>
+<p>A <strong>binary outcome</strong> has exactly two possible values: an
+appointment is missed or kept, a patient is readmitted or not, a
+screening is completed or not. The data record it as 1 for the event and
+0 for its absence, as the <code>no_show_flag</code> column does. The
+average of a 0-or-1 column is the share of rows with a 1, so the average
+of <code>no_show_flag</code> is the no-show rate, 0.161. Read as a
+prediction, that share is a probability: before you know anything else
+about an appointment, the chance that it is missed is about 0.16.</p>
+<p>A model for a binary outcome therefore predicts a probability, and a
+probability must stay between 0 and 1. A straight line cannot guarantee
+that. Chapter 12’s line extends without limit in both directions, so for
+some combinations of the explanatory variables it predicts values below
+0 or above 1, which have no meaning as probabilities. Figure 2 shows the
+problem and its remedy.</p>
+<figure id="fig:ch14-line-curve">
+<img src="figures/generated/ch_14_line_vs_curve.png"
+alt="Figure 2: A straight line against the logistic curve, each plotted against the same model score z, the log-odds. The illustrative line, p = 0.50 + 0.12z, predicts values below 0 and above 1, which no probability can take; the logistic curve, p = 1 / (1 + EXP(−z)), stays between 0 and 1, giving 11.9 percent at z = −2, 50 percent at z = 0, and 88.1 percent at z = 2. Source: concept illustration; the line is a hypothetical example." />
+<figcaption aria-hidden="true">Figure 2: A straight line against the
+logistic curve, each plotted against the same model score z, the
+log-odds. The illustrative line, p = 0.50 + 0.12z, predicts values below
+0 and above 1, which no probability can take; the logistic curve, p = 1
+/ (1 + EXP(−z)), stays between 0 and 1, giving 11.9 percent at z = −2,
+50 percent at z = 0, and 88.1 percent at z = 2. Source: concept
+illustration; the line is a hypothetical example.</figcaption>
+</figure>
+<p><strong>Logistic regression</strong> is a regression model that
+predicts the probability of a binary outcome from one or more
+explanatory variables, keeping every prediction between 0 and 1 (Schober
+&amp; Vetter, 2021; Sperandei, 2014). It is the standard model for a
+yes-or-no outcome in health research (Hosmer et al., 2013).</p>
+</section>
+<section id="odds-and-the-odds-ratio" class="level3">
+<h3>Odds and the odds ratio</h3>
+<p>Logistic regression’s results are read on the odds scale rather than
+as probabilities, so odds come first. The <strong>odds</strong> of an
+event are its probability divided by the probability that it does not
+happen: odds = p ÷ (1 − p). With a no-show rate of 0.161, the odds of a
+no-show are 0.161 ÷ 0.839 = 0.19, or about 19 missed appointments for
+every 100 kept. Odds and probability carry the same information on
+different scales: a probability of 0.5 is odds of 1, and as the
+probability approaches 1 the odds grow without limit.</p>
+<p>An <strong>odds ratio</strong> compares the odds in two groups by
+dividing one by the other (Szumilas, 2010). An odds ratio of 1 means the
+odds are the same in both groups; above 1, the first group has higher
+odds; below 1, lower odds. You can calculate one from a two-by-two
+table, without any model. Table 1 splits the appointments by
+<code>transportation_barrier_flag</code>, which records whether the
+patient reported difficulty getting to the clinic.</p>
+<div class="table-wrap"><table id="tbl:ch14-barrier" style="width:99%;">
+<caption>Table 1: Kept-or-missed appointments by transportation barrier.
+Odds = missed ÷ kept. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 appointments,
+January 2024 to December 2025.</caption>
+<colgroup>
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr>
+<th>Transportation barrier</th>
+<th>Appointments</th>
+<th>Missed</th>
+<th>Kept</th>
+<th>No-show rate</th>
+<th>Odds of a no-show</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Yes</td>
+<td>5,718</td>
+<td>1,296</td>
+<td>4,422</td>
+<td>22.7%</td>
+<td>0.293</td>
+</tr>
+<tr>
+<td>No</td>
+<td>24,853</td>
+<td>3,617</td>
+<td>21,236</td>
+<td>14.6%</td>
+<td>0.170</td>
+</tr>
+</tbody>
+</table></div>
+<p>The odds ratio is 0.293 ÷ 0.170 = 1.72: the odds of a no-show are
+about 72 percent higher for patients with a transportation barrier. In
+Excel, the counts come from <code>COUNTIFS</code>, as in Chapter 9
+(Microsoft, n.d.-b).</p>
+<div class="definition">
+<p><strong>Odds ratio.</strong> The odds of an event in one group
+divided by the odds in a comparison group. A value of 1 means no
+difference in odds, above 1 means higher odds, and below 1 means lower
+odds.</p>
+</div>
+<div class="caution">
+<p>An odds ratio is not a ratio of probabilities. The no-show rates in
+Table 1 are 22.7 and 14.6 percent, a ratio of 1.56, while the odds ratio
+is 1.72. The two are close only when the event is rare. Say “72 percent
+higher odds,” not “72 percent more likely.”</p>
+</div>
+<p>Figure 3 sets the two calculations side by side. Both start from the
+same counts; only the denominator changes.</p>
+<figure id="fig:ch14-odds-concept">
+<img src="figures/generated/ch_14_odds_concept.png"
+alt="Figure 3: Probability and odds calculated from the same two groups in Table 1. The probability ratio, 22.7 ÷ 14.6 percent = 1.56, compares no-show rates; the odds ratio, 0.293 ÷ 0.170 = 1.72, compares missed-to-kept odds. Both comparisons are unadjusted. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 3: Probability and odds calculated
+from the same two groups in Table 1. The probability ratio, 22.7 ÷ 14.6
+percent = 1.56, compares no-show rates; the odds ratio, 0.293 ÷ 0.170 =
+1.72, compares missed-to-kept odds. Both comparisons are unadjusted.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571
+kept-or-missed appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<div class="tryit">
+<p>Using Table 1, (1) calculate the odds of a no-show for an appointment
+with a no-show rate of 30 percent; (2) explain in one sentence what an
+odds ratio of 1.72 says about patients with a transportation barrier;
+(3) state what an odds ratio of exactly 1 would have meant. The answers
+are in the answer key at the end of the chapter.</p>
+</div>
+</section>
+<section id="from-a-line-to-a-probability" class="level3">
+<h3>From a line to a probability</h3>
+<p>A logistic regression begins like Chapter 13’s multiple regression.
+It multiplies each explanatory variable by a coefficient and adds an
+intercept, producing a <strong>score</strong>, written z:</p>
+<p>z = intercept + coefficient₁ × variable₁ + coefficient₂ × variable₂ +
+…</p>
+<p>It then passes the score through the <strong>logistic
+function</strong>, the S-shaped curve in Figure 2, which turns any score
+into a number between 0 and 1. That number is the predicted probability.
+A score of 0 gives a probability of 0.5; large negative scores give
+probabilities near 0, and large positive scores give probabilities near
+1. The score itself is the <strong>log-odds</strong> of the event, the
+natural logarithm of the odds, which is why the model’s coefficients are
+read on the odds scale rather than as changes in probability.</p>
+<div class="excelformula">
+<p><code>=1/(1+EXP(-z))</code> converts a score into a probability.</p>
+<ul>
+<li><code>z</code> is the score: the intercept plus each coefficient
+times its variable.</li>
+<li><code>-z</code> reverses the sign of the score.</li>
+<li><code>EXP(-z)</code> raises the constant e, about 2.718, to the
+power −z. <code>EXP</code> is the inverse of the natural logarithm,
+<code>LN</code>, which Chapter 12 used for a skewed response (Microsoft,
+n.d.-d).</li>
+<li><code>1+EXP(-z)</code> is always greater than 1, so
+<code>1/(1+EXP(-z))</code> always falls between 0 and 1.</li>
+</ul>
+<p>For z = −2, <code>EXP(2)</code> is 7.389, and
+<code>=1/(1+EXP(2))</code> returns 0.119, a probability of about 12
+percent.</p>
+</div>
+<p>Figure 4 applies the formula to one appointment, using the
+coefficients the walkthrough fits in Part C. Each coefficient is
+multiplied by the appointment’s value, the products are added into a
+score, and the logistic function turns the score into a probability.</p>
+<figure id="fig:ch14-first-prediction">
+<img src="figures/generated/ch_14_first_prediction.png"
+alt="Figure 4: A first worked logistic prediction for an in-person appointment booked 14 days ahead, with a reminder, no prior no-shows, and no transportation barrier. The contributions add to a score of −1.9413, and =1/(1+EXP(1.9413)) gives a predicted no-show probability of 12.6 percent, about 13 no-shows per 100 such appointments. Coefficients from Table 4. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 4: A first worked logistic
+prediction for an in-person appointment booked 14 days ahead, with a
+reminder, no prior no-shows, and no transportation barrier. The
+contributions add to a score of −1.9413, and
+<code>=1/(1+EXP(1.9413))</code> gives a predicted no-show probability of
+12.6 percent, about 13 no-shows per 100 such appointments. Coefficients
+from Table 4. Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>,
+30,571 kept-or-missed appointments, January 2024 to December
+2025.</figcaption>
+</figure>
+</section>
+<section id="reading-the-coefficients-as-odds-ratios" class="level3">
+<h3>Reading the coefficients as odds ratios</h3>
+<p>Because the score is on the log-odds scale, raising e to the power of
+a coefficient, <code>=EXP(coefficient)</code> in Excel, gives an odds
+ratio (Szumilas, 2010). For a yes-or-no variable, it compares the odds
+when the variable is 1 with the odds when it is 0. For a count or a
+measurement, it is the factor by which the odds change for each one-unit
+increase. As in Chapter 13, each odds ratio holds the other explanatory
+variables in the model constant.</p>
+<p>For example, if a model gave transportation barrier a coefficient of
+about 0.54, <code>EXP(0.54)</code> would return 1.72, the same
+comparison as Table 1, now read with the other variables held constant.
+For a count variable such as prior no-shows, an odds ratio of 1.30 would
+mean each additional prior no-show multiplies the odds by 1.30. Part D
+of the walkthrough reads the odds ratios from the fitted model.</p>
+<div class="keypoint">
+<p>Exponentiate a logistic coefficient to obtain an odds ratio. Each
+odds ratio holds the other variables constant and describes an
+association in the data, not the effect of changing that factor for a
+patient.</p>
+</div>
+</section>
+<section id="how-solver-finds-the-coefficients" class="level3">
+<h3>How Solver finds the coefficients</h3>
+<p>Chapter 13’s least-squares line has a formula that
+<code>LINEST</code> solves directly. Logistic regression has no such
+formula; its coefficients are found by search. For any trial set of
+coefficients, each appointment receives a predicted probability. The
+<strong>likelihood</strong> measures how well those probabilities match
+what happened: it is high when missed appointments received high
+probabilities and kept appointments received low ones. Logistic
+regression chooses the coefficients that make the likelihood as large as
+possible (Hosmer et al., 2013).</p>
+<p>In a worksheet, each row contributes the natural logarithm of the
+probability the model gave to that row’s actual outcome:
+<code>LN(p)</code> for a missed appointment and <code>LN(1 − p)</code>
+for a kept one (Microsoft, n.d.-e). The sum of that column is the
+<strong>log-likelihood</strong>. It is always negative, and a value
+closer to 0 means a better match. Solver, the optimization add-in
+introduced in Chapter 3, changes the coefficient cells until that sum is
+as large as possible. Its <strong>Generalized Reduced Gradient (GRG)
+Nonlinear</strong> method is designed for smooth problems of this kind
+(Microsoft, n.d.-c).</p>
+<p>Figure 5 shows the calculation for two appointments. When the trial
+predictions move toward what happened, each row’s logarithm moves toward
+0, and so does the sum.</p>
+<figure id="fig:ch14-likelihood">
+<img src="figures/generated/ch_14_likelihood_contribution.png"
+alt="Figure 5: How each appointment contributes to the log-likelihood, for one missed and one kept appointment under two trial sets of predictions. A missed appointment contributes LN(p) and a kept one LN(1 − p); Trial B matches the outcomes better, so its sum, −0.3285, is closer to 0 than Trial A’s, −2.8134. Source: illustrative probabilities, not teaching data; worksheet structure from the walkthrough." />
+<figcaption aria-hidden="true">Figure 5: How each appointment
+contributes to the log-likelihood, for one missed and one kept
+appointment under two trial sets of predictions. A missed appointment
+contributes <code>LN(p)</code> and a kept one <code>LN(1 − p)</code>;
+Trial B matches the outcomes better, so its sum, −0.3285, is closer to 0
+than Trial A’s, −2.8134. Source: illustrative probabilities, not
+teaching data; worksheet structure from the walkthrough.</figcaption>
+</figure>
+<div class="caution">
+<p>Solver comes with desktop Excel for Windows and Mac but must be
+switched on, as Chapter 3 showed (Microsoft, n.d.-f). Excel for the web
+has no built-in Solver. There, a free Solver add-in from Frontline
+Systems, the company that developed the desktop Solver, solves the same
+kind of problem. The add-in sends a copy of the workbook to Frontline’s
+cloud service to solve it, and its free version limits solving time
+(Frontline Systems, n.d.). That is acceptable for this synthetic
+teaching data; recall from Chapter 5 that identifiable patient data must
+stay in approved systems.</p>
+</div>
+</section>
+<section id="how-well-the-model-ranks-risk" class="level3">
+<h3>How well the model ranks risk</h3>
+<p>A risk model is useful to the director if it ranks appointments well:
+missed appointments should tend to receive higher predicted
+probabilities than kept ones. Two rates describe a ranking at any
+cutoff.</p>
+<p>Suppose you flag every appointment whose predicted probability is
+above some cutoff. The <strong>true-positive rate</strong> is the share
+of missed appointments that are flagged. The <strong>false-positive
+rate</strong> is the share of kept appointments that are flagged.
+Chapter 15 returns to the first of these under the name recall.</p>
+<p>A low cutoff flags almost everything, so both rates are near 1; a
+high cutoff flags almost nothing, so both are near 0. The
+<strong>receiver operating characteristic (ROC) curve</strong> plots the
+two rates against each other for every possible cutoff. The <strong>area
+under the ROC curve (AUROC)</strong> summarizes the curve in one number.
+It equals the probability that a randomly chosen missed appointment
+receives a higher predicted probability than a randomly chosen kept one,
+with ties counted as half (Hanley &amp; McNeil, 1982).</p>
+<p>It can range from 0 to 1: 0.5 is no better than a random ranking, and
+1.0 is a perfect ranking. Figure 18, at the end of the walkthrough,
+shows this curve for the no-show model.</p>
+</section>
+<section id="risk-stratification" class="level3">
+<h3>Risk stratification</h3>
+<p><strong>Risk stratification</strong> sorts a population into tiers by
+predicted risk so that limited resources can go to the highest tiers
+first. A common way to form tiers is by <strong>decile</strong>: ten
+groups of about equal size, from the tenth of cases with the lowest
+predicted probability to the tenth with the highest. Comparing the
+observed event rate across deciles shows whether the ranking separates
+high-risk from low-risk cases.</p>
+<p>A model does not need a high AUROC to be useful for this purpose. It
+needs the highest tier to have clearly more events than the lowest, and
+an action that helps the patients in that tier. A good ranking shows who
+is at higher risk; it does not show that an outreach call will prevent a
+missed appointment.</p>
+</section>
+</section>
+<section id="walkthrough-fit-and-stratify-a-no-show-model"
+class="level2">
+<h2>Walkthrough: fit and stratify a no-show model</h2>
+<p>This build answers the director’s question. You prepare the
+kept-or-missed appointments, set up the score, probability, and
+log-likelihood columns, fit the model with Solver, convert the
+coefficients to odds ratios, and sort the appointments into risk
+deciles. The explanatory variables are the five in Table 2. A review of
+105 studies found that long lead times and a history of no-shows were
+the most commonly reported predictors (the term many studies use for
+explanatory variables) of no-shows (Dantas et al., 2018); the other
+three describe the appointment and the patient’s circumstances.</p>
+<div class="table-wrap"><table id="tbl:ch14-variables">
+<caption>Table 2: The five explanatory variables in the no-show model.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</caption>
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr>
+<th>Column in the file</th>
+<th>Meaning</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>prior_no_show_count_12m</code></td>
+<td>No-shows by the patient in the previous 12 months</td>
+<td>0 to 7</td>
+</tr>
+<tr>
+<td><code>lead_days</code></td>
+<td>Days between booking and the appointment</td>
+<td>0 to 210</td>
+</tr>
+<tr>
+<td><code>reminder_sent_flag</code></td>
+<td>A reminder was sent</td>
+<td>1 = yes, 0 = no</td>
+</tr>
+<tr>
+<td><code>telehealth_flag</code></td>
+<td>The visit was by telehealth</td>
+<td>1 = yes, 0 = no</td>
+</tr>
+<tr>
+<td><code>transportation_barrier_flag</code></td>
+<td>The patient reported difficulty getting to the clinic</td>
+<td>1 = yes, 0 = no</td>
+</tr>
+</tbody>
+</table></div>
+<div class="caution">
+<p>A model meant for live use may include only information available
+when the decision is made. The <code>reminder_sent_flag</code> column
+records the clinic’s routine reminder, which is sent zero to six days
+before the visit, so a calling list prepared a week ahead would not yet
+know it. The director’s reminder calls are additional outreach, separate
+from that routine reminder. The walkthrough keeps the variable because
+it is a retrospective teaching model fitted to past appointments. A
+model built to rank next week’s appointments would either drop it or use
+the reminder plan recorded at booking.</p>
+</div>
+<div class="keypoint">
+<p>Before you start: open
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, and immediately save a
+working copy as an Excel workbook so the original stays untouched. These
+teaching files hold no real patient information. The steps require Excel
+for Microsoft 365 (desktop or web), Excel 2021, or Excel 2024.</p>
+<ul>
+<li><strong>Desktop Excel:</strong> choose <strong>File &gt; Save
+As</strong>, pick <strong>Excel Workbook (.xlsx)</strong>, and enter the
+file name.</li>
+<li><strong>Excel for the web:</strong> upload the CSV file to OneDrive
+and open it; Excel converts it to a workbook. Click the file name at the
+top of the window to rename it. Your changes save automatically.</li>
+</ul>
+<p>Part C uses Solver. Choose your route now:</p>
+<div class="table-wrap"><table>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr>
+<th>Your Excel</th>
+<th>Route for Part C</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows desktop</td>
+<td>Built-in Solver, <strong>Data &gt; Solver</strong>. If it is
+missing, switch it on with <strong>File &gt; Options &gt;
+Add-ins</strong> (Chapter 3).</td>
+</tr>
+<tr>
+<td>Mac desktop</td>
+<td>Built-in Solver, <strong>Data &gt; Solver</strong>. If it is
+missing, switch it on with <strong>Tools &gt; Excel Add-ins</strong>
+(Chapter 3).</td>
+</tr>
+<tr>
+<td>Excel for the web</td>
+<td>The free Solver add-in from Frontline Systems: <strong>Home &gt;
+Add-ins</strong>, search for <code>Solver</code>, and add it.</td>
+</tr>
+<tr>
+<td>Any version, if Solver will not run</td>
+<td>Type the six coefficients listed at the end of Part C into the
+coefficient cells, and continue with Part D. Every later result matches
+the text.</td>
+</tr>
+</tbody>
+</table></div>
+</div>
+<p><strong>Part A. Prepare the appointments.</strong> The file holds all
+36,000 scheduled appointments. Sorting by
+<code>attendance_outcome</code> (column <code>AJ</code>) places the five
+outcomes in alphabetical blocks, so you can delete the cancellations and
+rescheduled appointments by row number.</p>
+<figure id="fig:ch14-eligibility">
+<img src="figures/generated/ch_14_eligibility.png"
+alt="Figure 6: Which appointments enter the no-show model. Of 36,000 scheduled appointments, the 30,571 that were completed (25,658, outcome 0) or missed (4,913, outcome 1) are included, following the Chapter 4 definition; 4,260 early or late cancellations and 1,169 rescheduled appointments are excluded. Source: datasets/DS2_appointments_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 6: Which appointments enter the
+no-show model. Of 36,000 scheduled appointments, the 30,571 that were
+completed (25,658, outcome 0) or missed (4,913, outcome 1) are included,
+following the Chapter 4 definition; 4,260 early or late cancellations
+and 1,169 rescheduled appointments are excluded. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<p>Figure 6 shows the result Part A produces: 30,571 appointments with a
+recorded kept-or-missed outcome.</p>
+<ol type="1">
+<li>Open the working copy. It has 36,000 appointments in rows 2 to 36001
+and 40 columns, <code>A</code> to <code>AN</code>.</li>
+<li>Click any cell in column <code>AJ</code>. On the
+<strong>Data</strong> tab, open the sort dialog: click
+<strong>Sort</strong> (in Excel for the web, <strong>Sort &gt; Custom
+Sort</strong>).</li>
+<li>Confirm that <strong>My data has headers</strong> is checked, choose
+<strong>attendance_outcome</strong> under <strong>Sort by</strong>,
+choose <strong>A to Z</strong>, and click <strong>OK</strong>. Rows 2 to
+25659 now show <code>Completed</code>, and row 25660 shows
+<code>Early Cancel</code>.</li>
+<li>Click the <strong>Name Box</strong>, the box to the left of the
+formula bar, type <code>34833:36001</code>, and press Enter. Excel
+selects the 1,169 <code>Rescheduled</code> rows at the bottom.</li>
+<li>On the <strong>Home</strong> tab, choose <strong>Delete &gt; Delete
+Sheet Rows</strong>.</li>
+<li>Click the Name Box again, type <code>25660:29919</code>, and press
+Enter. Excel selects the 4,260 <code>Early Cancel</code> and
+<code>Late Cancel</code> rows.</li>
+<li>Choose <strong>Home &gt; Delete &gt; Delete Sheet Rows</strong>. The
+data now end at row 30572, and row 25660 shows
+<code>No Show</code>.</li>
+<li>Click any cell inside the data. On the <strong>Insert</strong> tab,
+click <strong>Table</strong>, confirm <strong>My table has
+headers</strong> is checked, and click <strong>OK</strong>.</li>
+<li>On the <strong>Table Design</strong> tab (named
+<strong>Table</strong> on macOS), set the <strong>Table Name</strong> to
+<code>Appts</code>.</li>
+</ol>
+<p>Pause and check your work against Figure 7 before you continue.</p>
+<figure id="fig:ch14-check-a">
+<img src="figures/generated/ch_14_check_part_a.png"
+alt="Figure 7: Pause and check for Part A: 30,571 eligible appointments (25,658 completed and 4,913 no-shows), the last data row at 30572 with the first no-show at row 25660, and a Table named Appts, with fixes if a result differs. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 7: Pause and check for Part A:
+30,571 eligible appointments (25,658 completed and 4,913 no-shows), the
+last data row at 30572 with the first no-show at row 25660, and a Table
+named <code>Appts</code>, with fixes if a result differs. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part B. Set up the model.</strong> The coefficients live on
+their own sheet, and three calculated columns in the Table turn them
+into a score, a probability, and a log-likelihood for every
+appointment.</p>
+<ol start="10" type="1">
+<li>Add a worksheet with the <strong>+</strong> beside the sheet tabs,
+double-click the new tab, type <code>Model</code>, and press Enter.</li>
+<li>On the <code>Model</code> sheet, enter the labels and starting
+values in Table 3. Every coefficient starts at 0.</li>
+</ol>
+<div class="table-wrap"><table id="tbl:ch14-model-cells">
+<caption>Table 3: Labels and starting values for the coefficient cells
+on the <code>Model</code> sheet.</caption>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Enter</th>
+<th>Cell</th>
+<th>Enter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>A1</code></td>
+<td><code>Term</code></td>
+<td><code>B1</code></td>
+<td><code>Coefficient</code></td>
+</tr>
+<tr>
+<td><code>A2</code></td>
+<td><code>Intercept</code></td>
+<td><code>B2</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>A3</code></td>
+<td><code>Prior no-shows</code></td>
+<td><code>B3</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>A4</code></td>
+<td><code>Lead days</code></td>
+<td><code>B4</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>A5</code></td>
+<td><code>Reminder sent</code></td>
+<td><code>B5</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>A6</code></td>
+<td><code>Telehealth</code></td>
+<td><code>B6</code></td>
+<td><code>0</code></td>
+</tr>
+<tr>
+<td><code>A7</code></td>
+<td><code>Transportation barrier</code></td>
+<td><code>B7</code></td>
+<td><code>0</code></td>
+</tr>
+</tbody>
+</table></div>
+<ol start="12" type="1">
+<li>Return to the data sheet. Click <code>AO1</code>, type
+<code>score</code>, and press Enter. The Table expands to include column
+<code>AO</code>.</li>
+<li>In <code>AO2</code>, enter
+<code>=Model!$B$2 + Model!$B$3*[@prior_no_show_count_12m] + Model!$B$4*[@lead_days] + Model!$B$5*[@reminder_sent_flag] + Model!$B$6*[@telehealth_flag] + Model!$B$7*[@transportation_barrier_flag]</code>.
+Each <code>Model!$B$</code> cell is a coefficient, and each
+<code>[@...]</code> reference is the same row’s value. The formula fills
+the whole column, and every row shows <code>0</code>, because every
+coefficient is still 0.</li>
+<li>Click <code>AP1</code>, type <code>prob</code>, and press
+Enter.</li>
+<li>In <code>AP2</code>, enter <code>=1/(1+EXP(-[@score]))</code>. Every
+row shows <code>0.5</code>.</li>
+<li>Click <code>AQ1</code>, type <code>loglik</code>, and press
+Enter.</li>
+<li>In <code>AQ2</code>, enter
+<code>=IF([@no_show_flag]=1, LN([@prob]), LN(1-[@prob]))</code>. Every
+row shows <code>-0.693147</code>, the natural logarithm of 0.5.</li>
+<li>On the <code>Model</code> sheet, type <code>Log-likelihood</code> in
+<code>A9</code>.</li>
+<li>In <code>B9</code>, enter <code>=SUM(Appts[loglik])</code>.
+<code>B9</code> shows about <code>-21190.20</code>; Excel may display
+more decimal places.</li>
+<li>Type <code>No-show rate</code> in <code>A10</code>, and in
+<code>B10</code> enter <code>=AVERAGE(Appts[no_show_flag])</code>.
+<code>B10</code> shows about <code>0.1607</code>, the 16.1 percent rate
+from Chapter 4.</li>
+</ol>
+<p>Pause and check your work against Figure 8 before you continue.</p>
+<figure id="fig:ch14-check-b">
+<img src="figures/generated/ch_14_check_part_b.png"
+alt="Figure 8: Pause and check for Part B: all six coefficients at 0, every score 0 and every probability 0.5, each loglik row −0.693147, and Model!B9 about −21,190.20, with fixes if a result differs. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 8: Pause and check for Part B: all
+six coefficients at 0, every score 0 and every probability 0.5, each
+<code>loglik</code> row −0.693147, and <code>Model!B9</code> about
+−21,190.20, with fixes if a result differs. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part C. Fit the model with Solver.</strong> Solver now
+searches for the six coefficients that make <code>B9</code> as large as
+possible. Figure 9 shows how the worksheet and the Solver settings
+connect.</p>
+<figure id="fig:ch14-solver">
+<img src="figures/generated/ch_14_solver_settings.png"
+alt="Figure 9: What Solver changes and what it maximizes. The six coefficient cells, Model!B2:B7, feed the score, prob, and loglik columns; Solver changes them to maximize their sum in Model!B9 with the GRG Nonlinear method, from −21,190.20 to −13,106.79. The settings panel is a schematic of the desktop Solver dialog, not a screenshot. Source: the walkthrough worksheet built from datasets/DS2_appointments_clean.csv." />
+<figcaption aria-hidden="true">Figure 9: What Solver changes and what it
+maximizes. The six coefficient cells, <code>Model!B2:B7</code>, feed the
+<code>score</code>, <code>prob</code>, and <code>loglik</code> columns;
+Solver changes them to maximize their sum in <code>Model!B9</code> with
+the GRG Nonlinear method, from −21,190.20 to −13,106.79. The settings
+panel is a schematic of the desktop Solver dialog, not a screenshot.
+Source: the walkthrough worksheet built from
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>.</figcaption>
+</figure>
+<ol start="21" type="1">
+<li><p>On the <code>Model</code> sheet, click <code>B9</code>.</p></li>
+<li><p>Choose <strong>Data &gt; Solver</strong>. In Excel for the web,
+first confirm that the workbook shows as saved, because the add-in
+solves the saved copy; then open the Frontline Solver add-in from the
+<strong>Home</strong> tab. Its task pane has the same fields as the
+desktop dialog (Frontline Systems, n.d.).</p></li>
+<li><p>In <strong>Set Objective</strong>, confirm <code>$B$9</code>, and
+select <strong>Max</strong>.</p></li>
+<li><p>In <strong>By Changing Variable Cells</strong>, enter
+<code>$B$2:$B$7</code>.</p></li>
+<li><p>Clear the <strong>Make Unconstrained Variables
+Non-Negative</strong> check box. Three of the fitted coefficients are
+negative, and this box would prevent that.</p></li>
+<li><p>In <strong>Select a Solving Method</strong>, choose <strong>GRG
+Nonlinear</strong>. ::: caution If a cell in the <code>loglik</code>
+column shows <code>#NUM!</code>, a probability has reached exactly 0 or
+1, and <code>LN</code> cannot take the logarithm of 0. This happens when
+a search step goes too far. Reset <code>B2:B7</code> to 0 and run Solver
+again. :::</p></li>
+<li><p>Click <strong>Solve</strong>. Solver may take a minute while it
+recalculates 30,571 rows many times. When the <strong>Solver
+Results</strong> dialog appears, keep <strong>Keep Solver
+Solution</strong> selected and click <strong>OK</strong>.</p></li>
+</ol>
+<p><code>B9</code> now shows about <code>-13106.79</code>, much closer
+to 0 than the starting <code>-21190.20</code>, and the coefficients in
+<code>B2:B7</code> should agree with Table 4 to about three decimal
+places. If <code>B9</code> differs from <code>-13106.79</code> by more
+than 0.1, run Solver again from step 21; it continues from the current
+values. In Excel for the web, the free add-in limits solving time, so if
+it stops with a time-limit message, use the published values in the next
+step.</p>
+<div class="table-wrap"><table id="tbl:ch14-coefficients">
+<caption>Table 4: The fitted coefficients of the no-show model, rounded
+to four decimal places. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</caption>
+<thead>
+<tr>
+<th>Cell</th>
+<th>Term</th>
+<th>Published coefficient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>B2</code></td>
+<td>Intercept</td>
+<td><code>-2.0234</code></td>
+</tr>
+<tr>
+<td><code>B3</code></td>
+<td>Prior no-shows</td>
+<td><code>0.2664</code></td>
+</tr>
+<tr>
+<td><code>B4</code></td>
+<td>Lead days</td>
+<td><code>0.0153</code></td>
+</tr>
+<tr>
+<td><code>B5</code></td>
+<td>Reminder sent</td>
+<td><code>-0.1321</code></td>
+</tr>
+<tr>
+<td><code>B6</code></td>
+<td>Telehealth</td>
+<td><code>-0.0966</code></td>
+</tr>
+<tr>
+<td><code>B7</code></td>
+<td>Transportation barrier</td>
+<td><code>0.5503</code></td>
+</tr>
+</tbody>
+</table></div>
+<ol start="28" type="1">
+<li>Type the six published coefficients from Table 4 into
+<code>B2:B7</code>, replacing Solver’s values. Solver’s answer can
+differ from them in a later decimal place, and that is enough to move a
+few appointments across a decile boundary in Part E; the published
+values make every later checkpoint match exactly. <code>B9</code> still
+shows about <code>-13106.79</code>.</li>
+</ol>
+<p>Pause and check your work against Figure 10 before you continue.</p>
+<figure id="fig:ch14-check-c">
+<img src="figures/generated/ch_14_check_part_c.png"
+alt="Figure 10: Pause and check for Part C: Model!B9 about −13,106.79 after fitting, probabilities that now vary, and negative coefficients in B2, B5, and B6, with fixes for the Solver settings. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 10: Pause and check for Part C:
+<code>Model!B9</code> about −13,106.79 after fitting, probabilities that
+now vary, and negative coefficients in <code>B2</code>, <code>B5</code>,
+and <code>B6</code>, with fixes for the Solver settings. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part D. Convert the coefficients to odds ratios.</strong></p>
+<ol start="29" type="1">
+<li>In <code>C1</code>, type <code>Odds ratio</code>.</li>
+<li>In <code>C3</code>, enter <code>=EXP(B3)</code>, then drag the fill
+handle down to <code>C7</code>. The column shows about
+<code>1.305</code>, <code>1.015</code>, <code>0.876</code>,
+<code>0.908</code>, and <code>1.734</code>. <code>C2</code> stays empty:
+the exponentiated intercept is the odds for an appointment with every
+variable at 0, not a comparison between groups.</li>
+</ol>
+<p>Pause and check your work against Figure 11 before you continue.</p>
+<figure id="fig:ch14-check-d">
+<img src="figures/generated/ch_14_check_part_d.png"
+alt="Figure 11: Pause and check for Part D: the five odds ratios in C3:C7 (1.305, 1.015, 0.876, 0.908, and 1.734), with C2 left blank, and fixes if a result differs. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 11: Pause and check for Part D:
+the five odds ratios in <code>C3:C7</code> (1.305, 1.015, 0.876, 0.908,
+and 1.734), with <code>C2</code> left blank, and fixes if a result
+differs. Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>,
+30,571 kept-or-missed appointments, January 2024 to December
+2025.</figcaption>
+</figure>
+<p>Figure 12 plots the five odds ratios. Points to the right of the
+dashed line at 1 are associated with higher odds of a no-show, and
+points to the left with lower odds.</p>
+<figure id="fig:ch14-or">
+<img src="figures/generated/ch_14_odds_ratios.png"
+alt="Figure 12: Odds ratios from the walkthrough’s no-show model, on a log scale, shown as point estimates without confidence intervals; each line runs from 1 to the estimate and is not an interval. Each holds the other four variables constant. The right panel converts the transportation barrier coefficient in B7 to its odds ratio in C7 and shows the lead-time odds ratio over 30 days, EXP(30 × 0.0153) ≈ 1.58. Transportation barrier (1.73), each prior no-show (1.31), and each extra day of lead time (1.015) are associated with higher odds of a no-show; a sent reminder (0.88) and a telehealth visit (0.91) with lower odds. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 12: Odds ratios from the
+walkthrough’s no-show model, on a log scale, shown as point estimates
+without confidence intervals; each line runs from 1 to the estimate and
+is not an interval. Each holds the other four variables constant. The
+right panel converts the transportation barrier coefficient in
+<code>B7</code> to its odds ratio in <code>C7</code> and shows the
+lead-time odds ratio over 30 days, <code>EXP(30 × 0.0153)</code> ≈ 1.58.
+Transportation barrier (1.73), each prior no-show (1.31), and each extra
+day of lead time (1.015) are associated with higher odds of a no-show; a
+sent reminder (0.88) and a telehealth visit (0.91) with lower odds.
+Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571
+kept-or-missed appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p>Read in the language of the key concepts:</p>
+<ul>
+<li><strong>Transportation barrier, 1.73.</strong> Holding the other
+variables constant, appointments for patients with a reported
+transportation barrier have about 73 percent higher odds of being
+missed. The unadjusted odds ratio in Table 1 was 1.72, so adjusting for
+the other four variables changes it very little; because odds ratios can
+shift with adjustment for reasons other than confounding, the similarity
+is a description, not a test.</li>
+<li><strong>Prior no-shows, 1.31 each.</strong> Each additional no-show
+in the past year is associated with about 31 percent higher odds,
+consistent with the published finding that a history of no-shows is
+among the most commonly reported predictors (Dantas et al., 2018).</li>
+<li><strong>Lead time, 1.015 per day.</strong> Appointments booked
+further ahead are missed somewhat more often; over 30 days, the odds are
+multiplied by <code>EXP(30*0.0153)</code>, about 1.58.</li>
+<li><strong>Reminder sent, 0.88.</strong> Appointments with a reminder
+have about 12 percent lower odds of being missed. Reminders were not
+assigned at random in this data, so the figure is an association, not a
+measured effect of sending reminders.</li>
+<li><strong>Telehealth, 0.91.</strong> Telehealth visits have about 9
+percent lower odds of being missed.</li>
+</ul>
+<p>Solver does not report standard errors, so the worksheet gives no
+confidence intervals for these odds ratios. Statistical software reports
+them, as Chapter 13’s <code>LINEST</code> did for linear coefficients;
+the values below are the standard (Wald) 95 percent intervals from a
+logistic regression fitted in Python’s statsmodels library. The 95
+percent intervals are narrow for lead time (1.014 to 1.017), prior
+no-shows (1.23 to 1.39), and transportation barrier (1.61 to 1.86). They
+are wider for reminders (0.80 to 0.96) and telehealth (0.83 to 0.99);
+the telehealth interval nearly reaches 1, so the data are consistent
+with almost no difference for telehealth visits. These intervals treat
+every appointment as independent; patients with several appointments
+make some rows related, which can make the true intervals somewhat
+wider.</p>
+<p>To see what the coefficients mean for one appointment, take a typical
+in-person visit: no prior no-shows, booked 14 days ahead, with a
+reminder and no transportation barrier. Its score is −2.0234 + 0.0153 ×
+14 − 0.1321 = −1.9413, and <code>=1/(1+EXP(1.9413))</code> gives a
+probability of 0.126. The same appointment for a patient with a
+transportation barrier adds 0.5503, for a score of −1.3910 and a
+probability of 0.199. The odds ratio is 1.73, while the probability
+rises from 12.6 to 19.9 percent. Figure 13 lays out the calculation term
+by term.</p>
+<figure id="fig:ch14-anatomy">
+<img src="figures/generated/ch_14_prediction_anatomy.png"
+alt="Figure 13: Anatomy of a logistic prediction for a typical in-person appointment booked 14 days ahead, with a reminder, no prior no-shows, and no transportation barrier: score −1.9413, predicted probability 12.6 percent. Changing only the transportation barrier to 1 gives a score of −1.3910 and a probability of 19.9 percent. Coefficients from Table 4. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 13: Anatomy of a logistic
+prediction for a typical in-person appointment booked 14 days ahead,
+with a reminder, no prior no-shows, and no transportation barrier: score
+−1.9413, predicted probability 12.6 percent. Changing only the
+transportation barrier to 1 gives a score of −1.3910 and a probability
+of 19.9 percent. Coefficients from Table 4. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Part E. Sort the appointments into risk deciles.</strong> The
+decile boundaries come from <code>PERCENTILE.INC</code>, introduced in
+Chapter 9 (Microsoft, n.d.-g). A calculated column then assigns each
+appointment to a decile with <code>XMATCH</code>, which finds a value’s
+position in a list (Microsoft, n.d.-h). With 1 as its last argument,
+<code>XMATCH</code> returns the position of the first boundary that is
+at least as large as the probability, so an appointment at or below the
+first boundary is in decile 1, and so on. <code>COUNTIFS</code> then
+counts the appointments in each decile (Microsoft, n.d.-b), and
+<code>AVERAGEIFS</code> calculates their no-show rate (Microsoft,
+n.d.-a). Figure 14 summarizes the four formulas before you enter
+them.</p>
+<figure id="fig:ch14-decile-steps">
+<img src="figures/generated/ch_14_decile_steps.png"
+alt="Figure 14: The four steps from predicted probabilities to risk deciles: ten upper boundaries with PERCENTILE.INC, a decile for each appointment with XMATCH, a count for each decile with COUNTIFS, and its observed no-show rate with AVERAGEIFS. Decile 1 holds 3,123 appointments with a 10.0 percent rate. The example probability, 0.1000, is illustrative. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 14: The four steps from predicted
+probabilities to risk deciles: ten upper boundaries with
+<code>PERCENTILE.INC</code>, a decile for each appointment with
+<code>XMATCH</code>, a count for each decile with <code>COUNTIFS</code>,
+and its observed no-show rate with <code>AVERAGEIFS</code>. Decile 1
+holds 3,123 appointments with a 10.0 percent rate. The example
+probability, 0.1000, is illustrative. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<ol start="31" type="1">
+<li>On the <code>Model</code> sheet, type the headers
+<code>Decile</code>, <code>Upper</code>, <code>Appointments</code>, and
+<code>No-show rate</code> in <code>E1:H1</code>.</li>
+<li>Type <code>1</code> in <code>E2</code> and <code>2</code> in
+<code>E3</code>.</li>
+<li>Select <code>E2:E3</code>, and drag the fill handle down to
+<code>E11</code>, which shows <code>10</code>.</li>
+<li>In <code>F2</code>, enter
+<code>=PERCENTILE.INC(Appts[prob], E2/10)</code>, and drag the fill
+handle down to <code>F11</code>. <code>F2</code> shows about
+<code>0.1077</code>, the probability at or below which a tenth of the
+appointments fall, and <code>F11</code> shows the highest probability in
+the file.</li>
+<li>Return to the data sheet. Click <code>AR1</code>, type
+<code>decile</code>, and press Enter.</li>
+<li>In <code>AR2</code>, enter
+<code>=XMATCH([@prob], Model!$F$2:$F$11, 1)</code>. Each row shows a
+whole number from 1 to 10.</li>
+<li>On the <code>Model</code> sheet, in <code>G2</code>, enter
+<code>=COUNTIFS(Appts[decile], E2)</code>, and drag the fill handle down
+to <code>G11</code>. <code>G2</code> shows <code>3123</code>, and the
+ten counts add to 30,571.</li>
+<li>In <code>H2</code>, enter
+<code>=AVERAGEIFS(Appts[no_show_flag], Appts[decile], E2)</code>, and
+drag the fill handle down to <code>H11</code>.</li>
+<li>Select <code>H2:H11</code>, click <strong>Home &gt; Number &gt;
+Percent Style</strong>, and click <strong>Increase Decimal</strong>
+once. <code>H2</code> shows <code>10.0%</code> and <code>H11</code>
+shows <code>29.5%</code>.</li>
+</ol>
+<p>Pause and check your work against Figure 15 before you continue.</p>
+<figure id="fig:ch14-check-e">
+<img src="figures/generated/ch_14_check_part_e.png"
+alt="Figure 15: Pause and check for Part E: the first boundary in Model!F2 about 0.1077, a decile from 1 to 10 in every row of column AR, counts that add to 30,571 with 3,123 in decile 1, and rates of 10.0 percent in H2 and 29.5 percent in H11. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 15: Pause and check for Part E:
+the first boundary in <code>Model!F2</code> about 0.1077, a decile from
+1 to 10 in every row of column <code>AR</code>, counts that add to
+30,571 with 3,123 in decile 1, and rates of 10.0 percent in
+<code>H2</code> and 29.5 percent in <code>H11</code>. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p>Many appointments share the same combination of values, and therefore
+the same predicted probability. A group of identical probabilities
+cannot be split across two deciles, so the counts in column
+<code>G</code> range from 2,560 to 3,497 rather than exactly 3,057.
+Figure 16 shows the finished <code>Model</code> sheet; use it to check
+your work. Figure 17 then charts column <code>H</code>.</p>
+<figure id="fig:ch14-finished">
+<img src="figures/generated/ch_14_finished_model.png"
+alt="Figure 16: Checkpoint for the finished walkthrough: the coefficients and odds ratios in Model!A1:C7, the log-likelihood in B9 (−13,106.79) and no-show rate in B10 (0.1607), the two worked predictions (12.6 and 19.9 percent), and the decile counts and rates in columns E, G, and H. The boundaries in column F are not shown. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 16: Checkpoint for the finished
+walkthrough: the coefficients and odds ratios in
+<code>Model!A1:C7</code>, the log-likelihood in <code>B9</code>
+(−13,106.79) and no-show rate in <code>B10</code> (0.1607), the two
+worked predictions (12.6 and 19.9 percent), and the decile counts and
+rates in columns <code>E</code>, <code>G</code>, and <code>H</code>. The
+boundaries in column <code>F</code> are not shown. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<figure id="fig:ch14-deciles">
+<img src="figures/generated/ch_14_risk_deciles.png"
+alt="Figure 17: Observed no-show rate by predicted-risk decile, built with PERCENTILE.INC boundaries and XMATCH as in the walkthrough. The rate generally rises from 10.0 percent in the lowest decile to 29.5 percent in the highest, about three times as high, against 16.1 percent for all appointments (dashed line). The highest decile, about a tenth of the appointments, holds 903 of the 4,913 no-shows, 18.4 percent. Group sizes (n) range from 2,560 to 3,497 because appointments with identical predicted probabilities stay in the same decile. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 17: Observed no-show rate by
+predicted-risk decile, built with <code>PERCENTILE.INC</code> boundaries
+and <code>XMATCH</code> as in the walkthrough. The rate generally rises
+from 10.0 percent in the lowest decile to 29.5 percent in the highest,
+about three times as high, against 16.1 percent for all appointments
+(dashed line). The highest decile, about a tenth of the appointments,
+holds 903 of the 4,913 no-shows, 18.4 percent. Group sizes (n) range
+from 2,560 to 3,497 because appointments with identical predicted
+probabilities stay in the same decile. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p>The rate rises across the deciles, though not at every step: decile 3
+is slightly below decile 2, and decile 5 slightly below decile 4. In the
+highest decile, 903 of 3,056 appointments were missed, 29.5 percent,
+nearly three times the 10.0 percent of the lowest decile. If the
+director’s staff can call about one patient in ten, calling the highest
+decile reaches a group in which no-shows have been almost twice as
+common as across all appointments. Those 3,056 appointments, a tenth of
+the total, account for 903 of the 4,913 no-shows, 18.4 percent. The
+figures describe past appointments; they do not show how many no-shows a
+call would prevent.</p>
+<p>The last check is the ranking itself. Calculating the ROC curve
+requires a calculation at every possible cutoff, which statistical
+software does in one step, so Figure 18 shows the result rather than
+asking you to build it.</p>
+<figure id="fig:ch14-roc">
+<img src="figures/generated/ch_14_roc.png"
+alt="Figure 18: The receiver operating characteristic (ROC) curve for the walkthrough’s no-show model. Each point is one cutoff on the predicted probability; the vertical axis is the true-positive rate (missed appointments flagged) and the horizontal axis the false-positive rate (kept appointments flagged). The shaded area under the curve, the AUROC, is 0.61; the dashed diagonal is a random ranking, with an AUROC of 0.50. The pair of probabilities in the right panel, 25 and 12 percent, is illustrative. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 18: The receiver operating
+characteristic (ROC) curve for the walkthrough’s no-show model. Each
+point is one cutoff on the predicted probability; the vertical axis is
+the true-positive rate (missed appointments flagged) and the horizontal
+axis the false-positive rate (kept appointments flagged). The shaded
+area under the curve, the AUROC, is 0.61; the dashed diagonal is a
+random ranking, with an AUROC of 0.50. The pair of probabilities in the
+right panel, 25 and 12 percent, is illustrative. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p>The AUROC is 0.61. If you pick one missed and one kept appointment at
+random, the model gives the missed one the higher probability about 61
+percent of the time, counting ties as half. That is a modest ranking:
+much of what leads a patient to miss an appointment, such as a sick
+child or a change in work hours, is not in the appointment file. Even
+so, the decile table shows that a modest ranking can sort appointments
+into tiers with clearly different no-show rates, which is what the
+director’s calling plan needs.</p>
+<div class="tryit">
+<p>Before you start the practice, use Figure 12 and Figure 17 to answer
+the three questions in Figure 19. (1) Which is associated with a larger
+increase in the odds of a no-show: a transportation barrier or one prior
+no-show? (2) A clinic stops sending reminders. Based on the reminder
+odds ratio, in which direction would you expect the no-show rate to
+move, and what prevents the model from confirming that expectation? (3)
+The AUROC is only 0.61, yet the highest decile has nearly three times
+the no-show rate of the lowest. Explain in one or two sentences how both
+can be true.</p>
+<figure id="fig:ch14-tryit-model">
+<img src="figures/generated/ch_14_tryit_read_model.png"
+alt="Figure 19: Try It: read the no-show model. Three interpretation questions on the transportation barrier and prior no-show odds ratios (1.73 and 1.31), the reminder odds ratio (0.88), and an AUROC of 0.61 beside decile rates of 10.0 and 29.5 percent. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 19: Try It: read the no-show
+model. Three interpretation questions on the transportation barrier and
+prior no-show odds ratios (1.73 and 1.31), the reminder odds ratio
+(0.88), and an AUROC of 0.61 beside decile rates of 10.0 and 29.5
+percent. Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>,
+30,571 kept-or-missed appointments, January 2024 to December
+2025.</figcaption>
+</figure>
+</div>
+</section>
+<section id="practice-on-your-own" class="level2">
+<h2>Practice on your own</h2>
+<section id="practice-a-30-day-readmission" class="level3">
+<h3>Practice A: 30-day readmission</h3>
+<p>Readmission within 30 days of discharge is another binary outcome. In
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>,
+<code>readmission_30d_flag</code> is 1 when a patient was readmitted
+within 30 days. The file records readmissions only through December 31,
+2025, so a stay discharged after December 1, 2025 has less than 30 days
+of follow-up, and a readmission after the year’s end would be missing
+and coded 0.</p>
+<p>The readmission rate is 2.5 percent for December 2025 discharges and
+0 percent for the 83 January 2026 discharges, against 8.3 percent for
+earlier stays. The practice therefore keeps only stays with a complete
+30-day window, a restriction that standard readmission measures also
+apply. Figure 20 illustrates the rule.</p>
+<figure id="fig:ch14-follow-up">
+<img src="figures/generated/ch_14_follow_up.png"
+alt="Figure 20: Why complete follow-up matters for a 30-day readmission outcome. The file records readmissions through December 31, 2025, so a stay discharged on December 1 has a full 30-day window, while one discharged on December 20 does not. Of 8,500 stays, the 8,030 discharged on or before December 1, 2025 have complete follow-up, with 667 readmissions (8.3 percent); the 470 discharged later are excluded. The two timelines are illustrative. Source: datasets/DS4_inpatient_clean.csv, stays discharged January 2024 to January 2026." />
+<figcaption aria-hidden="true">Figure 20: Why complete follow-up matters
+for a 30-day readmission outcome. The file records readmissions through
+December 31, 2025, so a stay discharged on December 1 has a full 30-day
+window, while one discharged on December 20 does not. Of 8,500 stays,
+the 8,030 discharged on or before December 1, 2025 have complete
+follow-up, with 667 readmissions (8.3 percent); the 470 discharged later
+are excluded. The two timelines are illustrative. Source:
+<a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a>, stays discharged January
+2024 to January 2026.</figcaption>
+</figure>
+<p>Of the 8,030 stays discharged on or before December 1, 2025, 667 (8.3
+percent) were followed by a readmission. Fit a logistic regression of
+readmission on three explanatory variables:
+<code>comorbidity_count</code>, the number of other health conditions
+recorded; <code>icu_flag</code>, whether the stay included care in the
+intensive care unit (ICU); and <code>age_at_admit</code>. Some patients
+have more than one stay, so, as in Chapter 13, the stays are not fully
+independent observations.</p>
+<ol type="1">
+<li>Open <a class="ds-ref" href="datasets/DS4_inpatient_clean.csv" download title="Download DS4_inpatient_clean.csv"><code>datasets/DS4_inpatient_clean.csv</code></a> and save a
+working copy named <code>ch14_readmission_model</code>. The file has
+8,500 stays in rows 2 to 8501 and 32 columns, <code>A</code> to
+<code>AF</code>.</li>
+<li>Click any cell in column <code>E</code>,
+<code>discharge_datetime</code>. Open the sort dialog as in walkthrough
+step 2.</li>
+<li>Sort by <strong>discharge_datetime</strong>, from <strong>Oldest to
+Newest</strong>, and click <strong>OK</strong>. Row 8031 shows a
+discharge on December 1, 2025, and row 8032 a discharge on December 2,
+2025.</li>
+<li>Click the Name Box, type <code>8032:8501</code>, and press Enter.
+Excel selects the 470 stays discharged after December 1, 2025.</li>
+<li>Choose <strong>Home &gt; Delete &gt; Delete Sheet Rows</strong>. The
+data now end at row 8031.</li>
+<li>Click any cell inside the data, and convert it to a Table with
+<strong>Insert &gt; Table</strong>.</li>
+<li>Set the <strong>Table Name</strong> to <code>Stays</code>.</li>
+<li>Add a worksheet named <code>Model</code>.</li>
+<li>On <code>Model</code>, type <code>Term</code> in <code>A1</code> and
+<code>Coefficient</code> in <code>B1</code>; <code>Intercept</code>,
+<code>Comorbidities</code>, <code>ICU</code>, and <code>Age</code> in
+<code>A2:A5</code>; and <code>0</code> in each of
+<code>B2:B5</code>.</li>
+<li>On the data sheet, click <code>AG1</code>, type <code>score</code>,
+and press Enter.</li>
+<li>In <code>AG2</code>, enter
+<code>=Model!$B$2 + Model!$B$3*[@comorbidity_count] + Model!$B$4*[@icu_flag] + Model!$B$5*[@age_at_admit]</code>.
+Every row shows <code>0</code>.</li>
+<li>Click <code>AH1</code>, type <code>prob</code>, and press
+Enter.</li>
+<li>In <code>AH2</code>, enter <code>=1/(1+EXP(-[@score]))</code>. Every
+row shows <code>0.5</code>.</li>
+<li>Click <code>AI1</code>, type <code>loglik</code>, and press
+Enter.</li>
+<li>In <code>AI2</code>, enter
+<code>=IF([@readmission_30d_flag]=1, LN([@prob]), LN(1-[@prob]))</code>.</li>
+<li>On <code>Model</code>, type <code>Log-likelihood</code> in
+<code>A7</code>, and in <code>B7</code> enter
+<code>=SUM(Stays[loglik])</code>. It shows <code>-5565.97</code>.</li>
+<li>Click <code>B7</code>, and open Solver as in walkthrough step
+22.</li>
+<li>Set the objective to <code>$B$7</code> and select
+<strong>Max</strong>.</li>
+<li>Enter <code>$B$2:$B$5</code> as the changing cells.</li>
+<li>Clear <strong>Make Unconstrained Variables Non-Negative</strong>,
+and choose <strong>GRG Nonlinear</strong>.</li>
+<li>Click <strong>Solve</strong>, and keep the solution. <code>B7</code>
+rises to about <code>-2262.22</code>. If Solver will not run in your
+version, type the coefficients from the answer key into
+<code>B2:B5</code> and continue.</li>
+<li>In <code>C1</code>, type <code>Odds ratio</code>. In
+<code>C3</code>, enter <code>=EXP(B3)</code>, and drag the fill handle
+down to <code>C5</code>.</li>
+<li>Build the decile table with walkthrough steps 31 to 39: the
+boundaries in <code>F2:F11</code> from <code>Stays[prob]</code>, a
+<code>decile</code> calculated column in <code>AJ</code> of the
+<code>Stays</code> Table, and the counts and rates from
+<code>Stays[decile]</code> and
+<code>Stays[readmission_30d_flag]</code>.</li>
+</ol>
+<p>Solver’s coefficients can differ from the answer key’s in a later
+decimal place, which can move a few stays between deciles. Your decile
+rates should agree with the answer key’s to within about 1 percentage
+point, with the same rise from the lowest decile to the highest. Write
+two sentences interpreting the ICU odds ratio, holding the other
+variables constant, and compare the readmission rate in the highest and
+lowest deciles. The model’s AUROC, calculated in statistical software,
+is 0.60. The answer key gives check values for every step.</p>
+<div class="goingdeeper">
+<p><strong>Calibration.</strong> The decile table also checks whether
+the predicted probabilities are accurate as numbers, not only as a
+ranking. <strong>Calibration</strong> compares the average predicted
+probability with the observed rate in each group (Steyerberg, 2019). For
+the walkthrough’s model, the highest decile’s average predicted
+probability is 29.8 percent against an observed 29.5 percent, and the
+lowest decile’s is 10.5 percent against 10.0 percent. You can add the
+comparison to your table with
+<code>=AVERAGEIFS(Appts[prob], Appts[decile], E2)</code>. Figure 21
+contrasts the two checks.</p>
+<figure id="fig:ch14-calibration">
+<img src="figures/generated/ch_14_ranking_calibration.png"
+alt="Figure 21: Ranking and calibration for the walkthrough’s model, lowest and highest deciles only. Ranking compares observed no-show rates across groups (10.0 against 29.5 percent); calibration compares each group’s average predicted probability with its observed rate (10.5 against 10.0 percent, and 29.8 against 29.5 percent). Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 21: Ranking and calibration for
+the walkthrough’s model, lowest and highest deciles only. Ranking
+compares observed no-show rates across groups (10.0 against 29.5
+percent); calibration compares each group’s average predicted
+probability with its observed rate (10.5 against 10.0 percent, and 29.8
+against 29.5 percent). Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571 kept-or-missed
+appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Validation.</strong> A model judged on the same data used to
+fit it tends to look better than it will on new cases, a problem known
+as <strong>optimism</strong> (Steyerberg, 2019).
+<strong>Validation</strong> tests the model on data it has not seen,
+such as later appointments. In this teaching file, a model fitted to the
+2024 appointments ranks the 2025 appointments about as well as it ranks
+its own data, with an AUROC of 0.61 on 2024 and 0.62 on 2025. Real data
+often show a drop. Figure 22 outlines the check.</p>
+<figure id="fig:ch14-validation">
+<img src="figures/generated/ch_14_validation.png"
+alt="Figure 22: Validation on later appointments: the model is fitted to the 15,369 kept-or-missed appointments of 2024, and the same coefficients are applied to the 15,202 of 2025. The AUROC is 0.61 on 2024 and 0.62 on 2025. Source: datasets/DS2_appointments_clean.csv, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 22: Validation on later
+appointments: the model is fitted to the 15,369 kept-or-missed
+appointments of 2024, and the same coefficients are applied to the
+15,202 of 2025. The AUROC is 0.61 on 2024 and 0.62 on 2025. Source:
+<a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, January 2024 to
+December 2025.</figcaption>
+</figure>
+<p>Published prediction models are expected to report how they were
+validated; the TRIPOD+AI (Transparent Reporting of a multivariable
+prediction model for Individual Prognosis Or Diagnosis, updated for
+artificial intelligence) guideline lists what such a report should
+contain (Collins et al., 2024).</p>
+<p><strong>Straight-line assumption.</strong> Logistic regression
+assumes that each numerical variable has a straight-line relationship
+with the log-odds. For <code>lead_days</code>, that means each extra day
+multiplies the odds by the same 1.015, whether the appointment is 2 or
+120 days away. Checking and relaxing this assumption, for example by
+grouping lead time into bands, is covered in fuller treatments (Hosmer
+et al., 2013).</p>
+<p><strong>Choosing a cutoff.</strong> Turning a probability into an
+action, such as “call every appointment above 0.20,” requires a cutoff.
+Chapter 15 develops that decision with the same model.</p>
+</div>
+<div class="realworld">
+<p>A study of outpatient scheduling examined systems that use machine
+learning to predict no-shows and then place the patients with the
+highest predicted risk into overbooked slots, so that a likely no-show
+does not leave a clinician idle. In the specialty clinic whose data the
+authors used, Black patients had a higher predicted no-show probability
+than other patients. In the authors’ scheduling simulations, overbooking
+by predicted risk placed Black patients in overbooked slots more often,
+and they waited about 30 percent longer than other patients. The authors
+proposed a scheduling method that minimizes the waiting time of the
+group expected to wait longest, which removed the disparity at a similar
+cost to the clinic (Samorani et al., 2022).</p>
+<p>The same risk score supports two different uses. Risk-based
+overbooking can lengthen waits for the patients flagged as high risk;
+extra reminders or transportation help support them. Figure 23
+summarizes the contrast.</p>
+<figure id="fig:ch14-help-harm">
+<img src="figures/generated/ch_14_help_or_harm.png"
+alt="Figure 23: The same risk ranking can lead to a supportive action, such as a reminder or transportation help matched to an access barrier, or to one that adds burden, such as overbooking the slots of patients ranked at high risk. Conceptual illustration; the bar heights are not data." />
+<figcaption aria-hidden="true">Figure 23: The same risk ranking can lead
+to a supportive action, such as a reminder or transportation help
+matched to an access barrier, or to one that adds burden, such as
+overbooking the slots of patients ranked at high risk. Conceptual
+illustration; the bar heights are not data.</figcaption>
+</figure>
+<p>Chapter 5 closed its discussion of fairness, in the section on
+ethics, with four questions to ask of your own numbers: “who is in this
+data, who is missing, what was actually measured, and could this measure
+disadvantage someone.” A transportation barrier is a social
+circumstance, not a choice, and a model that uses it can carry that
+disadvantage into scheduling decisions. A related study found a widely
+used care-management algorithm that, by predicting health care costs
+rather than illness, flagged Black patients for extra help less often
+than equally sick White patients (Obermeyer et al., 2019). The model
+ranks; the people who use it decide whether the ranking leads to help or
+to harm.</p>
+</div>
+<div class="recap">
+<ul>
+<li>A binary outcome has two values, recorded as 1 and 0. Its average is
+a probability, and logistic regression predicts that probability while
+keeping every prediction between 0 and 1.</li>
+<li>Odds are p ÷ (1 − p). An odds ratio divides the odds in one group by
+the odds in another; 1 means no difference, and an odds ratio is not a
+ratio of probabilities.</li>
+<li>Logistic regression passes a linear score through the logistic
+function, <code>=1/(1+EXP(-z))</code>. <code>EXP</code> of a coefficient
+is an odds ratio, read with the other variables held constant and as an
+association, not a cause.</li>
+<li>Solver fits the model by maximizing the summed log-likelihood with
+the GRG Nonlinear method; Excel for the web uses Frontline’s free Solver
+add-in, and the published coefficients are a fallback in any
+version.</li>
+<li>AUROC, here 0.61, measures how well the model ranks risk. Deciles
+from <code>PERCENTILE.INC</code> and <code>XMATCH</code> show that even
+a modest ranking can sort cases into tiers with clearly different rates,
+and how those tiers are used is a decision with ethical
+consequences.</li>
+</ul>
+</div>
+<div class="exercises">
+<ol type="1">
+<li>Explain in two or three sentences why a straight line is not suited
+to predicting <code>no_show_flag</code>, using Figure 2. Then define
+logistic regression in one sentence of your own.</li>
+<li>In your walkthrough workbook’s <code>Appts</code> Table, which holds
+the 30,571 kept-or-missed appointments, use <code>COUNTIFS</code> to
+build a two-by-two table of <code>interpreter_needed_flag</code> against
+<code>no_show_flag</code>. Calculate the odds of a no-show in each group
+and the odds ratio, and interpret the result in one sentence.</li>
+<li>A newsletter states that “sending a reminder cuts no-shows by 12
+percent,” citing the odds ratio of 0.88. Identify two problems with the
+statement, and rewrite it accurately.</li>
+<li>Using the coefficients from Part C, calculate the score and the
+predicted probability for a telehealth appointment booked 30 days ahead,
+with a reminder, for a patient with one prior no-show and no
+transportation barrier. Show the score before converting it.</li>
+<li>The no-show model has an AUROC of 0.61 and Practice A’s readmission
+model 0.60. Explain what 0.61 means in terms of a randomly chosen missed
+and kept appointment, and explain why a model with an AUROC this modest
+can still be useful to the director, referring to Figure 17.</li>
+<li>Using the Real World box, describe one supportive use and one
+harmful use of the no-show risk score. Then apply two of the fairness
+questions that close Chapter 5’s discussion of fairness to the
+transportation barrier variable.</li>
+</ol>
+</div>
+<div class="answerkey">
+<p><strong>Try It (odds and odds ratios).</strong> (1) Odds = 0.30 ÷
+0.70 = 0.43, or about 43 missed appointments for every 100 kept. (2) For
+patients with a transportation barrier, the odds of a no-show are 1.72
+times the odds for patients without one, about 72 percent higher. (3) An
+odds ratio of exactly 1 would mean the odds of a no-show are the same
+with and without a transportation barrier, so the barrier would show no
+association with no-shows.</p>
+<p><strong>Practice A check values.</strong> After the sort and
+deletion, the data end at row 8031 with 8,030 stays, 667 of them
+followed by a readmission. The <code>score</code> column starts at 0,
+<code>prob</code> at 0.5, and <code>loglik</code> at −0.693147;
+<code>B7</code> starts at −5565.97 and rises to about −2262.22 after
+Solver. The coefficients are about −3.4351 (intercept), 0.0512
+(comorbidities), 0.4121 (ICU), and 0.0137 (age), giving odds ratios of
+1.053 per comorbidity, 1.510 for ICU care, and 1.014 per year of age.
+With these coefficients, the decile counts range from 790 to 813 and add
+to 8,030.</p>
+<p>The readmission rate is 5.3 percent in the lowest decile and 13.9
+percent in the highest. Interpretation: holding comorbidities and age
+constant, stays that included ICU care have about 51 percent higher odds
+of a 30-day readmission. The highest decile’s readmission rate is about
+2.6 times the lowest decile’s, a clear but less sharp separation than
+the no-show model’s, consistent with its slightly lower AUROC of
+0.60.</p>
+<p><strong>Try It (reading the model).</strong> (1) A transportation
+barrier, with an odds ratio of 1.73 against 1.31 for one prior no-show.
+(2) The odds ratio of 0.88 suggests the no-show rate would rise, because
+appointments with reminders have lower odds of being missed. The model
+cannot confirm it: the data are observational, and clinics may send
+reminders to different kinds of patients, so the association is not a
+measured effect of reminders.</p>
+<ol start="3" type="1">
+<li>AUROC judges the ranking of every possible pair of a missed and a
+kept appointment, and many pairs are ranked the wrong way. The decile
+chart asks a coarser question, whether the highest group has more
+no-shows than the lowest, and a modest ranking can answer that clearly.
+Figure 24 summarizes these answers.</li>
+</ol>
+<figure id="fig:ch14-answer-model">
+<img src="figures/generated/ch_14_answer_read_model.png"
+alt="Figure 24: Answer key for the Try It on reading the no-show model: the transportation barrier has the larger odds ratio, the reminder result is an association rather than a measured effect, and pair ranking (AUROC) and decile rates describe different things. Source: datasets/DS2_appointments_clean.csv, 30,571 kept-or-missed appointments, January 2024 to December 2025." />
+<figcaption aria-hidden="true">Figure 24: Answer key for the Try It on
+reading the no-show model: the transportation barrier has the larger
+odds ratio, the reminder result is an association rather than a measured
+effect, and pair ranking (AUROC) and decile rates describe different
+things. Source: <a class="ds-ref" href="datasets/DS2_appointments_clean.csv" download title="Download DS2_appointments_clean.csv"><code>datasets/DS2_appointments_clean.csv</code></a>, 30,571
+kept-or-missed appointments, January 2024 to December 2025.</figcaption>
+</figure>
+<p><strong>Exercises.</strong> Answers to the end-of-chapter exercises
+are provided to instructors in the instructor answer guide.</p>
+</div>
+<div class="furtherreading">
+<ul>
+<li>Collins, G. S., Moons, K. G. M., Dhiman, P., Riley, R. D., Beam, A.
+L., Van Calster, B., Ghassemi, M., Liu, X., Reitsma, J. B., van Smeden,
+M., Boulesteix, A.-L., Camaradou, J. C., Celi, L. A., Denaxas, S.,
+Denniston, A. K., Glocker, B., Golub, R. M., Harvey, H., Heinze, G., . .
+. Logullo, P. (2024). TRIPOD+AI statement: Updated guidance for
+reporting clinical prediction models that use regression or machine
+learning methods. <em>BMJ, 385</em>, Article e078378. <a
+href="https://doi.org/10.1136/bmj-2023-078378"
+class="uri">https://doi.org/10.1136/bmj-2023-078378</a></li>
+<li>Dantas, L. F., Fleck, J. L., Cyrino Oliveira, F. L., &amp; Hamacher,
+S. (2018). No-shows in appointment scheduling: A systematic literature
+review. <em>Health Policy, 122</em>(4), 412–421. <a
+href="https://doi.org/10.1016/j.healthpol.2018.02.002"
+class="uri">https://doi.org/10.1016/j.healthpol.2018.02.002</a></li>
+<li>Frontline Systems. (n.d.). <em>Solver add-in help and support.</em>
+Frontline Solvers. <a
+href="https://solver.com/solver-app-help-and-support"
+class="uri">https://solver.com/solver-app-help-and-support</a></li>
+<li>Hanley, J. A., &amp; McNeil, B. J. (1982). The meaning and use of
+the area under a receiver operating characteristic (ROC) curve.
+<em>Radiology, 143</em>(1), 29–36. <a
+href="https://doi.org/10.1148/radiology.143.1.7063747"
+class="uri">https://doi.org/10.1148/radiology.143.1.7063747</a></li>
+<li>Hosmer, D. W., Lemeshow, S., &amp; Sturdivant, R. X. (2013).
+<em>Applied logistic regression</em> (3rd ed.). Wiley. <a
+href="https://doi.org/10.1002/9781118548387"
+class="uri">https://doi.org/10.1002/9781118548387</a></li>
+<li>Microsoft. (n.d.-a). <em>AVERAGEIFS function.</em> Microsoft
+Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/averageifs-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/averageifs-function</a></li>
+<li>Microsoft. (n.d.-b). <em>COUNTIFS function.</em> Microsoft Support.
+<a
+href="https://support.microsoft.com/en-us/excel/functions/countifs-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/countifs-function</a></li>
+<li>Microsoft. (n.d.-c). <em>Define and solve a problem by using
+Solver.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/define-and-solve-a-problem-by-using-solver"
+class="uri">https://support.microsoft.com/en-us/excel/define-and-solve-a-problem-by-using-solver</a></li>
+<li>Microsoft. (n.d.-d). <em>EXP function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/exp-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/exp-function</a></li>
+<li>Microsoft. (n.d.-e). <em>LN function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/ln-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/ln-function</a></li>
+<li>Microsoft. (n.d.-f). <em>Load the Solver Add-in in Excel.</em>
+Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/load-the-solver-add-in-in-excel"
+class="uri">https://support.microsoft.com/en-us/excel/load-the-solver-add-in-in-excel</a></li>
+<li>Microsoft. (n.d.-g). <em>PERCENTILE.INC function.</em> Microsoft
+Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/percentile-inc-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/percentile-inc-function</a></li>
+<li>Microsoft. (n.d.-h). <em>XMATCH function.</em> Microsoft Support. <a
+href="https://support.microsoft.com/en-us/excel/functions/xmatch-function"
+class="uri">https://support.microsoft.com/en-us/excel/functions/xmatch-function</a></li>
+<li>Obermeyer, Z., Powers, B., Vogeli, C., &amp; Mullainathan, S.
+(2019). Dissecting racial bias in an algorithm used to manage the health
+of populations. <em>Science, 366</em>(6464), 447–453. <a
+href="https://doi.org/10.1126/science.aax2342"
+class="uri">https://doi.org/10.1126/science.aax2342</a></li>
+<li>Samorani, M., Harris, S. L., Blount, L. G., Lu, H., &amp; Santoro,
+M. A. (2022). Overbooked and overlooked: Machine learning and racial
+bias in medical appointment scheduling. <em>Manufacturing &amp; Service
+Operations Management, 24</em>(6), 2825–2842. <a
+href="https://doi.org/10.1287/msom.2021.0999"
+class="uri">https://doi.org/10.1287/msom.2021.0999</a></li>
+<li>Schober, P., &amp; Vetter, T. R. (2021). Logistic regression in
+medical research. <em>Anesthesia &amp; Analgesia, 132</em>(2), 365–366.
+<a href="https://doi.org/10.1213/ANE.0000000000005247"
+class="uri">https://doi.org/10.1213/ANE.0000000000005247</a></li>
+<li>Sperandei, S. (2014). Understanding logistic regression analysis.
+<em>Biochemia Medica, 24</em>(1), 12–18. <a
+href="https://doi.org/10.11613/BM.2014.003"
+class="uri">https://doi.org/10.11613/BM.2014.003</a></li>
+<li>Steyerberg, E. W. (2019). <em>Clinical prediction models: A
+practical approach to development, validation, and updating</em> (2nd
+ed.). Springer. <a href="https://doi.org/10.1007/978-3-030-16399-0"
+class="uri">https://doi.org/10.1007/978-3-030-16399-0</a></li>
+<li>Szumilas, M. (2010). Explaining odds ratios. <em>Journal of the
+Canadian Academy of Child and Adolescent Psychiatry, 19</em>(3),
+227–229. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC2938757/"
+class="uri">https://pmc.ncbi.nlm.nih.gov/articles/PMC2938757/</a></li>
+</ul>
+</div>
+<div class="glossarybox">
+<dl>
+<dt>Area under the ROC curve (AUROC)</dt>
+<dd>
+A number from 0 to 1 that summarizes how well a model ranks risk: the
+probability that a randomly chosen case with the event receives a higher
+predicted probability than a randomly chosen case without it, counting
+ties as half; 0.5 is a random ranking.
+</dd>
+<dt>Binary outcome</dt>
+<dd>
+An outcome with exactly two possible values, such as missed or kept,
+recorded as 1 and 0.
+</dd>
+<dt>Calibration</dt>
+<dd>
+The agreement between a model’s predicted probabilities and the observed
+event rates.
+</dd>
+<dt>Decile</dt>
+<dd>
+One of ten groups of about equal size formed by ranking cases on a
+value, such as predicted risk.
+</dd>
+<dt>False-positive rate</dt>
+<dd>
+The share of cases without the event that a model flags at a given
+cutoff.
+</dd>
+<dt>Generalized Reduced Gradient (GRG) Nonlinear</dt>
+<dd>
+The Solver method for smooth nonlinear problems, used to fit a logistic
+regression in Excel.
+</dd>
+<dt>Likelihood</dt>
+<dd>
+A measure of how well a model’s predicted probabilities match the
+observed outcomes; logistic regression chooses the coefficients that
+make it as large as possible.
+</dd>
+<dt>Logistic function</dt>
+<dd>
+The S-shaped function 1 ÷ (1 + e⁻ᶻ), which converts any score z into a
+probability between 0 and 1.
+</dd>
+<dt>Logistic regression</dt>
+<dd>
+A regression model that predicts the probability of a binary outcome
+from one or more explanatory variables, keeping every prediction between
+0 and 1.
+</dd>
+<dt>Log-likelihood</dt>
+<dd>
+The sum, across all cases, of the natural logarithm of the probability a
+model gave to each case’s actual outcome; values closer to 0 indicate a
+better match.
+</dd>
+<dt>Log-odds</dt>
+<dd>
+The natural logarithm of the odds of an event; the scale on which a
+logistic regression’s score is linear.
+</dd>
+<dt>Odds</dt>
+<dd>
+The probability that an event happens divided by the probability that it
+does not.
+</dd>
+<dt>Odds ratio</dt>
+<dd>
+The odds of an event in one group divided by the odds in a comparison
+group; in logistic regression, the exponentiated coefficient.
+</dd>
+<dt>Optimism</dt>
+<dd>
+The tendency of a model to perform better on the data used to fit it
+than on new cases.
+</dd>
+<dt>Receiver operating characteristic (ROC) curve</dt>
+<dd>
+A plot of a model’s true-positive rate against its false-positive rate
+at every possible cutoff.
+</dd>
+<dt>Risk stratification</dt>
+<dd>
+Sorting a population into tiers by predicted risk so that limited
+resources can be directed to the highest tiers first.
+</dd>
+<dt>Score</dt>
+<dd>
+In logistic regression, the intercept plus each coefficient times its
+variable, before conversion to a probability.
+</dd>
+<dt>True-positive rate</dt>
+<dd>
+The share of cases with the event that a model flags at a given cutoff;
+also called recall or sensitivity.
+</dd>
+<dt>Validation</dt>
+<dd>
+Testing a model on data that were not used to fit it, to estimate how
+well it will perform on new cases.
+</dd>
+</dl>
+</div>
+</section>
+</section>
+</section>
+<details class="cite-box"><summary>Cite this chapter</summary><pre><code>@incollection{sher2026ch14,
+  author = {Sher, Hoshiar J.},
+  title = {Logistic Regression for Binary Outcomes and Risk Stratification},
+  booktitle = {Introduction to Healthcare Data Analytics},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch14.html}
+}</code></pre><button type="button" class="cite-copy" data-bibtex="@incollection{sher2026ch14,
+  author = {Sher, Hoshiar J.},
+  title = {Logistic Regression for Binary Outcomes and Risk Stratification},
+  booktitle = {Introduction to Healthcare Data Analytics},
+  year = {2026},
+  doi = {10.5281/zenodo.23327956},
+  url = {https://yar177.github.io/intro-to-HDA-site/ch14.html}
+}">Copy BibTeX</button></details>
+    </article>
+    <div class="page-nav"><a class="pn prev" href="ch13.html"><span class="pn-dir">Previous</span><span class="pn-title">Chapter 13: Multiple Linear Regression and Holding Factors Constant</span></a><a class="pn next" href="ch15.html"><span class="pn-dir">Next</span><span class="pn-title">Chapter 15: Applied Healthcare Analytics, Decision Support, and Capstone Communication</span></a></div>
+  </main>
+  <aside class="on-this-page" id="onThisPage" aria-label="On this page"><div class="otp-head"><span class="otp-head-text">On this page</span><button class="rail-toggle toc-toggle" id="tocToggle" type="button" aria-label="Collapse on this page panel" aria-expanded="true" aria-controls="onThisPage" title="Collapse on this page panel"><span aria-hidden="true">&#8250;</span></button></div><button class="otp-expand" id="tocExpand" type="button" aria-label="Expand on this page panel" aria-controls="onThisPage"><span aria-hidden="true">On this page</span></button><nav><a href="#opening-scenario">Opening scenario</a><a href="#key-concepts">Key concepts</a><a href="#walkthrough-fit-and-stratify-a-no-show-model">Walkthrough: fit and stratify a no-show model</a><a href="#practice-on-your-own">Practice on your own</a></nav></aside>
+</div>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script src="assets/sidebars.js" defer></script>
+<div class="reading-progress" aria-hidden="true"><span id="readingProgressBar"></span></div>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.cite-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var t = btn.getAttribute('data-bibtex') || '';
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy BibTeX'; }, 1500); };
+      if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(t).then(done, done); }
+      else { done(); }
+    });
+  });
+  var bar = document.getElementById('readingProgressBar');
+  if (bar) {
+    var onScroll = function () {
+      var h = document.documentElement;
+      var max = h.scrollHeight - h.clientHeight;
+      bar.style.width = (max > 0 ? (h.scrollTop / max) * 100 : 0) + '%';
+    };
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+});
+</script>
+</body>
+</html>

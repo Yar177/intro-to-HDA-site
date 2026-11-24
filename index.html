@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Introduction to Healthcare Data Analytics: A Practical Guide Using Excel</title>
+<meta name="description" content="A free, open textbook teaching healthcare data analytics with Excel: clinic scenarios, 21 synthetic datasets, from first formulas to regression.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Hoshiar J Sher, EdD">
+<link rel="canonical" href="https://yar177.github.io/intro-to-HDA-site/">
+<meta property="og:type" content="book">
+<meta property="og:site_name" content="Introduction to Healthcare Data Analytics">
+<meta property="og:title" content="Introduction to Healthcare Data Analytics: A Practical Guide Using Excel">
+<meta property="og:description" content="A free, open textbook teaching healthcare data analytics with Excel: clinic scenarios, 21 synthetic datasets, from first formulas to regression.">
+<meta property="og:url" content="https://yar177.github.io/intro-to-HDA-site/">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<link rel="stylesheet" href="assets/lightbox.css">
+<link rel="stylesheet" href="pagefind/pagefind-ui.css">
+<script src="pagefind/pagefind-ui.js" defer></script>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta name="theme-color" content="#1F4E79">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"Introduction to Healthcare Data Analytics","alternateName":"Intro to Healthcare Data Analytics","url":"https://yar177.github.io/intro-to-HDA-site/","inLanguage":"en-US","description":"This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.","author":{"@type":"Person","name":"Hoshiar J Sher, EdD"}},{"@type":"Book","name":"Introduction to Healthcare Data Analytics","alternativeHeadline":"A Practical Guide Using Excel","identifier":"https://doi.org/10.5281/zenodo.23327956","author":{"@type":"Person","name":"Hoshiar J Sher, EdD","identifier":"https://orcid.org/0009-0002-4530-3577"},"inLanguage":"en-US","about":"Healthcare data analytics","description":"This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.","url":"https://yar177.github.io/intro-to-HDA-site/"}]}</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MCZME7BHKK"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-MCZME7BHKK',{anonymize_ip:true});</script>
+<script>(function(){try{var t=localStorage.getItem('theme');if(!t){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
+<script>(function(){try{if(localStorage.getItem('sidebarCollapsed')==='1'){document.documentElement.classList.add('sidebar-collapsed');}if(localStorage.getItem('tocCollapsed')==='1'){document.documentElement.classList.add('toc-collapsed');}}catch(e){}})();</script>
+</head>
+<body class="home">
+<header class="site-header">
+  <a class="brand" href="index.html">Introduction to Healthcare Data Analytics</a>
+  <nav class="header-nav"><a class="hlink active" href="index.html">Home</a><a class="hlink" href="datasets.html">Datasets</a><button class="search-toggle" id="searchToggle" type="button" aria-label="Open search" aria-expanded="false" aria-controls="pagefind-search" title="Search">
+<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+</button><div class="search-wrap"><div id="pagefind-search" role="search"></div></div><button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
+<svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+<svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+</button></nav>
+</header>
+<main class="home-main">
+
+<section class="hero">
+  <div class="hero-inner">
+    <h1 class="hero-title">Introduction to Healthcare Data Analytics <span class="hero-edition">First Edition</span></h1>
+    <p class="hero-subtitle">A Practical Guide Using Excel</p>
+    <p class="hero-author">by <a class="hero-author-link" href="author.html">Hoshiar J Sher, EdD</a><a class="social-link" href="https://www.linkedin.com/in/hoshiarsher" target="_blank" rel="noopener me" aria-label="Hoshiar J Sher on LinkedIn (opens in a new tab)" title="LinkedIn"><svg class="li-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a><a class="social-link" href="https://github.com/Yar177" target="_blank" rel="noopener me" aria-label="Hoshiar J Sher on GitHub (opens in a new tab)" title="GitHub"><svg class="li-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57v-2c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.8 5.62-5.48 5.92.42.36.81 1.1.81 2.22v3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg></a><a class="social-link" href="https://www.sjf.edu/profiles/profile-last-name-52894-en.html" target="_blank" rel="noopener" aria-label="Hoshiar J Sher faculty profile at St. John Fisher University (opens in a new tab)" title="St. John Fisher University profile"><svg class="li-icon" viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3 1 9l11 6 9-4.91V17h2V9L12 3zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/></svg></a></p>
+    <p class="hero-tagline">Learn data analytics through real healthcare examples, one chapter at a time.</p>
+    <div class="hero-actions"><a class="hero-cta" href="ch01.html">Start reading</a><a class="hero-link" href="datasets.html">Browse datasets</a></div>
+    <div class="hero-license"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a><a class="license-badge" href="#reuse">Open source &amp; reuse</a></div>
+  </div>
+</section>
+<section class="toc-section chapters-first">
+  <h2 class="toc-heading">Chapters</h2>
+  <div class="chapter-grid">
+<a class="chapter-card" href="ch01.html">
+  <span class="card-num">Chapter 1</span>
+  <span class="card-title">What Healthcare Data Analytics Is and Why It Matters</span>
+  <span class="card-meta">25 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch02.html">
+  <span class="card-num">Chapter 2</span>
+  <span class="card-title">Understanding Healthcare Systems, Stakeholders, and Data Sources</span>
+  <span class="card-meta">28 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch03.html">
+  <span class="card-num">Chapter 3</span>
+  <span class="card-title">Excel as the Analyst&#39;s Workbench</span>
+  <span class="card-meta">40 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch04.html">
+  <span class="card-num">Chapter 4</span>
+  <span class="card-title">Working with Data: Structure, Measures, and Study Design</span>
+  <span class="card-meta">58 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch05.html">
+  <span class="card-num">Chapter 5</span>
+  <span class="card-title">Healthcare Coding, Terminology, Governance, Privacy, and Ethics</span>
+  <span class="card-meta">52 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch06.html">
+  <span class="card-num">Chapter 6</span>
+  <span class="card-title">Excel Foundations: Formulas, Functions, References, and Charts</span>
+  <span class="card-meta">55 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch07.html">
+  <span class="card-num">Chapter 7</span>
+  <span class="card-title">Importing Data and Building a Reusable Excel Workflow</span>
+  <span class="card-meta">45 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch08.html">
+  <span class="card-num">Chapter 8</span>
+  <span class="card-title">Cleaning, Transforming, and Validating Data</span>
+  <span class="card-meta">50 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch09.html">
+  <span class="card-num">Chapter 9</span>
+  <span class="card-title">Summarizing Data: Descriptive Statistics and Grouping</span>
+  <span class="card-meta">50 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch10.html">
+  <span class="card-num">Chapter 10</span>
+  <span class="card-title">Distributions, Variation, and Statistical Inference</span>
+  <span class="card-meta">50 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch11.html">
+  <span class="card-num">Chapter 11</span>
+  <span class="card-title">Data Visualization, Dashboards, Benchmarking, and Performance Monitoring</span>
+  <span class="card-meta">50 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch12.html">
+  <span class="card-num">Chapter 12</span>
+  <span class="card-title">Simple Linear Regression for Numerical Outcomes</span>
+  <span class="card-meta">50 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch13.html">
+  <span class="card-num">Chapter 13</span>
+  <span class="card-title">Multiple Linear Regression and Holding Factors Constant</span>
+  <span class="card-meta">45 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch14.html">
+  <span class="card-num">Chapter 14</span>
+  <span class="card-title">Logistic Regression for Binary Outcomes and Risk Stratification</span>
+  <span class="card-meta">45 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+<a class="chapter-card" href="ch15.html">
+  <span class="card-num">Chapter 15</span>
+  <span class="card-title">Applied Healthcare Analytics, Decision Support, and Capstone Communication</span>
+  <span class="card-meta">30 minutes</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+  </div>
+</section>
+<section class="toc-section">
+  <h2 class="toc-heading">Appendices</h2>
+  <div class="chapter-grid">
+<a class="chapter-card" href="appendix-a-capstone-project.html">
+  <span class="card-num">Appendix</span>
+  <span class="card-title">Appendix A. Semester Capstone Project</span>
+  <span class="card-cta">Read &rarr;</span>
+</a>
+  </div>
+</section>
+<section class="intro">
+  <p>This free, open textbook teaches healthcare data analytics the practical way: with Microsoft Excel and realistic clinic data. Across fifteen chapters you will move from your first spreadsheet to regression models, working entirely with fully synthetic teaching datasets. No real patient data and no expensive software, just the complete analytic workflow from raw records to decisions you can defend.</p>
+</section>
+<section class="home-section">
+  <h2>What you will learn</h2>
+  <p>The book follows the analyst&#39;s workflow from start to finish. Early chapters build foundations: what healthcare data analytics is, where healthcare data comes from, and how to run Excel as a disciplined workbench. Middle chapters teach the craft: data structure and study design, coding and privacy, formulas and charts, importing and cleaning data, descriptive statistics, and visualization. Later chapters develop modeling: simple and multiple linear regression, logistic regression for binary outcomes, and a capstone on decision support and communication.</p>
+</section>
+<section class="home-section">
+  <h2>Who this is for</h2>
+  <p>The book is written for students meeting data analytics for the first time, especially in health administration, public health, nursing informatics, and related programs. Career changers entering healthcare analytics will find a complete on-ramp with no assumed background. Instructors get a classroom-ready text: every chapter pairs with synthetic datasets, Try It exercises, and assignments, all reusable under a Creative Commons license.</p>
+</section>
+<section class="home-section">
+  <h2>The teaching datasets</h2>
+  <p>Twenty-one fully synthetic datasets power every exercise in the book: patient, provider, facility, payer, and geography dimensions, plus appointment, emergency department, inpatient, claims, survey, registry, wellness screening, and public-health event tables. Because the data is synthetic, you can practice freely without touching real patient information. Each dataset ships with a published data dictionary defining every column.</p>
+</section>
+
+<section class="reuse-panel" id="reuse">
+  <h2>Open source &amp; reuse</h2>
+  <div class="reuse-grid">
+    <div class="reuse-item">
+      <h3>Book text &amp; figures</h3>
+      <p>Licensed under <a href="https://creativecommons.org/licenses/by/4.0/" rel="license">CC BY 4.0</a>. Share and adapt, even commercially, with attribution.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>Datasets</h3>
+      <p>Fully synthetic. No real patient information. Free to use for teaching and practice.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>Code &amp; scripts</h3>
+      <p>Build scripts and templates are MIT licensed. See the <a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">source repository</a>.</p>
+    </div>
+    <div class="reuse-item">
+      <h3>How to cite</h3>
+      <p>Hoshiar J Sher, EdD (2026).<br><span class="cite-title">Introduction to Healthcare Data Analytics: A Practical Guide Using Excel.</span><br>https://yar177.github.io/intro-to-HDA-site/</p>
+      <p class="cite-doi"><a href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">doi:10.5281/zenodo.23327956</a><br><a href="https://orcid.org/0009-0002-4530-3577" rel="noopener" target="_blank">ORCID: 0009-0002-4530-3577</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="gr-card gr-card-home" id="request-guide" aria-labelledby="gr-card-title">
+  <div class="gr-card-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2.5z"/><path d="M8 7h6M8 11h6"/><path d="M14 17l2 2 4-4"/></svg></div>
+  <div class="gr-card-body">
+    <h2 id="gr-card-title">Teaching with this book?</h2>
+    <p>Instructors can use a week-by-week teaching plan with datasets, Excel skills, and suggested assignments. Worked answers to the end-of-chapter exercises are kept in a separate instructor answer guide, shared with verified faculty on request.</p>
+    <div class="gr-actions">
+      <button type="button" class="gr-btn gr-btn-primary gr-open" aria-haspopup="dialog">Request the answer guide</button>
+      <a class="gr-btn gr-btn-ghost" href="instructor.html">Instructor resources</a>
+    </div>
+  </div>
+</section>
+<dialog class="gr-dialog" id="gr-dialog" aria-labelledby="gr-title" data-to="hsher@sjfc.edu,h.sher@yahoo.com,yarsher.dev@gmail.com">
+  <form id="guide-request" method="dialog" novalidate>
+    <header class="gr-head">
+      <h2 id="gr-title">Request the instructor answer guide</h2>
+      <button type="button" class="gr-close" id="gr-close" aria-label="Close">&times;</button>
+    </header>
+    <div class="gr-step" id="gr-step-form">
+      <p class="gr-lead">Use your institutional <strong>.edu</strong> email and a link to your faculty profile on your institution's website so your appointment can be confirmed.</p>
+      <div class="gr-grid">
+        
+<div class="gr-field">
+  <label for="gr-name">Full name</label>
+  <input id="gr-name" maxlength="100" name="name" type="text" autocomplete="name" required aria-describedby="gr-name-err">
+  
+  <p class="gr-err" id="gr-name-err" aria-live="polite"></p>
+</div>
+        
+<div class="gr-field">
+  <label for="gr-inst">Institution</label>
+  <input id="gr-inst" maxlength="150" name="institution" type="text" autocomplete="organization" required aria-describedby="gr-inst-err">
+  
+  <p class="gr-err" id="gr-inst-err" aria-live="polite"></p>
+</div>
+        
+<div class="gr-field gr-wide">
+  <label for="gr-email">Institutional email</label>
+  <input id="gr-email" maxlength="254" name="email" type="email" autocomplete="email" placeholder="name@college.edu" required data-wide aria-describedby="gr-email-hint gr-email-err">
+  <p class="gr-hint" id="gr-email-hint">Must end in .edu.</p>
+  <p class="gr-err" id="gr-email-err" aria-live="polite"></p>
+</div>
+        
+<div class="gr-field gr-wide">
+  <label for="gr-url">Faculty profile page</label>
+  <input id="gr-url" maxlength="300" name="profile" type="url" inputmode="url" placeholder="https://www.college.edu/profiles/your-name" required data-wide aria-describedby="gr-url-hint gr-url-err">
+  <p class="gr-hint" id="gr-url-hint">A page on your institution’s website that lists you as faculty.</p>
+  <p class="gr-err" id="gr-url-err" aria-live="polite"></p>
+</div>
+        
+<div class="gr-field">
+  <label for="gr-course">Course</label>
+  <input id="gr-course" maxlength="120" name="course" type="text" placeholder="HSA 310: Healthcare Analytics" required aria-describedby="gr-course-err">
+  
+  <p class="gr-err" id="gr-course-err" aria-live="polite"></p>
+</div>
+        
+<div class="gr-field">
+  <label for="gr-term">Term <span class="gr-optional">(optional)</span></label>
+  <input id="gr-term" maxlength="40" name="term" type="text" placeholder="Spring 2027" aria-describedby="gr-term-err">
+  
+  <p class="gr-err" id="gr-term-err" aria-live="polite"></p>
+</div>
+      </div>
+      <footer class="gr-foot">
+        <button type="button" class="gr-btn gr-btn-ghost" id="gr-cancel">Cancel</button>
+        <button type="submit" class="gr-btn gr-btn-primary">Continue to email</button>
+      </footer>
+    </div>
+    <div class="gr-step" id="gr-step-done" hidden>
+      <div class="gr-done-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12.5l2.5 2.5L16 9.5"/></svg></div>
+      <p class="gr-lead" tabindex="-1" id="gr-done-lead">Your email application should now open with the request filled in. <strong>Send that email</strong> to complete the request. Requests are usually answered within a few business days.</p>
+      <details class="gr-fallback">
+        <summary>Email app did not open?</summary>
+        <p>Copy the message below and send it to <span id="gr-to-text"></span>.</p>
+        <textarea id="gr-msg" rows="8" readonly></textarea>
+        <button type="button" class="gr-btn gr-btn-ghost" id="gr-copy">Copy message</button>
+      </details>
+      <footer class="gr-foot">
+        <button type="button" class="gr-btn gr-btn-primary" id="gr-finish">Done</button>
+      </footer>
+    </div>
+  </form>
+</dialog>
+<script>
+(function () {
+  var dlg = document.getElementById('gr-dialog'), f = document.getElementById('guide-request');
+  if (!dlg || !f || typeof dlg.showModal !== 'function') return;
+  var opener = null, to = dlg.getAttribute('data-to');
+  var stepForm = document.getElementById('gr-step-form'), stepDone = document.getElementById('gr-step-done');
+  var $ = function (id) { return document.getElementById(id); };
+  var val = function (id) { return $(id).value.trim(); };
+  function reset() { stepForm.hidden = false; stepDone.hidden = true; }
+  function close() { dlg.close(); }
+  document.querySelectorAll('.gr-open').forEach(function (b) { b.addEventListener('click', function () { opener = b; reset(); dlg.showModal(); $('gr-name').focus(); }); });
+  dlg.addEventListener('close', function () { if (opener) opener.focus(); });
+  dlg.addEventListener('click', function (e) { if (e.target === dlg) close(); });
+  ['gr-close', 'gr-cancel', 'gr-finish'].forEach(function (id) { $(id).addEventListener('click', close); });
+  function setErr(id, msg) {
+    var el = $(id); el.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    el.closest('.gr-field').classList.toggle('has-error', !!msg); $(id + '-err').textContent = msg || '';
+  }
+  f.querySelectorAll('input').forEach(function (el) { el.addEventListener('input', function () { if (el.getAttribute('aria-invalid') === 'true') setErr(el.id, ''); }); });
+  var base = function (h) { return h.split('.').slice(-2).join('.'); };
+  var EMAIL = /^[a-z0-9._%+-]+@((?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+edu)$/;
+  var NAME = /^[^0-9@<>{}\[\]\\\/:;=_|~^*#$%]{2,}$/;
+  function validate(only) {
+    var errs = {}, mail = val('gr-email').toLowerCase(), url = val('gr-url'), m = mail.match(EMAIL), u = null;
+    var name = val('gr-name'), inst = val('gr-inst'), course = val('gr-course');
+    if (!name) errs['gr-name'] = 'Enter your full name.';
+    else if (!NAME.test(name) || name.split(/\s+/).length < 2) errs['gr-name'] = 'Enter your first and last name, letters only.';
+    if (!inst) errs['gr-inst'] = 'Enter your institution.';
+    else if (inst.length < 3 || /https?:|@/.test(inst)) errs['gr-inst'] = 'Enter the full name of your college or university.';
+    if (!course) errs['gr-course'] = 'Enter the course you teach.';
+    else if (course.length < 3) errs['gr-course'] = 'Enter the course number or title.';
+    if (!mail) errs['gr-email'] = 'Enter your institutional email address.';
+    else if (!m) errs['gr-email'] = 'Use a valid institutional email address that ends in .edu.';
+    try { u = new URL(url); } catch (x) {}
+    if (!url) errs['gr-url'] = 'Enter the address of your faculty profile page.';
+    else if (!u || u.protocol !== 'https:') errs['gr-url'] = 'Enter a full https:// address.';
+    else if (u.username || u.password || !/(^|\.)[a-z0-9-]+\.edu$/.test(u.hostname.toLowerCase())) errs['gr-url'] = 'The profile page must be on your institution\'s .edu website.';
+    else if (u.pathname.replace(/\/+$/, '') === '') errs['gr-url'] = 'Link to your own profile page, not the institution home page.';
+    (only ? [only] : ['gr-name', 'gr-inst', 'gr-email', 'gr-url', 'gr-course']).forEach(function (id) { setErr(id, errs[id]); });
+    return errs;
+  }
+  f.querySelectorAll('input[required]').forEach(function (el) { el.addEventListener('blur', function () { if (el.value.trim()) validate(el.id); }); });
+  f.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var errs = validate(), mail = val('gr-email').toLowerCase(), url = val('gr-url');
+    var first = Object.keys(errs)[0]; if (first) { $(first).focus(); return; }
+    var subject = 'Instructor answer guide request: ' + val('gr-inst');
+    var body = 'Name: ' + val('gr-name') + '\nInstitution: ' + val('gr-inst') + '\nInstitutional email: ' + mail + '\nFaculty profile: ' + url + (base(new URL(url).hostname.toLowerCase()) !== base(mail.split('@')[1]) ? ' (note: profile domain differs from email domain)' : '') + '\nCourse: ' + val('gr-course') + '\nTerm: ' + (val('gr-term') || 'not specified') + '\n\nI am requesting the instructor answer guide for Introduction to Healthcare Data Analytics: A Practical Guide Using Excel.';
+    $('gr-msg').value = 'Subject: ' + subject + '\n\n' + body;
+    $('gr-to-text').textContent = to.split(',').join(', ');
+    stepForm.hidden = true; stepDone.hidden = false; $('gr-done-lead').focus();
+    window.location.href = 'mailto:' + to + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+  });
+  $('gr-copy').addEventListener('click', function () {
+    var b = this, t = $('gr-msg');
+    var ok = function () { b.textContent = 'Copied'; setTimeout(function () { b.textContent = 'Copy message'; }, 2000); };
+    if (navigator.clipboard) navigator.clipboard.writeText(t.value).then(ok, function () { t.select(); });
+    else { t.select(); document.execCommand('copy'); ok(); }
+  });
+})();
+</script>
+</main>
+<footer class="site-footer">
+  <div class="footer-links"><a href="https://creativecommons.org/licenses/by/4.0/" rel="license">License</a><a href="https://github.com/Yar177/intro-to-HDA-site" rel="noopener" target="_blank">Source</a><a href="index.html#reuse">Cite &amp; reuse</a><a href="changelog.html">Changelog</a><a href="errata.html">Errata</a><a href="author.html">About the author</a><a href="glossary.html">Glossary</a><a href="data-dictionaries.html">Data dictionaries</a><a href="instructor.html">Instructor resources</a></div>
+  <div class="footer-badges"><a class="license-badge" href="https://creativecommons.org/licenses/by/4.0/" rel="license">Text: CC BY 4.0</a><span class="license-badge">Code: MIT</span><a class="license-badge doi-badge" href="https://doi.org/10.5281/zenodo.23327956" rel="noopener" target="_blank">DOI: 10.5281/zenodo.23327956</a></div>
+  <p>Introduction to Healthcare Data Analytics</p>
+    <p class="muted">First Edition</p>
+  <p class="muted">Copyright &copy; 2026 Dr. Hoshiar J Sher. Text licensed CC BY 4.0; code MIT.</p>
+</footer>
+<script>(function(){var b=document.getElementById('themeToggle');if(!b)return;b.addEventListener('click',function(){var d=document.documentElement;var n=d.getAttribute('data-theme')==='dark'?'light':'dark';d.setAttribute('data-theme',n);try{localStorage.setItem('theme',n);}catch(e){}});})();</script>
+<script src="assets/lightbox.js" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var el = document.getElementById('pagefind-search');
+  if (el && window.PagefindUI) { new PagefindUI({ element: el, showSubResults: true, showImages: false, excerptLength: 15 }); }
+  // Search toggle: bar hidden by default, expands on icon click.
+  var toggle = document.getElementById('searchToggle');
+  var wrap = toggle ? toggle.parentElement.querySelector('.search-wrap') : null;
+  var input = el ? el.querySelector('input.pagefind-ui__search-input') : null;
+  if (!toggle || !wrap || !input) return;
+  var nav = toggle.parentElement;
+  function setOpen(open) {
+    wrap.classList.toggle('open', open);
+    nav.classList.toggle('search-open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close search' : 'Open search');
+    if (open) { input.focus(); }
+    else {
+      input.value = '';
+      input.dispatchEvent(new Event('input', { bubbles: true }));
+      input.blur();
+    }
+  }
+  toggle.addEventListener('click', function (e) {
+    e.stopPropagation();
+    setOpen(!wrap.classList.contains('open'));
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+  document.addEventListener('click', function (e) {
+    if (wrap.classList.contains('open') && !input.value &&
+        !wrap.contains(e.target) && !toggle.contains(e.target)) setOpen(false);
+  });
+});
+</script>
+</body>
+</html>

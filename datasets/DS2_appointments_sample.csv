@@ -1,0 +1,13 @@
+Visit ID,Clinic,Visit type,Lead days,Reminder,Outcome,No-show flag
+APT000126,SP03,Behavioral Health,22,Phone,Completed,0
+APT010570,PC03,Acute,3,SMS,Completed,0
+APT010617,UC02,Urgent Care,0,SMS,Completed,0
+APT011862,PC02,Follow-up,19,SMS,Completed,0
+APT013045,PC01,Acute,2,SMS,Completed,0
+APT013889,UC01,Urgent Care,0,None,Completed,0
+APT023998,PC02,Acute,5,SMS,Completed,0
+APT031260,PC01,Follow-up,9,SMS,Completed,0
+APT022207,SP03,Behavioral Health,11,None,No Show,1
+APT020115,SP03,Behavioral Health,27,Phone,No Show,1
+APT027760,PC03,Follow-up,8,Multi,Early cancel,0
+APT021473,PC03,Follow-up,14,Multi,Early cancel,0
